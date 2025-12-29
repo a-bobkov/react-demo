@@ -1,7 +1,5 @@
 export default function TaskDone({isDone, onChangeDone})
 {
-  console.log('isDone: ', isDone);
-
   return (
     <input
       type="checkbox"

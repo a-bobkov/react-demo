@@ -3,10 +3,12 @@ import TaskDone from './TaskDone.jsx';
 import TaskEdit from './TaskEdit.jsx';
 import TaskView from './TaskView.jsx';
 import TaskDelete from './TaskDelete.jsx';
+import { useContextTasks } from './TasksContext.jsx';
 
-export default function Task({task, onChangeTask, onDeleteTask})
+export default function Task({task})
 {
   const [isEditing, setIsEditing] = useState(false);
+  const [tasks, tasksDispatcher] = useContextTasks();
 
   return (
     <>
@@ -26,7 +28,6 @@ export default function Task({task, onChangeTask, onDeleteTask})
         />
       )}
       <TaskDelete
-        taskId={task.id}
         onDeleteTask={onDeleteTask}
       />
     </>
@@ -34,23 +35,34 @@ export default function Task({task, onChangeTask, onDeleteTask})
 
   function onChangeDone(checked)
   {
-    onChangeTask({
-      ...task,
-      done: checked
+    onTaskChanged({
+      done: checked,
     });
   }
 
   function onSaveName(name)
   {
-    onChangeTask({
-      ...task,
-      text: name
+    onTaskChanged({
+      text: name,
     });
     setIsEditing(false);
+  }
+
+  function onTaskChanged(changed)
+  {
+    tasksDispatcher.changeTask({
+      ...task,
+      ...changed,
+    });
   }
 
   function onEditName()
   {
     setIsEditing(true);
+  }
+
+  function onDeleteTask()
+  {
+    tasksDispatcher.deleteTask(task.id);
   }
 }

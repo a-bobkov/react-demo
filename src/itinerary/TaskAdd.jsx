@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState} from 'react';
+import { useContextTasks } from './TasksContext.jsx';
 
 const initialText = '';
 
-export default function TaskAdd({id, onAddTask})
+export default function TaskAdd()
 {
+  const [tasks, dispatch] = useContextTasks();
   const [text, setText] = useState(initialText);
 
   return (
@@ -26,8 +28,7 @@ export default function TaskAdd({id, onAddTask})
 
   function onClickAdd()
   {
-    onAddTask({
-      id: id,
+    dispatch.addTask({
       text: text,
       done: false,
     });

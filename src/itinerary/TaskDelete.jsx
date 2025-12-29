@@ -1,13 +1,8 @@
-export default function TaskDelete({taskId, onDeleteTask})
+export default function TaskDelete({onDeleteTask})
 {
   return (
-    <button onClick={onClickDelete}>
+    <button onClick={onDeleteTask}>
       Delete
     </button>
   );
-
-  function onClickDelete()
-  {
-    onDeleteTask(taskId)
-  }
 }
