@@ -1,0 +1,108 @@
+let ac;
+
+export async function usersFetch( options )
+{
+  console.log(`Starting fetch with options: "${ JSON.stringify( options )}"`);
+
+  const abortReasonObsolete = 'obsolete';
+
+  if (ac) {
+    ac.abort(abortReasonObsolete);
+  }
+
+  ac = new AbortController();
+
+  try {
+    return await abortableFetch( options, ac.signal );
+  }
+  catch (error) {
+    if (error !== abortReasonObsolete) {
+      console.log(`usersAbortableFetch error: `, error);
+    }
+  }
+  finally {
+    ac = null;
+  }
+}
+
+async function abortableFetch( options, signal )
+{
+  console.log(`Starting abortable with options: "${ JSON.stringify( options )}"`);
+
+  const body = JSON.stringify( getRequestOptions( options ));
+
+  const headers = new Headers({
+    'Content-Type': 'application/json',
+    'Content-Length': (new TextEncoder).encode(body).length.toString(),
+  });
+
+  const response = await fetch(
+    'https://localhost:8082/users',
+    {
+      method: 'POST',
+      headers,
+      body,
+      signal,
+    }
+  );
+
+  const users = await response.json();
+
+  console.log(`Finished fetch: "${ JSON.stringify(users) }"`);
+
+  return users;
+}
+
+function getRequestOptions( options )
+{
+  return {
+    filters: getRequestFilters( options.filter ),
+    sortings: getRequestSortings( options.sorting ),
+    pagination: getRequestPagination( options.pagination ),
+  }
+}
+
+function getRequestFilters( filter )
+{
+  const requestFilters = [];
+
+  if (filter.mail) {
+    requestFilters.push({
+      field: 'login',
+      operator: 'includes',
+      value: filter.mail,
+    });
+  }
+
+  if (filter.name) {
+    requestFilters.push({
+      field: 'name',
+      operator: 'includes',
+      value: filter.name,
+    });
+  }
+
+  return requestFilters;
+}
+
+function getRequestSortings( sorting = {})
+{
+  const requestSortings = [];
+
+  const sortings = Object.entries( sorting );
+
+  if (sortings.length > 0) {
+    const [[ field, order ]] = sortings;
+    requestSortings.push({ field, order})
+  }
+
+  return requestSortings;
+}
+
+function getRequestPagination( pagination )
+{
+  return {
+    limit: pagination.size,
+    offset: (pagination.count - 1) * pagination.size,
+  };
+}

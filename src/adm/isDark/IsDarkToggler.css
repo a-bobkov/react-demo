@@ -1,0 +1,19 @@
+.IsDarkToggler {
+  align-content: center;
+  margin-left: 50px;
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--fg-color);
+
+  --bg-color: #fff;
+  --fg-color: #333;
+
+  &.dark-theme {
+    --bg-color: #333;
+    --fg-color: #fff;
+  }
+}

@@ -39,7 +39,9 @@ function applyFilterIncludes(data, fieldName, value)
     throw newErrorBadRequest(`Search filter with empty value: ${ value }`);
   }
 
+  const lowerCasedValue = value.toLowerCase();
+
   return data.filter((item) =>
-    String(item[fieldName]).includes(value)
-  )
+    String(item[fieldName]).toLowerCase().includes(lowerCasedValue)
+  );
 }

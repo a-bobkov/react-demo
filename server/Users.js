@@ -69,11 +69,11 @@ function create(initialUsers)
 
   function searchUsers(options)
   {
-    const { count, items } = search(users, options);
+    const { count, list } = search(users, options);
 
     return {
       count,
-      users: items,
+      list,
     };
   }
 }

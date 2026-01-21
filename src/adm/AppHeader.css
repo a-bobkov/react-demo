@@ -1,0 +1,7 @@
+.AppHeader {
+  display: flex;
+}
+
+.AppHeaderTitle {
+  font-size: 32px;
+}

@@ -1,0 +1,15 @@
+.UsersList {
+  border: solid 1px;
+  border-top: none;
+}
+
+.UsersLine {
+  height: 32px;
+  display: grid;
+  grid-template-columns: 50px 200px 100px 200px;
+  align-items: center;
+
+  div {
+    padding: 4px;
+  }
+}

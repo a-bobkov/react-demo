@@ -1,0 +1,30 @@
+.Adm {
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+
+  display: grid;
+  grid-template-areas:
+    "header header "
+    "menu   app    "
+    "footer footer ";
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 50px 1fr 30px;
+  grid-gap: 10px;
+
+  .header {
+    grid-area: header;
+  }
+
+  .menu {
+    grid-area: menu;
+  }
+
+  .app {
+    grid-area: app;
+  }
+
+  .footer {
+    grid-area: footer;
+  }
+}

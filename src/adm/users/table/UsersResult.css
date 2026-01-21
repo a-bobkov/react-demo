@@ -1,0 +1,5 @@
+.UsersResultSpinner {
+  pointer-events: none;
+  width: fit-content;
+  opacity: 0.3;
+}

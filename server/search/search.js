@@ -38,7 +38,7 @@ export default function search(users, options = defaultOptions)
 
   return {
     count,
-    items: applied,
+    list: applied,
   };
 }
 

@@ -28,7 +28,12 @@ async function create(api, onRequestReceived)
   {
     httpServer.on('stream', async (stream, requestHeaders) =>
     {
-      await onRequestReceived(stream, requestHeaders, '');
+      if (requestHeaders[http2.constants.HTTP2_HEADER_METHOD] === http2.constants.HTTP2_METHOD_OPTIONS)
+      {
+        return await replyOptionsResponse(stream);
+      }
+
+      await onRequestReceived(stream, requestHeaders);
     });
   }
 
@@ -62,6 +67,8 @@ async function create(api, onRequestReceived)
 
     headers[http2.constants.HTTP2_HEADER_STATUS] = status;
 
+    headers['Access-Control-Allow-Origin'] = 'http://localhost:4173';
+
     return new Promise((resolve, reject) => {
       try {
         stream.respond(headers);
@@ -73,4 +80,26 @@ async function create(api, onRequestReceived)
       }
     });
   }
+}
+
+async function replyOptionsResponse(stream)
+{
+  const headers = {
+    [http2.constants.HTTP2_HEADER_STATUS]: http2.constants.HTTP_STATUS_NO_CONTENT,
+    'Access-Control-Allow-Origin': 'http://localhost:4173',
+    'Access-Control-Allow-Methods': '*',
+    'Access-Control-Allow-Headers': 'content-type',
+    'Access-Control-Max-Age': '86400',
+  };
+
+  return new Promise((resolve, reject) => {
+    try {
+      stream.respond(headers);
+      stream.end(resolve);
+    }
+    catch (error)
+    {
+      reject(error);
+    }
+  });
 }

@@ -18,7 +18,6 @@ const httpServer = await http2Server.create(
   onRequestReceived
 );
 
-console.log(`curl -i https://${ parameters.host}:${ parameters.port }/users`);
 console.log(`curl -i https://${ parameters.host}:${ parameters.port }/users -d'{"filters":[{"field":"login","operator":"includes","value":"mail"}]}'`);
 console.log(`curl -i https://${ parameters.host}:${ parameters.port }/users -d'{"sortings":[{"field":"login","order":"asc"}]}'`);
 console.log(`curl -i https://${ parameters.host}:${ parameters.port }/users -d'{"pagination":{"limit":5,"offset":3}}'`);
@@ -43,12 +42,18 @@ async function onRequestReceived(stream, requestHeaders)
   {
     const { responseStatusCode, responseHeaders, responseBodyValue } = responseError.getInfo(error);
 
-    await httpServer.replyResponse(stream, responseStatusCode, responseHeaders, responseBodyValue);
+    try {
+      await httpServer.replyResponse(stream, responseStatusCode, responseHeaders, responseBodyValue);
+    } catch (error) {
+      console.log('Unrecoverable error sending error response: ', error);
+    }
   }
 }
 
 async function replySuccess(stream, responseBodyValue)
 {
+  await delay(1000);
+
   const responseStatusCode = http2.constants.HTTP_STATUS_OK;
 
   const responseHeaders = {};
@@ -77,8 +82,6 @@ function dispatchRequest(requestPath, requestHeaders, requestBodyValue)
 function dispatchUsers(headers, options)
 {
   switch (headers[http2.constants.HTTP2_HEADER_METHOD]) {
-    case 'GET':
-      return users.searchUsers();
     case 'POST':
       return users.searchUsers(options);
   }
@@ -106,4 +109,9 @@ function dispatchUser(headers, userId, user)
     `Method not allowed: ${ headers[http2.constants.HTTP2_HEADER_METHOD] }`,
     http2.constants.HTTP_STATUS_METHOD_NOT_ALLOWED,
   );
+}
+
+function delay(ms)
+{
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
