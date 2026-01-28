@@ -1,18 +1,26 @@
 import * as http2 from 'node:http2';
 import search from './search/search.js';
 import * as responseError from './responseError.js';
+import { validateUser } from './validate/validateUser.js';
 
 export {
   create as create,
 };
 
-function create(initialUsers)
+function create( initialUsers )
 {
   const users = {};
 
   let nextId = 1;
 
-  initialUsers.forEach( createUser );
+  initialUsers.forEach(( initialUser ) =>
+  {
+    const { error } = createUser( initialUser );
+
+    if ( error ) {
+      throw new Error(`Error creating initial user ${ JSON.stringify( initialUser )}`, { cause: error });
+    }
+  });
 
   return {
     getUser: getUser,
@@ -30,32 +38,54 @@ function create(initialUsers)
       throw newErrorUserNotFound( userId );
     }
 
-    return user;
+    return {
+      user,
+    };
   }
 
   function createUser( userData )
   {
-    const userId = nextId++;
+    const [ user, error ] = validateUser( userData, users );
 
-    users[userId] = {
-      id: userId,
-      ...userData,
+    if (error) {
+      return {
+        error,
+      };
+    }
+
+    const newUser = {
+      id: nextId++,
+      ...user,
+    }
+
+    users[newUser.id] = newUser;
+
+    return {
+      user: newUser,
     };
-
-    return users[userId];
   }
 
   function updateUser( userId, userData )
   {
-    const user = users[userId];
+    const storedUser = users[userId];
 
-    if (!user) {
+    if (!storedUser) {
       throw newErrorUserNotFound( userId );
     }
 
-    Object.assign(user, userData);
+    const [ user, error ] = validateUser( userData, users );
 
-    return user;
+    if (error) {
+      return {
+        error,
+      };
+    }
+
+    Object.assign( storedUser, user );
+
+    return {
+      user: storedUser,
+    };
   }
 
   function deleteUser(userId)

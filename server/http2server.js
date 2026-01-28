@@ -55,6 +55,8 @@ async function create(api, onRequestReceived)
 
   async function replyResponse(stream, status, headers, bodyValue)
   {
+    await delay(1000);
+
     const body = bodyValue
       ? JSON.stringify(bodyValue)
       : '';
@@ -102,4 +104,9 @@ async function replyOptionsResponse(stream)
       reject(error);
     }
   });
+}
+
+function delay(ms)
+{
+  return new Promise(resolve => setTimeout(resolve, ms));
 }

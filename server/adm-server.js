@@ -23,7 +23,8 @@ console.log(`curl -i https://${ parameters.host}:${ parameters.port }/users -d'{
 console.log(`curl -i https://${ parameters.host}:${ parameters.port }/users -d'{"pagination":{"limit":5,"offset":3}}'`);
 console.log(`curl -i https://${ parameters.host}:${ parameters.port }/user/1`);
 console.log(`curl -i https://${ parameters.host}:${ parameters.port }/user -d'{"login":"aaa@mail.ru","name":"An","company":"Noname"}'`);
-console.log(`curl -i -X PUT https://${ parameters.host}:${ parameters.port }/user/1 -d'{"login":"a@mail.ru"'`);
+console.log(`curl -i -X PUT https://${ parameters.host}:${ parameters.port }/user/1 -d'{"login":"a@mail.ru"}'`);
+console.log(`curl -i -X PUT https://${ parameters.host}:${ parameters.port }/user/1 -d'{"login":"a@b"}'`);  // error
 console.log(`curl -i -X DELETE https://${ parameters.host}:${ parameters.port }/user/2`);
 
 async function onRequestReceived(stream, requestHeaders)
@@ -52,8 +53,6 @@ async function onRequestReceived(stream, requestHeaders)
 
 async function replySuccess(stream, responseBodyValue)
 {
-  await delay(1000);
-
   const responseStatusCode = http2.constants.HTTP_STATUS_OK;
 
   const responseHeaders = {};
@@ -109,9 +108,4 @@ function dispatchUser(headers, userId, user)
     `Method not allowed: ${ headers[http2.constants.HTTP2_HEADER_METHOD] }`,
     http2.constants.HTTP_STATUS_METHOD_NOT_ALLOWED,
   );
-}
-
-function delay(ms)
-{
-  return new Promise(resolve => setTimeout(resolve, ms));
 }

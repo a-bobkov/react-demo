@@ -11,13 +11,11 @@ export function UsersResult({ optionalUsers, onChangePagination })
   console.log(`UsersResult def: "${ JSON.stringify( prevOptionalUsers.options )}"`);
 
   return (
-    <>
-      <Suspense fallback={<UsersResultLoading />}>
-        <Suspense fallback={<UsersResultPrevious />}>
-          <UsersResultCurrent />
-        </Suspense>
+    <Suspense fallback={<UsersResultLoading />}>
+      <Suspense fallback={<UsersResultPrevious />}>
+        <UsersResultCurrent />
       </Suspense>
-    </>
+    </Suspense>
   );
 
   function UsersResultCurrent()

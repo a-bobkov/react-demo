@@ -1,13 +1,13 @@
 import * as http2 from 'node:http2';
 
-export function create(message, responseStatusCode, responseHeaders, responseBodyJson)
+export function create(message, responseStatusCode, responseHeaders, responseBodyValue)
 {
   const error = new Error(message);
 
   error.info = {
-    responseStatusCode: responseStatusCode,
-    responseHeaders: responseHeaders,
-    responseBodyJson: responseBodyJson,
+    responseStatusCode,
+    responseHeaders,
+    responseBodyValue,
   };
 
   return error;
@@ -15,17 +15,24 @@ export function create(message, responseStatusCode, responseHeaders, responseBod
 
 export function getInfo(error)
 {
-  console.error('\n', error);
+  console.error('\n', error.stack, printDetails(error.info));
 
   const responseStatusCode = error.info?.responseStatusCode ?? http2.constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
 
   const responseHeaders = error.info?.responseHeaders ?? {};
 
-  const responseBodyJson = error.info?.responseBodyJson ?? '';
+  const responseBodyValue = error.info?.responseBodyValue ?? '';
 
   return {
     responseStatusCode,
     responseHeaders,
-    responseBodyJson,
+    responseBodyValue,
   };
+}
+
+function printDetails(details)
+{
+  return Object.entries(details || []).map(([key, value]) =>
+    `\n       ${ key }: ${ JSON.stringify(value) }`
+  ).join('');
 }

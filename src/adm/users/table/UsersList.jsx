@@ -17,6 +17,7 @@ export function UsersLine({ user })
       <UsersLineLogin userLogin={ user.login } />
       <UsersLineName userName={ user.name } />
       <UsersLineCompany userCompany={ user.company } />
+      <UsersLineActions userId={ user.id } />
     </div>
   );
 }
@@ -53,6 +54,17 @@ function UsersLineCompany({ userCompany })
   return (
     <div className="UsersLineCompany">
       {userCompany}
+    </div>
+  );
+}
+
+function UsersLineActions({ userId })
+{
+  return (
+    <div className="UsersLineActions">
+      <a href={`/user/edit/${ userId }`}>
+        Edit user
+      </a>
     </div>
   );
 }
