@@ -1,7 +1,7 @@
 export function validateUserName( userName )
 {
   if (!isUserNameFilled( userName )) {
-    return [ userName, 'User name should not be empty' ];
+    return 'User name should not be empty';
   }
 }
 

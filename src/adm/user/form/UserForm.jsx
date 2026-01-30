@@ -4,11 +4,14 @@ import { UserFormLogin } from './UserFormLogin.jsx';
 import { UserFormName } from './UserFormName.jsx';
 import { UserFormCompany } from './UserFormCompany.jsx';
 import { validateUser } from './validate/validateUser.js';
-import { saveUser } from './saveUser.js';
+import { deleteUser } from './deleteUser.js';
+import { useNotifications } from '../../notifications/NotificationsProvider.jsx';
 import './UserForm.css';
 
 export function UserForm({ userResolve: { user, error = {}, fetchCommonError }, onSaveUser })
 {
+  const { apiNotifications } = useNotifications();
+
   const [formUser, setFormUser] = useState( user );
   const [saveErrors, setSaveErrors] = useState( error );
 
@@ -18,6 +21,7 @@ export function UserForm({ userResolve: { user, error = {}, fetchCommonError }, 
 
   return (
     <div className="UserForm">
+      <UserFormTitle userId={ user.id }/>
       <FetchCommonError error={ fetchCommonError } />
       <UserFormLogin
         value={ formUser.login }
@@ -44,8 +48,25 @@ export function UserForm({ userResolve: { user, error = {}, fetchCommonError }, 
       <UserFormExit
         user={ formUser }
       />
+      <UserFormDelete
+        userId={ user.id }
+      />
     </div>
   );
+
+  function UserFormTitle({ userId })
+  {
+    return (
+      <div className="UserFormTitle">
+        { getTitle( userId )}
+      </div>
+    );
+
+    function getTitle( userId )
+    {
+      return userId ? `Edit user: ${ userId }` : 'New user';
+    }
+  }
 
   function onChangeLogin( formLogin )
   {
@@ -106,7 +127,32 @@ export function UserForm({ userResolve: { user, error = {}, fetchCommonError }, 
 
     function onClick()
     {
-      onSaveUser( user, saveUser( user ));
+      onSaveUser( user );
+    }
+  }
+
+  function UserFormDelete({ userId })
+  {
+    return userId && (
+      <div className="UserFormDelete">
+        <button onClick={ onClickDelete }>
+          Delete user
+        </button>
+      </div>
+    );
+
+    async function onClickDelete()
+    {
+      try {
+        await deleteUser( userId );
+
+        apiNotifications.addInfo(`User ${ userId } is successfully deleted.`);
+
+        // if no error, goto list with previous options
+      }
+      catch (error) {
+        apiNotifications.addError(`Error: ${ error.message }`);
+      }
     }
   }
 }

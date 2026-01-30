@@ -1,7 +1,7 @@
 export function validateUserCompany( userCompany )
 {
   if (!isUserCompanyFilled( userCompany )) {
-    return [ userCompany, 'User company should not be empty' ];
+    return 'User company should not be empty';
   }
 }
 

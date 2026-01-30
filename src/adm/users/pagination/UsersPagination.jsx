@@ -1,5 +1,4 @@
 import './UsersPagination.css';
-import clsx from 'clsx';
 
 export function UsersPagination({ total, pagination, onChangePagination })
 {

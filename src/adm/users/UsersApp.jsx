@@ -4,6 +4,7 @@ import { UsersSorting } from './sorting/UsersSorting.jsx';
 import { UsersResult } from './table/UsersResult.jsx';
 import { loadUsersOptions, saveUsersOptions } from './usersSearchParams.js';
 import { usersFetch } from './usersFetch.js';
+import { UsersHeader } from './UsersHeader.jsx';
 import './UsersApp.css';
 
 export function UsersApp()
@@ -12,7 +13,7 @@ export function UsersApp()
 
   return (
     <>
-      <UsersTitle />
+      <UsersHeader />
       <UsersFilter
         filter={optionalUsers.options.filter}
         onChangeFilter={onChangeFilter}
@@ -27,15 +28,6 @@ export function UsersApp()
       />
     </>
   );
-
-  function UsersTitle()
-  {
-    return (
-      <div className="UsersTitle">
-        Users
-      </div>
-    );
-  }
 
   async function onChangeFilter( filter )
   {

@@ -5,7 +5,7 @@ import './UserResultSave.css';
 
 export function UserResultSave({ appUser, onSaveUser })
 {
-  console.log(`UserResult: "${ JSON.stringify( appUser )}"`);
+  console.log(`UserResultSave: "${ JSON.stringify( appUser )}"`);
 
   return (
     <Suspense fallback={ <UserResultSaving /> }>

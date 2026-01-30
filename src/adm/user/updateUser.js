@@ -1,6 +1,6 @@
-export async function saveUser( user )
+export async function updateUser( user )
 {
-  console.log(`Starting save: "${ JSON.stringify( user )}"`);
+  console.log(`Starting update: "${ JSON.stringify( user )}"`);
 
   const body = JSON.stringify( user );
 
@@ -19,12 +19,12 @@ export async function saveUser( user )
   );
 
   if (!response.ok) {
-    throw new Error(`Save user finished with status ${ response.status }`);
+    throw new Error(`Update user finished with status ${ response.status }`);
   }
 
   const result = await response.json();
 
-  console.log(`Finished save: "${ JSON.stringify( result )}"`);
+  console.log(`Finished update: "${ JSON.stringify( result )}"`);
 
   return result;
 }

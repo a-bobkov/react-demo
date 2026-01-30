@@ -14,6 +14,10 @@ export function Application()
     return <UsersApp />;
   }
 
+  if (pathname === '/user/new') {
+    return <UserApp />;
+  }
+
   const [, userId] = pathname.match(/^\/user\/edit\/(\d+)$/) ?? [];
   if (userId) {
     return <UserApp userId={ parseInt( userId )} />;

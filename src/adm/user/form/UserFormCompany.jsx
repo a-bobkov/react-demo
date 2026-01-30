@@ -14,7 +14,7 @@ export function UserFormCompany({ value, saveErrors, formErrors, onChangeCompany
         onChange={ onChange }
       />
       <div className="formErrors">
-        { formErrors?.map(error => <FormFieldError error={ error } />)}
+        <FormFieldError error={ formErrors } />
       </div>
       <div className="saveErrors">
         <FormFieldError error={ saveErrors } />

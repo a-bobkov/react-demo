@@ -1,0 +1,35 @@
+.Notifications {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  width: 200px;
+}
+
+.Notification {
+  margin-bottom: 5px;
+  height: 62px;
+  padding: 4px 6px;
+  color: white;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+
+  &.info {
+    background-color: green;
+  }
+
+  &.error {
+    background-color: red;
+  }
+
+  & .close {
+    float: right;
+    width: 18px;
+    text-align: right;
+    color: yellow;
+    cursor: pointer;
+  }
+}
