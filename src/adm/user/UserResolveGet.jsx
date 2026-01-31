@@ -2,7 +2,7 @@ import { use } from 'react';
 import { UserForm } from './form/UserForm.jsx';
 import { FetchCommonError } from './FetchCommonError.jsx';
 
-export function UserResolveGet({ appUser: { userPromise }, onSaveUser })
+export function UserResolveGet({ appUser: { userPromise }, onSaveUser, setModeList })
 {
   const userResolve = use( userPromise );
 
@@ -16,6 +16,7 @@ export function UserResolveGet({ appUser: { userPromise }, onSaveUser })
     <UserForm
       userResolve={ userResolve }
       onSaveUser={ onSaveUser }
+      setModeList={ setModeList }
     />
   );
 }

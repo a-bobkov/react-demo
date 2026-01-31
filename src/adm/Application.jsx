@@ -1,6 +1,4 @@
-import { UsersApp } from './users/UsersApp.jsx';
-import { UserApp } from './user/UserApp.jsx';
-import './Application.css';
+import { UserApplication } from './userapp/UserApplication.jsx';
 
 export function Application()
 {
@@ -10,17 +8,8 @@ export function Application()
     return null;
   }
 
-  if (pathname === '/users') {
-    return <UsersApp />;
-  }
-
-  if (pathname === '/user/new') {
-    return <UserApp />;
-  }
-
-  const [, userId] = pathname.match(/^\/user\/edit\/(\d+)$/) ?? [];
-  if (userId) {
-    return <UserApp userId={ parseInt( userId )} />;
+  if (pathname.startsWith('/user')) {
+    return <UserApplication />;
   }
 
   return '404';

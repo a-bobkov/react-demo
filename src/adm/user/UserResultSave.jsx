@@ -3,7 +3,7 @@ import { UserResolveSave } from './UserResolveSave.jsx';
 import { UserForm } from './form/UserForm.jsx';
 import './UserResultSave.css';
 
-export function UserResultSave({ appUser, onSaveUser })
+export function UserResultSave({ appUser, onSaveUser, setModeList })
 {
   console.log(`UserResultSave: "${ JSON.stringify( appUser )}"`);
 
@@ -19,6 +19,7 @@ export function UserResultSave({ appUser, onSaveUser })
       <UserResolveSave
         appUser={ appUser }
         onSaveUser={ onSaveUser }
+        setModeList={ setModeList }
       />
     );
   }

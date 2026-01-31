@@ -1,7 +1,7 @@
 import { use } from 'react';
 import { UsersTable } from './UsersTable.jsx';
 
-export function UsersResolve({ optionalUsers: { options, usersPromise }, onChangePagination })
+export function UsersResolve({ optionalUsers: { options, usersPromise }, onChangePagination, setModeEdit })
 {
   console.log(`UsersResolve: "${ JSON.stringify( options )}"`);
 
@@ -14,6 +14,7 @@ export function UsersResolve({ optionalUsers: { options, usersPromise }, onChang
       users={users}
       pagination={options.pagination}
       onChangePagination={onChangePagination}
+      setModeEdit={ setModeEdit }
     />
   );
 }

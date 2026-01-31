@@ -8,7 +8,7 @@ import { deleteUser } from './deleteUser.js';
 import { useNotifications } from '../../notifications/NotificationsProvider.jsx';
 import './UserForm.css';
 
-export function UserForm({ userResolve: { user, error = {}, fetchCommonError }, onSaveUser })
+export function UserForm({ userResolve: { user, error = {}, fetchCommonError }, onSaveUser, setModeList })
 {
   const { apiNotifications } = useNotifications();
 
@@ -46,10 +46,11 @@ export function UserForm({ userResolve: { user, error = {}, fetchCommonError }, 
         user={ formUser }
       />
       <UserFormExit
-        user={ formUser }
+        setModeList={ setModeList }
       />
       <UserFormDelete
         userId={ user.id }
+        setModeList={ setModeList }
       />
     </div>
   );
@@ -148,7 +149,7 @@ export function UserForm({ userResolve: { user, error = {}, fetchCommonError }, 
 
         apiNotifications.addInfo(`User ${ userId } is successfully deleted.`);
 
-        // if no error, goto list with previous options
+        setModeList();
       }
       catch (error) {
         apiNotifications.addError(`Error: ${ error.message }`);
@@ -158,7 +159,7 @@ export function UserForm({ userResolve: { user, error = {}, fetchCommonError }, 
 }
 
 // check if changed, maybe ask and if yes - save; exit back to the (filtered) list
-function UserFormExit({ user })
+function UserFormExit({ setModeList })
 {
   return (
     <div className="UserFormExit">
@@ -170,6 +171,6 @@ function UserFormExit({ user })
 
   function onClick()
   {
-    // onSaveUser( user, saveUser( user ));
+    setModeList();
   }
 }

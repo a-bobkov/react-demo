@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { UserResolveGet } from './UserResolveGet.jsx';
 import './UserResultGet.css';
 
-export function UserResultGet({ appUser, onSaveUser })
+export function UserResultGet({ appUser, onSaveUser, setModeList })
 {
   console.log(`UserResultGet: "${ JSON.stringify( appUser )}"`);
 
@@ -11,6 +11,7 @@ export function UserResultGet({ appUser, onSaveUser })
       <UserResolveGet
         appUser={ appUser }
         onSaveUser={ onSaveUser }
+        setModeList={ setModeList }
       />
     </Suspense>
   );

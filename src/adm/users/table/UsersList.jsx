@@ -1,15 +1,15 @@
 import './UsersList.css';
 
-export function UsersList({ users })
+export function UsersList({ users, setModeEdit })
 {
   return (
     <div className="UsersList">
-      {users.list.map(user => <UsersLine user={user}/>)}
+      { users.list.map( user => <UsersLine user={ user } setModeEdit={ setModeEdit }/>)}
     </div>
   );
 }
 
-export function UsersLine({ user })
+function UsersLine({ user, setModeEdit })
 {
   return (
     <div key={ user.id } className="UsersLine">
@@ -17,7 +17,7 @@ export function UsersLine({ user })
       <UsersLineLogin userLogin={ user.login } />
       <UsersLineName userName={ user.name } />
       <UsersLineCompany userCompany={ user.company } />
-      <UsersLineActions userId={ user.id } />
+      <UsersLineActions userId={ user.id } setModeEdit={ setModeEdit }/>
     </div>
   );
 }
@@ -26,7 +26,7 @@ function UsersLineId({ userId })
 {
   return (
     <div className="UsersLineId">
-      {userId}
+      { userId }
     </div>
   );
 }
@@ -35,7 +35,7 @@ function UsersLineLogin({ userLogin })
 {
   return (
     <div className="UsersLineLogin">
-      {userLogin}
+      { userLogin }
     </div>
   );
 }
@@ -44,7 +44,7 @@ function UsersLineName({ userName })
 {
   return (
     <div className="UsersLineName">
-      {userName}
+      { userName }
     </div>
   );
 }
@@ -53,18 +53,30 @@ function UsersLineCompany({ userCompany })
 {
   return (
     <div className="UsersLineCompany">
-      {userCompany}
+      { userCompany }
     </div>
   );
 }
 
-function UsersLineActions({ userId })
+function UsersLineActions({ userId, setModeEdit })
 {
   return (
     <div className="UsersLineActions">
-      <a href={`/user/edit/${ userId }`}>
-        Edit user
-      </a>
+      <UsersLineActionEdit userId={ userId } setModeEdit={ setModeEdit }/>
     </div>
   );
+}
+
+function UsersLineActionEdit({ userId, setModeEdit })
+{
+  return (
+    <div className="UsersLineActionEdit" onClick={ onClick }>
+      Edit user
+    </div>
+  );
+
+  function onClick()
+  {
+    setModeEdit( userId )
+  }
 }

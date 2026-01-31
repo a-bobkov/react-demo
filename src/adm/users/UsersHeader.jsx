@@ -1,11 +1,13 @@
 import './UsersHeader.css';
 
-export function UsersHeader()
+export function UsersHeader({ changeModeNew })
 {
   return (
     <div className="UsersHeader">
       <UsersTitle />
-      <UserNew />
+      <UserNew
+        changeModeNew={ changeModeNew }
+      />
     </div>
   );
 }
@@ -19,13 +21,13 @@ function UsersTitle()
   );
 }
 
-function UserNew()
+function UserNew({ changeModeNew })
 {
   return (
     <div className="UserNew">
-      <a href={`/user/new`}>
+      <div onClick={ changeModeNew }>
         New user
-      </a>
+      </div>
     </div>
   );
 }

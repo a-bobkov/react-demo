@@ -1,7 +1,7 @@
 import { use } from 'react';
 import { UserForm } from './form/UserForm.jsx';
 
-export function UserResolveSave({ appUser: { user, userPromise }, onSaveUser })
+export function UserResolveSave({ appUser: { user, userPromise }, onSaveUser, setModeList })
 {
   console.log(`UserResolve: "${ JSON.stringify( user )}"`);
 
@@ -17,6 +17,7 @@ export function UserResolveSave({ appUser: { user, userPromise }, onSaveUser })
     <UserForm
       userResolve={ userResolve }
       onSaveUser={ onSaveUser }
+      setModeList={ setModeList }
     />
   );
 }

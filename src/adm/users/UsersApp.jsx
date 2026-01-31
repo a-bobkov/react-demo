@@ -1,30 +1,40 @@
-import { useState } from 'react';
+import { useMemo } from 'react';
+import { UsersHeader } from './UsersHeader.jsx';
 import { UsersFilter } from './filter/UsersFilter.jsx';
 import { UsersSorting } from './sorting/UsersSorting.jsx';
 import { UsersResult } from './table/UsersResult.jsx';
-import { loadUsersOptions, saveUsersOptions } from './usersSearchParams.js';
 import { usersFetch } from './usersFetch.js';
-import { UsersHeader } from './UsersHeader.jsx';
 import './UsersApp.css';
 
-export function UsersApp()
+export function UsersApp({ options, onChangeOptions, changeModeNew, setModeEdit })
 {
-  const [optionalUsers, setOptionalUsers] = useState( createInitialOptionalUsers );
+  console.log(`UsersApp: "${ JSON.stringify(options) }"`)
+
+  const optionalUsers = useMemo(() =>
+    ({
+      usersPromise: usersFetch( options ),
+      options,
+    }),
+    [ options ]
+  );
 
   return (
     <>
-      <UsersHeader />
+      <UsersHeader
+        changeModeNew={ changeModeNew }
+      />
       <UsersFilter
-        filter={optionalUsers.options.filter}
-        onChangeFilter={onChangeFilter}
+        filter={ options.filter }
+        onChangeFilter={ onChangeFilter }
       />
       <UsersSorting
-        sorting={optionalUsers.options.sorting}
-        onChangeSorting={onChangeSorting}
+        sorting={ options.sorting }
+        onChangeSorting={ onChangeSorting }
       />
       <UsersResult
-        optionalUsers={optionalUsers}
-        onChangePagination={onChangePagination}
+        optionalUsers={ optionalUsers }
+        onChangePagination={ onChangePagination }
+        setModeEdit={ setModeEdit }
       />
     </>
   );
@@ -34,13 +44,13 @@ export function UsersApp()
     console.log(`onChangeFilter: ${ JSON.stringify( filter )}`);
 
     const newOptions = {
-      ...optionalUsers.options,
+      ...options,
       filter,
     };
 
     newOptions.pagination.count = 1;
 
-    setOptionalUsers( createOptionalUsers( newOptions ));
+    onChangeOptions( newOptions );
   }
 
   async function onChangeSorting(sorting )
@@ -48,11 +58,11 @@ export function UsersApp()
     console.log(`onChangeSorting: ${ JSON.stringify( sorting )}`);
 
     const newOptions = {
-      ...optionalUsers.options,
+      ...options,
       sorting,
     };
 
-    setOptionalUsers( createOptionalUsers( newOptions ));
+    onChangeOptions( newOptions );
   }
 
   async function onChangePagination( pagination )
@@ -60,49 +70,10 @@ export function UsersApp()
     console.log(`onChangePagination: ${ JSON.stringify( pagination )}`);
 
     const newOptions = {
-      ...optionalUsers.options,
+      ...options,
       pagination,
     };
 
-    setOptionalUsers( createOptionalUsers( newOptions ));
+    onChangeOptions( newOptions );
   }
-}
-
-function createInitialOptionalUsers()
-{
-  const defaultOptions = {
-    filter: {},
-    sorting: {},
-    pagination: {
-      size: 10,
-      count: 1,
-    },
-  };
-
-  const loadedOptions = loadUsersOptions();
-
-  const options = {
-    filter: Object.assign( defaultOptions.filter, loadedOptions.filter ),
-    sorting: Object.assign( defaultOptions.sorting, loadedOptions.sorting ),
-    pagination: Object.assign( defaultOptions.pagination, loadedOptions.pagination ),
-  };
-
-  return createOptionalUsers( options );
-}
-
-function createOptionalUsers( options )
-{
-  return {
-    usersPromise: getUsers( options ),
-    options,
-  };
-}
-
-async function getUsers( options )
-{
-  const users = await usersFetch( options );
-
-  saveUsersOptions( options );
-
-  return users;
 }

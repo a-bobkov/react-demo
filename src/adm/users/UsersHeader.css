@@ -11,4 +11,5 @@
 .UserNew {
   padding: 8px;
   border: 1px solid;
+  cursor: pointer;
 }

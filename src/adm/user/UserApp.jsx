@@ -7,41 +7,43 @@ import { UserResultGet } from './UserResultGet.jsx';
 import { UserResultSave } from './UserResultSave.jsx';
 import './UserApp.css';
 
-export function UserApp({ userId })
+export function UserApp({ userId, setModeList })
 {
   const [appUser, setAppUser] = useState( createInitialAppUser );
 
   if ( appUser.new ) {
-    return <UserAppNew appUser={ appUser.new }/>
+    return <UserAppNew appUser={ appUser.new } setModeList={ setModeList }/>
   }
 
   if ( appUser.get ) {
-    return <UserAppGet appUser={ appUser.get }/>
+    return <UserAppGet appUser={ appUser.get } setModeList={ setModeList }/>
   }
 
   if ( appUser.save ) {
     return <UserAppSave appUser={ appUser.save }/>
   }
 
-  function UserAppNew({ appUser })
+  function UserAppNew({ appUser, setModeList })
   {
     return (
       <div className="UserApp">
         <UserForm
           userResolve={ appUser }
           onSaveUser={ onClickSaveUser }
+          setModeList={ setModeList }
         />
       </div>
     );
   }
 
-  function UserAppGet({ appUser })
+  function UserAppGet({ appUser, setModeList })
   {
     return (
       <div className="UserApp">
         <UserResultGet
           appUser={ appUser }
           onSaveUser={ onClickSaveUser }
+          setModeList={ setModeList }
         />
       </div>
     );
@@ -54,6 +56,7 @@ export function UserApp({ userId })
         <UserResultSave
           appUser={ appUser }
           onSaveUser={ onClickSaveUser }
+          setModeList={ setModeList }
         />
       </div>
     );
