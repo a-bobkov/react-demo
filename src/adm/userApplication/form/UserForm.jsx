@@ -12,8 +12,8 @@ export function UserForm({ userResolve: { user, error = {}, fetchCommonError }, 
 {
   const { apiNotifications } = useNotifications();
 
-  const [formUser, setFormUser] = useState( user );
-  const [saveErrors, setSaveErrors] = useState( error );
+  const [ formUser, setFormUser ] = useState( user );
+  const [ saveErrors, setSaveErrors ] = useState( error );
 
   const formErrors = validateUser( formUser );
 

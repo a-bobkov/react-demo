@@ -1,4 +1,4 @@
-import { UserApplication } from './userapp/UserApplication.jsx';
+import { UserApplication } from './userApplication/UserApplication.jsx';
 
 export function Application()
 {

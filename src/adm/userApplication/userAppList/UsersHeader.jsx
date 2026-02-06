@@ -1,12 +1,12 @@
 import './UsersHeader.css';
 
-export function UsersHeader({ changeModeNew })
+export function UsersHeader({ setModeNew })
 {
   return (
     <div className="UsersHeader">
       <UsersTitle />
       <UserNew
-        changeModeNew={ changeModeNew }
+        setModeNew={ setModeNew }
       />
     </div>
   );
@@ -21,13 +21,11 @@ function UsersTitle()
   );
 }
 
-function UserNew({ changeModeNew })
+function UserNew({ setModeNew })
 {
   return (
-    <div className="UserNew">
-      <div onClick={ changeModeNew }>
-        New user
-      </div>
+    <div className="UserNew" onClick={ setModeNew }>
+      New user
     </div>
   );
 }

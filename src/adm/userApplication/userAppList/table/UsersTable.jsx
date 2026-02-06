@@ -2,7 +2,7 @@ import { UsersList } from './UsersList.jsx';
 import { UsersPagination } from '../pagination/UsersPagination.jsx';
 import './UsersTable.css';
 
-export function UsersTable({ users, pagination, onChangePagination, setModeEdit })
+export function UsersTable({ users, pagination, onChangePagination, setModeGet })
 {
   console.log(`UsersTable: "${ JSON.stringify( pagination )}"`);
 
@@ -10,7 +10,7 @@ export function UsersTable({ users, pagination, onChangePagination, setModeEdit 
     <div className="UsersTable">
       <UsersList
         users={ users }
-        setModeEdit={ setModeEdit }
+        setModeGet={ setModeGet }
       />
       <UsersPagination
         total={users.count}

@@ -1,6 +1,6 @@
 let ac;
 
-export async function usersFetch( options )
+export async function fetchUsers(options )
 {
   console.log(`Starting fetch with options: "${ JSON.stringify( options )}"`);
 

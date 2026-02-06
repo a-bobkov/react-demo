@@ -3,40 +3,40 @@ import { UsersHeader } from './UsersHeader.jsx';
 import { UsersFilter } from './filter/UsersFilter.jsx';
 import { UsersSorting } from './sorting/UsersSorting.jsx';
 import { UsersResult } from './table/UsersResult.jsx';
-import { usersFetch } from './usersFetch.js';
-import './UsersApp.css';
+import { fetchUsers } from './fetchUsers.js';
+import './UserAppList.css';
 
-export function UsersApp({ options, onChangeOptions, changeModeNew, setModeEdit })
+export function UserAppList({ listOptions, setListOptions, setModeGet, setModeNew })
 {
-  console.log(`UsersApp: "${ JSON.stringify(options) }"`)
+  console.log(`UserAppList: ${ JSON.stringify( listOptions )}`)
 
   const optionalUsers = useMemo(() =>
     ({
-      usersPromise: usersFetch( options ),
-      options,
+      usersPromise: fetchUsers( listOptions ),
+      options: listOptions,
     }),
-    [ options ]
+    [ listOptions ]
   );
 
   return (
-    <>
+    <div className="UsersApp">
       <UsersHeader
-        changeModeNew={ changeModeNew }
+        setModeNew={ setModeNew }
       />
       <UsersFilter
-        filter={ options.filter }
+        filter={ listOptions.filter }
         onChangeFilter={ onChangeFilter }
       />
       <UsersSorting
-        sorting={ options.sorting }
+        sorting={ listOptions.sorting }
         onChangeSorting={ onChangeSorting }
       />
       <UsersResult
         optionalUsers={ optionalUsers }
         onChangePagination={ onChangePagination }
-        setModeEdit={ setModeEdit }
+        setModeGet={ setModeGet }
       />
-    </>
+    </div>
   );
 
   async function onChangeFilter( filter )
@@ -44,25 +44,25 @@ export function UsersApp({ options, onChangeOptions, changeModeNew, setModeEdit 
     console.log(`onChangeFilter: ${ JSON.stringify( filter )}`);
 
     const newOptions = {
-      ...options,
+      ...listOptions,
       filter,
     };
 
     newOptions.pagination.count = 1;
 
-    onChangeOptions( newOptions );
+    setListOptions( newOptions );
   }
 
-  async function onChangeSorting(sorting )
+  async function onChangeSorting( sorting )
   {
     console.log(`onChangeSorting: ${ JSON.stringify( sorting )}`);
 
     const newOptions = {
-      ...options,
+      ...listOptions,
       sorting,
     };
 
-    onChangeOptions( newOptions );
+    setListOptions( newOptions );
   }
 
   async function onChangePagination( pagination )
@@ -70,10 +70,10 @@ export function UsersApp({ options, onChangeOptions, changeModeNew, setModeEdit 
     console.log(`onChangePagination: ${ JSON.stringify( pagination )}`);
 
     const newOptions = {
-      ...options,
+      ...listOptions,
       pagination,
     };
 
-    onChangeOptions( newOptions );
+    setListOptions( newOptions );
   }
 }

@@ -2,7 +2,7 @@ import { Suspense, useDeferredValue } from 'react';
 import { UsersResolve } from './UsersResolve.jsx';
 import './UsersResult.css';
 
-export function UsersResult({ optionalUsers, onChangePagination, setModeEdit })
+export function UsersResult({ optionalUsers, onChangePagination, setModeGet })
 {
   console.log(`UsersResult new: "${ JSON.stringify( optionalUsers.options )}"`);
 
@@ -27,7 +27,7 @@ export function UsersResult({ optionalUsers, onChangePagination, setModeEdit })
         <UsersResolve
           optionalUsers={optionalUsers}
           onChangePagination={onChangePagination}
-          setModeEdit={ setModeEdit }
+          setModeGet={ setModeGet }
         />
       // </UsersResultSpinner>
     );

@@ -1,15 +1,15 @@
 import './UsersList.css';
 
-export function UsersList({ users, setModeEdit })
+export function UsersList({ users, setModeGet })
 {
   return (
     <div className="UsersList">
-      { users.list.map( user => <UsersLine user={ user } setModeEdit={ setModeEdit }/>)}
+      { users.list.map( user => <UsersLine user={ user } setModeGet={ setModeGet }/>)}
     </div>
   );
 }
 
-function UsersLine({ user, setModeEdit })
+function UsersLine({ user, setModeGet })
 {
   return (
     <div key={ user.id } className="UsersLine">
@@ -17,7 +17,7 @@ function UsersLine({ user, setModeEdit })
       <UsersLineLogin userLogin={ user.login } />
       <UsersLineName userName={ user.name } />
       <UsersLineCompany userCompany={ user.company } />
-      <UsersLineActions userId={ user.id } setModeEdit={ setModeEdit }/>
+      <UsersLineActions userId={ user.id } setModeGet={ setModeGet }/>
     </div>
   );
 }
@@ -58,16 +58,16 @@ function UsersLineCompany({ userCompany })
   );
 }
 
-function UsersLineActions({ userId, setModeEdit })
+function UsersLineActions({ userId, setModeGet })
 {
   return (
     <div className="UsersLineActions">
-      <UsersLineActionEdit userId={ userId } setModeEdit={ setModeEdit }/>
+      <UsersLineActionEdit userId={ userId } setModeGet={ setModeGet }/>
     </div>
   );
 }
 
-function UsersLineActionEdit({ userId, setModeEdit })
+function UsersLineActionEdit({ userId, setModeGet })
 {
   return (
     <div className="UsersLineActionEdit" onClick={ onClick }>
@@ -77,6 +77,6 @@ function UsersLineActionEdit({ userId, setModeEdit })
 
   function onClick()
   {
-    setModeEdit( userId )
+    setModeGet( userId )
   }
 }

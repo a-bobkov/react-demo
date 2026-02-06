@@ -1,6 +1,6 @@
 export async function updateUser( user )
 {
-  console.log(`Starting update: "${ JSON.stringify( user )}"`);
+  console.log(`Starting update: ${ JSON.stringify( user )}`);
 
   const body = JSON.stringify( user );
 
@@ -24,7 +24,7 @@ export async function updateUser( user )
 
   const result = await response.json();
 
-  console.log(`Finished update: "${ JSON.stringify( result )}"`);
+  console.log(`Finished update: ${ JSON.stringify( result )}`);
 
   return result;
 }

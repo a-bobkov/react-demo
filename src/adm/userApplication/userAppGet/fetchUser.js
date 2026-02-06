@@ -5,7 +5,7 @@ export async function fetchUser( userId )
   const response = await fetch(`https://localhost:8082/user/${ userId }`);
 
   if (!response.ok) {
-    throw new Error(`Get user finished with status ${ response.status }`);
+    throw new Error(`Get user ${ userId } finished with status ${ response.status }`);
   }
 
   const user = await response.json();
