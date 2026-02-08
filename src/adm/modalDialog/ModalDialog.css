@@ -1,0 +1,39 @@
+.ModalDialogOverlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: inherit;
+  opacity: 70%;
+}
+
+.ModalDialogWindow {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: fit-content;
+  height: fit-content;
+  border: 1px solid;
+  padding: 8px;
+  background-color: inherit;
+}
+
+.ModalDialogQuestion {
+  padding: 8px;
+}
+
+.ModalDialogAnswers {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.ModalDialogAnswer {
+  border: 1px solid;
+  cursor: pointer;
+  padding: 8px;
+}

@@ -1,10 +1,7 @@
-import { useNotifications } from './NotificationsProvider.jsx';
 import './Notifications.css';
 
-export function Notifications()
+export function Notifications({ notifications, removeNotification })
 {
-  const { notifications, apiNotifications } = useNotifications();
-
   return (
     <div className="Notifications">
       { notifications.map( notification => <Notification notification={ notification } />)}
@@ -24,7 +21,7 @@ export function Notifications()
 
     function onClickClose()
     {
-      apiNotifications.remove( notification.id );
+      removeNotification( notification.id );
     }
   }
 }

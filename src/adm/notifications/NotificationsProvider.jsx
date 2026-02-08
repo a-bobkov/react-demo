@@ -1,69 +1,27 @@
-import { useState, createContext, useContext } from 'react';
+import { createContext, useContext } from 'react';
+import { useNotificationsState } from './useNotificationsState.jsx';
 import { Notifications } from './Notifications.jsx';
 
 const NotificationsContext = createContext(null);
 
-export function useNotifications()
+export function useNotificationsContext()
 {
   return useContext( NotificationsContext );
 }
 
-let nextId = 1;
-
 export function NotificationsProvider({ children })
 {
-  const [notifications, setNotifications] = useState([]);
-
-  const apiNotifications = {
-    addInfo: addInfo,
-    addError: addError,
-    remove: remove,
-  };
+  const { notifications, apiNotifications, removeNotification } = useNotificationsState();
 
   return (
-    <NotificationsContext value={{ notifications, apiNotifications }}>
-      { children }
-      <Notifications/>
-    </NotificationsContext>
+    <>
+      <NotificationsContext value={ apiNotifications }>
+        { children }
+      </NotificationsContext>
+      <Notifications
+        notifications={ notifications }
+        removeNotification={ removeNotification }
+      />
+    </>
   );
-
-  function addInfo( message )
-  {
-    addNotification( message, 'info' );
-  }
-
-  function addError( message )
-  {
-    addNotification( message, 'error' );
-  }
-
-  function addNotification( message, type )
-  {
-    const newNotification = {
-      id: nextId++,
-      type,
-      message,
-    };
-
-    // newNotification.message = `${ newNotification.message } ${ newNotification.id } `.repeat(7);
-
-    setNotifications( adder );
-
-    function adder( notifications )
-    {
-      return [...notifications, newNotification];
-    }
-  }
-
-  function remove( notificationId )
-  {
-    setNotifications( remover );
-
-    function remover( notifications )
-    {
-      return notifications.filter( notification =>
-        notification.id !== notificationId
-      );
-    }
-  }
 }

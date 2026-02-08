@@ -5,13 +5,12 @@ import { UserFormName } from './UserFormName.jsx';
 import { UserFormCompany } from './UserFormCompany.jsx';
 import { validateUser } from './validate/validateUser.js';
 import { deleteUser } from './deleteUser.js';
-import { useNotifications } from '../../notifications/NotificationsProvider.jsx';
+import { useModalDialogContext } from '../../modalDialog/ModalDialogProvider.jsx';
+import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 import './UserForm.css';
 
-export function UserForm({ userResolve: { user, error = {}, fetchCommonError }, onSaveUser, setModeList })
+export function UserForm({ userOptions: { user, error = {}, fetchCommonError }, onClickSaveUser, setModeList })
 {
-  const { apiNotifications } = useNotifications();
-
   const [ formUser, setFormUser ] = useState( user );
   const [ saveErrors, setSaveErrors ] = useState( error );
 
@@ -43,9 +42,12 @@ export function UserForm({ userResolve: { user, error = {}, fetchCommonError }, 
       />
       <UserFormSave
         disabled={ isFormInvalid }
-        user={ formUser }
+        formUser={ formUser }
       />
       <UserFormExit
+        user={ user }
+        formUser={ formUser }
+        isFormInvalid={ isFormInvalid }
         setModeList={ setModeList }
       />
       <UserFormDelete
@@ -116,7 +118,7 @@ export function UserForm({ userResolve: { user, error = {}, fetchCommonError }, 
     });
   }
 
-  function UserFormSave({ disabled, user }) // just save
+  function UserFormSave({ disabled, formUser }) // just save
   {
     return (
       <div className="UserFormSave">
@@ -128,21 +130,23 @@ export function UserForm({ userResolve: { user, error = {}, fetchCommonError }, 
 
     function onClick()
     {
-      onSaveUser( user );
+      onClickSaveUser( formUser );
     }
   }
 
   function UserFormDelete({ userId })
   {
+    const apiNotifications = useNotificationsContext();
+
     return userId && (
       <div className="UserFormDelete">
-        <button onClick={ onClickDelete }>
+        <button onClick={ onClick }>
           Delete user
         </button>
       </div>
     );
 
-    async function onClickDelete()
+    async function onClick()
     {
       try {
         await deleteUser( userId );
@@ -156,21 +160,53 @@ export function UserForm({ userResolve: { user, error = {}, fetchCommonError }, 
       }
     }
   }
+
+  function UserFormExit({ formUser, user, isFormInvalid, setModeList })
+  {
+    const apiModalDialog = useModalDialogContext();
+
+    return (
+      <div className="UserFormExit">
+        <button onClick={ onClick }>
+          Exit
+        </button>
+      </div>
+    );
+
+    async function onClick()
+    {
+      if (!isEqual( formUser, user ) || isFormInvalid )
+      {
+        const answer = await apiModalDialog.ask(
+          'The form data is changed, are you sure to exit?',
+          {
+            save: 'Save & exit',
+            cancel: 'Cancel',
+            exit: 'Exit',
+          },
+        );
+
+        if ( answer === 'save' ) {
+          const { error, fetchCommonError } = await onClickSaveUser( formUser );
+
+          if ( error || fetchCommonError ) {
+            return;
+          }
+        }
+
+        if ( answer === 'cancel' ) {
+          return;
+        }
+      }
+
+      setModeList();
+    }
+  }
 }
 
-// check if changed, maybe ask and if yes - save; exit back to the (filtered) list
-function UserFormExit({ setModeList })
+function isEqual( formUser, user )
 {
-  return (
-    <div className="UserFormExit">
-      <button onClick={ onClick }>
-        Exit
-      </button>
-    </div>
+  return Object.keys( formUser ).every( key =>
+    formUser[ key ] === user[ key ]
   );
-
-  function onClick()
-  {
-    setModeList();
-  }
 }

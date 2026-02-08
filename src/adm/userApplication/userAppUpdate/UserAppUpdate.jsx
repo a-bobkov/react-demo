@@ -14,8 +14,8 @@ export function UserAppUpdate({ updateOptions, setUpdateOptions, setModeList })
     <div className={ clsx('UserApp', hasSpinner && 'hasSpinner')}>
       <UserForm
         key={ updateOptions.id }
-        userResolve={ updateOptions }
-        onSaveUser={ onClickUpdateUser }
+        userOptions={ updateOptions }
+        onClickSaveUser={ onClickUpdateUser }
         setModeList={ setModeList }
       />
     </div>
@@ -34,5 +34,7 @@ export function UserAppUpdate({ updateOptions, setUpdateOptions, setModeList })
     setUpdateOptions( newUpdateOptions );
 
     setHasSpinner(false);
+
+    return newUpdateOptions;
   }
 }

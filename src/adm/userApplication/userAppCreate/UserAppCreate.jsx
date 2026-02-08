@@ -14,8 +14,8 @@ export function UserAppCreate({ createOptions, setCreateOptions, setModeUpdate, 
     <div className={ clsx('UserApp', hasSpinner && 'hasSpinner')}>
       <UserForm
         key={ createOptions.id }
-        userResolve={ createOptions }
-        onSaveUser={ onClickCreateUser }
+        userOptions={ createOptions }
+        onClickSaveUser={ onClickCreateUser }
         setModeList={ setModeList }
       />
     </div>
@@ -25,18 +25,20 @@ export function UserAppCreate({ createOptions, setCreateOptions, setModeUpdate, 
   {
     setHasSpinner(true);
 
-    const newOptions = await createUser( user );
+    const newCreateOptions = await createUser( user );
 
-    if ( newOptions.error ) {
-      newOptions.user = user;
+    if ( newCreateOptions.error ) {
+      newCreateOptions.user = user;
     }
 
-    if ( newOptions.user.id ) {
-      setModeUpdate( newOptions );
+    if ( newCreateOptions.user.id ) {
+      setModeUpdate( newCreateOptions );
     } else {
-      setCreateOptions( newOptions );
+      setCreateOptions( newCreateOptions );
     }
 
     setHasSpinner(false);
+
+    return newCreateOptions;
   }
 }
