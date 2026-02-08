@@ -1,25 +1,15 @@
-import { useMemo } from 'react';
 import { UsersHeader } from './UsersHeader.jsx';
 import { UsersFilter } from './filter/UsersFilter.jsx';
 import { UsersSorting } from './sorting/UsersSorting.jsx';
 import { UsersResult } from './table/UsersResult.jsx';
-import { fetchUsers } from './fetchUsers.js';
 import './UserAppList.css';
 
 export function UserAppList({ listOptions, setListOptions, setModeGet, setModeNew })
 {
   console.log(`UserAppList: ${ JSON.stringify( listOptions )}`)
 
-  const optionalUsers = useMemo(() =>
-    ({
-      usersPromise: fetchUsers( listOptions ),
-      options: listOptions,
-    }),
-    [ listOptions ]
-  );
-
   return (
-    <div className="UsersApp">
+    <div className="UserAppList">
       <UsersHeader
         setModeNew={ setModeNew }
       />
@@ -32,7 +22,9 @@ export function UserAppList({ listOptions, setListOptions, setModeGet, setModeNe
         onChangeSorting={ onChangeSorting }
       />
       <UsersResult
-        optionalUsers={ optionalUsers }
+        users={ listOptions.users }
+        isLoading={ listOptions.isLoading }
+        pagination={ listOptions.pagination }
         onChangePagination={ onChangePagination }
         setModeGet={ setModeGet }
       />

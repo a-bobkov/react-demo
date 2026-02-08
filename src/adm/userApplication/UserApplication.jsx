@@ -15,7 +15,7 @@ const UPDATE_MODE = 'update';
 
 export function UserApplication()
 {
-  const { listOptions, setListOptions, locationUrlList, isListPath } = useAppList();
+  const { listOptions, setListOptions, isListPath } = useAppList();
   const { getOptions, setUserId, isGetPath } = useAppGet( setModeUpdate );
   const { createOptions, setCreateOptions, createNewUser, isCreatePath } = useAppCreate();
   const { updateOptions, setUpdateOptions } = useAppUpdate();
@@ -55,7 +55,7 @@ export function UserApplication()
 
   function setModeList()
   {
-    locationUrlList( listOptions );
+    setListOptions({ ...listOptions });
 
     setMode( LIST_MODE );
   }

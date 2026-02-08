@@ -1,17 +1,62 @@
 import { useState } from 'react';
-import { loadUsersOptions, saveUsersOptions } from '../usersSearchParams.js';
+import { fetchUsers } from './fetchUsers.js';
+import { loadUsersOptions, saveUsersOptions } from './usersSearchParams.js';
 
 export function useAppList()
 {
   const [ listOptions, setOptions ] = useState( createInitialListOptions );
 
-  return { listOptions, setListOptions, locationUrlList, isListPath };
+  return { listOptions, setListOptions, isListPath };
 
-  function setListOptions( newListOptions )
+  function setListOptions( options )
   {
-    locationUrlList( newListOptions );
+    locationUrlList( options );
 
-    setOptions( newListOptions );
+    setOptions( loadingUsers( options ) );
+  }
+
+  function loadingUsers( options )
+  {
+    options.isLoading = true;
+
+    loadUsers( options );
+
+    return options;
+  }
+
+  async function loadUsers( options )
+  {
+    const newOptions = {
+      ...options,
+      users: await fetchUsers( options ),
+      isLoading: false,
+    };
+
+    if ( newOptions.users ) {
+      setOptions( newOptions );
+    }
+  }
+
+  function createInitialListOptions()
+  {
+    const defaultOptions = {
+      filter: {},
+      sorting: {},
+      pagination: {
+        size: 10,
+        count: 1,
+      },
+    };
+
+    const loadedOptions = loadUsersOptions();
+
+    const options = {
+      filter: Object.assign( defaultOptions.filter, loadedOptions.filter ),
+      sorting: Object.assign( defaultOptions.sorting, loadedOptions.sorting ),
+      pagination: Object.assign( defaultOptions.pagination, loadedOptions.pagination ),
+    };
+
+    return loadingUsers( options );
   }
 }
 
@@ -27,26 +72,4 @@ function locationUrlList( options )
   window.history.replaceState(null, null, '/user/list' );
 
   saveUsersOptions( options );
-}
-
-function createInitialListOptions()
-{
-  const defaultOptions = {
-    filter: {},
-    sorting: {},
-    pagination: {
-      size: 10,
-      count: 1,
-    },
-  };
-
-  const loadedOptions = loadUsersOptions();
-
-  const options = {
-    filter: Object.assign( defaultOptions.filter, loadedOptions.filter ),
-    sorting: Object.assign( defaultOptions.sorting, loadedOptions.sorting ),
-    pagination: Object.assign( defaultOptions.pagination, loadedOptions.pagination ),
-  };
-
-  return options;
 }

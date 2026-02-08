@@ -1,5 +1,9 @@
-.UsersResultSpinner {
-  pointer-events: none;
-  width: fit-content;
-  opacity: 0.3;
+.UsersResult {
+  width: 650px;
+
+  &.isLoading {
+    pointer-events: none;
+    width: fit-content;
+    opacity: 0.3;
+  }
 }

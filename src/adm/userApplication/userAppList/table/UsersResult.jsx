@@ -1,64 +1,38 @@
-import { Suspense, useDeferredValue } from 'react';
-import { UsersResolve } from './UsersResolve.jsx';
+import { clsx } from 'clsx';
+import { UsersList } from './UsersList.jsx';
+import { UsersPagination } from '../pagination/UsersPagination.jsx';
 import './UsersResult.css';
 
-export function UsersResult({ optionalUsers, onChangePagination, setModeGet })
+export function UsersResult({ users, isLoading, pagination, onChangePagination, setModeGet })
 {
-  console.log(`UsersResult new: "${ JSON.stringify( optionalUsers.options )}"`);
+  console.log(`UsersResult: "${ JSON.stringify({ users, isLoading, pagination })}"`);
 
-  const prevOptionalUsers = useDeferredValue( optionalUsers );
-
-  console.log(`UsersResult def: "${ JSON.stringify( prevOptionalUsers.options )}"`);
-
-  return (
-    <Suspense fallback={<UsersResultLoading />}>
-      <Suspense fallback={<UsersResultPrevious />}>
-        <UsersResultCurrent />
-      </Suspense>
-    </Suspense>
-  );
-
-  function UsersResultCurrent()
-  {
-    console.log(`UsersResult current`);
-
+  if ( users ) {
     return (
-      // <UsersResultSpinner>
-        <UsersResolve
-          optionalUsers={optionalUsers}
-          onChangePagination={onChangePagination}
+      <div className={ clsx('UsersResult', isLoading && 'isLoading')}>
+        <UsersList
+          users={ users }
           setModeGet={ setModeGet }
         />
-      // </UsersResultSpinner>
-    );
-  }
-
-  function UsersResultPrevious()
-  {
-    return (
-      <UsersResultSpinner>
-        <UsersResolve
-          optionalUsers={prevOptionalUsers}
+        <UsersPagination
+          total={ users.count }
+          pagination={ pagination }
+          onChangePagination={ onChangePagination }
         />
-      </UsersResultSpinner>
+      </div>
     );
   }
-}
 
-function UsersResultSpinner({ children })
-{
-  return (
-    <div className="UsersResultSpinner">
-      {children}
-    </div>
-  );
+  if ( isLoading ) {
+    return <UsersResultLoading />;
+  }
 }
 
 function UsersResultLoading()
 {
   return (
     <div>
-      Loading...
+      Loading users...
     </div>
   );
 }

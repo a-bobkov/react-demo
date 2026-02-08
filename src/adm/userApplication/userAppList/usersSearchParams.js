@@ -1,6 +1,6 @@
-import { saveFilter, loadFilter } from './userAppList/filter/UsersFilter.jsx';
-import { saveSorting, loadSorting } from './userAppList/sorting/usersSortingSearchParams.js';
-import { savePagination, loadPagination } from './userAppList/pagination/usersPaginationSearchParams.js';
+import { saveFilter, loadFilter } from './filter/UsersFilter.jsx';
+import { saveSorting, loadSorting } from './sorting/usersSortingSearchParams.js';
+import { savePagination, loadPagination } from './pagination/usersPaginationSearchParams.js';
 
 export function saveUsersOptions( options )
 {
