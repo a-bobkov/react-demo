@@ -1,8 +1,11 @@
-.UserFormTitle {
-  font-size: 32px;
+.UserForm {
+  &.hasSpinner {
+    pointer-events: none;
+    width: fit-content;
+    opacity: 0.3;
+  }
 }
 
-.button-disabled {
-  pointer-events: none;
-  opacity: 0.3;
+.UserFormTitle {
+  font-size: 32px;
 }
