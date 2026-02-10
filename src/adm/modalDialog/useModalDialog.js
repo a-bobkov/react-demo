@@ -10,19 +10,19 @@ export function useModalDialog()
 
   return { modalDialog, apiModalDialog };
 
-  async function ask( question, answers )
+  async function ask( message, actions )
   {
     try {
-      return await openDialog( question, answers );
+      return await openDialog( message, actions );
     } finally {
       closeDialog();
     }
   }
 
-  function openDialog( question, answers )
+  function openDialog(message, actions )
   {
     return new Promise(( resolve ) => {
-      setModalDialog({ question, answers, resolve });
+      setModalDialog({ message, actions, resolve });
     });
   }
 

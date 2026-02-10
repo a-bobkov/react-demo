@@ -9,7 +9,7 @@ export function AppMenu()
           Applications
         </div>
         <div className="MenuItem">
-          <a href="/user">
+          <a href="/user/list">
             Users
           </a>
         </div>

@@ -1,6 +1,9 @@
-.formErrors {
+.UserFormErrors {
+  margin: 6px 0;
   color: orangered;
 }
-.saveErrors {
+
+.UserSaveErrors {
+  margin: 6px 0;
   color: darkred;
 }

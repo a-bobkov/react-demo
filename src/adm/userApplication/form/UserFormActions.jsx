@@ -3,7 +3,7 @@ import { useModalDialogContext } from '../../modalDialog/ModalDialogProvider.jsx
 import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 import './UserFormActions.css';
 
-export function UserFormActions({ user, formUser, isFormInvalid, setHasSpinner, onClickSaveUser, setModeList })
+export function UserFormActions({ formUser, isFormChanged, isFormInvalid, setHasSpinner, onClickSaveUser, setModeList })
 {
   const apiNotifications = useNotificationsContext();
 
@@ -15,13 +15,13 @@ export function UserFormActions({ user, formUser, isFormInvalid, setHasSpinner, 
         onClickSaveUser={ onClickSaveUser }
       />
       <UserFormActionExit
-        user={ user }
         formUser={ formUser }
+        isFormChanged={ isFormChanged }
         isFormInvalid={ isFormInvalid }
         setModeList={ setModeList }
       />
       <UserFormActionDelete
-        userId={ user.id }
+        userId={ formUser.id }
         setModeList={ setModeList }
       />
     </div>
@@ -31,7 +31,7 @@ export function UserFormActions({ user, formUser, isFormInvalid, setHasSpinner, 
   {
     return (
       <div className="UserFormSave">
-        <button className={ isFormInvalid && 'button-disabled' } onClick={ onClick }>
+        <button className={ isFormInvalid && 'disabled' } onClick={ onClick }>
           Save user
         </button>
       </div>
@@ -62,7 +62,7 @@ export function UserFormActions({ user, formUser, isFormInvalid, setHasSpinner, 
     }
   }
 
-  function UserFormActionExit({ formUser, user, isFormInvalid, setModeList })
+  function UserFormActionExit({ formUser, isFormChanged, isFormInvalid, setModeList })
   {
     const apiModalDialog = useModalDialogContext();
 
@@ -76,31 +76,31 @@ export function UserFormActions({ user, formUser, isFormInvalid, setHasSpinner, 
 
     async function onClick()
     {
-      if (!isUserEqual( formUser, user ) || isFormInvalid )
-      {
-        const answer = await apiModalDialog.ask(
+      const exit = !isFormChanged && !isFormInvalid
+        || await apiModalDialog.ask(
           'The form data is changed, are you sure to exit?',
-          {
-            save: 'Save & exit',
-            cancel: 'Cancel',
-            exit: 'Exit',
-          },
+          [
+            {
+              label: 'Save & exit',
+              disabled: isFormInvalid,
+              returns: onClickModalSave,
+            }, {
+              label: 'Cancel',
+            }, {
+              label: 'Exit',
+              returns: true,
+            },
+          ]
         );
 
-        if ( answer === 'save' ) {
-          const { error, fetchCommonError } = await saveFormUser( formUser );
+      if ( exit ) setModeList();
+    }
 
-          if ( error || fetchCommonError ) {
-            return;
-          }
-        }
+    async function onClickModalSave()
+    {
+      const { error, fetchCommonError } = await saveFormUser( formUser );
 
-        if ( answer === 'cancel' ) {
-          return;
-        }
-      }
-
-      setModeList();
+      return !error && !fetchCommonError;
     }
   }
 
@@ -132,11 +132,4 @@ export function UserFormActions({ user, formUser, isFormInvalid, setHasSpinner, 
       setHasSpinner( false );
     }
   }
-}
-
-function isUserEqual( formUser, user )
-{
-  return Object.keys( formUser ).every( key =>
-    formUser[ key ] === user[ key ]
-  );
 }

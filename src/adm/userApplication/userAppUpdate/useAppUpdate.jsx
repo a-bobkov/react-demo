@@ -14,7 +14,7 @@ export function useAppUpdate()
       locationUrlEdit( newUpdateOptions.user.id );
     }
 
-    newUpdateOptions.id = 'update_' + updateOptionsNextId++;
+    newUpdateOptions.id = updateOptionsNextId++;
 
     setOptions( newUpdateOptions );
   }

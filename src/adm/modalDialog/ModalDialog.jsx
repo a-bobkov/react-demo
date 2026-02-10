@@ -1,3 +1,4 @@
+import { clsx } from 'clsx';
 import './ModalDialog.css';
 
 export function ModalDialog({ modalDialog })
@@ -6,34 +7,35 @@ export function ModalDialog({ modalDialog })
     <>
       <div className="ModalDialogOverlay" />
       <div className="ModalDialogWindow">
-        <ModalDialogQuestion
-          question={ modalDialog.question }
+        <ModalDialogMessage
+          message={ modalDialog.message }
         />
-        <ModalDialogAnswers
-          answers={ modalDialog.answers }
+        <ModalDialogActions
+          actions={ modalDialog.actions }
           resolve={ modalDialog.resolve }
         />
       </div>
     </>
   );
 
-  function ModalDialogQuestion({ question })
+  function ModalDialogMessage({ message })
   {
     return (
-      <div className="ModalDialogQuestion">
-        { question }
+      <div className="ModalDialogMessage">
+        { message }
       </div>
     );
   }
 
-  function ModalDialogAnswers({ answers, resolve })
+  function ModalDialogActions({ actions, resolve })
   {
     return (
-      <div className="ModalDialogAnswers">
-        { Object.entries( answers ).map(([ answer, text ]) =>
-          <ModalDialogAnswer
-            answer={ answer }
-            label={ text }
+      <div className="ModalDialogActions">
+        { actions.map(({ label, returns, disabled }) =>
+          <ModalDialogAction
+            label={ label }
+            returns={ returns }
+            disabled={ disabled }
             resolve={ resolve }
           />
         )}
@@ -41,17 +43,21 @@ export function ModalDialog({ modalDialog })
     );
   }
 
-  function ModalDialogAnswer({ answer, label, resolve })
+  function ModalDialogAction({ label, returns, disabled, resolve })
   {
     return (
-      <span className="ModalDialogAnswer" onClick={ onClick }>
+      <button className={ clsx('ModalDialogAction', disabled && 'disabled')} onClick={ onClick }>
         { label }
-      </span>
+      </button>
     );
 
     function onClick()
     {
-      resolve( answer );
+      const result = typeof returns === 'function'
+        ? returns()
+        : returns;
+
+      resolve( result );
     }
   }
 }

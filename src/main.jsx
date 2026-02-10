@@ -5,7 +5,7 @@ import { ModalDialogProvider } from './adm/modalDialog/ModalDialogProvider.jsx';
 import Adm from './adm/Adm.jsx'
 import './main.css'
 
-createRoot(document.getElementById('root')).render(
+createRoot( document.getElementById('root')).render(
   <NotificationsProvider>
     <ModalDialogProvider>
       <Adm />

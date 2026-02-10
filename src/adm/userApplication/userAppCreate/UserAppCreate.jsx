@@ -14,12 +14,12 @@ export function UserAppCreate({ createOptions, setCreateOptions, setModeUpdate, 
     />
   );
 
-  async function onClickCreateUser( user )
+  async function onClickCreateUser( formUser )
   {
-    const newCreateOptions = await createUser( user );
+    const newCreateOptions = await createUser( formUser );
 
     if ( newCreateOptions.error ) {
-      newCreateOptions.user = user;
+      newCreateOptions.user = formUser;
     }
 
     if ( newCreateOptions.user.id ) {

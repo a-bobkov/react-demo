@@ -29,7 +29,7 @@ function createInitialCreateOptions()
 
 function idCreateOptions( createOptions )
 {
-  createOptions.id = 'create_' + createResultNextId++;
+  createOptions.id = createResultNextId++;
 }
 
 function createNewUser()

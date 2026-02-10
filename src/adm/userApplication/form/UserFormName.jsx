@@ -5,19 +5,21 @@ export function UserFormName({ value, saveErrors, formErrors, onChangeName })
 {
   return (
     <div className="UserFormName">
-      <div>
+      <div className="UserFormFieldName">
         Name
       </div>
-      <input
-        placeholder="name"
-        value={ value }
-        onChange={ onChange }
-      />
-      <div className="formErrors">
-        <FormFieldError error={ formErrors } />
-      </div>
-      <div className="saveErrors">
-        <FormFieldError error={ saveErrors } />
+      <div className="UserFormFieldValue">
+        <input
+          placeholder="name"
+          value={ value }
+          onChange={ onChange }
+        />
+        <div className="UserFormErrors">
+          <FormFieldError error={ formErrors } />
+        </div>
+        <div className="UserSaveErrors">
+          <FormFieldError error={ saveErrors } />
+        </div>
       </div>
     </div>
   );

@@ -4,8 +4,25 @@
     width: fit-content;
     opacity: 0.3;
   }
+
+  & .UserFormTitle {
+    font-size: 32px;
+  }
 }
 
-.UserFormTitle {
-  font-size: 32px;
+.UserFormFields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 20px 0;
+
+  & .UserFormFieldName {
+    display: inline-block;
+    width: 100px;
+    vertical-align: top;
+  }
+
+  & .UserFormFieldValue {
+    display: inline-block;
+  }
 }

@@ -5,19 +5,21 @@ export function UserFormLogin({ value, saveErrors, formErrors, onChangeLogin })
 {
   return (
     <div className="UserFormLogin">
-      <div>
+      <div className="UserFormFieldName">
         Login
       </div>
-      <input
-        placeholder="email address"
-        value={ value }
-        onChange={ onChange }
-      />
-      <div className="formErrors">
-        <FormFieldError error={ formErrors } />
-      </div>
-      <div className="saveErrors">
-        <FormFieldError error={ saveErrors } />
+      <div className="UserFormFieldValue">
+        <input
+          placeholder="email address"
+          value={ value }
+          onChange={ onChange }
+        />
+        <div className="UserFormErrors">
+          <FormFieldError error={ formErrors } />
+        </div>
+        <div className="UserSaveErrors">
+          <FormFieldError error={ saveErrors } />
+        </div>
       </div>
     </div>
   );

@@ -18,36 +18,39 @@ export function UserForm({ userOptions: { user, error = {}, fetchCommonError }, 
   const formErrors = validateUser( formUser );
 
   const isFormInvalid = Object.keys( saveErrors ).length || Object.keys( formErrors ).length;
+  const isFormChanged = isUserNotEqual( formUser, user );
 
   return (
     <div className={ clsx('UserForm', hasSpinner && 'hasSpinner')}>
       <UserFormTitle
-        userId={ user.id }
+        userId={ formUser.id }
       />
       <FetchCommonError
         error={ fetchCommonError }
       />
-      <UserFormLogin
-        value={ formUser.login }
-        formErrors={ formErrors.login }
-        saveErrors={ saveErrors.login }
-        onChangeLogin={ onChangeLogin }
-      />
-      <UserFormName
-        value={ formUser.name }
-        formErrors={ formErrors.name }
-        saveErrors={ saveErrors.name }
-        onChangeName={ onChangeName }
-      />
-      <UserFormCompany
-        value={ formUser.company }
-        formErrors={ formErrors.company }
-        saveErrors={ saveErrors.company }
-        onChangeCompany={ onChangeCompany }
-      />
+      <div className="UserFormFields">
+        <UserFormLogin
+          value={ formUser.login }
+          formErrors={ formErrors.login }
+          saveErrors={ saveErrors.login }
+          onChangeLogin={ onChangeLogin }
+        />
+        <UserFormName
+          value={ formUser.name }
+          formErrors={ formErrors.name }
+          saveErrors={ saveErrors.name }
+          onChangeName={ onChangeName }
+        />
+        <UserFormCompany
+          value={ formUser.company }
+          formErrors={ formErrors.company }
+          saveErrors={ saveErrors.company }
+          onChangeCompany={ onChangeCompany }
+        />
+      </div>
       <UserFormActions
-        user={ user }
         formUser={ formUser }
+        isFormChanged={ isFormChanged }
         isFormInvalid={ isFormInvalid }
         setHasSpinner={ setHasSpinner }
         onClickSaveUser={ onClickSaveUser }
@@ -55,20 +58,6 @@ export function UserForm({ userOptions: { user, error = {}, fetchCommonError }, 
       />
     </div>
   );
-
-  function UserFormTitle({ userId })
-  {
-    return (
-      <div className="UserFormTitle">
-        { getTitle( userId )}
-      </div>
-    );
-
-    function getTitle( userId )
-    {
-      return userId ? `Edit user: ${ userId }` : 'New user';
-    }
-  }
 
   function onChangeLogin( formLogin )
   {
@@ -116,4 +105,25 @@ export function UserForm({ userOptions: { user, error = {}, fetchCommonError }, 
       ...update,
     });
   }
+}
+
+function UserFormTitle({ userId })
+{
+  return (
+    <div className="UserFormTitle">
+      { getTitle( userId )}
+    </div>
+  );
+
+  function getTitle( userId )
+  {
+    return userId ? `Edit user: ${ userId }` : 'New user';
+  }
+}
+
+function isUserNotEqual( formUser, user )
+{
+  return Object.keys( formUser ).some( key =>
+    formUser[ key ] !== user[ key ]
+  );
 }

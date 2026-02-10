@@ -1,5 +1,13 @@
 .UserFormActions {
-  & .button-disabled {
+  display: flex;
+  gap: 20px;
+  margin-left: 100px;
+
+  & button {
+    cursor: pointer;
+  }
+
+  & .disabled {
     pointer-events: none;
     opacity: 0.3;
   }
