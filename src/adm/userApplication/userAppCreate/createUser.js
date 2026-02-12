@@ -1,8 +1,8 @@
-export async function createUser( user )
+export async function createUser( formUser )
 {
-  console.log(`Starting create: "${ JSON.stringify( user )}"`);
+  console.log(`Starting create: ${ JSON.stringify( formUser )}`);
 
-  const body = JSON.stringify( user );
+  const body = JSON.stringify( formUser );
 
   const headers = new Headers({
     'Content-Type': 'application/json',
@@ -19,12 +19,12 @@ export async function createUser( user )
   );
 
   if (!response.ok) {
-    throw new Error(`Create user finished with status ${ response.status }`);
+    throw new Error(`Create user returned status ${ response.status }`);
   }
 
   const result = await response.json();
 
-  console.log(`Finished create: "${ JSON.stringify( result )}"`);
+  console.log(`Create result: ${ JSON.stringify( result )}`);
 
   return result;
 }

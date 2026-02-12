@@ -1,11 +1,12 @@
+import { clsx } from 'clsx';
 import { FormFieldError } from './FormFieldError.jsx';
 import './UserFormName.css';
 
-export function UserFormName({ value, saveErrors, formErrors, onChangeName })
+export function UserFormName({ value, saveErrors, formErrors, isFieldChanged, onChangeName })
 {
   return (
     <div className="UserFormName">
-      <div className="UserFormFieldName">
+      <div className={ clsx('UserFormFieldName', isFieldChanged && 'isFieldChanged') }>
         Name
       </div>
       <div className="UserFormFieldValue">

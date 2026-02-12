@@ -1,8 +1,8 @@
-export async function updateUser( user )
+export async function updateUser( formUser )
 {
-  console.log(`Starting update: ${ JSON.stringify( user )}`);
+  console.log(`Starting update: ${ JSON.stringify( formUser )}`);
 
-  const body = JSON.stringify( user );
+  const body = JSON.stringify( formUser );
 
   const headers = new Headers({
     'Content-Type': 'application/json',
@@ -10,7 +10,7 @@ export async function updateUser( user )
   });
 
   const response = await fetch(
-    `https://localhost:8082/user/${ user.id }`,
+    `https://localhost:8082/user/${ formUser.id }`,
     {
       method: 'PUT',
       headers,
@@ -19,12 +19,12 @@ export async function updateUser( user )
   );
 
   if (!response.ok) {
-    throw new Error(`Update user finished with status ${ response.status }`);
+    throw new Error(`Update user returned status ${ response.status }`);
   }
 
   const result = await response.json();
 
-  console.log(`Finished update: ${ JSON.stringify( result )}`);
+  console.log(`Update result: ${ JSON.stringify( result )}`);
 
   return result;
 }

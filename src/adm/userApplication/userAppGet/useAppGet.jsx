@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { fetchUser } from './fetchUser.js';
+import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 
 export function useAppGet( setModeUpdate )
 {
+  const apiNotifications = useNotificationsContext();
+
   const [ getOptions, setOptions ] = useState( createInitialGetOptions );
 
   return { getOptions, setUserId, isGetPath };
@@ -35,14 +38,35 @@ export function useAppGet( setModeUpdate )
 
   async function createGetPromise( userId )
   {
-    try {
-      const getResult = await fetchUser( userId );
-      setModeUpdate( getResult );
-    } catch( error ) {
+    const result = await getFormUser( userId );
+
+    if ( result.user )
+    {
+      setModeUpdate({
+        dbUser: result.user,
+        submitUser: result.user,
+      });
+    }
+    else
+    {
       setOptions({
         userId,
-        error,
+        fetchCommonError: result.fetchCommonError,
       });
+    }
+  }
+
+  async function getFormUser( userId )
+  {
+    try {
+      return await fetchUser( userId );
+    }
+    catch (error) {
+      apiNotifications.addError(`Error: ${ error.message }`);
+
+      return {
+        fetchCommonError: error,
+      }
     }
   }
 }

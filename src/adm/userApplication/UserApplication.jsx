@@ -17,7 +17,7 @@ export function UserApplication()
 {
   const { listOptions, setListOptions, isListPath } = useAppList();
   const { getOptions, setUserId, isGetPath } = useAppGet( setModeUpdate );
-  const { createOptions, setCreateOptions, createNewUser, isCreatePath } = useAppCreate();
+  const { createOptions, setCreateOptions, createNewUserOptions, isCreatePath } = useAppCreate();
   const { updateOptions, setUpdateOptions } = useAppUpdate();
   const [ mode, setMode ] = useState( createInitialMode );
 
@@ -69,7 +69,7 @@ export function UserApplication()
 
   function setModeNew()
   {
-    setCreateOptions( createNewUser());
+    setCreateOptions( createNewUserOptions());
 
     setMode( CREATE_MODE );
   }

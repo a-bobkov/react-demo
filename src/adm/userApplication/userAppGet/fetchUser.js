@@ -1,16 +1,16 @@
 export async function fetchUser( userId )
 {
-  console.log(`Starting fetch with userId: "${ userId }"`);
+  console.log(`Starting get: ${ userId }`);
 
   const response = await fetch(`https://localhost:8082/user/${ userId }`);
 
   if (!response.ok) {
-    throw new Error(`Get user ${ userId } finished with status ${ response.status }`);
+    throw new Error(`Get user ${ userId } returned status ${ response.status }`);
   }
 
-  const user = await response.json();
+  const result = await response.json();
 
-  console.log(`Finished fetch user: "${ JSON.stringify( user )}"`);
+  console.log(`Get result: ${ JSON.stringify( result )}`);
 
-  return user;
+  return result;
 }

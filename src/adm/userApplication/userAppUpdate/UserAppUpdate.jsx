@@ -1,8 +1,11 @@
 import { UserForm } from '../form/UserForm.jsx';
 import { updateUser } from './updateUser.js';
+import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 
 export function UserAppUpdate({ updateOptions, setUpdateOptions, setModeList })
 {
+  const apiNotifications = useNotificationsContext();
+
   console.log(`UserAppUpdate updateOptions: ${ JSON.stringify( updateOptions )}`);
 
   return (
@@ -14,16 +17,41 @@ export function UserAppUpdate({ updateOptions, setUpdateOptions, setModeList })
     />
   );
 
-  async function onClickUpdateUser( user )
+  async function onClickUpdateUser( formUser, dbUser )
   {
-    const newUpdateOptions = await updateUser( user );
+    const result = await updateDbUser( formUser );
 
-    if (newUpdateOptions.error) {
-      newUpdateOptions.user = user;
+    if ( result.user )
+    {
+      setUpdateOptions({
+        dbUser: result.user,
+        submitUser: result.user,
+      });
+
+      return true;
     }
 
-    setUpdateOptions( newUpdateOptions );
+    setUpdateOptions({
+      dbUser: dbUser,
+      submitUser: formUser,
+      submitErrors: result.error,
+      fetchCommonError: result.fetchCommonError,
+    });
 
-    return newUpdateOptions;
+    return false;
+  }
+
+  async function updateDbUser( formUser )
+  {
+    try {
+      return await updateUser( formUser );
+    }
+    catch (error) {
+      apiNotifications.addError(`Error: ${ error.message }`);
+
+      return {
+        fetchCommonError: error,
+      }
+    }
   }
 }

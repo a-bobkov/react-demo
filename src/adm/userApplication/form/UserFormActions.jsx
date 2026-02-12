@@ -3,31 +3,28 @@ import { useModalDialogContext } from '../../modalDialog/ModalDialogProvider.jsx
 import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 import './UserFormActions.css';
 
-export function UserFormActions({ formUser, isFormChanged, isFormInvalid, setHasSpinner, onClickSaveUser, setModeList })
+export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSpinner, saveFormUser, setModeList })
 {
   const apiNotifications = useNotificationsContext();
 
   return (
     <div className="UserFormActions">
       <UserFormActionSave
-        formUser={ formUser }
         isFormInvalid={ isFormInvalid }
-        onClickSaveUser={ onClickSaveUser }
       />
       <UserFormActionExit
-        formUser={ formUser }
         isFormChanged={ isFormChanged }
         isFormInvalid={ isFormInvalid }
         setModeList={ setModeList }
       />
       <UserFormActionDelete
-        userId={ formUser.id }
+        userId={ userId }
         setModeList={ setModeList }
       />
     </div>
   );
 
-  function UserFormActionSave({ formUser, isFormInvalid })
+  function UserFormActionSave({ isFormInvalid })
   {
     return (
       <div className="UserFormSave">
@@ -39,30 +36,11 @@ export function UserFormActions({ formUser, isFormChanged, isFormInvalid, setHas
 
     async function onClick()
     {
-      await saveFormUser( formUser );
+      await saveFormUser();
     }
   }
 
-  async function saveFormUser( formUser )
-  {
-    setHasSpinner( true );
-
-    try {
-      return await onClickSaveUser( formUser );
-    }
-    catch (error) {
-      apiNotifications.addError(`Error: ${ error.message }`);
-
-      return {
-        fetchCommonError: error,
-      };
-    }
-    finally {
-      setHasSpinner( false );
-    }
-  }
-
-  function UserFormActionExit({ formUser, isFormChanged, isFormInvalid, setModeList })
+  function UserFormActionExit({ isFormChanged, isFormInvalid, setModeList })
   {
     const apiModalDialog = useModalDialogContext();
 
@@ -76,7 +54,7 @@ export function UserFormActions({ formUser, isFormChanged, isFormInvalid, setHas
 
     async function onClick()
     {
-      const exit = !isFormChanged && !isFormInvalid
+      const exit = !isFormChanged
         || await apiModalDialog.ask(
           'The form data is changed, are you sure to exit?',
           [
@@ -98,9 +76,7 @@ export function UserFormActions({ formUser, isFormChanged, isFormInvalid, setHas
 
     async function onClickModalSave()
     {
-      const { error, fetchCommonError } = await saveFormUser( formUser );
-
-      return !error && !fetchCommonError;
+      return await saveFormUser();
     }
   }
 

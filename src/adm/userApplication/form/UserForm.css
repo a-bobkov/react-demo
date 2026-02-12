@@ -4,9 +4,17 @@
     width: fit-content;
     opacity: 0.3;
   }
+}
 
-  & .UserFormTitle {
-    font-size: 32px;
+.UserFormTitle {
+  font-size: 32px;
+
+  padding-left: 8px;
+  border-left: 1px solid;
+  border-color: transparent;
+
+  &.isFormChanged {
+    border-color: inherit;
   }
 }
 
@@ -20,6 +28,14 @@
     display: inline-block;
     width: 100px;
     vertical-align: top;
+
+    padding-left: 8px;
+    border-left: 1px solid;
+    border-color: transparent;
+
+    &.isFieldChanged {
+      border-color: inherit;
+    }
   }
 
   & .UserFormFieldValue {

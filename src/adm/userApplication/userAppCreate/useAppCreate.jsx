@@ -6,7 +6,7 @@ export function useAppCreate()
 {
   const [ createOptions, setOptions ] = useState( createInitialCreateOptions );
 
-  return { createOptions, setCreateOptions, createNewUser, isCreatePath };
+  return { createOptions, setCreateOptions, createNewUserOptions, isCreatePath };
 
   function setCreateOptions( createOptions )
   {
@@ -20,7 +20,7 @@ export function useAppCreate()
 
 function createInitialCreateOptions()
 {
-  const createOptions = createNewUser();
+  const createOptions = createNewUserOptions();
 
   idCreateOptions( createOptions );
 
@@ -32,14 +32,17 @@ function idCreateOptions( createOptions )
   createOptions.id = createResultNextId++;
 }
 
-function createNewUser()
+function createNewUserOptions()
 {
+  const newUser = {
+    login: '',
+    name: '',
+    company: '',
+  };
+
   return {
-    user: {
-      login: '',
-      name: '',
-      company: '',
-    },
+    dbUser: newUser,
+    submitUser: newUser,
   };
 }
 

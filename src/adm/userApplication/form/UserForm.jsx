@@ -8,22 +8,26 @@ import { validateUser } from './validate/validateUser.js';
 import { UserFormActions } from './UserFormActions.jsx';
 import './UserForm.css';
 
-export function UserForm({ userOptions: { user, error = {}, fetchCommonError }, onClickSaveUser, setModeList })
+export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {}, fetchCommonError }, onClickSaveUser, setModeList })
 {
   const [ hasSpinner, setHasSpinner ] = useState( false );
 
-  const [ formUser, setFormUser ] = useState( user );
-  const [ saveErrors, setSaveErrors ] = useState( error );
-
+  const [ formUser, setFormUser ] = useState( submitUser );
   const formErrors = validateUser( formUser );
 
+  const isFieldChangedDb = compareUsers( formUser, dbUser );
+  const isFormChangedDb = hasChangedField( isFieldChangedDb );
+
+  const isFieldChangedSubmit = compareUsers( formUser, submitUser );
+  const saveErrors = getActiveSubmitErrors( submitErrors, isFieldChangedSubmit );
+
   const isFormInvalid = Object.keys( saveErrors ).length || Object.keys( formErrors ).length;
-  const isFormChanged = isUserNotEqual( formUser, user );
 
   return (
     <div className={ clsx('UserForm', hasSpinner && 'hasSpinner')}>
       <UserFormTitle
-        userId={ formUser.id }
+        userId={ dbUser.id }
+        isFormChanged={ isFormChangedDb }
       />
       <FetchCommonError
         error={ fetchCommonError }
@@ -33,72 +37,62 @@ export function UserForm({ userOptions: { user, error = {}, fetchCommonError }, 
           value={ formUser.login }
           formErrors={ formErrors.login }
           saveErrors={ saveErrors.login }
+          isFieldChanged={ isFieldChangedDb.login }
           onChangeLogin={ onChangeLogin }
         />
         <UserFormName
           value={ formUser.name }
           formErrors={ formErrors.name }
           saveErrors={ saveErrors.name }
+          isFieldChanged={ isFieldChangedDb.name }
           onChangeName={ onChangeName }
         />
         <UserFormCompany
           value={ formUser.company }
           formErrors={ formErrors.company }
           saveErrors={ saveErrors.company }
+          isFieldChanged={ isFieldChangedDb.company }
           onChangeCompany={ onChangeCompany }
         />
       </div>
       <UserFormActions
-        formUser={ formUser }
-        isFormChanged={ isFormChanged }
+        userId={ dbUser.id }
+        isFormChanged={ isFormChangedDb }
         isFormInvalid={ isFormInvalid }
         setHasSpinner={ setHasSpinner }
-        onClickSaveUser={ onClickSaveUser }
+        saveFormUser={ saveFormUser }
         setModeList={ setModeList }
       />
     </div>
   );
 
+  async function saveFormUser()
+  {
+    setHasSpinner( true );
+
+    const result = await onClickSaveUser( formUser, dbUser );
+
+    setHasSpinner( false );
+
+    return result;
+  }
+
   function onChangeLogin( formLogin )
   {
-    const { login: _, ...newSaveErrors } = saveErrors;
-
-    if (formLogin === user.login) {
-      newSaveErrors.login = error.login;
-    }
-
-    setSaveErrors( newSaveErrors );
-
-    updateNewUser({ login: formLogin });
+    updateFormUser({ login: formLogin });
   }
 
   function onChangeName( formName )
   {
-    const { name: _, ...newSaveErrors } = saveErrors;
-
-    if (formName === user.name) {
-      newSaveErrors.name = error.name;
-    }
-
-    setSaveErrors( newSaveErrors );
-
-    updateNewUser({ name: formName });
+    updateFormUser({ name: formName });
   }
 
   function onChangeCompany( formCompany )
   {
-    const { company: _, ...newSaveErrors } = saveErrors;
-
-    if (formCompany === user.company) {
-      newSaveErrors.company = error.company;
-    }
-
-    setSaveErrors( newSaveErrors );
-
-    updateNewUser({ company: formCompany });
+    updateFormUser({ company: formCompany });
   }
 
-  function updateNewUser( update )
+  function updateFormUser( update )
   {
     setFormUser({
       ...formUser,
@@ -107,10 +101,10 @@ export function UserForm({ userOptions: { user, error = {}, fetchCommonError }, 
   }
 }
 
-function UserFormTitle({ userId })
+function UserFormTitle({ userId, isFormChanged })
 {
   return (
-    <div className="UserFormTitle">
+    <div className={ clsx('UserFormTitle', isFormChanged && 'isFormChanged') }>
       { getTitle( userId )}
     </div>
   );
@@ -121,9 +115,26 @@ function UserFormTitle({ userId })
   }
 }
 
-function isUserNotEqual( formUser, user )
+function compareUsers( formUser, dbUser )
 {
-  return Object.keys( formUser ).some( key =>
-    formUser[ key ] !== user[ key ]
+  return Object.keys( formUser ).reduce(( result, key ) =>
+    Object.assign( result, {
+      [key]: formUser[ key ] !== dbUser[ key ]
+    }),
+    {}
+  );
+}
+
+function hasChangedField( isFieldChanged )
+{
+  return Object.values( isFieldChanged ).some( isChanged => isChanged );
+}
+
+function getActiveSubmitErrors( submitErrors, isFieldChanged )
+{
+  return Object.fromEntries(
+    Object.entries( submitErrors ).filter(
+      ([ field ]) => !isFieldChanged[ field ]
+    )
   );
 }

@@ -10,8 +10,8 @@ export function useAppUpdate()
 
   function setUpdateOptions( newUpdateOptions )
   {
-    if ( newUpdateOptions.user.id ) {
-      locationUrlEdit( newUpdateOptions.user.id );
+    if ( newUpdateOptions.dbUser.id ) {
+      locationUrlEdit( newUpdateOptions.dbUser.id );
     }
 
     newUpdateOptions.id = updateOptionsNextId++;

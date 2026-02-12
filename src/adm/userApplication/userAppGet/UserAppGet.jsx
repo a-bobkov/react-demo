@@ -1,20 +1,20 @@
 import { FetchCommonError } from '../FetchCommonError.jsx';
 
-export function UserAppGet({ getOptions: { userId, error }})
+export function UserAppGet({ getOptions: { userId, fetchCommonError }})
 {
   console.log(`UserAppGet userId: ${ JSON.stringify( userId )}`);
-  console.log(`UserAppGet error: ${ JSON.stringify( error )}`);
+  console.log(`UserAppGet fetchCommonError: ${ JSON.stringify( fetchCommonError )}`);
 
-  if (error) {
+  if ( fetchCommonError ) {
     return (
-      <FetchCommonError error={ error } />
+      <FetchCommonError error={ fetchCommonError } />
     );
   }
 
   return (
     <div className="UserAppGet">
       <div>
-        {`Loading user ${userId} ...`}
+        {`Loading user ${ userId } ...`}
       </div>
     </div>
   );

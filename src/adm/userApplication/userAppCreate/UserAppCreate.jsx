@@ -1,8 +1,11 @@
 import { UserForm } from '../form/UserForm.jsx';
 import { createUser } from './createUser.js';
+import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 
 export function UserAppCreate({ createOptions, setCreateOptions, setModeUpdate, setModeList })
 {
+  const apiNotifications = useNotificationsContext();
+
   console.log(`UserAppCreate createOptions: ${ JSON.stringify( createOptions )}`);
 
   return (
@@ -14,20 +17,41 @@ export function UserAppCreate({ createOptions, setCreateOptions, setModeUpdate, 
     />
   );
 
-  async function onClickCreateUser( formUser )
+  async function onClickCreateUser( formUser, dbUser )
   {
-    const newCreateOptions = await createUser( formUser );
+    const result = await createDbUser( formUser );
 
-    if ( newCreateOptions.error ) {
-      newCreateOptions.user = formUser;
+    if ( result.user )
+    {
+      setModeUpdate({
+        dbUser: result.user,
+        submitUser: result.user,
+      });
+
+      return true;
     }
 
-    if ( newCreateOptions.user.id ) {
-      setModeUpdate( newCreateOptions );
-    } else {
-      setCreateOptions( newCreateOptions );
-    }
+    setCreateOptions({
+      dbUser: dbUser,
+      submitUser: formUser,
+      submitErrors: result.error,
+      fetchCommonError: result.fetchCommonError,
+    });
 
-    return newCreateOptions;
+    return false;
+  }
+
+  async function createDbUser( formUser )
+  {
+    try {
+      return await createUser( formUser );
+    }
+    catch (error) {
+      apiNotifications.addError(`Error: ${ error.message }`);
+
+      return {
+        fetchCommonError: error,
+      }
+    }
   }
 }
