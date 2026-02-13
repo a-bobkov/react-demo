@@ -10,6 +10,7 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
   return (
     <div className="UserFormActions">
       <UserFormActionSave
+        isFormChanged={ isFormChanged }
         isFormInvalid={ isFormInvalid }
       />
       <UserFormActionExit
@@ -24,20 +25,27 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
     </div>
   );
 
-  function UserFormActionSave({ isFormInvalid })
+  function UserFormActionSave({ isFormInvalid, isFormChanged })
   {
+    const disableReasons = [
+      isFormInvalid && 'the form is invalid',
+      !isFormChanged && 'the form is not changed',
+    ].filter( Boolean );
+
+    const title = disableReasons.length > 0 && 'Disabled because\n' + disableReasons.join(';\n') + '.';
+
     return (
       <div className="UserFormSave">
-        <button className={ isFormInvalid && 'disabled' } onClick={ onClick }>
+        <button
+          type="button"
+          disabled={ disableReasons.length > 0 }
+          title={ title }
+          onClick={ saveFormUser }
+        >
           Save user
         </button>
       </div>
     );
-
-    async function onClick()
-    {
-      await saveFormUser();
-    }
   }
 
   function UserFormActionExit({ isFormChanged, isFormInvalid, setModeList })
@@ -46,7 +54,7 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
 
     return (
       <div className="UserFormExit">
-        <button onClick={ onClick }>
+        <button type="button" onClick={ onClick }>
           Exit
         </button>
       </div>
@@ -54,14 +62,16 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
 
     async function onClick()
     {
-      const exit = !isFormChanged
+      const isExitAllowed = !isFormChanged
         || await apiModalDialog.ask(
           'The form data is changed, are you sure to exit?',
           [
             {
               label: 'Save & exit',
-              disabled: isFormInvalid,
-              returns: onClickModalSave,
+              disableReasons: [
+                isFormInvalid && 'the form is invalid',
+              ],
+              returns: saveFormUser,
             }, {
               label: 'Cancel',
             }, {
@@ -71,12 +81,7 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
           ]
         );
 
-      if ( exit ) setModeList();
-    }
-
-    async function onClickModalSave()
-    {
-      return await saveFormUser();
+      if ( isExitAllowed ) setModeList();
     }
   }
 

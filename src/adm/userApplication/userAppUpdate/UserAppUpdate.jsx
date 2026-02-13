@@ -28,6 +28,8 @@ export function UserAppUpdate({ updateOptions, setUpdateOptions, setModeList })
         submitUser: result.user,
       });
 
+      apiNotifications.addInfo(`User ${ result.user.id } is successfully saved.`);
+
       return true;
     }
 

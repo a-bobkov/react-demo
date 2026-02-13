@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { clsx } from 'clsx';
 import './ModalDialog.css';
 
@@ -29,24 +30,36 @@ export function ModalDialog({ modalDialog })
 
   function ModalDialogActions({ actions, resolve })
   {
+    const [ isBlocked, setIsBlocked ] = useState( false );
+
     return (
-      <div className="ModalDialogActions">
-        { actions.map(({ label, returns, disabled }) =>
+      <div className={ clsx('ModalDialogActions', isBlocked && 'isBlocked') }>
+        { actions.map(({ label, disableReasons, returns }) =>
           <ModalDialogAction
             label={ label }
+            disableReasons={ disableReasons }
             returns={ returns }
-            disabled={ disabled }
             resolve={ resolve }
+            setIsBlocked={ setIsBlocked }
           />
         )}
       </div>
     );
   }
 
-  function ModalDialogAction({ label, returns, disabled, resolve })
+  function ModalDialogAction({ label, disableReasons = [], returns, resolve, setIsBlocked })
   {
+    const reasons = disableReasons.filter( Boolean );
+
+    const title = reasons.length > 0 && 'Disabled because\n' + reasons.join(';\n') + '.';
+
     return (
-      <button className={ clsx('ModalDialogAction', disabled && 'disabled')} onClick={ onClick }>
+      <button
+        type="button"
+        disabled={ reasons.length > 0 }
+        title={ title }
+        onClick={ onClick }
+      >
         { label }
       </button>
     );
@@ -54,10 +67,21 @@ export function ModalDialog({ modalDialog })
     function onClick()
     {
       const result = typeof returns === 'function'
-        ? returns()
+        ? blockingResult( returns )
         : returns;
 
       resolve( result );
+    }
+
+    async function blockingResult( returns )
+    {
+      setIsBlocked( true );
+
+      const result = await returns();
+
+      setIsBlocked( false );
+
+      return result;
     }
   }
 }

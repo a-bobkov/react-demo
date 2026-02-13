@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { clsx } from 'clsx';
-import { FetchCommonError } from '../FetchCommonError.jsx';
-import { UserFormLogin } from './UserFormLogin.jsx';
-import { UserFormName } from './UserFormName.jsx';
-import { UserFormCompany } from './UserFormCompany.jsx';
 import { validateUser } from './validate/validateUser.js';
+import { UserFormFields } from './UserFormFields.jsx';
 import { UserFormActions } from './UserFormActions.jsx';
+import { FetchCommonError } from '../FetchCommonError.jsx';
 import './UserForm.css';
 
 export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {}, fetchCommonError }, onClickSaveUser, setModeList })
@@ -32,29 +30,13 @@ export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {},
       <FetchCommonError
         error={ fetchCommonError }
       />
-      <div className="UserFormFields">
-        <UserFormLogin
-          value={ formUser.login }
-          formErrors={ formErrors.login }
-          saveErrors={ saveErrors.login }
-          isFieldChanged={ isFieldChangedDb.login }
-          onChangeLogin={ onChangeLogin }
-        />
-        <UserFormName
-          value={ formUser.name }
-          formErrors={ formErrors.name }
-          saveErrors={ saveErrors.name }
-          isFieldChanged={ isFieldChangedDb.name }
-          onChangeName={ onChangeName }
-        />
-        <UserFormCompany
-          value={ formUser.company }
-          formErrors={ formErrors.company }
-          saveErrors={ saveErrors.company }
-          isFieldChanged={ isFieldChangedDb.company }
-          onChangeCompany={ onChangeCompany }
-        />
-      </div>
+      <UserFormFields
+        formUser={ formUser }
+        formErrors={ formErrors }
+        saveErrors={ saveErrors }
+        isFieldChangedDb={ isFieldChangedDb }
+        setFormUser={ setFormUser }
+      />
       <UserFormActions
         userId={ dbUser.id }
         isFormChanged={ isFormChangedDb }
@@ -75,29 +57,6 @@ export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {},
     setHasSpinner( false );
 
     return result;
-  }
-
-  function onChangeLogin( formLogin )
-  {
-    updateFormUser({ login: formLogin });
-  }
-
-  function onChangeName( formName )
-  {
-    updateFormUser({ name: formName });
-  }
-
-  function onChangeCompany( formCompany )
-  {
-    updateFormUser({ company: formCompany });
-  }
-
-  function updateFormUser( update )
-  {
-    setFormUser({
-      ...formUser,
-      ...update,
-    });
   }
 }
 

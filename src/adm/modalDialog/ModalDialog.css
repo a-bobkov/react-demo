@@ -30,14 +30,8 @@
   display: flex;
   justify-content: space-between;
   padding: 8px;
-}
 
-.ModalDialogAction {
-  border: 1px solid;
-  cursor: pointer;
-  padding: 8px;
-
-  &.disabled {
+  &.isBlocked {
     pointer-events: none;
     opacity: 0.3;
   }

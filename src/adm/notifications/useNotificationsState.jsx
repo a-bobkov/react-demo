@@ -15,7 +15,7 @@ export function useNotificationsState()
 
   function addInfo( message )
   {
-    addNotification( message, 'info' );
+    addNotification( message, 'info', 5000 );
   }
 
   function addError( message )
@@ -23,7 +23,7 @@ export function useNotificationsState()
     addNotification( message, 'error' );
   }
 
-  function addNotification( message, type )
+  function addNotification( message, type, ms )
   {
     const newNotification = {
       id: nextId++,
@@ -35,10 +35,21 @@ export function useNotificationsState()
 
     setNotifications( adder );
 
+    autodelete( newNotification.id, ms);
+
     function adder( notifications )
     {
       return [...notifications, newNotification];
     }
+  }
+
+  async function autodelete( notificationId, ms )
+  {
+    if ( !ms ) return;
+
+    await delay( ms );
+
+    removeNotification( notificationId );
   }
 
   function removeNotification( notificationId )
@@ -52,4 +63,9 @@ export function useNotificationsState()
       );
     }
   }
+}
+
+function delay( ms )
+{
+  return new Promise( resolve => setTimeout( resolve, ms ));
 }

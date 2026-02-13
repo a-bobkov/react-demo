@@ -13,3 +13,7 @@ html, body {
 a {
   color: #4285f4;
 }
+
+button:not(:disabled) {
+  cursor: pointer;
+}
