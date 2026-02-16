@@ -74,6 +74,7 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
               returns: saveFormUser,
             }, {
               label: 'Cancel',
+              hotkey: 'Escape',
             }, {
               label: 'Exit',
               returns: true,

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { clsx } from 'clsx';
+import { useKeyDown } from './useKeyDown.js';
 import './ModalDialog.css';
 
 export function ModalDialog({ modalDialog })
@@ -34,10 +35,11 @@ export function ModalDialog({ modalDialog })
 
     return (
       <div className={ clsx('ModalDialogActions', isBlocked && 'isBlocked') }>
-        { actions.map(({ label, disableReasons, returns }) =>
+        { actions.map(({ label, disableReasons, hotkey, returns }) =>
           <ModalDialogAction
             label={ label }
             disableReasons={ disableReasons }
+            hotkey={ hotkey }
             returns={ returns }
             resolve={ resolve }
             setIsBlocked={ setIsBlocked }
@@ -47,8 +49,10 @@ export function ModalDialog({ modalDialog })
     );
   }
 
-  function ModalDialogAction({ label, disableReasons = [], returns, resolve, setIsBlocked })
+  function ModalDialogAction({ label, disableReasons = [], hotkey, returns, resolve, setIsBlocked })
   {
+    useKeyDown( onKeyDown );
+
     const reasons = disableReasons.filter( Boolean );
 
     const title = reasons.length > 0 && 'Disabled because\n' + reasons.join(';\n') + '.';
@@ -63,6 +67,13 @@ export function ModalDialog({ modalDialog })
         { label }
       </button>
     );
+
+    function onKeyDown( event )
+    {
+      if ( event.key === hotkey) {
+        onClick();
+      }
+    }
 
     function onClick()
     {
