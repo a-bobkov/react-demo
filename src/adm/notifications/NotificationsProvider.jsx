@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { useNotificationsState } from './useNotificationsState.jsx';
+import { useNotifications } from './useNotifications.jsx';
 import { Notifications } from './Notifications.jsx';
 
 const NotificationsContext = createContext(null);
@@ -11,7 +11,7 @@ export function useNotificationsContext()
 
 export function NotificationsProvider({ children })
 {
-  const { notifications, apiNotifications, removeNotification } = useNotificationsState();
+  const { notifications, apiNotifications, removeNotification } = useNotifications();
 
   return (
     <>

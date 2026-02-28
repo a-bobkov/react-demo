@@ -64,14 +64,14 @@ function UserFormTitle({ userId, isFormChanged })
 {
   return (
     <div className={ clsx('UserFormTitle', isFormChanged && 'isFormChanged') }>
-      { getTitle( userId )}
+      { getUserFormTitle( userId )}
     </div>
   );
+}
 
-  function getTitle( userId )
-  {
-    return userId ? `Edit user: ${ userId }` : 'New user';
-  }
+function getUserFormTitle( userId )
+{
+  return userId ? `Edit user: ${ userId }` : 'New user';
 }
 
 function compareUsers( formUser, dbUser )
