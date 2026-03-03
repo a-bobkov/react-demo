@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { useRunOnce } from './useRunOnce.js';
+import { useRunOnce } from '../useRunOnce.js';
 
 export function useNotificationsDispatch( initialNotifications )
 {

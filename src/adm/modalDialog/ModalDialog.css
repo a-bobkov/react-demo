@@ -1,11 +1,7 @@
-.ModalDialogOverlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: inherit;
-  opacity: 70%;
+.ModalDialogWrapper {
+  &[inert] {
+    opacity: 30%;
+  }
 }
 
 .ModalDialogWindow {
@@ -20,19 +16,4 @@
   border: 1px solid;
   padding: 8px;
   background-color: inherit;
-}
-
-.ModalDialogMessage {
-  padding: 8px;
-}
-
-.ModalDialogActions {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px;
-
-  &.isBlocked {
-    pointer-events: none;
-    opacity: 0.3;
-  }
 }

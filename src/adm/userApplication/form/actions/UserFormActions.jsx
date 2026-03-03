@@ -1,6 +1,7 @@
-import { deleteUser } from './deleteUser.js';
-import { useModalDialogContext } from '../../modalDialog/ModalDialogProvider.jsx';
-import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
+import { deleteUser } from '../deleteUser.js';
+import { useModalDialogContext } from '../../../modalDialog/ModalDialogProvider.jsx';
+import { useNotificationsContext } from '../../../notifications/NotificationsProvider.jsx';
+import { AllowExitModalDialogContent } from './AllowExitModalDialogContent.jsx';
 import './UserFormActions.css';
 
 export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSpinner, saveFormUser, setModeList })
@@ -62,27 +63,20 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
 
     async function onClick()
     {
-      const isExitAllowed = !isFormChanged
-        || await apiModalDialog.ask(
-          'The form data is changed, are you sure to exit?',
-          [
-            {
-              label: 'Save & exit',
-              disableReasons: [
-                isFormInvalid && 'the form is invalid',
-              ],
-              returns: saveFormUser,
-            }, {
-              label: 'Cancel',
-              hotkey: 'Escape',
-            }, {
-              label: 'Exit',
-              returns: true,
-            },
-          ]
-        );
+      const isExitAllowed = !isFormChanged || await apiModalDialog.ask( IsAllowExit );
 
       if ( isExitAllowed ) setModeList();
+    }
+
+    function IsAllowExit({ resolve })
+    {
+      return (
+        <AllowExitModalDialogContent
+          isFormInvalid={ isFormInvalid }
+          saveFormUser={ saveFormUser }
+          resolve={ resolve }
+        />
+      );
     }
   }
 
