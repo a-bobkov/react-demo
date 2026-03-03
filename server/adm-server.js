@@ -9,8 +9,8 @@ const users = Users.create(initialUsers);
 const parameters = {
   host: 'localhost',
   port: 8082,
-  keyName: 'localhost-key.pem',
-  certName: 'localhost.pem',
+  keyName: 'certificate/localhost-key.pem',
+  certName: 'certificate/localhost.pem',
 };
 
 const httpServer = await http2Server.create(

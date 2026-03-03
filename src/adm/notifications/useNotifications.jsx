@@ -1,6 +1,6 @@
 import { useCreateNotification } from './useCreateNotification.js';
 import { useNotificationsDispatch } from './useNotificationsDispatch.jsx';
-import { useRunOnce } from './useRunOnce.js';
+import { useRunOnce } from '../useRunOnce.js';
 
 export function useNotifications()
 {

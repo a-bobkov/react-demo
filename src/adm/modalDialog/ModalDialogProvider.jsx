@@ -11,14 +11,13 @@ export function useModalDialogContext()
 
 export function ModalDialogProvider({ children })
 {
-  const { modalDialog, apiModalDialog } = useModalDialog();
+  const { modalDialog, modalDialogApi } = useModalDialog();
 
   return (
-    <>
-      <ModalDialogContext value={ apiModalDialog }>
+    <ModalDialogContext value={ modalDialogApi }>
+      <ModalDialog modalDialog={ modalDialog }>
         { children }
-      </ModalDialogContext>
-      <ModalDialog modalDialog={ modalDialog }/>
-    </>
+      </ModalDialog>
+    </ModalDialogContext>
   );
 }
