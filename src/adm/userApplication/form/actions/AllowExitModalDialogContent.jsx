@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { clsx } from 'clsx';
-import { useKeyDown } from '../../../modalDialog/useKeyDown.js';
+import { useHotkey } from './useHotkey.js';
 import './AllowExitModalDialogContent.css';
 
 export function AllowExitModalDialogContent({ isFormInvalid, saveFormUser, resolve })
@@ -24,7 +23,7 @@ function AllowExitModalDialogActions({ isFormInvalid, saveFormUser, resolve })
   const [ isBlocked, setIsBlocked ] = useState( false );
 
   return (
-    <div className={ clsx('AllowExitModalDialogActions', isBlocked && 'isBlocked') }>
+    <div className="AllowExitModalDialogActions" inert={ isBlocked }>
       <ModalDialogButton
         label="Save & exit"
         disableReasons={[
@@ -51,7 +50,7 @@ function AllowExitModalDialogActions({ isFormInvalid, saveFormUser, resolve })
 
 function ModalDialogButton({ label, disableReasons = [], hotkey, returns, resolve, setIsBlocked })
 {
-  useKeyDown( onKeyDown );
+  useHotkey( hotkey, onClick );
 
   const reasons = disableReasons.filter( Boolean );
 
@@ -67,13 +66,6 @@ function ModalDialogButton({ label, disableReasons = [], hotkey, returns, resolv
       { label }
     </button>
   );
-
-  function onKeyDown( event )
-  {
-    if ( event.key === hotkey) {
-      onClick();
-    }
-  }
 
   function onClick()
   {

@@ -1,15 +1,14 @@
-import { clsx } from 'clsx';
 import { UsersList } from './UsersList.jsx';
 import { UsersPagination } from '../pagination/UsersPagination.jsx';
 import './UsersResult.css';
 
 export function UsersResult({ users, isLoading, pagination, onChangePagination, setModeGet })
 {
-  console.log(`UsersResult: "${ JSON.stringify({ users, isLoading, pagination })}"`);
+  console.log(`UsersResult: ${ JSON.stringify({ users, isLoading, pagination })}`);
 
   if ( users ) {
     return (
-      <div className={ clsx('UsersResult', isLoading && 'isLoading')}>
+      <div className="UsersResult" inert={ isLoading }>
         <UsersList
           users={ users }
           setModeGet={ setModeGet }
@@ -31,7 +30,7 @@ export function UsersResult({ users, isLoading, pagination, onChangePagination, 
 function UsersResultLoading()
 {
   return (
-    <div>
+    <div className="UsersResultLoading">
       Loading users...
     </div>
   );

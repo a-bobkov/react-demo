@@ -7,8 +7,7 @@
   justify-content: space-between;
   padding: 8px;
 
-  &.isBlocked {
-    pointer-events: none;
-    opacity: 0.3;
+  &[inert] {
+    opacity: 30%;
   }
 }

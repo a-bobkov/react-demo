@@ -51,7 +51,7 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
 
   function UserFormActionExit({ isFormChanged, isFormInvalid, setModeList })
   {
-    const apiModalDialog = useModalDialogContext();
+    const modalDialogApi = useModalDialogContext();
 
     return (
       <div className="UserFormExit">
@@ -63,7 +63,7 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
 
     async function onClick()
     {
-      const isExitAllowed = !isFormChanged || await apiModalDialog.ask( IsAllowExit );
+      const isExitAllowed = !isFormChanged || await modalDialogApi.ask( IsAllowExit );
 
       if ( isExitAllowed ) setModeList();
     }

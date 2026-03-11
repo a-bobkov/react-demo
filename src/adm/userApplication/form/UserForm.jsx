@@ -22,7 +22,7 @@ export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {},
   const isFormInvalid = Object.keys( saveErrors ).length || Object.keys( formErrors ).length;
 
   return (
-    <div className={ clsx('UserForm', hasSpinner && 'hasSpinner')}>
+    <div className="UserForm" inert={ hasSpinner }>
       <UserFormTitle
         userId={ dbUser.id }
         isFormChanged={ isFormChangedDb }

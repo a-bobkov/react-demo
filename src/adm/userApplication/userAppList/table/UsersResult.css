@@ -1,9 +1,7 @@
 .UsersResult {
-  width: 650px;
+  width: 750px;
 
-  &.isLoading {
-    pointer-events: none;
-    width: fit-content;
-    opacity: 0.3;
+  &[inert] {
+    opacity: 30%;
   }
 }

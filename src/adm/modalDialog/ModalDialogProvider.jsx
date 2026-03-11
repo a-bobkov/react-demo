@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 import { useModalDialog } from './useModalDialog.js';
 import { ModalDialog } from './ModalDialog.jsx';
 
-const ModalDialogContext = createContext(null);
+const ModalDialogContext = createContext( null );
 
 export function useModalDialogContext()
 {
