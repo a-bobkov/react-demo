@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useHotkeySource } from './useHotkeySource.js';
 import { useHotkey } from './useHotkey.js';
 import './AllowExitModalDialogContent.css';
 
@@ -22,6 +23,8 @@ function AllowExitModalDialogActions({ isFormInvalid, saveFormUser, resolve })
 {
   const [ isBlocked, setIsBlocked ] = useState( false );
 
+  const hotkeySource = useHotkeySource( isBlocked );
+
   return (
     <div className="AllowExitModalDialogActions" inert={ isBlocked }>
       <ModalDialogButton
@@ -35,6 +38,7 @@ function AllowExitModalDialogActions({ isFormInvalid, saveFormUser, resolve })
       />
       <ModalDialogButton
         label="Cancel"
+        hotkeySource={ hotkeySource }
         hotkey="Escape"
         returns={ false }
         resolve={ resolve }
@@ -48,9 +52,9 @@ function AllowExitModalDialogActions({ isFormInvalid, saveFormUser, resolve })
   );
 }
 
-function ModalDialogButton({ label, disableReasons = [], hotkey, returns, resolve, setIsBlocked })
+function ModalDialogButton({ label, disableReasons = [], hotkeySource, hotkey, returns, resolve, setIsBlocked })
 {
-  useHotkey( hotkey, onClick );
+  useHotkey( hotkeySource, hotkey, onClick );
 
   const reasons = disableReasons.filter( Boolean );
 

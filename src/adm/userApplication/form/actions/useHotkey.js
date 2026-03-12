@@ -1,35 +1,28 @@
 import { useEffect } from 'react';
 import { useRunOnce } from '../../../useRunOnce.js';
 
-export function useHotkey( hotkey, onHotkey )
+export function useHotkey( hotkeySource, hotkey, onHotkey )
 {
   if ( !hotkey ) return;
 
-  const hotkeySubscriber = useRunOnce( createHotkeySubscriber, { hotkey, onHotkey });
+  const hotkeySubscriber = useRunOnce( createHotkeySubscriber, { hotkeySource, hotkey, onHotkey });
 
   useEffect( hotkeySubscriber, []);
 }
 
-function createHotkeySubscriber({ hotkey, onHotkey })
+function createHotkeySubscriber({ hotkeySource, hotkey, onHotkey })
 {
   return hotkeySubscriber;
 
   function hotkeySubscriber()
   {
-    window.addEventListener('keydown', onKeyDown);
+    hotkeySource.addEventListener( hotkey, onHotkey );
 
     return hotkeyUnsubscriber;
   }
 
   function hotkeyUnsubscriber()
   {
-    window.removeEventListener('keydown', onKeyDown);
-  }
-
-  function onKeyDown( event )
-  {
-    if ( event.key === hotkey ) {
-      onHotkey();
-    }
+    hotkeySource.removeEventListener( hotkey, onHotkey );
   }
 }
