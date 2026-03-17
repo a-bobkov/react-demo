@@ -1,35 +1,33 @@
 import { useState } from 'react';
 
-let createResultNextId = 1;  // to initialize form
-
 export function useAppCreate()
 {
   const [ createOptions, setOptions ] = useState( createInitialCreateOptions );
 
   return { createOptions, setCreateOptions, createNewUserOptions, isCreatePath };
 
-  function setCreateOptions( createOptions )
+  function setCreateOptions( newCreateOptions )
   {
     locationUrlNew();
 
-    idCreateOptions( createOptions );
+    identifyCreateOptions( newCreateOptions );
 
-    setOptions( createOptions );
+    setOptions( newCreateOptions );
   }
 }
 
 function createInitialCreateOptions()
 {
-  const createOptions = createNewUserOptions();
+  const newCreateOptions = createNewUserOptions();
 
-  idCreateOptions( createOptions );
+  identifyCreateOptions( newCreateOptions );
 
-  return createOptions;
+  return newCreateOptions;
 }
 
-function idCreateOptions( createOptions )
+function identifyCreateOptions( options )
 {
-  createOptions.id = createResultNextId++;
+  options.id = String( Date.now());  // to initialize state of form after submit
 }
 
 function createNewUserOptions()
@@ -62,4 +60,3 @@ function locationUrlNew()
     window.history.replaceState(null, null, newUrl );
   }
 }
-

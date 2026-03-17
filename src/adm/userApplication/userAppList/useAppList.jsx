@@ -8,35 +8,6 @@ export function useAppList()
 
   return { listOptions, setListOptions, isListPath };
 
-  function setListOptions( options )
-  {
-    locationUrlList( options );
-
-    setOptions( loadingUsers( options ) );
-  }
-
-  function loadingUsers( options )
-  {
-    options.isLoading = true;
-
-    loadUsers( options );
-
-    return options;
-  }
-
-  async function loadUsers( options )
-  {
-    const newOptions = {
-      ...options,
-      users: await fetchUsers( options ),
-      isLoading: false,
-    };
-
-    if ( newOptions.users ) {
-      setOptions( newOptions );
-    }
-  }
-
   function createInitialListOptions()
   {
     const defaultOptions = {
@@ -56,7 +27,38 @@ export function useAppList()
       pagination: Object.assign( defaultOptions.pagination, loadedOptions.pagination ),
     };
 
-    return loadingUsers( options );
+    return isListPath()
+      ? loadingUsers( options )
+      : options;
+  }
+
+  function setListOptions( options )
+  {
+    locationUrlList( options );
+
+    setOptions( loadingUsers( options ));
+  }
+
+  function loadingUsers( options )
+  {
+    options.isLoading = true;
+
+    const promise = loadUsers( options );
+
+    return options;
+  }
+
+  async function loadUsers( options )
+  {
+    const newOptions = {
+      ...options,
+      users: await fetchUsers( options ),
+      isLoading: false,
+    };
+
+    if ( newOptions.users ) {   // fetch was not aborted
+      setOptions( newOptions );
+    }
   }
 }
 

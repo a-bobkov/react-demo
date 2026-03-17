@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-let updateOptionsNextId = 1;  // to initialize form
-
 export function useAppUpdate()
 {
   const [ updateOptions, setOptions ] = useState();
@@ -14,10 +12,15 @@ export function useAppUpdate()
       locationUrlEdit( newUpdateOptions.dbUser.id );
     }
 
-    newUpdateOptions.id = updateOptionsNextId++;
+    identifyUpdateOptions( newUpdateOptions );
 
     setOptions( newUpdateOptions );
   }
+}
+
+function identifyUpdateOptions( options )
+{
+  options.id = String( Date.now());  // to initialize state of form after submit
 }
 
 function locationUrlEdit( userId )

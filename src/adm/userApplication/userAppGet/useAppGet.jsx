@@ -14,7 +14,7 @@ export function useAppGet( setModeUpdate )
   {
     locationUrlGet( userId );
 
-    const getPromise = createGetPromise( userId );
+    const promise = createGetPromise( userId );
 
     setOptions({
       userId,
@@ -23,13 +23,11 @@ export function useAppGet( setModeUpdate )
 
   function createInitialGetOptions()
   {
-    const pathname = window.location.pathname;
-
-    const [, userId] = pathname.match(/^\/user\/edit\/(\d+)$/) ?? [];
+    const userId = getPathId();
 
     if ( userId == null) return;
 
-    const getPromise = createGetPromise( userId );
+    const promise = createGetPromise( userId );
 
     return {
       userId: parseInt( userId ),
@@ -73,9 +71,16 @@ export function useAppGet( setModeUpdate )
 
 function isGetPath()
 {
+  return getPathId() != null;
+}
+
+function getPathId()
+{
   const pathname = window.location.pathname;
 
-  return Boolean( pathname.match(/^\/user\/edit\/(\d+)$/));
+  const [, userId] = pathname.match(/^\/user\/edit\/(\d+)$/) ?? [];
+
+  return userId;
 }
 
 function locationUrlGet( userId )

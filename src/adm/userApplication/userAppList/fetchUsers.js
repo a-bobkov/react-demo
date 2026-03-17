@@ -1,6 +1,6 @@
 let ac;
 
-export async function fetchUsers(options )
+export async function fetchUsers( options )
 {
   console.log(`Starting fetch with options: "${ JSON.stringify( options )}"`);
 
@@ -48,7 +48,7 @@ async function abortableFetch( options, signal )
 
   const users = await response.json();
 
-  console.log(`Finished fetch: "${ JSON.stringify(users) }"`);
+  console.log(`Finished fetch: "${ JSON.stringify( users )}"`);
 
   return users;
 }
