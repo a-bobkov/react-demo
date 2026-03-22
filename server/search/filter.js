@@ -22,8 +22,16 @@ function applyFilter(data, filter)
     throw newErrorBadRequest(`Search with non-object filter: ${ filter }`);
   }
 
+  if ( filter.field == null ) {
+    throw newErrorBadRequest(`Search filter with empty field name: ${ filter.field }`);
+  }
+
   if (filter.operator === 'includes') {
     return applyFilterIncludes(data, filter.field, filter.value);
+  }
+
+  if ( filter.operator === 'equal' ) {
+    return applyFilterEqual( data, filter.field, filter.value );
   }
 
   throw newErrorBadRequest(`Search with unknown filter operator: ${ JSON.stringify(filter.operator) }`);
@@ -31,10 +39,6 @@ function applyFilter(data, filter)
 
 function applyFilterIncludes(data, fieldName, value)
 {
-  if (fieldName == null) {
-    throw newErrorBadRequest(`Search filter with empty field name: ${ fieldName }`);
-  }
-
   if (value == null) {
     throw newErrorBadRequest(`Search filter with empty value: ${ value }`);
   }
@@ -43,5 +47,16 @@ function applyFilterIncludes(data, fieldName, value)
 
   return data.filter((item) =>
     String(item[fieldName]).toLowerCase().includes(lowerCasedValue)
+  );
+}
+
+function applyFilterEqual( data, fieldName, value )
+{
+  if ( value == null ) {
+    throw newErrorBadRequest(`Search filter with empty value: ${ value }`);
+  }
+
+  return data.filter( item =>
+    item[ fieldName ] === value
   );
 }

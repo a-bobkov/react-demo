@@ -1,5 +1,5 @@
 .UsersResult {
-  width: 750px;
+  width: 850px;
 
   &[inert] {
     opacity: 30%;

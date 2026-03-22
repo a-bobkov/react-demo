@@ -19,6 +19,7 @@ const httpServer = await http2Server.create(
 );
 
 console.log(`curl -i https://${ parameters.host}:${ parameters.port }/users -d'{"filters":[{"field":"login","operator":"includes","value":"mail"}]}'`);
+console.log(`curl -i https://${ parameters.host}:${ parameters.port }/users -d'{"filters":[{"field":"active","operator":"equal","value":false}]}'`);
 console.log(`curl -i https://${ parameters.host}:${ parameters.port }/users -d'{"sortings":[{"field":"login","order":"asc"}]}'`);
 console.log(`curl -i https://${ parameters.host}:${ parameters.port }/users -d'{"pagination":{"limit":5,"offset":3}}'`);
 console.log(`curl -i https://${ parameters.host}:${ parameters.port }/user/1`);

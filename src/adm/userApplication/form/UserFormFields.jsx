@@ -1,6 +1,7 @@
 import { UserFormLogin } from './fields/UserFormLogin.jsx';
 import { UserFormName } from './fields/UserFormName.jsx';
 import { UserFormCompany } from './fields/UserFormCompany.jsx';
+import { UserFormActive } from './fields/UserFormActive.jsx';
 import './UserFormFields.css';
 
 export function UserFormFields({ formUser, formErrors, saveErrors, isFieldChangedDb, setFormUser })
@@ -28,6 +29,13 @@ export function UserFormFields({ formUser, formErrors, saveErrors, isFieldChange
         isFieldChanged={ isFieldChangedDb.company }
         onChangeCompany={ onChangeCompany }
       />
+      <UserFormActive
+        value={ formUser.active }
+        formErrors={ formErrors.active }
+        saveErrors={ saveErrors.active }
+        isFieldChanged={ isFieldChangedDb.active }
+        onChangeActive={ onChangeActive }
+      />
     </div>
   );
 
@@ -44,6 +52,11 @@ export function UserFormFields({ formUser, formErrors, saveErrors, isFieldChange
   function onChangeCompany( formCompany )
   {
     updateFormUser({ company: formCompany });
+  }
+
+  function onChangeActive( formActive )
+  {
+    updateFormUser({ active: formActive });
   }
 
   function updateFormUser( update )

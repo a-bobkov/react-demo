@@ -36,6 +36,7 @@ function createNewUserOptions()
     login: '',
     name: '',
     company: '',
+    active: false,
   };
 
   return {

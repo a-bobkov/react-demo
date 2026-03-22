@@ -4,7 +4,12 @@ export function UsersList({ users, setModeGet })
 {
   return (
     <div className="UsersList">
-      { users.list.map( user => <UsersLine user={ user } setModeGet={ setModeGet }/>)}
+      { users.list.map( user =>
+        <UsersLine
+          user={ user }
+          setModeGet={ setModeGet }
+        />
+      )}
     </div>
   );
 }
@@ -17,6 +22,7 @@ function UsersLine({ user, setModeGet })
       <UsersLineLogin userLogin={ user.login } />
       <UsersLineName userName={ user.name } />
       <UsersLineCompany userCompany={ user.company } />
+      <UsersLineActive userActive={ user.active }/>
       <UsersLineActions userId={ user.id } setModeGet={ setModeGet }/>
     </div>
   );
@@ -54,6 +60,15 @@ function UsersLineCompany({ userCompany })
   return (
     <div className="UsersLineCompany">
       { userCompany }
+    </div>
+  );
+}
+
+function UsersLineActive({ userActive })
+{
+  return (
+    <div className="UsersLineActive">
+      { String( userActive )}
     </div>
   );
 }

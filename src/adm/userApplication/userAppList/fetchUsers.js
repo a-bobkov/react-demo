@@ -82,6 +82,14 @@ function getRequestFilters( filter )
     });
   }
 
+  if ( filter.active !== undefined ) {
+    requestFilters.push({
+      field: 'active',
+      operator: 'equal',
+      value: filter.active,
+    });
+  }
+
   return requestFilters;
 }
 

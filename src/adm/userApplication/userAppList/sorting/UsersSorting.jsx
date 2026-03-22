@@ -3,7 +3,7 @@ import './UsersSorting.css';
 
 export function UsersSorting({ sorting = {}, onChangeSorting })
 {
-  const { id, login, name, company } = sorting;
+  const { id, login, name, company, active } = sorting;
 
   return (
     <div className="UsersSorting">
@@ -26,6 +26,11 @@ export function UsersSorting({ sorting = {}, onChangeSorting })
         name="company"
         fieldSorting={{company: company}}
         onChangeSorting={onChangeSorting}
+      />
+      <UsersSortingField
+        name="active"
+        fieldSorting={{ active: active }}
+        onChangeSorting={ onChangeSorting }
       />
     </div>
   );
