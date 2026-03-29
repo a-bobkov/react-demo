@@ -54,6 +54,8 @@ export function UserAppList({ listOptions, setListOptions, setModeGet, setModeNe
       sorting,
     };
 
+    newOptions.pagination.count = 1;
+
     setListOptions( newOptions );
   }
 
