@@ -4,12 +4,10 @@ export function useAppCreate()
 {
   const [ createOptions, setOptions ] = useState( createInitialCreateOptions );
 
-  return { createOptions, setCreateOptions, createNewUserOptions, isCreatePath };
+  return { createOptions, setCreateOptions, isCreatePath, createNewUserOptions };
 
   function setCreateOptions( newCreateOptions )
   {
-    locationUrlNew();
-
     identifyCreateOptions( newCreateOptions );
 
     setOptions( newCreateOptions );

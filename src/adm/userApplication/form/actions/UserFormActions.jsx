@@ -65,7 +65,9 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
     {
       const isExitAllowed = !isFormChanged || await modalDialogApi.ask( IsAllowExit );
 
-      if ( isExitAllowed ) setModeList();
+      if ( isExitAllowed ) {
+        window.history.back();
+      }
     }
 
     function IsAllowExit({ resolve })
@@ -99,7 +101,7 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
 
         apiNotifications.addInfo(`User ${ userId } is successfully deleted.`);
 
-        setModeList();
+        window.history.back();
       }
       catch (error) {
         apiNotifications.addError(`Error: ${ error.message }`);

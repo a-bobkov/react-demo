@@ -7,6 +7,7 @@ import { useAppCreate } from './userAppCreate/useAppCreate.jsx';
 import { UserAppCreate } from './userAppCreate/UserAppCreate.jsx';
 import { useAppUpdate } from './userAppUpdate/useAppUpdate.jsx';
 import { UserAppUpdate } from './userAppUpdate/UserAppUpdate.jsx';
+import { usePopstate } from './usePopstate.js';
 
 const LIST_MODE = 'list';
 const GET_MODE = 'get';
@@ -15,11 +16,13 @@ const UPDATE_MODE = 'update';
 
 export function UserApplication()
 {
-  const { listOptions, setListOptions, isListPath } = useAppList();
-  const { getOptions, setUserId, isGetPath } = useAppGet( setModeUpdate );
-  const { createOptions, setCreateOptions, createNewUserOptions, isCreatePath } = useAppCreate();
+  const { listOptions, setListOptions, isListPath, createListOptions } = useAppList();
+  const { getOptions, setUserId, isGetPath, createUserId } = useAppGet( setModeUpdate );
+  const { createOptions, setCreateOptions, isCreatePath, createNewUserOptions } = useAppCreate();
   const { updateOptions, setUpdateOptions } = useAppUpdate();
   const [ mode, setMode ] = useState( createInitialMode );
+
+  usePopstate( onPopstate );
 
   if ( mode === LIST_MODE ) {
     return <UserAppList
@@ -41,7 +44,6 @@ export function UserApplication()
       createOptions={ createOptions }
       setCreateOptions={ setCreateOptions }
       setModeUpdate={ setModeUpdate }
-      setModeList={ setModeList }
     />;
   }
 
@@ -49,29 +51,21 @@ export function UserApplication()
     return <UserAppUpdate
       updateOptions={ updateOptions }
       setUpdateOptions={ setUpdateOptions }
-      setModeList={ setModeList }
     />;
-  }
-
-  function setModeList()
-  {
-    setListOptions({ ...listOptions });
-
-    setMode( LIST_MODE );
   }
 
   function setModeGet( userId )
   {
-    setUserId( userId );
+    window.history.pushState(null, null, `/user/edit/${ userId }`);
 
-    setMode( GET_MODE );
+    dispatchUserGet();
   }
 
   function setModeNew()
   {
-    setCreateOptions( createNewUserOptions());
+    window.history.pushState(null, null, '/user/new')
 
-    setMode( CREATE_MODE );
+    dispatchUserCreate();
   }
 
   function setModeUpdate( updateOptions )
@@ -93,6 +87,47 @@ export function UserApplication()
 
     if ( isCreatePath()) {
       return CREATE_MODE;
+    }
+  }
+
+  function onPopstate( event )
+  {
+    console.log(`onPopstate event: `, event );
+
+    dispatchUserList();
+    dispatchUserGet();
+    dispatchUserCreate();
+  }
+
+  function dispatchUserList()
+  {
+    if ( isListPath() )
+    {
+      setListOptions( createListOptions() );
+
+      setMode( LIST_MODE );
+    }
+  }
+
+  function dispatchUserGet()
+  {
+    const userId = createUserId();
+
+    if ( userId != null )
+    {
+      setUserId( userId );
+
+      setMode( GET_MODE );
+    }
+  }
+
+  function dispatchUserCreate()
+  {
+    if ( isCreatePath() )
+    {
+      setCreateOptions( createNewUserOptions());
+
+      setMode( CREATE_MODE );
     }
   }
 }

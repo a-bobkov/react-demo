@@ -8,7 +8,7 @@ export function useAppGet( setModeUpdate )
 
   const [ getOptions, setOptions ] = useState( createInitialGetOptions );
 
-  return { getOptions, setUserId, isGetPath };
+  return { getOptions, setUserId, isGetPath, createUserId };
 
   function setUserId( userId )
   {
@@ -23,7 +23,7 @@ export function useAppGet( setModeUpdate )
 
   function createInitialGetOptions()
   {
-    const userId = getPathId();
+    const userId = createUserId();
 
     if ( userId == null) return;
 
@@ -71,10 +71,10 @@ export function useAppGet( setModeUpdate )
 
 function isGetPath()
 {
-  return getPathId() != null;
+  return createUserId() != null;
 }
 
-function getPathId()
+function createUserId()
 {
   const pathname = window.location.pathname;
 

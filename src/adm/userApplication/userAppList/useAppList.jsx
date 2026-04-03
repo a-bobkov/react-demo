@@ -4,12 +4,16 @@ import { loadUsersOptions, saveUsersOptions } from './usersSearchParams.js';
 
 export function useAppList()
 {
-  const [ listOptions, setOptions ] = useState( createInitialListOptions );
+  const [ listOptions, setOptions ] = useState( createListOptions );
 
-  return { listOptions, setListOptions, isListPath };
+  return { listOptions, setListOptions, isListPath, createListOptions };
 
-  function createInitialListOptions()
+  function createListOptions()
   {
+    if ( !isListPath() ) {
+      return;
+    }
+
     const defaultOptions = {
       filter: {},
       sorting: {},
@@ -27,9 +31,7 @@ export function useAppList()
       pagination: Object.assign( defaultOptions.pagination, loadedOptions.pagination ),
     };
 
-    return isListPath()
-      ? loadingUsers( options )
-      : options;
+    return loadingUsers( options );
   }
 
   function setListOptions( options )
