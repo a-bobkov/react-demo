@@ -13,9 +13,7 @@ export function UserAppGet({ getOptions: { userId, fetchCommonError }})
 
   return (
     <div className="UserAppGet">
-      <div>
-        {`Loading user ${ userId } ...`}
-      </div>
+      {`Loading user ${ userId } ...`}
     </div>
   );
 }

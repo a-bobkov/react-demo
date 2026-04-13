@@ -2,7 +2,7 @@ import { UserForm } from '../form/UserForm.jsx';
 import { updateUser } from './updateUser.js';
 import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 
-export function UserAppUpdate({ updateOptions, setUpdateOptions, setModeList })
+export function UserAppUpdate({ updateOptions, setUpdateOptions })
 {
   const apiNotifications = useNotificationsContext();
 
@@ -13,7 +13,6 @@ export function UserAppUpdate({ updateOptions, setUpdateOptions, setModeList })
       key={ updateOptions.id }
       userOptions={ updateOptions }
       onClickSaveUser={ onClickUpdateUser }
-      setModeList={ setModeList }
     />
   );
 

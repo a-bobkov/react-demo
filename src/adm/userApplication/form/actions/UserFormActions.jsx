@@ -1,12 +1,14 @@
 import { deleteUser } from '../deleteUser.js';
 import { useModalDialogContext } from '../../../modalDialog/ModalDialogProvider.jsx';
+import { useUserLocationContext } from '../../userLocation/UserLocationProvider.jsx';
 import { useNotificationsContext } from '../../../notifications/NotificationsProvider.jsx';
 import { AllowExitModalDialogContent } from './AllowExitModalDialogContent.jsx';
 import './UserFormActions.css';
 
-export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSpinner, saveFormUser, setModeList })
+export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSpinner, saveFormUser })
 {
   const apiNotifications = useNotificationsContext();
+  const userLocationApi = useUserLocationContext();
 
   return (
     <div className="UserFormActions">
@@ -17,11 +19,9 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
       <UserFormActionExit
         isFormChanged={ isFormChanged }
         isFormInvalid={ isFormInvalid }
-        setModeList={ setModeList }
       />
       <UserFormActionDelete
         userId={ userId }
-        setModeList={ setModeList }
       />
     </div>
   );
@@ -49,7 +49,7 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
     );
   }
 
-  function UserFormActionExit({ isFormChanged, isFormInvalid, setModeList })
+  function UserFormActionExit({ isFormChanged, isFormInvalid })
   {
     const modalDialogApi = useModalDialogContext();
 
@@ -66,7 +66,7 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
       const isExitAllowed = !isFormChanged || await modalDialogApi.ask( IsAllowExit );
 
       if ( isExitAllowed ) {
-        window.history.back();
+        goExit();
       }
     }
 
@@ -101,13 +101,22 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
 
         apiNotifications.addInfo(`User ${ userId } is successfully deleted.`);
 
-        window.history.back();
+        goExit();
       }
       catch (error) {
         apiNotifications.addError(`Error: ${ error.message }`);
       }
 
       setHasSpinner( false );
+    }
+  }
+
+  function goExit()
+  {
+    if ( window.history.length > 1 ) {
+      window.history.back();
+    } else {
+      userLocationApi.goUserList();
     }
   }
 }

@@ -1,18 +1,25 @@
 import { useState } from 'react';
 import { fetchUsers } from './fetchUsers.js';
+import { UserAppList } from './UserAppList.jsx';
+import { useUserLocationContext } from '../userLocation/UserLocationProvider.jsx';
 import { loadUsersOptions, saveUsersOptions } from './usersSearchParams.js';
 
-export function useAppList()
+export function UserAppListPage()
 {
+  const userLocationApi = useUserLocationContext();
+
   const [ listOptions, setOptions ] = useState( createListOptions );
 
-  return { listOptions, setListOptions, isListPath, createListOptions };
+  return <UserAppList
+    listOptions={ listOptions }
+    setListOptions={ setListOptions }
+  />;
 
   function createListOptions()
   {
-    if ( !isListPath() ) {
-      return;
-    }
+    if ( !isListPath() ) return;
+
+    const loadedOptions = loadUsersOptions();
 
     const defaultOptions = {
       filter: {},
@@ -23,20 +30,20 @@ export function useAppList()
       },
     };
 
-    const loadedOptions = loadUsersOptions();
-
     const options = {
       filter: Object.assign( defaultOptions.filter, loadedOptions.filter ),
       sorting: Object.assign( defaultOptions.sorting, loadedOptions.sorting ),
       pagination: Object.assign( defaultOptions.pagination, loadedOptions.pagination ),
     };
 
+    saveUsersOptions( options );
+
     return loadingUsers( options );
   }
 
   function setListOptions( options )
   {
-    locationUrlList( options );
+    saveUsersOptions( options );
 
     setOptions( loadingUsers( options ));
   }
@@ -62,18 +69,9 @@ export function useAppList()
       setOptions( newOptions );
     }
   }
-}
 
-function isListPath()
-{
-  const pathname = window.location.pathname;
-
-  return pathname === '/user/list';
-}
-
-function locationUrlList( options )
-{
-  window.history.replaceState(null, null, '/user/list' );
-
-  saveUsersOptions( options );
+  function isListPath()
+  {
+    return userLocationApi.isUserListPath();
+  }
 }

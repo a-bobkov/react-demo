@@ -2,7 +2,7 @@ import { UserForm } from '../form/UserForm.jsx';
 import { createUser } from './createUser.js';
 import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 
-export function UserAppCreate({ createOptions, setCreateOptions, setModeUpdate, setModeList })
+export function UserAppCreate({ createOptions, setCreateOptions, setUpdateOptions })
 {
   const apiNotifications = useNotificationsContext();
 
@@ -13,7 +13,6 @@ export function UserAppCreate({ createOptions, setCreateOptions, setModeUpdate, 
       key={ createOptions.id }
       userOptions={ createOptions }
       onClickSaveUser={ onClickCreateUser }
-      setModeList={ setModeList }
     />
   );
 
@@ -23,7 +22,7 @@ export function UserAppCreate({ createOptions, setCreateOptions, setModeUpdate, 
 
     if ( result.user )
     {
-      setModeUpdate({
+      setUpdateOptions({
         dbUser: result.user,
         submitUser: result.user,
       });

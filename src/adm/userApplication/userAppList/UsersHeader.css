@@ -8,8 +8,11 @@
   max-width: 800px;
 }
 
-.UserNew {
-  padding: 8px;
+.CreateUserButton {
   border: 1px solid;
-  cursor: pointer;
+}
+
+.CreateUserButtonLink {
+  display: inline-block;
+  padding: 8px;
 }

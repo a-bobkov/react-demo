@@ -1,133 +1,51 @@
 import { useState } from 'react';
-import { useAppList } from './userAppList/useAppList.jsx';
-import { UserAppList } from './userAppList/UserAppList.jsx';
-import { useAppGet } from './userAppGet/useAppGet.jsx';
-import { UserAppGet } from './userAppGet/UserAppGet.jsx';
-import { useAppCreate } from './userAppCreate/useAppCreate.jsx';
-import { UserAppCreate } from './userAppCreate/UserAppCreate.jsx';
-import { useAppUpdate } from './userAppUpdate/useAppUpdate.jsx';
-import { UserAppUpdate } from './userAppUpdate/UserAppUpdate.jsx';
 import { usePopstate } from './usePopstate.js';
+import { useUserLocationContext } from './userLocation/UserLocationProvider.jsx';
+import { UserAppListPage } from './userAppList/UserAppListPage.jsx';
+import { UserAppGetPage } from './userAppGet/UserAppGetPage.jsx';
+import { UserAppCreatePage } from './userAppCreate/UserAppCreatePage.jsx';
 
-const LIST_MODE = 'list';
-const GET_MODE = 'get';
-const CREATE_MODE = 'create';
-const UPDATE_MODE = 'update';
+const LIST_MODE = 'LIST_MODE';
+const GET_MODE = 'GET_MODE';
+const CREATE_MODE = 'CREATE_MODE';
 
 export function UserApplication()
 {
-  const { listOptions, setListOptions, isListPath, createListOptions } = useAppList();
-  const { getOptions, setUserId, isGetPath, createUserId } = useAppGet( setModeUpdate );
-  const { createOptions, setCreateOptions, isCreatePath, createNewUserOptions } = useAppCreate();
-  const { updateOptions, setUpdateOptions } = useAppUpdate();
-  const [ mode, setMode ] = useState( createInitialMode );
+  const userLocationApi = useUserLocationContext();
 
-  usePopstate( onPopstate );
+  const [ mode, setMode ] = useState( getUserLocationMode );
 
-  if ( mode === LIST_MODE ) {
-    return <UserAppList
-      listOptions={ listOptions }
-      setListOptions={ setListOptions }
-      setModeGet={ setModeGet }
-      setModeNew={ setModeNew }
-    />;
-  }
+  usePopstate( dispatchUserPath );
 
-  if ( mode === GET_MODE ) {
-    return <UserAppGet
-      getOptions={ getOptions }
-    />;
-  }
-
-  if ( mode === CREATE_MODE ) {
-    return <UserAppCreate
-      createOptions={ createOptions }
-      setCreateOptions={ setCreateOptions }
-      setModeUpdate={ setModeUpdate }
-    />;
-  }
-
-  if ( mode === UPDATE_MODE ) {
-    return <UserAppUpdate
-      updateOptions={ updateOptions }
-      setUpdateOptions={ setUpdateOptions }
-    />;
-  }
-
-  function setModeGet( userId )
+  switch ( mode )
   {
-    window.history.pushState(null, null, `/user/edit/${ userId }`);
+    case LIST_MODE:
+      return <UserAppListPage />;
 
-    dispatchUserGet();
+    case GET_MODE:
+      return <UserAppGetPage />;
+
+    case CREATE_MODE:
+      return <UserAppCreatePage />;
   }
 
-  function setModeNew()
+  function getUserLocationMode()
   {
-    window.history.pushState(null, null, '/user/new')
-
-    dispatchUserCreate();
-  }
-
-  function setModeUpdate( updateOptions )
-  {
-    setUpdateOptions( updateOptions );
-
-    setMode( UPDATE_MODE );
-  }
-
-  function createInitialMode()
-  {
-    if ( isListPath()) {
+    if ( userLocationApi.isUserListPath()) {
       return LIST_MODE;
     }
 
-    if ( isGetPath()) {
+    if ( userLocationApi.isUserGetPath()) {
       return GET_MODE;
     }
 
-    if ( isCreatePath()) {
+    if ( userLocationApi.isUserCreatePath()) {
       return CREATE_MODE;
     }
   }
 
-  function onPopstate( event )
+  function dispatchUserPath()
   {
-    console.log(`onPopstate event: `, event );
-
-    dispatchUserList();
-    dispatchUserGet();
-    dispatchUserCreate();
-  }
-
-  function dispatchUserList()
-  {
-    if ( isListPath() )
-    {
-      setListOptions( createListOptions() );
-
-      setMode( LIST_MODE );
-    }
-  }
-
-  function dispatchUserGet()
-  {
-    const userId = createUserId();
-
-    if ( userId != null )
-    {
-      setUserId( userId );
-
-      setMode( GET_MODE );
-    }
-  }
-
-  function dispatchUserCreate()
-  {
-    if ( isCreatePath() )
-    {
-      setCreateOptions( createNewUserOptions());
-
-      setMode( CREATE_MODE );
-    }
+    setMode( getUserLocationMode() );
   }
 }

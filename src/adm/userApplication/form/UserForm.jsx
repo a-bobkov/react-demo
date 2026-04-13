@@ -6,7 +6,7 @@ import { UserFormActions } from './actions/UserFormActions.jsx';
 import { FetchCommonError } from '../FetchCommonError.jsx';
 import './UserForm.css';
 
-export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {}, fetchCommonError }, onClickSaveUser, setModeList })
+export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {}, fetchCommonError }, onClickSaveUser })
 {
   const [ hasSpinner, setHasSpinner ] = useState( false );
 
@@ -43,7 +43,6 @@ export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {},
         isFormInvalid={ isFormInvalid }
         setHasSpinner={ setHasSpinner }
         saveFormUser={ saveFormUser }
-        setModeList={ setModeList }
       />
     </div>
   );

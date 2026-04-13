@@ -8,12 +8,12 @@
   display: grid;
   grid-template-columns: var(--user-app-grid-columns);
   align-items: center;
-
-  div {
-    padding: 4px;
-  }
+  padding: 4px;
 }
 
 .UsersLineActionEdit {
-  cursor: pointer;
+}
+
+.UsersLineActionEditLink {
+  display: inline-block;
 }

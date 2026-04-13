@@ -2,7 +2,7 @@ import { UsersList } from './UsersList.jsx';
 import { UsersPagination } from '../pagination/UsersPagination.jsx';
 import './UsersResult.css';
 
-export function UsersResult({ users, isLoading, pagination, onChangePagination, setModeGet })
+export function UsersResult({ users, isLoading, pagination, onChangePagination })
 {
   console.log(`UsersResult: ${ JSON.stringify({ users, isLoading, pagination })}`);
 
@@ -11,7 +11,6 @@ export function UsersResult({ users, isLoading, pagination, onChangePagination, 
       <div className="UsersResult" inert={ isLoading }>
         <UsersList
           users={ users }
-          setModeGet={ setModeGet }
         />
         <UsersPagination
           total={ users.count }

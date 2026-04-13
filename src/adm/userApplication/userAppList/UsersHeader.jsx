@@ -1,13 +1,12 @@
+import { useUserLocationContext } from '../userLocation/UserLocationProvider.jsx';
 import './UsersHeader.css';
 
-export function UsersHeader({ setModeNew })
+export function UsersHeader()
 {
   return (
     <div className="UsersHeader">
       <UsersTitle />
-      <UserNew
-        setModeNew={ setModeNew }
-      />
+      <CreateUserButton />
     </div>
   );
 }
@@ -21,11 +20,26 @@ function UsersTitle()
   );
 }
 
-function UserNew({ setModeNew })
+function CreateUserButton()
 {
+  const userLocationApi = useUserLocationContext();
+
+  const userCreatePath = userLocationApi.getUserCreatePath();
+
   return (
-    <div className="UserNew" onClick={ setModeNew }>
-      New user
+    <div className="CreateUserButton">
+      <a className="CreateUserButtonLink" href={ userCreatePath } onClick={ onClick }>
+        New user
+      </a>
     </div>
   );
+
+  function onClick( event )
+  {
+    if ( event.ctrlKey || event.metaKey || event.button === 1 ) return;
+
+    event.preventDefault();
+
+    userLocationApi.goUserCreate();
+  }
 }

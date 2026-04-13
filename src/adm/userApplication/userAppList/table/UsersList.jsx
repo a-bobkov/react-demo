@@ -1,20 +1,20 @@
 import './UsersList.css';
+import {useUserLocationContext} from '../../userLocation/UserLocationProvider.jsx';
 
-export function UsersList({ users, setModeGet })
+export function UsersList({ users })
 {
   return (
     <div className="UsersList">
       { users.list.map( user =>
         <UsersLine
           user={ user }
-          setModeGet={ setModeGet }
         />
       )}
     </div>
   );
 }
 
-function UsersLine({ user, setModeGet })
+function UsersLine({ user })
 {
   return (
     <div key={ user.id } className="UsersLine">
@@ -23,7 +23,7 @@ function UsersLine({ user, setModeGet })
       <UsersLineName userName={ user.name } />
       <UsersLineCompany userCompany={ user.company } />
       <UsersLineActive userActive={ user.active }/>
-      <UsersLineActions userId={ user.id } setModeGet={ setModeGet }/>
+      <UsersLineActions userId={ user.id } />
     </div>
   );
 }
@@ -73,25 +73,35 @@ function UsersLineActive({ userActive })
   );
 }
 
-function UsersLineActions({ userId, setModeGet })
+function UsersLineActions({ userId })
 {
   return (
     <div className="UsersLineActions">
-      <UsersLineActionEdit userId={ userId } setModeGet={ setModeGet }/>
+      <UsersLineActionEdit userId={ userId } />
     </div>
   );
 }
 
-function UsersLineActionEdit({ userId, setModeGet })
+function UsersLineActionEdit({ userId })
 {
+  const userLocationApi = useUserLocationContext();
+
+  const userEditPath = userLocationApi.getUserGetPath( userId );
+
   return (
-    <div className="UsersLineActionEdit" onClick={ onClick }>
-      Edit user
+    <div className="UsersLineActionEdit">
+      <a className="UsersLineActionEditLink" href={ userEditPath } onClick={ onClick }>
+        Edit user
+      </a>
     </div>
   );
 
-  function onClick()
+  function onClick( event )
   {
-    setModeGet( userId )
+    if ( event.ctrlKey || event.metaKey || event.button === 1 ) return;
+
+    event.preventDefault();
+
+    userLocationApi.goUserGet( userId );
   }
 }

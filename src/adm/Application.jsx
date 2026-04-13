@@ -1,3 +1,4 @@
+import { UserLocationProvider } from './userApplication/userLocation/UserLocationProvider.jsx';
 import { UserApplication } from './userApplication/UserApplication.jsx';
 
 export function Application()
@@ -8,8 +9,14 @@ export function Application()
     return null;
   }
 
-  if (pathname.startsWith('/user')) {
-    return <UserApplication />;
+  const userPrefix = '/user';
+
+  if ( pathname.startsWith( userPrefix )) {
+    return (
+      <UserLocationProvider prefix={ userPrefix }>
+        <UserApplication />
+      </UserLocationProvider>
+    );
   }
 
   return '404';
