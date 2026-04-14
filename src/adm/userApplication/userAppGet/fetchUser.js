@@ -1,11 +1,12 @@
-export async function fetchUser( userId )
+export async function fetchUser( userId, lingo )
 {
-  console.log(`Starting get: ${ userId }`);
-
   const response = await fetch(`https://localhost:8082/user/${ userId }`);
 
   if (!response.ok) {
-    throw new Error(`Get user ${ userId } returned status ${ response.status }`);
+    throw new Error( lingo({
+      en: `Get user ${ userId } returned status: ${ response.status }`,
+      de: `Abrufen den Benutzer ${ userId } gab den Status zurück: ${ response.status }`,
+    }));
   }
 
   const result = await response.json();

@@ -1,5 +1,6 @@
 import { UsersList } from './UsersList.jsx';
 import { UsersPagination } from '../pagination/UsersPagination.jsx';
+import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import './UsersResult.css';
 
 export function UsersResult({ users, isLoading, pagination, onChangePagination })
@@ -28,9 +29,14 @@ export function UsersResult({ users, isLoading, pagination, onChangePagination }
 
 function UsersResultLoading()
 {
+  const { lingo } = useLingo();
+
   return (
     <div className="UsersResultLoading">
-      Loading users...
+      { lingo({
+        en: 'Loading users...',
+        de: 'Benutzer werden geladen...',
+      })}
     </div>
   );
 }

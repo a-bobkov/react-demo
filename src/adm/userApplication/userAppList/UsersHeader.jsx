@@ -1,4 +1,5 @@
 import { useUserLocationContext } from '../userLocation/UserLocationProvider.jsx';
+import { useLingo } from '../../lingo/LingoProvider.jsx';
 import './UsersHeader.css';
 
 export function UsersHeader()
@@ -13,15 +14,22 @@ export function UsersHeader()
 
 function UsersTitle()
 {
+  const { lingo } = useLingo();
+
   return (
     <div className="UsersTitle">
-      Users
+      { lingo({
+        en: `Users`,
+        de: `Die Benutzer`,
+      })}
     </div>
   );
 }
 
 function CreateUserButton()
 {
+  const { lingo } = useLingo();
+
   const userLocationApi = useUserLocationContext();
 
   const userCreatePath = userLocationApi.getUserCreatePath();
@@ -29,7 +37,10 @@ function CreateUserButton()
   return (
     <div className="CreateUserButton">
       <a className="CreateUserButtonLink" href={ userCreatePath } onClick={ onClick }>
-        New user
+        { lingo({
+          en: `New user`,
+          de: `Neu Benutzer`,
+        })}
       </a>
     </div>
   );

@@ -1,7 +1,14 @@
+import { useLingo } from '../../../lingo/LingoProvider.jsx';
+
 export function validateUserLogin( userLogin )
 {
+  const { lingo } = useLingo();
+
   if (!isUserLoginValidEmailAddress( userLogin )) {
-    return 'User login should be a valid email address';
+    return lingo({
+      en: 'User login should be a valid email address',
+      de: 'Das Login muss eine gültige E-Mail-Adresse sein',
+    });
   }
 }
 

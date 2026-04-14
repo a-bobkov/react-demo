@@ -4,12 +4,15 @@ import { useUserLocationContext } from '../userLocation/UserLocationProvider.jsx
 import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 import { UserAppGet } from './UserAppGet.jsx';
 import { UserAppUpdate } from '../userAppUpdate/UserAppUpdate.jsx';
+import { useLingo } from '../../lingo/LingoProvider.jsx';
 
 export function UserAppGetPage()
 {
   const userLocationApi = useUserLocationContext();
 
   const apiNotifications = useNotificationsContext();
+
+  const { lingo } = useLingo();
 
   const [ getOptions, setGetOptions ] = useState( createInitialGetOptions );
 
@@ -67,7 +70,7 @@ export function UserAppGetPage()
   async function getFormUser( userId )
   {
     try {
-      return await fetchUser( userId );
+      return await fetchUser( userId, lingo );
     }
     catch (error) {
       apiNotifications.addError(`Error: ${ error.message }`);

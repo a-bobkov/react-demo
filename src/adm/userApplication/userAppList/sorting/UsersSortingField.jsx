@@ -9,7 +9,7 @@ export function UsersSortingField({ name, fieldSorting, onChangeSorting })
          onClick={onClickSorting}
     >
       <span>
-        {name}
+        { name }
       </span>
       <span>
         {getSortingChar(sortingValue)}

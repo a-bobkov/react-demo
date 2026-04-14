@@ -1,14 +1,20 @@
 import { useState } from 'react';
-import { useHotkeySource } from './useHotkeySource.js';
+import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import { useHotkey } from './useHotkey.js';
+import { useHotkeySource } from './useHotkeySource.js';
 import './AllowExitModalDialogContent.css';
 
 export function AllowExitModalDialogContent({ isFormInvalid, saveFormUser, resolve })
 {
+  const { lingo } = useLingo();
+
   return (
     <div className="AllowExitModalDialogContent">
       <div className="AllowExitModalDialogMessage">
-        The form data is changed, are you sure to exit?
+        { lingo({
+          en: 'The form data is changed, are you sure to exit?',
+          de: 'Die Formulardaten wurden geändert.\nMöchten Sie das Formular wirklich verlassen?',
+        })}
       </div>
       <AllowExitModalDialogActions
         isFormInvalid={ isFormInvalid }
@@ -21,30 +27,44 @@ export function AllowExitModalDialogContent({ isFormInvalid, saveFormUser, resol
 
 function AllowExitModalDialogActions({ isFormInvalid, saveFormUser, resolve })
 {
+  const { lingo } = useLingo();
+
   const [ isBlocked, setIsBlocked ] = useState( false );
 
   const hotkeySource = useHotkeySource( isBlocked );
 
   return (
     <div className="AllowExitModalDialogActions" inert={ isBlocked }>
-      <ModalDialogButton
-        label="Save & exit"
+      <AllowExitModalDialogButton
+        label={ lingo({
+          en: 'Save & exit',
+          de: 'Speichern\nund verlassen',
+        })}
         disableReasons={[
-          isFormInvalid && 'the form is invalid',
+          isFormInvalid && lingo({
+            en: 'the form is invalid',
+            de: 'das Formular ungültig ist',
+          }),
         ]}
         returns={ saveFormUser }
         setIsBlocked={ setIsBlocked }
         resolve={ resolve }
       />
-      <ModalDialogButton
-        label="Cancel"
+      <AllowExitModalDialogButton
+        label={ lingo({
+          en: 'Cancel',
+          de: 'Absagen',
+        })}
         hotkeySource={ hotkeySource }
         hotkey="Escape"
         returns={ false }
         resolve={ resolve }
       />
-      <ModalDialogButton
-        label="Exit"
+      <AllowExitModalDialogButton
+        label={ lingo({
+          en: 'Exit',
+          de: 'Verlassen',
+        })}
         returns={ true }
         resolve={ resolve }
       />
@@ -52,16 +72,21 @@ function AllowExitModalDialogActions({ isFormInvalid, saveFormUser, resolve })
   );
 }
 
-function ModalDialogButton({ label, disableReasons = [], hotkeySource, hotkey, returns, resolve, setIsBlocked })
+function AllowExitModalDialogButton({ label, disableReasons = [], hotkeySource, hotkey, returns, resolve, setIsBlocked })
 {
+  const { lingo } = useLingo();
+
   useHotkey( hotkeySource, hotkey, onClick );
 
   const reasons = disableReasons.filter( Boolean );
 
-  const title = reasons.length > 0 && 'Disabled because\n' + reasons.join(';\n') + '.';
+  const title = reasons.length > 0 && lingo({
+    en: 'Disabled because\n' + reasons.join(';\n') + '.',
+    de: 'Deaktiviert, da\n' + reasons.join(';\n') + '.',
+  });
 
   return (
-    <button
+    <button className="AllowExitModalDialogButton"
       type="button"
       title={ title }
       disabled={ reasons.length > 0 }

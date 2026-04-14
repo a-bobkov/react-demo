@@ -1,7 +1,14 @@
+import { useLingo } from '../../../lingo/LingoProvider.jsx';
+
 export function validateUserCompany( userCompany )
 {
+  const { lingo } = useLingo();
+
   if (!isUserCompanyFilled( userCompany )) {
-    return 'User company should not be empty';
+    return lingo({
+      en: 'User company should not be empty',
+      de: 'Das Benutzerunternehmen darf nicht leer sein',
+    });
   }
 }
 

@@ -1,20 +1,27 @@
 import { useState } from 'react';
+import { useLingo } from '../../../lingo/LingoProvider.jsx';
 
 export function UsersFilterMail({ filter, onChangeFilter })
 {
-  console.log(`UsersMailFilter: "${ filter }"`)
+  const [ text, setText ] = useState( filter );
 
-  const [text, setText] = useState( filter );
+  const { lingo } = useLingo();
 
   return (
     <div>
       <div>
-        Mail
+        { lingo({
+          en: 'Email',
+          de: 'E-Mail',
+        })}
       </div>
       <input
-        placeholder="mail contains"
-        value={text}
-        onChange={onChange}
+        placeholder={ lingo({
+          en: 'email contains',
+          de: 'E-Mail enthält',
+        })}
+        value={ text }
+        onChange={ onChange }
       />
     </div>
   );

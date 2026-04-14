@@ -1,17 +1,26 @@
 import { clsx } from 'clsx';
 import { FormFieldError } from './FormFieldError.jsx';
+import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import './UserFormName.css';
 
 export function UserFormName({ value, saveErrors, formErrors, isFieldChanged, onChangeName })
 {
+  const { lingo } = useLingo();
+
   return (
     <div className="UserFormName">
       <div className={ clsx('UserFormFieldName', isFieldChanged && 'isFieldChanged') }>
-        Name
+        { lingo({
+          en: 'Name',
+          de: 'Name',
+        })}
       </div>
       <div className="UserFormFieldValue">
         <input
-          placeholder="name"
+          placeholder={ lingo({
+            en: 'name',
+            de: 'Name',
+          })}
           value={ value }
           onChange={ onChange }
         />

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function useHotkeySource(isBlocked )
+export function useHotkeySource( isBlocked )
 {
   const [ eventTarget ] = useState( createEventTarget );
 

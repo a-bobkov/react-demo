@@ -4,6 +4,7 @@ import { validateUser } from './validate/validateUser.js';
 import { UserFormFields } from './UserFormFields.jsx';
 import { UserFormActions } from './actions/UserFormActions.jsx';
 import { FetchCommonError } from '../FetchCommonError.jsx';
+import { useLingo } from '../../lingo/LingoProvider.jsx';
 import './UserForm.css';
 
 export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {}, fetchCommonError }, onClickSaveUser })
@@ -70,7 +71,17 @@ function UserFormTitle({ userId, isFormChanged })
 
 function getUserFormTitle( userId )
 {
-  return userId ? `Edit user: ${ userId }` : 'New user';
+  const { lingo } = useLingo();
+
+  return userId
+    ? lingo({
+      en: `Edit user: ${ userId }`,
+      de: `Benutzer bearbeiten: ${ userId }`,
+    })
+    : lingo({
+      en: 'New user',
+      de: 'Neu Benutzer',
+    })
 }
 
 function compareUsers( formUser, dbUser )

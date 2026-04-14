@@ -1,4 +1,4 @@
-export async function updateUser( formUser )
+export async function updateUser( formUser, lingo )
 {
   console.log(`Starting update: ${ JSON.stringify( formUser )}`);
 
@@ -19,7 +19,10 @@ export async function updateUser( formUser )
   );
 
   if (!response.ok) {
-    throw new Error(`Update user returned status ${ response.status }`);
+    throw new Error( lingo({
+      en: `Update user ${ formUser.id } returned status: ${ response.status }`,
+      de: `Aktualisieren den Benutzer ${ formUser.id } gab den Status zurück: ${ response.status }`,
+    }));
   }
 
   const result = await response.json();

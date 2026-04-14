@@ -1,23 +1,42 @@
 import { useState } from 'react';
+import { useLingo } from '../../../lingo/LingoProvider.jsx';
 
 export function UsersFilterActive({ filter, onChangeFilterActive })
 {
-  console.log(`UsersFilterActive: ${ filter }`)
-
   const [ value, setValue ] = useState( initialValue );
+
+  const { lingo } = useLingo();
 
   return (
     <div>
       <div>
-        Active
+        { lingo({
+          en: 'Active',
+          de: 'Tätig',
+        })}
       </div>
       <select
         value={ value }
         onChange={ onChange }
       >
-        <option value="">all</option>
-        <option value="true">active</option>
-        <option value="false">inactive</option>
+        <option value="">
+          { lingo({
+            en: 'all',
+            de: 'alle',
+          })}
+        </option>
+        <option value="true">
+          { lingo({
+            en: 'active',
+            de: 'tätig',
+          })}
+        </option>
+        <option value="false">
+          { lingo({
+            en: 'inactive',
+            de: 'untätig',
+          })}
+        </option>
       </select>
     </div>
   );

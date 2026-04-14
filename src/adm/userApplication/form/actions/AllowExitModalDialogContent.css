@@ -1,5 +1,6 @@
 .AllowExitModalDialogMessage {
   padding: 8px;
+  white-space: break-spaces;
 }
 
 .AllowExitModalDialogActions {
@@ -10,4 +11,8 @@
   &[inert] {
     opacity: 30%;
   }
+}
+
+.AllowExitModalDialogButton {
+  white-space: break-spaces;
 }

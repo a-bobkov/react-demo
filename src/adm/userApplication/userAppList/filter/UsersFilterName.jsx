@@ -1,20 +1,27 @@
 import { useState } from 'react';
+import { useLingo } from '../../../lingo/LingoProvider.jsx';
 
 export function UsersFilterName({ filter, onChangeFilter })
 {
-  console.log(`UsersNameFilter: "${ filter }"`)
+  const [ text, setText ] = useState( filter );
 
-  const [text, setText] = useState( filter );
+  const { lingo } = useLingo();
 
   return (
     <div>
       <div>
-        Name
+        { lingo({
+          en: 'Name',
+          de: 'Name',
+        })}
       </div>
       <input
-        placeholder="name contains"
-        value={text}
-        onChange={onChange}
+        placeholder={ lingo({
+          en: 'name contains',
+          de: 'Name enthält',
+        })}
+        value={ text }
+        onChange={ onChange }
       />
     </div>
   );

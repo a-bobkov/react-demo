@@ -1,7 +1,5 @@
-export async function deleteUser( userId )
+export async function deleteUser( userId, lingo )
 {
-  console.log(`Starting delete: ${ userId }`);
-
   const response = await fetch(
     `https://localhost:8082/user/${ userId }`,
     {
@@ -10,7 +8,10 @@ export async function deleteUser( userId )
   );
 
   if (!response.ok) {
-    throw new Error(`Delete user ${ userId } returned status ${ response.status }`);
+    throw new Error( lingo({
+      en: `Delete user ${ userId } returned status: ${ response.status }`,
+      de: `Löschen den Benutzer ${ userId } gab den Status zurück: ${ response.status }`,
+    }));
   }
 
   console.log(`Delete result: ${ JSON.stringify( response.status )}`);

@@ -1,10 +1,13 @@
 import { UserForm } from '../form/UserForm.jsx';
 import { createUser } from './createUser.js';
 import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
+import { useLingo } from '../../lingo/LingoProvider.jsx';
 
 export function UserAppCreate({ createOptions, setCreateOptions, setUpdateOptions })
 {
   const apiNotifications = useNotificationsContext();
+
+  const { lingo } = useLingo();
 
   console.log(`UserAppCreate createOptions: ${ JSON.stringify( createOptions )}`);
 
@@ -45,7 +48,7 @@ export function UserAppCreate({ createOptions, setCreateOptions, setUpdateOption
   async function createDbUser( formUser )
   {
     try {
-      return await createUser( formUser );
+      return await createUser( formUser, lingo );
     }
     catch (error) {
       apiNotifications.addError(`Error: ${ error.message }`);

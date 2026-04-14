@@ -1,5 +1,6 @@
+import { useUserLocationContext } from '../../userLocation/UserLocationProvider.jsx';
+import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import './UsersList.css';
-import {useUserLocationContext} from '../../userLocation/UserLocationProvider.jsx';
 
 export function UsersList({ users })
 {
@@ -66,9 +67,20 @@ function UsersLineCompany({ userCompany })
 
 function UsersLineActive({ userActive })
 {
+  const { lingo } = useLingo();
+
   return (
     <div className="UsersLineActive">
-      { String( userActive )}
+      { userActive
+        ? lingo({
+          en: 'true',
+          de: 'Wahr',
+        })
+        : lingo({
+          en: 'false',
+          de: 'Falsch',
+        })
+      }
     </div>
   );
 }
@@ -84,6 +96,8 @@ function UsersLineActions({ userId })
 
 function UsersLineActionEdit({ userId })
 {
+  const { lingo } = useLingo();
+
   const userLocationApi = useUserLocationContext();
 
   const userEditPath = userLocationApi.getUserGetPath( userId );
@@ -91,7 +105,12 @@ function UsersLineActionEdit({ userId })
   return (
     <div className="UsersLineActionEdit">
       <a className="UsersLineActionEditLink" href={ userEditPath } onClick={ onClick }>
-        Edit user
+        {
+          lingo({
+            en: 'Edit',
+            de: `Bearbeiten`,
+          })
+        }
       </a>
     </div>
   );
