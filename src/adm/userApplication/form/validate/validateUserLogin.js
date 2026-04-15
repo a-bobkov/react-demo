@@ -7,7 +7,7 @@ export function validateUserLogin( userLogin )
   if (!isUserLoginValidEmailAddress( userLogin )) {
     return lingo({
       en: 'User login should be a valid email address',
-      de: 'Das Login muss eine gültige E-Mail-Adresse sein',
+      de: 'Das Benutzerlogin muss eine gültige E-Mail-Adresse sein',
     });
   }
 }

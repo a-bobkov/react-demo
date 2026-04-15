@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
-import { FormFieldError } from './FormFieldError.jsx';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
+import { UserFieldErrors } from './UserFieldErrors.jsx';
 import './UserFormCompany.css';
 
 export function UserFormCompany({ value, saveErrors, formErrors, isFieldChanged, onChangeCompany })
@@ -24,12 +24,10 @@ export function UserFormCompany({ value, saveErrors, formErrors, isFieldChanged,
           value={ value }
           onChange={ onChange }
         />
-        <div className="UserFormErrors">
-          <FormFieldError error={ formErrors } />
-        </div>
-        <div className="UserSaveErrors">
-          <FormFieldError error={ saveErrors } />
-        </div>
+        <UserFieldErrors
+          formError={ formErrors }
+          saveError={ saveErrors }
+        />
       </div>
     </div>
   );

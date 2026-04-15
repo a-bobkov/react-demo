@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
-import { FormFieldError } from './FormFieldError.jsx';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
+import { UserFieldErrors } from './UserFieldErrors.jsx';
 import './UserFormCompany.css';
 
 export function UserFormActive({ value, saveErrors, formErrors, isFieldChanged, onChangeActive })
@@ -12,7 +12,7 @@ export function UserFormActive({ value, saveErrors, formErrors, isFieldChanged, 
       <div className={ clsx('UserFormFieldName', isFieldChanged && 'isFieldChanged') }>
         { lingo({
           en: 'Active',
-          de: 'Aktiv',
+          de: 'Tätig',
         })}
       </div>
       <div className="UserFormFieldValue">
@@ -21,12 +21,10 @@ export function UserFormActive({ value, saveErrors, formErrors, isFieldChanged, 
           checked={ value }
           onChange={ onChange }
         />
-        <div className="UserFormErrors">
-          <FormFieldError error={ formErrors } />
-        </div>
-        <div className="UserSaveErrors">
-          <FormFieldError error={ saveErrors } />
-        </div>
+        <UserFieldErrors
+          formError={ formErrors }
+          saveError={ saveErrors }
+        />
       </div>
     </div>
   );

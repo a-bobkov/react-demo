@@ -43,10 +43,12 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
       }),
     ].filter( Boolean );
 
-    const title = disableReasons.length > 0 && lingo({
-      en: 'Disabled because\n' + disableReasons.join(';\n') + '.',
-      de: 'Deaktiviert, da\n' + disableReasons.join(';\n') + '.',
-    });
+    const title = disableReasons.length > 0
+      ? lingo({
+        en: 'Disabled because\n' + disableReasons.join(';\n') + '.',
+        de: 'Deaktiviert, da\n' + disableReasons.join(';\n') + '.',
+      })
+      : undefined;
 
     return (
       <button className="UserFormAction"

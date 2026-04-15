@@ -21,8 +21,8 @@ function AppHeaderTitle()
   return (
     <div className="AppHeaderTitle">
       { lingo({
-        en: `Admin panel - test React 19`,
-        de: `Admin-Panel – React 19 testen`,
+        en: 'Admin panel - test React 19',
+        de: 'Admin-Panel – React 19 testen',
       })}
     </div>
   );

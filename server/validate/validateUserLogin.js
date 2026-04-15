@@ -1,19 +1,37 @@
 export function validateUserLogin( userLogin, userId, storedUsers )
 {
-  if (!isUserLoginString( userLogin )) {
-    return [ userLogin, 'User login should be a string' ];
+  if (!isUserLoginString( userLogin ))
+  {
+    return [ userLogin,
+      {
+        en: 'User login should be a string',
+        de: 'Das Benutzerlogin sollte ein Zeichenkettenwert sein',
+      },
+    ];
   }
 
   userLogin = userLogin.trim();
 
-  if (!isUserLoginValidEmailAddress( userLogin )) {
-    return [ userLogin, 'User login should be a valid email address'];
+  if (!isUserLoginValidEmailAddress( userLogin ))
+  {
+    return [ userLogin,
+      {
+        en: 'User login should be a valid email address',
+        de: 'Das Benutzerlogin muss eine gültige E-Mail-Adresse sein',
+      },
+    ];
   }
 
   userLogin = userLogin.toLowerCase();
 
-  if (!isUserLoginUnique( userLogin, userId, storedUsers )) {
-    return [ userLogin, 'User login should be unique'];
+  if (!isUserLoginUnique( userLogin, userId, storedUsers ))
+  {
+    return [ userLogin,
+      {
+        en: 'User login should be unique',
+        de: 'Das Benutzerlogin muss einzigartig sein',
+      },
+    ];
   }
 
   return [ userLogin ];

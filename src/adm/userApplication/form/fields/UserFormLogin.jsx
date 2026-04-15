@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
-import { FormFieldError } from './FormFieldError.jsx';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
+import { UserFieldErrors } from './UserFieldErrors.jsx';
 import './UserFormLogin.css';
 
 export function UserFormLogin({ value, saveErrors, formErrors, isFieldChanged, onChangeLogin })
@@ -24,12 +24,10 @@ export function UserFormLogin({ value, saveErrors, formErrors, isFieldChanged, o
           value={ value }
           onChange={ onChange }
         />
-        <div className="UserFormErrors">
-          <FormFieldError error={ formErrors } />
-        </div>
-        <div className="UserSaveErrors">
-          <FormFieldError error={ saveErrors } />
-        </div>
+        <UserFieldErrors
+          formError={ formErrors }
+          saveError={ saveErrors }
+        />
       </div>
     </div>
   );

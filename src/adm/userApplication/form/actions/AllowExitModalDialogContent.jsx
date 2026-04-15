@@ -80,10 +80,12 @@ function AllowExitModalDialogButton({ label, disableReasons = [], hotkeySource, 
 
   const reasons = disableReasons.filter( Boolean );
 
-  const title = reasons.length > 0 && lingo({
-    en: 'Disabled because\n' + reasons.join(';\n') + '.',
-    de: 'Deaktiviert, da\n' + reasons.join(';\n') + '.',
-  });
+  const title = reasons.length > 0
+    ? lingo({
+      en: 'Disabled because\n' + reasons.join(';\n') + '.',
+      de: 'Deaktiviert, da\n' + reasons.join(';\n') + '.',
+    })
+    : undefined;
 
   return (
     <button className="AllowExitModalDialogButton"

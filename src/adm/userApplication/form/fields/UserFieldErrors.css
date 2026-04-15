@@ -1,0 +1,9 @@
+.UserFieldFormError {
+  margin: 6px 0;
+  color: orangered;
+}
+
+.UserFieldSaveError {
+  margin: 6px 0;
+  color: darkred;
+}

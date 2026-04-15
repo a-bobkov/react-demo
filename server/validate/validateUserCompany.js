@@ -2,14 +2,26 @@ export function validateUserCompany( userCompany )
 {
   userCompany = userCompany ?? '';
 
-  if (!isUserCompanyString( userCompany )) {
-    return [ userCompany, 'User company should be a string' ];
+  if (!isUserCompanyString( userCompany ))
+  {
+    return [ userCompany,
+      {
+        en: 'User company should be a string value',
+        de: 'Das Benutzerunternehmen sollte ein Zeichenkettenwert sein',
+      },
+    ];
   }
 
   userCompany = userCompany.trim();
 
-  if (!isUserCompanyFilled( userCompany )) {
-    return [ userCompany, 'User company should not be empty' ];
+  if (!isUserCompanyFilled( userCompany ))
+  {
+    return [ userCompany,
+      {
+        en: 'User company should not be empty',
+        de: 'Das Benutzerunternehmen sollte nicht leer sein',
+      },
+   ];
   }
 
   return [ userCompany ];

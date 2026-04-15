@@ -1,7 +1,13 @@
 export function validateUserActive( userActive )
 {
-  if (!isUserActiveBoolean( userActive )) {
-    return [ userActive, 'User active should be a boolean' ];
+  if (!isUserActiveBoolean( userActive ))
+  {
+    return [ userActive,
+      {
+        en: 'User active should be a boolean value',
+        de: 'Benutzer tätig sollte ein boolescher Wert sein',
+      },
+    ];
   }
 
   return [ userActive ];
