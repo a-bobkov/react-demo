@@ -31,6 +31,10 @@ export function UserApplication()
 
   function getUserLocationMode()
   {
+    if ( userLocationApi.isUserRootPath()) {
+      userLocationApi.setUserListPath();
+    }
+
     if ( userLocationApi.isUserListPath()) {
       return LIST_MODE;
     }

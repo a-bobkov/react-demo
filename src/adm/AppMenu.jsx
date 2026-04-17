@@ -15,7 +15,7 @@ export function AppMenu()
           })}
         </div>
         <div className="MenuItem">
-          <a href="/user/list">
+          <a href="/user">
             { lingo({
               en: `Users`,
               de: `Benutzer`,

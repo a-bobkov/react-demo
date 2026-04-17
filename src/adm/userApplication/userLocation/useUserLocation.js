@@ -10,7 +10,10 @@ export function useUserLocation( prefix )
 function createUserLocationApi({ prefix })
 {
   return {
+    isUserRootPath: isUserRootPath,
+
     isUserListPath: isUserListPath,
+    setUserListPath: setUserListPath,
     goUserList: goUserList,
 
     getUserCreatePath: getUserCreatePath,
@@ -24,6 +27,11 @@ function createUserLocationApi({ prefix })
     goUserGet: goUserGet,
   };
 
+  function isUserRootPath()
+  {
+    return window.location.pathname === prefix;
+  }
+
   function getUserListPath()
   {
     return `${ prefix }/list`;
@@ -32,6 +40,11 @@ function createUserLocationApi({ prefix })
   function isUserListPath()
   {
     return window.location.pathname === getUserListPath();
+  }
+
+  function setUserListPath()
+  {
+    window.history.replaceState(null, null, getUserListPath());
   }
 
   function goUserList()
