@@ -1,4 +1,5 @@
 import { UserFormLogin } from './fields/UserFormLogin.jsx';
+import { UserFormSalutation } from './fields/UserFormSalutation.jsx';
 import { UserFormName } from './fields/UserFormName.jsx';
 import { UserFormCompany } from './fields/UserFormCompany.jsx';
 import { UserFormActive } from './fields/UserFormActive.jsx';
@@ -14,6 +15,13 @@ export function UserFormFields({ formUser, formErrors, saveErrors, isFieldChange
         saveErrors={ saveErrors.login }
         isFieldChanged={ isFieldChangedDb.login }
         onChangeLogin={ onChangeLogin }
+      />
+      <UserFormSalutation
+        value={ formUser.salutation }
+        formErrors={ formErrors.salutation }
+        saveErrors={ saveErrors.salutation }
+        isFieldChanged={ isFieldChangedDb.salutation }
+        onChangeSalutation={ onChangeSalutation }
       />
       <UserFormName
         value={ formUser.name }
@@ -42,6 +50,11 @@ export function UserFormFields({ formUser, formErrors, saveErrors, isFieldChange
   function onChangeLogin( formLogin )
   {
     updateFormUser({ login: formLogin });
+  }
+
+  function onChangeSalutation( formSalutation )
+  {
+    updateFormUser({ salutation: formSalutation });
   }
 
   function onChangeName( formName )

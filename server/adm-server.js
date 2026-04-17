@@ -25,7 +25,7 @@ console.log(`curl -i https://${ parameters.host}:${ parameters.port }/users -d'{
 console.log(`curl -i https://${ parameters.host}:${ parameters.port }/user/1`);
 console.log(`curl -i https://${ parameters.host}:${ parameters.port }/user -d'{"login":"aaa@mail.ru","name":"An","company":"Noname"}'`);
 console.log(`curl -i -X PUT https://${ parameters.host}:${ parameters.port }/user/1 -d'{"login":"a@mail.ru"}'`);
-console.log(`curl -i -X PUT https://${ parameters.host}:${ parameters.port }/user/1 -d'{"login":"a@b"}'`);  // error
+console.log(`curl -i -X PUT https://${ parameters.host}:${ parameters.port }/user/1 -d'{"login":"a@b","salutation":9}'`);  // error
 console.log(`curl -i -X DELETE https://${ parameters.host}:${ parameters.port }/user/2`);
 
 async function onRequestReceived(stream, requestHeaders)

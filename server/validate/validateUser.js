@@ -2,6 +2,7 @@ import { validateUserLogin } from './validateUserLogin.js';
 import { validateUserName } from './validateUserName.js';
 import { validateUserCompany } from './validateUserCompany.js';
 import { validateUserActive } from './validateUserActive.js';
+import { validateUserSalutation } from './validateUserSalutation.js';
 
 export function validateUser( user, storedUsers )
 {
@@ -14,6 +15,8 @@ export function validateUser( user, storedUsers )
   [ user.company, error.company ] = validateUserCompany( user.company );
 
   [ user.active, error.active ] = validateUserActive( user.active );
+
+  [ user.salutation, error.salutation ] = validateUserSalutation( user.salutation );
 
   return [ user, squeeze( error )];
 }
