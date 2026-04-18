@@ -28,7 +28,7 @@ export function UserAppList({ listOptions, setListOptions })
     </div>
   );
 
-  async function onChangeFilter( filter )
+  function onChangeFilter( filter )
   {
     console.log(`onChangeFilter: ${ JSON.stringify( filter )}`);
 
@@ -42,7 +42,7 @@ export function UserAppList({ listOptions, setListOptions })
     setListOptions( newOptions );
   }
 
-  async function onChangeSorting( sorting )
+  function onChangeSorting( sorting )
   {
     console.log(`onChangeSorting: ${ JSON.stringify( sorting )}`);
 
@@ -56,7 +56,7 @@ export function UserAppList({ listOptions, setListOptions })
     setListOptions( newOptions );
   }
 
-  async function onChangePagination( pagination )
+  function onChangePagination( pagination )
   {
     console.log(`onChangePagination: ${ JSON.stringify( pagination )}`);
 

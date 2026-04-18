@@ -17,7 +17,7 @@ export function UserAppListPage()
 
   function createListOptions()
   {
-    if ( !isListPath() ) return;
+    if ( !userLocationApi.isUserListPath() ) return;
 
     const loadedOptions = loadUsersOptions();
 
@@ -68,10 +68,5 @@ export function UserAppListPage()
     if ( newOptions.users ) {   // fetch was not aborted
       setOptions( newOptions );
     }
-  }
-
-  function isListPath()
-  {
-    return userLocationApi.isUserListPath();
   }
 }

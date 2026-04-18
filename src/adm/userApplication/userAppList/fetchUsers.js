@@ -66,15 +66,15 @@ function getRequestFilters( filter )
 {
   const requestFilters = [];
 
-  if (filter.mail) {
+  if ( filter.login !== undefined ) {
     requestFilters.push({
       field: 'login',
       operator: 'includes',
-      value: filter.mail,
+      value: filter.login,
     });
   }
 
-  if (filter.name) {
+  if ( filter.name !== undefined ) {
     requestFilters.push({
       field: 'name',
       operator: 'includes',

@@ -1,6 +1,9 @@
-import { UsersFilterMail, saveFilterMail, loadFilterMail } from './UsersFilterMail.jsx';
-import { UsersFilterName, saveFilterName, loadFilterName } from './UsersFilterName.jsx';
-import { UsersFilterActive, saveFilterActive, loadFilterActive } from './UsersFilterActive.jsx';
+import { UsersFilterLogin } from './Login/UsersFilterLogin.jsx';
+import { loadFilterLogin, saveFilterLogin } from './Login/UsersFilterLoginUrl.js';
+import { UsersFilterName } from './Name/UsersFilterName.jsx';
+import { loadFilterName, saveFilterName } from './Name/UsersFilterNameUrl.js';
+import { UsersFilterActive } from './Active/UsersFilterActive.jsx';
+import { loadFilterActive, saveFilterActive } from './Active/UsersFilterActiveUrl.js';
 import './UsersFilter.css';
 
 export function UsersFilter({ filter, onChangeFilter })
@@ -9,13 +12,13 @@ export function UsersFilter({ filter, onChangeFilter })
 
   return (
     <div className="UsersFilter">
-      <UsersFilterMail
-        filter={filter.mail}
-        onChangeFilter={onChangeMailFilter}
+      <UsersFilterLogin
+        filter={ filter.login }
+        onChangeFilter={ onChangeFilterLogin }
       />
       <UsersFilterName
-        filter={filter.name}
-        onChangeFilter={onChangeNameFilter}
+        filter={ filter.name }
+        onChangeFilter={ onChangeFilterName }
       />
       <UsersFilterActive
         filter={ filter.active }
@@ -24,12 +27,12 @@ export function UsersFilter({ filter, onChangeFilter })
     </div>
   );
 
-  function onChangeMailFilter( mail )
+  function onChangeFilterLogin( login )
   {
-    onChangeFilterValue({ mail });
+    onChangeFilterValue({ login });
   }
 
-  function onChangeNameFilter( name )
+  function onChangeFilterName( name )
   {
     onChangeFilterValue({ name });
   }
@@ -50,7 +53,7 @@ export function UsersFilter({ filter, onChangeFilter })
 
 export function saveFilter(searchParams, filter )
 {
-  saveFilterMail( searchParams, filter );
+  saveFilterLogin( searchParams, filter );
   saveFilterName( searchParams, filter );
   saveFilterActive( searchParams, filter );
 }
@@ -58,7 +61,7 @@ export function saveFilter(searchParams, filter )
 export function loadFilter(searchParams )
 {
   return Object.assign({},
-    loadFilterMail( searchParams ),
+    loadFilterLogin( searchParams ),
     loadFilterName( searchParams ),
     loadFilterActive( searchParams ),
   );
