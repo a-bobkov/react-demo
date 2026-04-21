@@ -7,10 +7,6 @@
   display: flex;
   justify-content: space-between;
   padding: 8px;
-
-  &[inert] {
-    opacity: 30%;
-  }
 }
 
 .AllowExitModalDialogButton {

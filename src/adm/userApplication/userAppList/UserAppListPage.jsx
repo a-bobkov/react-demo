@@ -50,8 +50,6 @@ export function UserAppListPage()
 
   function loadingUsers( options )
   {
-    options.isLoading = true;
-
     const promise = loadUsers( options );
 
     return options;
@@ -62,10 +60,14 @@ export function UserAppListPage()
     const newOptions = {
       ...options,
       users: await fetchUsers( options ),
-      isLoading: false,
     };
 
-    if ( newOptions.users ) {   // fetch was not aborted
+    if ( newOptions.users )   // fetch was not aborted
+    {
+      newOptions.users.filter = window.structuredClone( options.filter );
+      newOptions.users.sorting = window.structuredClone( options.sorting );
+      newOptions.users.pagination = window.structuredClone( options.pagination );
+
       setOptions( newOptions );
     }
   }

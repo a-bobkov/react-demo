@@ -1,7 +1,4 @@
 .UserForm {
-  &[inert] {
-    opacity: 30%;
-  }
 }
 
 .UserFormTitle {

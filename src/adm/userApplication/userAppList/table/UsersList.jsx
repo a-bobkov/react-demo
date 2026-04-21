@@ -2,10 +2,10 @@ import { useUserLocationContext } from '../../userLocation/UserLocationProvider.
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import './UsersList.css';
 
-export function UsersList({ users })
+export function UsersList({ users, isBlocked })
 {
   return (
-    <div className="UsersList">
+    <div className="UsersList" inert={ isBlocked }>
       { users.list.map( user =>
         <UsersLine
           user={ user }

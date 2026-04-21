@@ -1,7 +1,4 @@
 .ModalDialogWrapper {
-  &[inert] {
-    opacity: 30%;
-  }
 }
 
 .ModalDialogWindow {

@@ -1,11 +1,11 @@
 import './UsersPagination.css';
 
-export function UsersPagination({ total, pagination, onChangePagination })
+export function UsersPagination({ total, pagination, isBlocked, onChangePagination })
 {
   console.log(`UsersPagination: "${ JSON.stringify( pagination )}"`);
 
   return (
-    <div className="UsersPagination">
+    <div className="UsersPagination" inert={ isBlocked }>
       <UsersPaginationFirst />
       <UsersPaginationPrev />
       <UsersPaginationPages />

@@ -20,9 +20,7 @@ export function UserAppList({ listOptions, setListOptions })
         onChangeSorting={ onChangeSorting }
       />
       <UsersResult
-        users={ listOptions.users }
-        isLoading={ listOptions.isLoading }
-        pagination={ listOptions.pagination }
+        listOptions={ listOptions }
         onChangePagination={ onChangePagination }
       />
     </div>

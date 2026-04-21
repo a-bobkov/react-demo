@@ -17,3 +17,7 @@ a {
 button:not(:disabled) {
   cursor: pointer;
 }
+
+*[inert] {
+  opacity: 30%;
+}
