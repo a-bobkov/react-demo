@@ -10,7 +10,7 @@ export async function createUser( formUser, lingo )
   });
 
   const response = await fetch(
-    `https://localhost:8082/user`,
+    `/api/user`,
     {
       method: 'POST',
       headers,

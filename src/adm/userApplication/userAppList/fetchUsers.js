@@ -37,7 +37,7 @@ async function abortableFetch( options, signal )
   });
 
   const response = await fetch(
-    'https://localhost:8082/users',
+    '/api/users',
     {
       method: 'POST',
       headers,

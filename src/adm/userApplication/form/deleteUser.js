@@ -1,7 +1,7 @@
 export async function deleteUser( userId, lingo )
 {
   const response = await fetch(
-    `https://localhost:8082/user/${ userId }`,
+    `/api/user/${ userId }`,
     {
       method: 'DELETE',
     }

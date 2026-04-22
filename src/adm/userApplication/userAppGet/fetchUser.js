@@ -1,6 +1,6 @@
 export async function fetchUser( userId, lingo )
 {
-  const response = await fetch(`https://localhost:8082/user/${ userId }`);
+  const response = await fetch(`/api/user/${ userId }`);
 
   if (!response.ok) {
     throw new Error( lingo({

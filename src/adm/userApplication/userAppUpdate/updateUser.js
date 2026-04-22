@@ -10,7 +10,7 @@ export async function updateUser( formUser, lingo )
   });
 
   const response = await fetch(
-    `https://localhost:8082/user/${ formUser.id }`,
+    `/api/user/${ formUser.id }`,
     {
       method: 'PUT',
       headers,
