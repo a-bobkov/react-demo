@@ -6,7 +6,7 @@ import * as http from 'node:http';
 import * as http2 from 'node:http2';
 import * as events from 'node:events';
 
-async function create( api, onRequestReceived )
+async function create( serverHost, serverPort, onRequestReceived )
 {
   const httpServer = http.createServer({
     keepAliveTimeout: 0,
@@ -14,7 +14,7 @@ async function create( api, onRequestReceived )
 
   httpServer.on( 'request', onRequestReceived );
 
-  await listen( api.host, api.port );
+  await listen( serverHost, serverPort );
 
   return {
     getRequestBodyValue: getRequestBodyValue,

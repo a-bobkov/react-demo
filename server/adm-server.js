@@ -2,29 +2,27 @@ import * as http2 from 'node:http2';
 import * as http1Server from './http1server.js';
 import * as responseError from './responseError.js';
 import * as Users from './Users.js';
+import serverParameters from '../serverParameters.js';
 import initialUsers from './initialUsers.js';
 
-const users = Users.create(initialUsers);
-
-const parameters = {
-  host: 'localhost',
-  port: 8082,
-};
+const users = Users.create( initialUsers );
 
 const httpServer = await http1Server.create(
-  parameters,
+  serverParameters.host,
+  serverParameters.port,
   onRequestReceived
 );
 
-console.log(`curl -i http://${ parameters.host}:${ parameters.port }/users -d'{"filters":[{"field":"login","operator":"includes","value":"mail"}]}'`);
-console.log(`curl -i http://${ parameters.host}:${ parameters.port }/users -d'{"filters":[{"field":"active","operator":"equal","value":false}]}'`);
-console.log(`curl -i http://${ parameters.host}:${ parameters.port }/users -d'{"sortings":[{"field":"login","order":"asc"}]}'`);
-console.log(`curl -i http://${ parameters.host}:${ parameters.port }/users -d'{"pagination":{"limit":5,"offset":3}}'`);
-console.log(`curl -i http://${ parameters.host}:${ parameters.port }/user/1`);
-console.log(`curl -i http://${ parameters.host}:${ parameters.port }/user -d'{"login":"aaa@mail.ru","name":"An","company":"Noname"}'`);
-console.log(`curl -i -X PUT http://${ parameters.host}:${ parameters.port }/user/1 -d'{"login":"a@mail.ru"}'`);
-console.log(`curl -i -X PUT http://${ parameters.host}:${ parameters.port }/user/1 -d'{"login":"a@b","salutation":9}'`);  // error
-console.log(`curl -i -X DELETE http://${ parameters.host}:${ parameters.port }/user/2`);
+const href = `${ serverParameters.protocol}//${ serverParameters.host}:${ serverParameters.port }${ serverParameters.startPath }`;
+console.log(`curl -i ${ href }/users -d'{"filters":[{"field":"login","operator":"includes","value":"mail"}]}'`);
+console.log(`curl -i ${ href }/users -d'{"filters":[{"field":"active","operator":"equal","value":false}]}'`);
+console.log(`curl -i ${ href }/users -d'{"sortings":[{"field":"login","order":"asc"}]}'`);
+console.log(`curl -i ${ href }/users -d'{"pagination":{"limit":5,"offset":3}}'`);
+console.log(`curl -i ${ href }/user/1`);
+console.log(`curl -i ${ href }/user -d'{"login":"aaa@mail.ru","name":"An","company":"Noname"}'`);
+console.log(`curl -i -X PUT ${ href }/user/1 -d'{"login":"a@mail.ru"}'`);
+console.log(`curl -i -X PUT ${ href }/user/1 -d'{"login":"a@b","salutation":9}'`);  // error
+console.log(`curl -i -X DELETE ${ href }/user/2`);
 
 async function onRequestReceived( request, response )
 {
@@ -61,14 +59,20 @@ async function replySuccess( response, responseBodyValue)
 
 function dispatchRequest( requestPath, requestMethod, requestBodyValue )
 {
-  const requestUrlSegments = requestPath.split('/');
+  if ( requestPath.startsWith( serverParameters.startPath ))
+  {
+    const requestUrlSegments = requestPath.replace( serverParameters.startPath, '').split('/');
 
-  if (requestUrlSegments[1] === 'users') {
-    return dispatchUsers( requestMethod, requestBodyValue );
-  }
+    if (requestUrlSegments[1] === 'users')
+    {
+      return dispatchUsers( requestMethod, requestBodyValue );
+    }
 
-  if (requestUrlSegments[1] === 'user') {
-    return dispatchUser( requestMethod, requestUrlSegments[2], requestBodyValue );
+    if (requestUrlSegments[1] === 'user')
+    {
+      return dispatchUser( requestMethod, requestUrlSegments[2], requestBodyValue );
+    }
+
   }
 
   throw responseError.create(
