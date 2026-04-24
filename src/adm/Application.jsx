@@ -1,5 +1,5 @@
-import { UserLocationProvider } from './userApplication/userLocation/UserLocationProvider.jsx';
-import { UserApplication } from './userApplication/UserApplication.jsx';
+import { UserLocationProvider } from './userApp/userLocation/UserLocationProvider.jsx';
+import { UserApp } from './userApp/UserApp.jsx';
 
 export function Application()
 {
@@ -14,7 +14,7 @@ export function Application()
   if ( pathname.startsWith( userPrefix )) {
     return (
       <UserLocationProvider prefix={ userPrefix }>
-        <UserApplication />
+        <UserApp />
       </UserLocationProvider>
     );
   }

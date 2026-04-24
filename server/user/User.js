@@ -1,7 +1,7 @@
 import * as http2 from 'node:http2';
-import search from './search/search.js';
-import * as responseError from './responseError.js';
+import * as responseError from '../responseError.js';
 import { validateUser } from './validate/validateUser.js';
+import { query } from '../query/query.js';
 
 export {
   create as create,
@@ -27,7 +27,7 @@ function create( initialUsers )
     createUser: createUser,
     updateUser: updateUser,
     deleteUser: deleteUser,
-    searchUsers: searchUsers,
+    queryUser: queryUser,
   };
 
   function getUser(userId)
@@ -97,9 +97,9 @@ function create( initialUsers )
     delete users[userId];
   }
 
-  function searchUsers(options)
+  function queryUser(options)
   {
-    const { count, list } = search(users, options);
+    const { count, list } = query(users, options);
 
     return {
       count,

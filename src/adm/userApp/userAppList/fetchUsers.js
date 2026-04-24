@@ -29,17 +29,17 @@ async function abortableFetch( options, signal )
 {
   console.log(`Starting abortable with options: "${ JSON.stringify( options )}"`);
 
-  const body = JSON.stringify( getRequestOptions( options ));
+  const body = (new TextEncoder).encode( JSON.stringify( getRequestOptions( options )));
 
   const headers = new Headers({
     'Content-Type': 'application/json',
-    'Content-Length': (new TextEncoder).encode(body).length.toString(),
+    'Content-Length': body.length.toString(),
   });
 
   const response = await fetch(
-    '/api/users',
+    '/api/user',
     {
-      method: 'POST',
+      method: 'QUERY',
       headers,
       body,
       signal,

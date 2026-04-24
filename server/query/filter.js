@@ -3,7 +3,7 @@ import { newErrorBadRequest } from './newErrorBadRequest.js';
 export function applyFilters(data, filters)
 {
   if (!Array.isArray(filters)) {
-    throw newErrorBadRequest(`Search with non-array filters: ${ JSON.stringify(filters) }`);
+    throw newErrorBadRequest(`Query with non-array filters: ${ JSON.stringify(filters) }`);
   }
 
   return filters.reduce(
@@ -15,15 +15,15 @@ export function applyFilters(data, filters)
 function applyFilter(data, filter)
 {
   if (filter == null) {
-    throw newErrorBadRequest(`Search with empty filter: ${ filter }`);
+    throw newErrorBadRequest(`Query with empty filter: ${ filter }`);
   }
 
-  if (filter.constructor.name !== 'Object') {
-    throw newErrorBadRequest(`Search with non-object filter: ${ filter }`);
+  if ( filter.constructor !== Object ) {
+    throw newErrorBadRequest(`Query with non-object filter: ${ filter }`);
   }
 
   if ( filter.field == null ) {
-    throw newErrorBadRequest(`Search filter with empty field name: ${ filter.field }`);
+    throw newErrorBadRequest(`Query filter with empty field name: ${ filter.field }`);
   }
 
   if (filter.operator === 'includes') {
@@ -34,13 +34,13 @@ function applyFilter(data, filter)
     return applyFilterEqual( data, filter.field, filter.value );
   }
 
-  throw newErrorBadRequest(`Search with unknown filter operator: ${ JSON.stringify(filter.operator) }`);
+  throw newErrorBadRequest(`Query with unknown filter operator: ${ JSON.stringify(filter.operator) }`);
 }
 
 function applyFilterIncludes(data, fieldName, value)
 {
   if (value == null) {
-    throw newErrorBadRequest(`Search filter with empty value: ${ value }`);
+    throw newErrorBadRequest(`Query filter with empty value: ${ value }`);
   }
 
   const lowerCasedValue = value.toLowerCase();
@@ -53,7 +53,7 @@ function applyFilterIncludes(data, fieldName, value)
 function applyFilterEqual( data, fieldName, value )
 {
   if ( value == null ) {
-    throw newErrorBadRequest(`Search filter with empty value: ${ value }`);
+    throw newErrorBadRequest(`Query filter with empty value: ${ value }`);
   }
 
   return data.filter( item =>

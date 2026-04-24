@@ -9,7 +9,7 @@ const LIST_MODE = 'LIST_MODE';
 const GET_MODE = 'GET_MODE';
 const CREATE_MODE = 'CREATE_MODE';
 
-export function UserApplication()
+export function UserApp()
 {
   const userLocationApi = useUserLocationContext();
 

@@ -2,11 +2,11 @@ export async function createUser( formUser, lingo )
 {
   console.log(`Starting create: ${ JSON.stringify( formUser )}`);
 
-  const body = JSON.stringify( formUser );
+  const body = (new TextEncoder).encode( JSON.stringify( formUser ));
 
   const headers = new Headers({
     'Content-Type': 'application/json',
-    'Content-Length': (new TextEncoder).encode(body).length.toString(),
+    'Content-Length': body.length.toString(),
   });
 
   const response = await fetch(

@@ -9,18 +9,18 @@ const defaultOptions = {
   }
 };
 
-export default function search(users, options = defaultOptions)
+export function query( items, options = defaultOptions )
 {
-  if (options.constructor.name !== 'Object') {
-    throw newErrorBadRequest(`Search with non-object options: ${ JSON.stringify(options) }`);
+  if ( options.constructor !== Object ) {
+    throw newErrorBadRequest(`Query with non-object options: ${ JSON.stringify(options) }`);
   }
 
   const unknownOptionKeys = getUnknownOptionKeys(options);
   if (unknownOptionKeys.length) {
-    throw newErrorBadRequest(`Search with unknown option keys: ${ JSON.stringify(unknownOptionKeys) }`);
+    throw newErrorBadRequest(`Query with unknown option keys: ${ JSON.stringify(unknownOptionKeys) }`);
   }
 
-  let applied = Object.values(users);
+  let applied = Object.values( items );
 
   if (options.filters != null) {
     applied = applyFilters(applied, options.filters);
@@ -46,7 +46,7 @@ function getUnknownOptionKeys(options)
 {
   const knownKeys = ['filters', 'sortings', 'pagination'];
 
-  return Object.keys(options).filter((key) =>
-    !knownKeys.includes(key)
+  return Object.keys( options ).filter( key =>
+    !knownKeys.includes( key )
   );
 }
