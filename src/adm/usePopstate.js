@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useRunOnce } from '../useRunOnce.js';
+import { useRunOnce } from './useRunOnce.js';
 
 export function usePopstate( onPopstate )
 {

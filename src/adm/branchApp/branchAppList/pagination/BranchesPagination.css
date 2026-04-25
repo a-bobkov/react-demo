@@ -1,0 +1,27 @@
+.BranchesPagination {
+  width: fit-content;
+  height: 32px;
+  margin: auto;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  text-align: center;
+
+  div {
+    width: 50px;
+    cursor: pointer;
+
+    &:hover {
+      font-weight: bold;
+    }
+
+    &.inactive {
+      color: grey;
+      cursor: default;
+
+      &:hover {
+        font-weight: normal;
+      }
+    }
+  }
+}

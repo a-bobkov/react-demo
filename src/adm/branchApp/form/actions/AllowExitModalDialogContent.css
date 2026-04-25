@@ -1,0 +1,14 @@
+.AllowExitModalDialogMessage {
+  padding: 8px;
+  white-space: break-spaces;
+}
+
+.AllowExitModalDialogActions {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.AllowExitModalDialogButton {
+  white-space: break-spaces;
+}

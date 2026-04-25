@@ -1,0 +1,9 @@
+.BranchFormActions {
+  display: flex;
+  gap: 20px;
+  margin-left: 100px;
+}
+
+.BranchFormAction {
+  white-space: break-spaces;
+}

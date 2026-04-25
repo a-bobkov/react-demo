@@ -1,0 +1,19 @@
+.BranchesList {
+  border: solid 1px;
+  border-top: none;
+}
+
+.BranchesLine {
+  height: 32px;
+  display: grid;
+  grid-template-columns: var(--branch-app-grid-columns);
+  align-items: center;
+  padding: 4px;
+}
+
+.BranchesLineActionEdit {
+}
+
+.BranchesLineActionEditLink {
+  display: inline-block;
+}

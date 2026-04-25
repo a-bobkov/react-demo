@@ -1,19 +1,20 @@
 import * as http2 from 'node:http2';
-import * as responseError from '../responseError.js';
 import * as User from './User.js';
-import initialUsers from './initialUsers.js';
+import * as responseError from '../responseError.js';
 import serverParameters from '../../serverParameters.js';
+import initialUsers from './initialUsers.js';
 
-const href = `${ serverParameters.protocol}//${ serverParameters.host}:${ serverParameters.port }${ serverParameters.startPath }`;
-console.log(`curl -i -X QUERY ${ href }/user -d'{"filters":[{"field":"login","operator":"includes","value":"mail"}]}'`);
-console.log(`curl -i -X QUERY ${ href }/user -d'{"filters":[{"field":"active","operator":"equal","value":false}]}'`);
-console.log(`curl -i -X QUERY ${ href }/user -d'{"sortings":[{"field":"login","order":"asc"}]}'`);
-console.log(`curl -i -X QUERY ${ href }/user -d'{"pagination":{"limit":5,"offset":3}}'`);
-console.log(`curl -i -X GET ${ href }/user/1`);
-console.log(`curl -i -X POST ${ href }/user -d'{"login":"aaa@mail.ru","name":"An","company":"Noname","active":true}'`);
-console.log(`curl -i -X PUT ${ href }/user/1 -d'{"login":"a@mail.ru","name":"An","company":"Noname","active":false}'`);
-console.log(`curl -i -X PUT ${ href }/user/1 -d'{"login":"a@b","salutation":9}'`);  // error
-console.log(`curl -i -X DELETE ${ href }/user/2`);
+const href = `${ serverParameters.protocol}//${ serverParameters.host}:${ serverParameters.port }${ serverParameters.startPath }/user`;
+console.log('');
+console.log(`curl -i -X QUERY ${ href } -d'{"filters":[{"field":"login","operator":"includes","value":"mail"}]}'`);
+console.log(`curl -i -X QUERY ${ href } -d'{"filters":[{"field":"active","operator":"equal","value":false}]}'`);
+console.log(`curl -i -X QUERY ${ href } -d'{"sortings":[{"field":"login","order":"asc"}]}'`);
+console.log(`curl -i -X QUERY ${ href } -d'{"pagination":{"limit":5,"offset":3}}'`);
+console.log(`curl -i -X GET ${ href }/1`);
+console.log(`curl -i -X POST ${ href } -d'{"login":"aaa@mail.ru","name":"An","company":"Noname","active":true}'`);
+console.log(`curl -i -X PUT ${ href }/1 -d'{"login":"a@mail.ru","name":"An","company":"Noname","active":false}'`);
+console.log(`curl -i -X PUT ${ href }/1 -d'{"login":"a@b","salutation":9}'`);  // error
+console.log(`curl -i -X DELETE ${ href }/2`);
 
 const users = User.create( initialUsers );
 

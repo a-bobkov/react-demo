@@ -1,0 +1,9 @@
+.BranchesSortingField {
+  border-right: solid 1px;
+  padding: 4px;
+  cursor: pointer;
+
+  :hover {
+    font-weight: bold;
+  }
+}

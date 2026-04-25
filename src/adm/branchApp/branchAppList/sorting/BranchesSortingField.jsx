@@ -1,18 +1,18 @@
-import './UsersSortingField.css';
+import './BranchesSortingField.css';
 
-export function UsersSortingField({ name, fieldSorting, onChangeSorting })
+export function BranchesSortingField({ name, fieldSorting, onChangeSorting })
 {
   const [[sortingKey, sortingValue]] = Object.entries( fieldSorting );
 
   return (
-    <div className="UsersSortingField"
-         onClick={onClickSorting}
+    <div className="BranchesSortingField"
+         onClick={ onClickSorting }
     >
       <span>
         { name }
       </span>
       <span>
-        {getSortingChar(sortingValue)}
+        { getSortingChar( sortingValue )}
       </span>
     </div>
   );
@@ -20,7 +20,7 @@ export function UsersSortingField({ name, fieldSorting, onChangeSorting })
   function onClickSorting()
   {
     onChangeSorting( squeeze({
-      [sortingKey]: getNextSortingValue( sortingValue )
+      [ sortingKey ]: getNextSortingValue( sortingValue )
     }));
   }
 }
@@ -30,7 +30,7 @@ const DESC = 'desc';
 
 function getNextSortingValue( sortingValue )
 {
-  switch (sortingValue) {
+  switch( sortingValue ) {
     case undefined:
       return ASC;
     case ASC:

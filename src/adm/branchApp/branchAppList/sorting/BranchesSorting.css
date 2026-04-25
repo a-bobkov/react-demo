@@ -1,0 +1,8 @@
+.BranchesSorting {
+  margin-top: 20px;
+  height: 32px;
+  display: grid;
+  grid-template-columns: var(--branch-app-grid-columns);
+  align-items: center;
+  border: solid 1px;
+}

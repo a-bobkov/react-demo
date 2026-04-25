@@ -51,6 +51,6 @@ function CreateUserButton()
 
     event.preventDefault();
 
-    userLocationApi.goUserCreate();
+    userLocationApi.goPath( event.target.pathname );
   }
 }

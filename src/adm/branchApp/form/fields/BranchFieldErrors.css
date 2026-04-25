@@ -1,0 +1,9 @@
+.BranchFieldFormError {
+  margin: 6px 0;
+  color: orangered;
+}
+
+.BranchFieldSaveError {
+  margin: 6px 0;
+  color: darkred;
+}

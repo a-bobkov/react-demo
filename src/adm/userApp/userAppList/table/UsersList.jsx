@@ -121,6 +121,6 @@ function UsersLineActionEdit({ userId })
 
     event.preventDefault();
 
-    userLocationApi.goUserGet( userId );
+    userLocationApi.goPath( event.target.pathname );
   }
 }

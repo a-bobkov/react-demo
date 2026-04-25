@@ -18,13 +18,13 @@ function createUserLocationApi({ prefix })
 
     getUserCreatePath: getUserCreatePath,
     isUserCreatePath: isUserCreatePath,
-    goUserCreate: goUserCreate,
 
     getUserGetPath: getUserGetPath,
     getUserGetId: getUserGetId,
     isUserGetPath: isUserGetPath,
     setUserGetPath: setUserGetPath,
-    goUserGet: goUserGet,
+
+    goPath: goPath,
   };
 
   function isUserRootPath()
@@ -62,11 +62,6 @@ function createUserLocationApi({ prefix })
     return window.location.pathname === getUserCreatePath();
   }
 
-  function goUserCreate()
-  {
-    goPath( getUserCreatePath() );
-  }
-
   function getUserGetPath( userId )
   {
     return `${ prefix }/edit/${ userId }`;
@@ -91,11 +86,6 @@ function createUserLocationApi({ prefix })
   function setUserGetPath( userId )
   {
     window.history.replaceState(null, null, getUserGetPath( userId ));
-  }
-
-  function goUserGet( userId )
-  {
-    goPath( getUserGetPath( userId ));
   }
 }
 
