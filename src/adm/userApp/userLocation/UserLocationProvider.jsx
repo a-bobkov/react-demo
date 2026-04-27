@@ -8,9 +8,9 @@ export function useUserLocationContext()
   return useContext( UserLocationContext );
 }
 
-export function UserLocationProvider({ children, prefix })
+export function UserLocationProvider({ children, prefixPath })
 {
-  const { userLocationApi } = useUserLocation( prefix );
+  const { userLocationApi } = useUserLocation( prefixPath );
 
   return (
     <UserLocationContext value={ userLocationApi }>

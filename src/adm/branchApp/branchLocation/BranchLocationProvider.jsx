@@ -8,9 +8,9 @@ export function useBranchLocationContext()
   return useContext( BranchLocationContext );
 }
 
-export function BranchLocationProvider( { children, prefix })
+export function BranchLocationProvider( { children, prefixPath })
 {
-  const { branchLocationApi } = useBranchLocation( prefix );
+  const { branchLocationApi } = useBranchLocation( prefixPath );
 
   return (
     <BranchLocationContext value={ branchLocationApi }>

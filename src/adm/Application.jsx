@@ -1,30 +1,35 @@
+import { useGetAppLocationContext, useSetAppLocationContext } from './appLocation/AppLocationProvider.jsx';
 import { UserLocationProvider } from './userApp/userLocation/UserLocationProvider.jsx';
 import { UserApp } from './userApp/UserApp.jsx';
 import { BranchLocationProvider } from './branchApp/branchLocation/BranchLocationProvider.jsx';
 import { BranchApp } from './branchApp/BranchApp.jsx';
-import { BRANCH_APP, USER_APP } from './Adm.jsx';
 
-export function Application({ app })
+export function Application()
 {
-  switch ( app )
+  const getAppLocationApi = useGetAppLocationContext();
+  const setAppLocationApi = useSetAppLocationContext();
+
+  if ( getAppLocationApi.isUserLocation())
   {
-    case USER_APP:
-      const userPrefix = '/user';
-      return (
-        <UserLocationProvider prefix={ userPrefix }>
-          <UserApp />
-        </UserLocationProvider>
-      );
-
-    case BRANCH_APP:
-      const branchPrefix = '/branch';
-      return (
-        <BranchLocationProvider prefix={ branchPrefix }>
-          <BranchApp />
-        </BranchLocationProvider>
-      );
-
-    default:
-      return '404';
+    return (
+      <UserLocationProvider
+        prefixPath={ setAppLocationApi.getUserPath() }
+      >
+        <UserApp />
+      </UserLocationProvider>
+    );
   }
+
+  if ( getAppLocationApi.isBranchLocation())
+  {
+    return (
+      <BranchLocationProvider
+        prefixPath={ setAppLocationApi.getBranchPath() }
+      >
+        <BranchApp />
+      </BranchLocationProvider>
+    );
+  }
+
+  return '404';
 }
