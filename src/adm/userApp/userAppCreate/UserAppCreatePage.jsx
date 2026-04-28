@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { UserAppCreate } from './UserAppCreate.jsx';
 import { UserAppUpdate } from '../userAppUpdate/UserAppUpdate.jsx';
-import { useUserLocationContext } from '../userLocation/UserLocationProvider.jsx';
+import { useSetUserAppLocationContext } from '../userLocation/UserAppLocationProvider.jsx';
+import { updatePopstatePath } from '../../PopstateLink.jsx';
 
 export function UserAppCreatePage()
 {
-  const userLocationApi = useUserLocationContext();
+  const setUserAppLocationApi = useSetUserAppLocationContext();
 
   const [ createOptions, setCreateOptions ] = useState( createInitialCreateOptions );
 
@@ -24,7 +25,7 @@ export function UserAppCreatePage()
 
   function setFirstUpdateOptions( options )
   {
-    userLocationApi.setUserGetPath( options.dbUser.id );
+    updatePopstatePath( setUserAppLocationApi.getUserAppGetPath( options.dbUser.id ));
 
     setIdentifiedCreateOptions( options );
   }

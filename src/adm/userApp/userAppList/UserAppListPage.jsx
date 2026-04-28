@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { fetchUsers } from './fetchUsers.js';
 import { UserAppList } from './UserAppList.jsx';
-import { useUserLocationContext } from '../userLocation/UserLocationProvider.jsx';
+import { useGetUserAppLocationContext } from '../userLocation/UserAppLocationProvider.jsx';
 import { loadUsersOptions, saveUsersOptions } from './usersSearchParams.js';
 
 export function UserAppListPage()
 {
-  const userLocationApi = useUserLocationContext();
+  const getUserAppLocationApi = useGetUserAppLocationContext();
 
   const [ listOptions, setOptions ] = useState( createListOptions );
 
@@ -17,7 +17,7 @@ export function UserAppListPage()
 
   function createListOptions()
   {
-    if ( !userLocationApi.isUserListPath() ) return;
+    if ( !getUserAppLocationApi.isUserAppListLocation() ) return;
 
     const loadedOptions = loadUsersOptions();
 

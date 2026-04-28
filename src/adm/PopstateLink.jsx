@@ -1,7 +1,7 @@
-export function PopstateLink({ children, path })
+export function PopstateLink({ children, path, className })
 {
   return (
-    <a href={ path } onClick={ onClick }>
+    <a className={ className } href={ path } onClick={ onClick }>
       { children }
     </a>
   );
@@ -12,13 +12,18 @@ export function PopstateLink({ children, path })
 
     event.preventDefault();
 
-    goPath( event.target.pathname );
+    goPopstatePath( event.target.pathname );
   }
 }
 
-function goPath( path )
+export function goPopstatePath( path )
 {
   window.history.pushState(null, null, path );
 
   window.dispatchEvent( new Event('popstate'));
+}
+
+export function updatePopstatePath( path )
+{
+  window.history.replaceState(null, null, path );
 }

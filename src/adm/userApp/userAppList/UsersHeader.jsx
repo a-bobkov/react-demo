@@ -1,5 +1,6 @@
-import { useUserLocationContext } from '../userLocation/UserLocationProvider.jsx';
+import { useSetUserAppLocationContext } from '../userLocation/UserAppLocationProvider.jsx';
 import { useLingo } from '../../lingo/LingoProvider.jsx';
+import { PopstateLink } from '../../PopstateLink.jsx';
 import './UsersHeader.css';
 
 export function UsersHeader()
@@ -30,27 +31,19 @@ function CreateUserButton()
 {
   const { lingo } = useLingo();
 
-  const userLocationApi = useUserLocationContext();
-
-  const userCreatePath = userLocationApi.getUserCreatePath();
+  const setUserAppLocationApi = useSetUserAppLocationContext();
 
   return (
     <div className="CreateUserButton">
-      <a className="CreateUserButtonLink" href={ userCreatePath } onClick={ onClick }>
+      <PopstateLink
+        className="CreateUserButtonLink"
+        path={ setUserAppLocationApi.getUserAppCreatePath() }
+      >
         { lingo({
           en: `New user`,
           de: `Neu Benutzer`,
         })}
-      </a>
+      </PopstateLink>
     </div>
   );
-
-  function onClick( event )
-  {
-    if ( event.ctrlKey || event.metaKey || event.button === 1 ) return;
-
-    event.preventDefault();
-
-    userLocationApi.goPath( event.target.pathname );
-  }
 }

@@ -1,5 +1,5 @@
 import { useGetAppLocationContext, useSetAppLocationContext } from './appLocation/AppLocationProvider.jsx';
-import { UserLocationProvider } from './userApp/userLocation/UserLocationProvider.jsx';
+import { UserAppLocationProvider } from './userApp/userLocation/UserAppLocationProvider.jsx';
 import { UserApp } from './userApp/UserApp.jsx';
 import { BranchLocationProvider } from './branchApp/branchLocation/BranchLocationProvider.jsx';
 import { BranchApp } from './branchApp/BranchApp.jsx';
@@ -12,11 +12,11 @@ export function Application()
   if ( getAppLocationApi.isUserLocation())
   {
     return (
-      <UserLocationProvider
+      <UserAppLocationProvider
         prefixPath={ setAppLocationApi.getUserPath() }
       >
         <UserApp />
-      </UserLocationProvider>
+      </UserAppLocationProvider>
     );
   }
 

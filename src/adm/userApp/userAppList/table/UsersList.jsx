@@ -1,6 +1,7 @@
-import { useUserLocationContext } from '../../userLocation/UserLocationProvider.jsx';
+import { useSetUserAppLocationContext } from '../../userLocation/UserAppLocationProvider.jsx';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import './UsersList.css';
+import { PopstateLink } from '../../../PopstateLink.jsx';
 
 export function UsersList({ users, isBlocked })
 {
@@ -98,29 +99,19 @@ function UsersLineActionEdit({ userId })
 {
   const { lingo } = useLingo();
 
-  const userLocationApi = useUserLocationContext();
-
-  const userEditPath = userLocationApi.getUserGetPath( userId );
+  const setUserAppLocationApi = useSetUserAppLocationContext();
 
   return (
     <div className="UsersLineActionEdit">
-      <a className="UsersLineActionEditLink" href={ userEditPath } onClick={ onClick }>
-        {
-          lingo({
-            en: 'Edit',
-            de: `Bearbeiten`,
-          })
-        }
-      </a>
+      <PopstateLink
+        className="UsersLineActionEditLink"
+        path={ setUserAppLocationApi.getUserAppGetPath( userId ) }
+      >
+        { lingo({
+          en: 'Edit',
+          de: `Bearbeiten`,
+        })}
+      </PopstateLink>
     </div>
   );
-
-  function onClick( event )
-  {
-    if ( event.ctrlKey || event.metaKey || event.button === 1 ) return;
-
-    event.preventDefault();
-
-    userLocationApi.goPath( event.target.pathname );
-  }
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { fetchUser } from './fetchUser.js';
-import { useUserLocationContext } from '../userLocation/UserLocationProvider.jsx';
+import { useGetUserAppLocationContext } from '../userLocation/UserAppLocationProvider.jsx';
 import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 import { UserAppGet } from './UserAppGet.jsx';
 import { UserAppUpdate } from '../userAppUpdate/UserAppUpdate.jsx';
@@ -8,7 +8,7 @@ import { useLingo } from '../../lingo/LingoProvider.jsx';
 
 export function UserAppGetPage()
 {
-  const userLocationApi = useUserLocationContext();
+  const getUserAppLocationApi = useGetUserAppLocationContext();
 
   const apiNotifications = useNotificationsContext();
 
@@ -36,7 +36,7 @@ export function UserAppGetPage()
 
   function createInitialGetOptions()
   {
-    const userId = userLocationApi.getUserGetId();
+    const userId = getUserAppLocationApi.getUserAppGetId();
 
     if ( userId === undefined ) return;
 
