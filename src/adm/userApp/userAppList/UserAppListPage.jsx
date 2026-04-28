@@ -1,74 +1,46 @@
 import { useState } from 'react';
+import { useUserAppListLocation } from './useUserAppListLocation.js';
 import { fetchUsers } from './fetchUsers.js';
 import { UserAppList } from './UserAppList.jsx';
-import { useGetUserAppLocationContext } from '../userLocation/UserAppLocationProvider.jsx';
-import { loadUsersOptions, saveUsersOptions } from './usersSearchParams.js';
 
 export function UserAppListPage()
 {
-  const getUserAppLocationApi = useGetUserAppLocationContext();
+  const { userAppListLocationOptions, setUserAppListLocationOptions } = useUserAppListLocation();
 
-  const [ listOptions, setOptions ] = useState( createListOptions );
+  const [ users, setUsers ] = useState( initialLoadingUsers );
 
   return <UserAppList
-    listOptions={ listOptions }
+    listOptions={ userAppListLocationOptions }
     setListOptions={ setListOptions }
+    users={ users }
   />;
 
-  function createListOptions()
+  function initialLoadingUsers()
   {
-    if ( !getUserAppLocationApi.isUserAppListLocation() ) return;
-
-    const loadedOptions = loadUsersOptions();
-
-    const defaultOptions = {
-      filter: {},
-      sorting: {},
-      pagination: {
-        size: 10,
-        count: 1,
-      },
-    };
-
-    const options = {
-      filter: Object.assign( defaultOptions.filter, loadedOptions.filter ),
-      sorting: Object.assign( defaultOptions.sorting, loadedOptions.sorting ),
-      pagination: Object.assign( defaultOptions.pagination, loadedOptions.pagination ),
-    };
-
-    saveUsersOptions( options );
-
-    return loadingUsers( options );
+    loadingUsers( userAppListLocationOptions );
   }
 
   function setListOptions( options )
   {
-    saveUsersOptions( options );
+    loadingUsers( options );
 
-    setOptions( loadingUsers( options ));
+    setUserAppListLocationOptions( options );
   }
 
   function loadingUsers( options )
   {
     const promise = loadUsers( options );
-
-    return options;
   }
 
   async function loadUsers( options )
   {
-    const newOptions = {
-      ...options,
-      users: await fetchUsers( options ),
-    };
+    const newUsers = await fetchUsers( options );
 
-    if ( newOptions.users )   // fetch was not aborted
+    if ( newUsers )   // fetch was not aborted
     {
-      newOptions.users.filter = window.structuredClone( options.filter );
-      newOptions.users.sorting = window.structuredClone( options.sorting );
-      newOptions.users.pagination = window.structuredClone( options.pagination );
+      Object.assign( newUsers, window.structuredClone( options ));
 
-      setOptions( newOptions );
+      setUsers( newUsers );
     }
   }
 }

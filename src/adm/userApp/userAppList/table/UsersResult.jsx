@@ -3,17 +3,17 @@ import { UsersList } from './UsersList.jsx';
 import { UsersPagination } from '../pagination/UsersPagination.jsx';
 import './UsersResult.css';
 
-export function UsersResult({ listOptions: { filter, sorting, pagination, users }, onChangePagination })
+export function UsersResult({ listOptions, users, onChangePagination })
 {
-  console.log(`UsersResult: ${ JSON.stringify({ filter, sorting, pagination, users })}`);
+  console.log(`UsersResult: ${ JSON.stringify({ listOptions, users })}`);
 
   if ( users === undefined ) {
     return <UsersResultLoading />;
   }
 
-  const isFilterDifferent = different( filter, users.filter );
-  const isSortingDifferent = different( sorting, users.sorting );
-  const isPaginationDifferent = different( pagination, users.pagination );
+  const isFilterDifferent = different( listOptions.filter, users.filter );
+  const isSortingDifferent = different( listOptions.sorting, users.sorting );
+  const isPaginationDifferent = different( listOptions. pagination, users.pagination );
 
   return (
     <div className="UsersResult">
@@ -23,7 +23,7 @@ export function UsersResult({ listOptions: { filter, sorting, pagination, users 
       />
       <UsersPagination
         total={ users.count }
-        pagination={ isFilterDifferent || isSortingDifferent ? users.pagination : pagination }
+        pagination={ isFilterDifferent || isSortingDifferent ? users.pagination : listOptions.pagination }
         isBlocked={ isFilterDifferent || isSortingDifferent }
         onChangePagination={ onChangePagination }
       />

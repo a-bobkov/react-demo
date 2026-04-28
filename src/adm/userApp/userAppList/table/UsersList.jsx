@@ -109,7 +109,7 @@ function UsersLineActionEdit({ userId })
       >
         { lingo({
           en: 'Edit',
-          de: `Bearbeiten`,
+          de: 'Bearbeiten',
         })}
       </PopstateLink>
     </div>
