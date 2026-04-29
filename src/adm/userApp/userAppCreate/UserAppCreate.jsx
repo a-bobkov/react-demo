@@ -30,7 +30,10 @@ export function UserAppCreate({ createOptions, setCreateOptions, setUpdateOption
         submitUser: result.user,
       });
 
-      apiNotifications.addInfo(`User ${ result.user.id } is successfully created.`);
+      apiNotifications.addInfo( lingo({
+        en: `User ${ result.user.id } is successfully created.`,
+        de: `Benutzer ${ result.user.id } wurde erfolgreich erstellt.`,
+      }));
 
       return true;
     }
@@ -51,7 +54,10 @@ export function UserAppCreate({ createOptions, setCreateOptions, setUpdateOption
       return await createUser( formUser, lingo );
     }
     catch (error) {
-      apiNotifications.addError(`Error: ${ error.message }`);
+      apiNotifications.addError( lingo({
+        en: `Error: ${ error.message }`,
+        de: `Fehler: ${ error.message }`,
+      }));
 
       return {
         fetchCommonError: error,

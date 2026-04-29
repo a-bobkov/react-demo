@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { fetchUser } from './fetchUser.js';
-import { useGetUserAppLocationContext } from '../userLocation/UserAppLocationProvider.jsx';
+import { useUserAppGetLocation } from './useUserAppGetLocation.js';
 import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 import { UserAppGet } from './UserAppGet.jsx';
 import { UserAppUpdate } from '../userAppUpdate/UserAppUpdate.jsx';
@@ -8,7 +8,7 @@ import { useLingo } from '../../lingo/LingoProvider.jsx';
 
 export function UserAppGetPage()
 {
-  const getUserAppLocationApi = useGetUserAppLocationContext();
+  const { userId } = useUserAppGetLocation();
 
   const apiNotifications = useNotificationsContext();
 
@@ -18,14 +18,22 @@ export function UserAppGetPage()
 
   const [ updateOptions, setUpdateOptions ] = useState();
 
-  return updateOptions
-    ? <UserAppUpdate
-      updateOptions={ updateOptions }
-      setUpdateOptions={ setIdentifiedUpdateOptions }
-    />
-    : <UserAppGet
-      getOptions={ getOptions }
-    />;
+  if ( updateOptions ) {
+    return (
+      <UserAppUpdate
+        updateOptions={ updateOptions }
+        setUpdateOptions={ setIdentifiedUpdateOptions }
+      />
+    );
+  }
+
+  if ( getOptions ) {
+    return (
+      <UserAppGet
+        getOptions={ getOptions }
+      />
+    );
+  }
 
   function setIdentifiedUpdateOptions( newUpdateOptions )
   {
@@ -36,8 +44,6 @@ export function UserAppGetPage()
 
   function createInitialGetOptions()
   {
-    const userId = getUserAppLocationApi.getUserAppGetId();
-
     if ( userId === undefined ) return;
 
     const promise = createGetPromise( userId );
@@ -72,8 +78,12 @@ export function UserAppGetPage()
     try {
       return await fetchUser( userId, lingo );
     }
-    catch (error) {
-      apiNotifications.addError(`Error: ${ error.message }`);
+    catch (error)
+    {
+      apiNotifications.addError( lingo({
+        en: `Error: ${ error.message }`,
+        de: `Fehler: ${ error.message }`,
+      }));
 
       return {
         fetchCommonError: error,

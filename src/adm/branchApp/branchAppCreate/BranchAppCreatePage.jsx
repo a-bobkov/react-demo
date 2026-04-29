@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { BranchAppCreate } from './BranchAppCreate.jsx';
 import { BranchAppUpdate } from '../branchAppUpdate/BranchAppUpdate.jsx';
-import { useBranchLocationContext } from '../branchLocation/BranchLocationProvider.jsx';
+import { getBranchGetFullPath } from '../branchAppGet/useBranchAppGetLocation.js';
+import { updateHistoryEntry } from '../../PopstateLink.jsx';
 
 export function BranchAppCreatePage()
 {
-  const branchLocationApi = useBranchLocationContext();
-
   const [ createOptions, setCreateOptions ] = useState( createInitialCreateOptions );
 
   const [ updateOptions, setUpdateOptions ] = useState();
@@ -24,7 +23,7 @@ export function BranchAppCreatePage()
 
   function setFirstUpdateOptions( options )
   {
-    branchLocationApi.setBranchGetPath( options.dbBranch.id );
+    updateHistoryEntry( getBranchGetFullPath( options.dbBranch.id ));
 
     setIdentifiedCreateOptions( options );
   }

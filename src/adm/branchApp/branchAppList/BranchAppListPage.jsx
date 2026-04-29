@@ -1,74 +1,46 @@
 import { useState } from 'react';
+import { useBranchAppListLocation } from './useBranchAppListLocation.js';
 import { fetchBranches } from './fetchBranches.js';
 import { BranchAppList } from './BranchAppList.jsx';
-import { useBranchLocationContext } from '../branchLocation/BranchLocationProvider.jsx';
-import { loadBranchesOptions, saveBranchesOptions } from './branchesSearchParams.js';
 
 export function BranchAppListPage()
 {
-  const branchLocationApi = useBranchLocationContext();
+  const { branchAppListLocationOptions, setBranchAppListLocationOptions } = useBranchAppListLocation();
 
-  const [ listOptions, setOptions ] = useState( createListOptions );
+  const [ branches, setBranches ] = useState( initialLoadingBranches );
 
   return <BranchAppList
-    listOptions={ listOptions }
+    listOptions={ branchAppListLocationOptions }
     setListOptions={ setListOptions }
+    branches={ branches }
   />;
 
-  function createListOptions()
+  function initialLoadingBranches()
   {
-    if ( !branchLocationApi.isBranchListPath() ) return;
-
-    const loadedOptions = loadBranchesOptions();
-
-    const defaultOptions = {
-      filter: {},
-      sorting: {},
-      pagination: {
-        size: 10,
-        count: 1,
-      },
-    };
-
-    const options = {
-      filter: Object.assign( defaultOptions.filter, loadedOptions.filter ),
-      sorting: Object.assign( defaultOptions.sorting, loadedOptions.sorting ),
-      pagination: Object.assign( defaultOptions.pagination, loadedOptions.pagination ),
-    };
-
-    saveBranchesOptions( options );
-
-    return loadingBranches( options );
+    loadingBranches( branchAppListLocationOptions );
   }
 
   function setListOptions( options )
   {
-    saveBranchesOptions( options );
+    loadingBranches( options );
 
-    setOptions( loadingBranches( options ));
+    setBranchAppListLocationOptions( options );
   }
 
   function loadingBranches( options )
   {
     const promise = loadBranches( options );
-
-    return options;
   }
 
   async function loadBranches( options )
   {
-    const newOptions = {
-      ...options,
-      branches: await fetchBranches( options ),
-    };
+    const newBranches = await fetchBranches( options );
 
-    if ( newOptions.branches )   // fetch was not aborted
+    if ( newBranches )   // fetch was not aborted
     {
-      newOptions.branches.filter = window.structuredClone( options.filter );
-      newOptions.branches.sorting = window.structuredClone( options.sorting );
-      newOptions.branches.pagination = window.structuredClone( options.pagination );
+      Object.assign( newBranches, window.structuredClone( options ));
 
-      setOptions( newOptions );
+      setBranches( newBranches );
     }
   }
 }

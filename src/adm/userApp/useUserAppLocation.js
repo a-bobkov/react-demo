@@ -1,28 +1,29 @@
 import { useMemo, useState } from 'react';
-import { useRunOnce } from '../../useRunOnce.js';
-import { usePopstate } from '../../usePopstate.js';
-import { updatePopstatePath } from '../../PopstateLink.jsx';
+import { usePopstate } from '../usePopstate.js';
+import { updateHistoryEntry } from '../PopstateLink.jsx';
+import { userPath } from '../useAppLocation.js';
+
+export const userListPath = `${ userPath }/list`;
+export const userGetPath = `${ userPath }/edit`;
+export const userCreatePath = `${ userPath }/new`;
 
 const USER_APP_LIST_LOCATION = 'USER_APP_LIST_LOCATION';
 const USER_APP_GET_LOCATION = 'USER_APP_GET_LOCATION';
 const USER_APP_CREATE_LOCATION = 'USER_APP_CREATE_LOCATION';
 
-export function useUserAppLocation( prefixPath )
+export function useUserAppLocation()
 {
   const [ userAppLocation, setUserAppLocation ] = useState( getUserAppLocation );
 
-  const getUserAppLocationApi = useMemo(
+  usePopstate( dispatchUserAppPath );
+
+  const userAppLocationApi = useMemo(
     () => createGetUserAppLocationApi({ userAppLocation }),
     [ userAppLocation ],
   );
 
-  const setUserAppLocationApi = useRunOnce( createSetUserAppLocationApi, { prefixPath });
-
-  usePopstate( dispatchUserAppPath );
-
   return {
-    getUserAppLocationApi,
-    setUserAppLocationApi,
+    userAppLocationApi: userAppLocationApi,
   };
 
   function dispatchUserAppPath()
@@ -37,7 +38,6 @@ function createGetUserAppLocationApi({ userAppLocation })
     isUserAppListLocation: isUserAppListLocation,
     isUserAppGetLocation: isUserAppGetLocation,
     isUserAppCreateLocation: isUserAppCreateLocation,
-    getUserAppGetId: getUserAppGetId,
   };
 
   function isUserAppListLocation()
@@ -56,20 +56,11 @@ function createGetUserAppLocationApi({ userAppLocation })
   }
 }
 
-function createSetUserAppLocationApi({ prefixPath })
-{
-  return {
-    getUserAppListPath: getUserAppListPath,
-    getUserAppGetPath: getUserAppGetPath,
-    getUserAppCreatePath: getUserAppCreatePath,
-  };
-}
-
 function getUserAppLocation()
 {
   if ( isUserAppRootPath())
   {
-    updatePopstatePath( getUserAppListPath());
+    updateHistoryEntry( userListPath );
   }
 
   if ( isUserAppListPath())
@@ -88,52 +79,28 @@ function getUserAppLocation()
   }
 }
 
-const prefixPath = '/user';
-
 function isUserAppRootPath()
 {
-  return window.location.pathname === prefixPath;
-}
-
-function getUserAppListPath()
-{
-  return `${ prefixPath }/list`;
+  return window.location.pathname === userPath;
 }
 
 function isUserAppListPath()
 {
-  const userAppListPathRegexp = new RegExp(`^${ getUserAppListPath() }\\b`);
+  const userAppListPathRegexp = new RegExp(`^${ userListPath }\\b`);
 
   return Boolean( window.location.pathname.match( userAppListPathRegexp ));
 }
 
-function getUserAppGetPath( userId )
-{
-  return `${ prefixPath }/edit/${ userId }`;
-}
-
 function isUserAppGetPath()
 {
-  return getUserAppGetId() !== undefined;
-}
+  const userAppGetPathRegexp = new RegExp(`^${ userGetPath }\\b`);
 
-function getUserAppGetId()
-{
-  const userAppGetPathRegexp = new RegExp(`^${ getUserAppGetPath('(\\d+)') }\\b`);
-
-  const [, userId] = window.location.pathname.match( userAppGetPathRegexp ) ?? [];
-
-  return userId && parseInt( userId );
-}
-
-function getUserAppCreatePath()
-{
-  return `${ prefixPath }/new`;
+  return Boolean( window.location.pathname.match( userAppGetPathRegexp ));
 }
 
 function isUserAppCreatePath()
 {
-  const userAppCreatePathRegexp = new RegExp(`^${ getUserAppCreatePath() }\\b`);
+  const userAppCreatePathRegexp = new RegExp(`^${ userCreatePath }\\b`);
 
   return Boolean( window.location.pathname.match( userAppCreatePathRegexp ));
 }

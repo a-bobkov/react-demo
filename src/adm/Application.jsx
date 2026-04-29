@@ -1,34 +1,16 @@
-import { useGetAppLocationContext, useSetAppLocationContext } from './appLocation/AppLocationProvider.jsx';
-import { UserAppLocationProvider } from './userApp/userLocation/UserAppLocationProvider.jsx';
 import { UserApp } from './userApp/UserApp.jsx';
-import { BranchLocationProvider } from './branchApp/branchLocation/BranchLocationProvider.jsx';
 import { BranchApp } from './branchApp/BranchApp.jsx';
 
-export function Application()
+export function Application({ appLocationApi })
 {
-  const getAppLocationApi = useGetAppLocationContext();
-  const setAppLocationApi = useSetAppLocationContext();
-
-  if ( getAppLocationApi.isUserLocation())
+  if ( appLocationApi.isUserLocation())
   {
-    return (
-      <UserAppLocationProvider
-        prefixPath={ setAppLocationApi.getUserPath() }
-      >
-        <UserApp />
-      </UserAppLocationProvider>
-    );
+    return <UserApp />;
   }
 
-  if ( getAppLocationApi.isBranchLocation())
+  if ( appLocationApi.isBranchLocation())
   {
-    return (
-      <BranchLocationProvider
-        prefixPath={ setAppLocationApi.getBranchPath() }
-      >
-        <BranchApp />
-      </BranchLocationProvider>
-    );
+    return <BranchApp />;
   }
 
   return '404';

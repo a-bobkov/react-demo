@@ -30,7 +30,10 @@ export function UserAppUpdate({ updateOptions, setUpdateOptions })
         submitUser: result.user,
       });
 
-      apiNotifications.addInfo(`User ${ result.user.id } is successfully updated.`);
+      apiNotifications.addInfo( lingo({
+        en: `User ${ result.user.id } is successfully updated.`,
+        de: `Benutzer ${ result.user.id } wurde erfolgreich aktualisiert.`,
+      }));
 
       return true;
     }
@@ -51,7 +54,10 @@ export function UserAppUpdate({ updateOptions, setUpdateOptions })
       return await updateUser( formUser, lingo );
     }
     catch (error) {
-      apiNotifications.addError(`Error: ${ error.message }`);
+      apiNotifications.addError( lingo({
+        en: `Error: ${ error.message }`,
+        de: `Fehler: ${ error.message }`,
+      }));
 
       return {
         fetchCommonError: error,

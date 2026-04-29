@@ -1,21 +1,21 @@
-import { useGetUserAppLocationContext } from './userLocation/UserAppLocationProvider.jsx';
+import { useUserAppLocation } from './useUserAppLocation.js';
 import { UserAppListPage } from './userAppList/UserAppListPage.jsx';
 import { UserAppGetPage } from './userAppGet/UserAppGetPage.jsx';
 import { UserAppCreatePage } from './userAppCreate/UserAppCreatePage.jsx';
 
 export function UserApp()
 {
-  const getUserAppLocationApi = useGetUserAppLocationContext();
+  const { userAppLocationApi } = useUserAppLocation();
 
-  if ( getUserAppLocationApi.isUserAppListLocation() ) {
+  if ( userAppLocationApi.isUserAppListLocation() ) {
     return <UserAppListPage />;
   }
 
-  if ( getUserAppLocationApi.isUserAppGetLocation() ) {
+  if ( userAppLocationApi.isUserAppGetLocation() ) {
     return <UserAppGetPage />;
   }
 
-  if ( getUserAppLocationApi.isUserAppCreateLocation() ) {
+  if ( userAppLocationApi.isUserAppCreateLocation() ) {
     return <UserAppCreatePage />;
   }
 }

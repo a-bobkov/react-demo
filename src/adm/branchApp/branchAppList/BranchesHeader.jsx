@@ -1,5 +1,6 @@
-import { useBranchLocationContext } from '../branchLocation/BranchLocationProvider.jsx';
 import { useLingo } from '../../lingo/LingoProvider.jsx';
+import { PopstateLink } from '../../PopstateLink.jsx';
+import { branchCreatePath } from '../useBranchAppLocation.js';
 import './BranchesHeader.css';
 
 export function BranchesHeader()
@@ -19,8 +20,8 @@ function BranchesTitle()
   return (
     <div className="BranchesTitle">
       { lingo({
-        en: `Branches`,
-        de: `Die Niederlassungen`,
+        en: 'Branches',
+        de: 'Die Niederlassungen',
       })}
     </div>
   );
@@ -30,27 +31,17 @@ function CreateBranchButton()
 {
   const { lingo } = useLingo();
 
-  const branchLocationApi = useBranchLocationContext();
-
-  const branchCreatePath = branchLocationApi.getBranchCreatePath();
-
   return (
     <div className="CreateBranchButton">
-      <a className="CreateBranchButtonLink" href={ branchCreatePath } onClick={ onClick }>
+      <PopstateLink
+        className="CreateBranchButtonLink"
+        path={ branchCreatePath }
+      >
         { lingo({
-          en: `New branch`,
-          de: `Neue Niederlassung`,
+          en: 'New branch',
+          de: 'Neue Niederlassung',
         })}
-      </a>
+      </PopstateLink>
     </div>
   );
-
-  function onClick( event )
-  {
-    if ( event.ctrlKey || event.metaKey || event.button === 1 ) return;
-
-    event.preventDefault();
-
-    branchLocationApi.goPath( event.target.pathname );
-  }
 }

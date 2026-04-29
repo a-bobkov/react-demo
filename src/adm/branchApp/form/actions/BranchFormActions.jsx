@@ -1,16 +1,15 @@
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import { deleteBranch } from '../deleteBranch.js';
 import { useModalDialogContext } from '../../../modalDialog/ModalDialogProvider.jsx';
-import { useBranchLocationContext } from '../../branchLocation/BranchLocationProvider.jsx';
 import { useNotificationsContext } from '../../../notifications/NotificationsProvider.jsx';
 import { AllowExitModalDialogContent } from './AllowExitModalDialogContent.jsx';
+import { createHistoryEntry } from '../../../PopstateLink.jsx';
+import { branchListPath } from '../../useBranchAppLocation.js';
 import './BranchFormActions.css';
 
-export function BranchFormActions( { branchId, isFormChanged, isFormInvalid, setHasSpinner, saveFormBranch })
+export function BranchFormActions({ branchId, isFormChanged, isFormInvalid, setHasSpinner, saveFormBranch })
 {
   const apiNotifications = useNotificationsContext();
-
-  const branchLocationApi = useBranchLocationContext();
 
   const { lingo } = useLingo();
 
@@ -145,7 +144,7 @@ export function BranchFormActions( { branchId, isFormChanged, isFormInvalid, set
     if ( window.history.length > 1 ) {
       window.history.back();
     } else {
-      branchLocationApi.goBranchList();
+      createHistoryEntry( branchListPath );
     }
   }
 }

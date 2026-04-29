@@ -1,7 +1,7 @@
-import { useSetUserAppLocationContext } from '../../userLocation/UserAppLocationProvider.jsx';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
-import './UsersList.css';
 import { PopstateLink } from '../../../PopstateLink.jsx';
+import { getUserGetFullPath } from '../../userAppGet/useUserAppGetLocation.js';
+import './UsersList.css';
 
 export function UsersList({ users, isBlocked })
 {
@@ -9,6 +9,7 @@ export function UsersList({ users, isBlocked })
     <div className="UsersList" inert={ isBlocked }>
       { users.list.map( user =>
         <UsersLine
+          key={ user.id }
           user={ user }
         />
       )}
@@ -19,7 +20,7 @@ export function UsersList({ users, isBlocked })
 function UsersLine({ user })
 {
   return (
-    <div key={ user.id } className="UsersLine">
+    <div className="UsersLine">
       <UsersLineId userId={ user.id } />
       <UsersLineLogin userLogin={ user.login } />
       <UsersLineName userName={ user.name } />
@@ -99,13 +100,11 @@ function UsersLineActionEdit({ userId })
 {
   const { lingo } = useLingo();
 
-  const setUserAppLocationApi = useSetUserAppLocationContext();
-
   return (
     <div className="UsersLineActionEdit">
       <PopstateLink
         className="UsersLineActionEditLink"
-        path={ setUserAppLocationApi.getUserAppGetPath( userId ) }
+        path={ getUserGetFullPath( userId ) }
       >
         { lingo({
           en: 'Edit',

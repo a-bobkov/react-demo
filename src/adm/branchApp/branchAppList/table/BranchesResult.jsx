@@ -3,17 +3,17 @@ import { BranchesList } from './BranchesList.jsx';
 import { BranchesPagination } from '../pagination/BranchesPagination.jsx';
 import './BranchesResult.css';
 
-export function BranchesResult( { listOptions: { filter, sorting, pagination, branches }, onChangePagination })
+export function BranchesResult({ listOptions, branches, onChangePagination })
 {
-  console.log(`BranchesResult: ${ JSON.stringify({ filter, sorting, pagination, branches })}`);
+  console.log(`BranchesResult: ${ JSON.stringify({ listOptions, branches })}`);
 
   if ( branches === undefined ) {
     return <BranchesResultLoading />;
   }
 
-  const isFilterDifferent = different( filter, branches.filter );
-  const isSortingDifferent = different( sorting, branches.sorting );
-  const isPaginationDifferent = different( pagination, branches.pagination );
+  const isFilterDifferent = different( listOptions.filter, branches.filter );
+  const isSortingDifferent = different( listOptions.sorting, branches.sorting );
+  const isPaginationDifferent = different( listOptions.pagination, branches.pagination );
 
   return (
     <div className="BranchesResult">
@@ -23,7 +23,7 @@ export function BranchesResult( { listOptions: { filter, sorting, pagination, br
       />
       <BranchesPagination
         total={ branches.count }
-        pagination={ isFilterDifferent || isSortingDifferent ? branches.pagination : pagination }
+        pagination={ isFilterDifferent || isSortingDifferent ? branches.pagination : listOptions.pagination }
         isBlocked={ isFilterDifferent || isSortingDifferent }
         onChangePagination={ onChangePagination }
       />

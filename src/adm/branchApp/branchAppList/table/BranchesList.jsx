@@ -1,5 +1,6 @@
-import { useBranchLocationContext } from '../../branchLocation/BranchLocationProvider.jsx';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
+import { PopstateLink } from '../../../PopstateLink.jsx';
+import { getBranchGetFullPath } from '../../branchAppGet/useBranchAppGetLocation.js';
 import './BranchesList.css';
 
 export function BranchesList( { branches, isBlocked })
@@ -58,29 +59,17 @@ function BranchesLineActionEdit({ branchId })
 {
   const { lingo } = useLingo();
 
-  const branchLocationApi = useBranchLocationContext();
-
-  const branchEditPath = branchLocationApi.getBranchGetPath( branchId );
-
   return (
     <div className="BranchesLineActionEdit">
-      <a className="BranchesLineActionEditLink" href={ branchEditPath } onClick={ onClick }>
-        {
-          lingo({
-            en: 'Edit',
-            de: `Bearbeiten`,
-          })
-        }
-      </a>
+      <PopstateLink
+        className="BranchesLineActionEditLink"
+        path={ getBranchGetFullPath( branchId ) }
+      >
+        { lingo({
+          en: 'Edit',
+          de: 'Bearbeiten',
+        })}
+      </PopstateLink>
     </div>
   );
-
-  function onClick( event )
-  {
-    if ( event.ctrlKey || event.metaKey || event.button === 1 ) return;
-
-    event.preventDefault();
-
-    branchLocationApi.goPath( event.target.pathname );
-  }
 }

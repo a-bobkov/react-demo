@@ -2,6 +2,19 @@ import { useState } from 'react';
 import { saveFilter, loadFilter } from './filter/UsersFilter.jsx';
 import { saveSorting, loadSorting } from './sorting/usersSortingSearchParams.js';
 import { savePagination, loadPagination } from './pagination/usersPaginationSearchParams.js';
+import { updateHistoryEntry } from '../../PopstateLink.jsx';
+import { userListPath } from '../useUserAppLocation.js';
+
+export function getUserListFullPath( options )
+{
+  const searchParams = new URLSearchParams();
+
+  saveFilter( searchParams, options.filter );
+  saveSorting( searchParams, options.sorting );
+  savePagination( searchParams, options.pagination );
+
+  return `${ userListPath }?${ searchParams }`;
+}
 
 export function useUserAppListLocation()
 {
@@ -46,13 +59,7 @@ function createUserAppListLocation()
 
 function saveUsersOptions( options )
 {
-  const searchParams = new URLSearchParams();
-
-  saveFilter( searchParams, options.filter );
-  saveSorting( searchParams, options.sorting );
-  savePagination( searchParams, options.pagination );
-
-  window.history.replaceState(null, null, `?${ searchParams }`);
+  updateHistoryEntry( getUserListFullPath( options ));
 }
 
 function loadUsersOptions()

@@ -1,55 +1,21 @@
-import { useState } from 'react';
-import { usePopstate } from '../usePopstate.js';
-import { useBranchLocationContext } from './branchLocation/BranchLocationProvider.jsx';
+import { useBranchAppLocation } from './useBranchAppLocation.js';
 import { BranchAppListPage } from './branchAppList/BranchAppListPage.jsx';
 import { BranchAppGetPage } from './branchAppGet/BranchAppGetPage.jsx';
 import { BranchAppCreatePage } from './branchAppCreate/BranchAppCreatePage.jsx';
 
-const LIST_MODE = 'LIST_MODE';
-const GET_MODE = 'GET_MODE';
-const CREATE_MODE = 'CREATE_MODE';
-
 export function BranchApp()
 {
-  const branchLocationApi = useBranchLocationContext();
+  const { branchAppLocationApi } = useBranchAppLocation();
 
-  const [ mode, setMode ] = useState( getBranchLocationMode );
-
-  usePopstate( dispatchBranchPath );
-
-  switch ( mode )
-  {
-    case LIST_MODE:
-      return <BranchAppListPage />;
-
-    case GET_MODE:
-      return <BranchAppGetPage />;
-
-    case CREATE_MODE:
-      return <BranchAppCreatePage />;
+  if ( branchAppLocationApi.isBranchAppListLocation() ) {
+    return <BranchAppListPage />;
   }
 
-  function getBranchLocationMode()
-  {
-    if ( branchLocationApi.isBranchRootPath()) {
-      branchLocationApi.setBranchListPath();
-    }
-
-    if ( branchLocationApi.isBranchListPath()) {
-      return LIST_MODE;
-    }
-
-    if ( branchLocationApi.isBranchGetPath()) {
-      return GET_MODE;
-    }
-
-    if ( branchLocationApi.isBranchCreatePath()) {
-      return CREATE_MODE;
-    }
+  if ( branchAppLocationApi.isBranchAppGetLocation() ) {
+    return <BranchAppGetPage />;
   }
 
-  function dispatchBranchPath()
-  {
-    setMode( getBranchLocationMode() );
+  if ( branchAppLocationApi.isBranchAppCreateLocation() ) {
+    return <BranchAppCreatePage />;
   }
 }

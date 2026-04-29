@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { fetchBranch } from './fetchBranch.js';
-import { useBranchLocationContext } from '../branchLocation/BranchLocationProvider.jsx';
+import { useBranchAppGetLocation } from './useBranchAppGetLocation.js';
 import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 import { BranchAppGet } from './BranchAppGet.jsx';
 import { BranchAppUpdate } from '../branchAppUpdate/BranchAppUpdate.jsx';
@@ -8,7 +8,7 @@ import { useLingo } from '../../lingo/LingoProvider.jsx';
 
 export function BranchAppGetPage()
 {
-  const branchLocationApi = useBranchLocationContext();
+  const { branchId } = useBranchAppGetLocation();
 
   const apiNotifications = useNotificationsContext();
 
@@ -18,14 +18,22 @@ export function BranchAppGetPage()
 
   const [ updateOptions, setUpdateOptions ] = useState();
 
-  return updateOptions
-    ? <BranchAppUpdate
-      updateOptions={ updateOptions }
-      setUpdateOptions={ setIdentifiedUpdateOptions }
-    />
-    : <BranchAppGet
-      getOptions={ getOptions }
-    />;
+  if ( updateOptions ) {
+    return (
+      <BranchAppUpdate
+        updateOptions={ updateOptions }
+        setUpdateOptions={ setIdentifiedUpdateOptions }
+      />
+    );
+  }
+
+  if ( getOptions ) {
+    return (
+      <BranchAppGet
+        getOptions={ getOptions }
+      />
+    );
+  }
 
   function setIdentifiedUpdateOptions( newUpdateOptions )
   {
@@ -36,8 +44,6 @@ export function BranchAppGetPage()
 
   function createInitialGetOptions()
   {
-    const branchId = branchLocationApi.getBranchGetId();
-
     if ( branchId === undefined ) return;
 
     const promise = createGetPromise( branchId );
@@ -72,8 +78,12 @@ export function BranchAppGetPage()
     try {
       return await fetchBranch( branchId, lingo );
     }
-    catch (error) {
-      apiNotifications.addError(`Error: ${ error.message }`);
+    catch (error)
+    {
+      apiNotifications.addError( lingo({
+        en: `Error: ${ error.message }`,
+        de: `Fehler: ${ error.message }`,
+      }));
 
       return {
         fetchCommonError: error,

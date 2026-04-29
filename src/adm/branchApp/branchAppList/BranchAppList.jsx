@@ -4,7 +4,7 @@ import { BranchesSorting } from './sorting/BranchesSorting.jsx';
 import { BranchesResult } from './table/BranchesResult.jsx';
 import './BranchAppList.css';
 
-export function BranchAppList( { listOptions, setListOptions })
+export function BranchAppList( { listOptions, setListOptions, branches })
 {
   console.log(`BranchAppList: ${ JSON.stringify( listOptions )}`)
 
@@ -21,6 +21,7 @@ export function BranchAppList( { listOptions, setListOptions })
       />
       <BranchesResult
         listOptions={ listOptions }
+        branches={ branches }
         onChangePagination={ onChangePagination }
       />
     </div>

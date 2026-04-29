@@ -1,17 +1,15 @@
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import { deleteUser } from '../deleteUser.js';
 import { useModalDialogContext } from '../../../modalDialog/ModalDialogProvider.jsx';
-import { useSetUserAppLocationContext } from '../../userLocation/UserAppLocationProvider.jsx';
 import { useNotificationsContext } from '../../../notifications/NotificationsProvider.jsx';
 import { AllowExitModalDialogContent } from './AllowExitModalDialogContent.jsx';
-import { goPopstatePath } from '../../../PopstateLink.jsx';
+import { createHistoryEntry } from '../../../PopstateLink.jsx';
+import { userListPath } from '../../useUserAppLocation.js';
 import './UserFormActions.css';
 
 export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSpinner, saveFormUser })
 {
   const apiNotifications = useNotificationsContext();
-
-  const setUserAppLocationApi = useSetUserAppLocationContext();
 
   const { lingo } = useLingo();
 
@@ -146,7 +144,7 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
     if ( window.history.length > 1 ) {
       window.history.back();
     } else {
-      goPopstatePath( setUserAppLocationApi.getUserAppListPath() );
+      createHistoryEntry( userListPath );
     }
   }
 }

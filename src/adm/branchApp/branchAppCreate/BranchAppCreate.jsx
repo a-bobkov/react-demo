@@ -30,7 +30,10 @@ export function BranchAppCreate( { createOptions, setCreateOptions, setUpdateOpt
         submitBranch: result.branch,
       });
 
-      apiNotifications.addInfo(`Branch ${ result.branch.id } is successfully created.`);
+      apiNotifications.addInfo( lingo({
+        en: `Branch ${ result.branch.id } is successfully created.`,
+        de: `Niederlassung ${ result.branch.id } wurde erfolgreich erstellt.`,
+      }));
 
       return true;
     }
@@ -51,7 +54,10 @@ export function BranchAppCreate( { createOptions, setCreateOptions, setUpdateOpt
       return await createBranch( formBranch, lingo );
     }
     catch (error) {
-      apiNotifications.addError(`Error: ${ error.message }`);
+      apiNotifications.addError( lingo({
+        en: `Error: ${ error.message }`,
+        de: `Fehler: ${ error.message }`,
+      }));
 
       return {
         fetchCommonError: error,

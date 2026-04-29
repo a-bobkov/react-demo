@@ -12,18 +12,18 @@ export function PopstateLink({ children, path, className })
 
     event.preventDefault();
 
-    goPopstatePath( event.target.pathname );
+    createHistoryEntry( event.target.pathname );
   }
 }
 
-export function goPopstatePath( path )
+export function createHistoryEntry( path )
 {
   window.history.pushState(null, null, path );
 
   window.dispatchEvent( new Event('popstate'));
 }
 
-export function updatePopstatePath( path )
+export function updateHistoryEntry( path )
 {
   window.history.replaceState(null, null, path );
 }

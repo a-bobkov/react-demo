@@ -1,14 +1,11 @@
 import { useLingo } from './lingo/LingoProvider.jsx';
-import { useGetAppLocationContext, useSetAppLocationContext } from './appLocation/AppLocationProvider.jsx';
 import { PopstateLink } from './PopstateLink.jsx';
+import { branchPath, userPath } from './useAppLocation.js';
 import './AppMenu.css';
 
-export function AppMenu()
+export function AppMenu({ appLocationApi })
 {
   const { lingo } = useLingo();
-
-  const { isUserLocation, isBranchLocation } = useGetAppLocationContext();
-  const { getUserPath, getBranchPath } = useSetAppLocationContext();
 
   return (
     <div className="AppMenu">
@@ -23,16 +20,16 @@ export function AppMenu()
           en: `Users`,
           de: `Benutzer`,
         })}
-        path={ getUserPath() }
-        isActive={ isUserLocation() }
+        path={ userPath }
+        isActive={ appLocationApi.isUserLocation() }
       />
       <AppMenuItem
         name={ lingo({
           en: `Branches`,
           de: `Niederlassungen`,
         })}
-        path={ getBranchPath() }
-        isActive={ isBranchLocation() }
+        path={ branchPath }
+        isActive={ appLocationApi.isBranchLocation() }
       />
     </div>
   );

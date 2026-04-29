@@ -30,7 +30,10 @@ export function BranchAppUpdate( { updateOptions, setUpdateOptions })
         submitBranch: result.branch,
       });
 
-      apiNotifications.addInfo(`Branch ${ result.branch.id } is successfully updated.`);
+      apiNotifications.addInfo( lingo({
+        en: `Branch ${ result.branch.id } is successfully updated.`,
+        de: `Niederlassung ${ result.branch.id } wurde erfolgreich aktualisiert.`,
+      }));
 
       return true;
     }
@@ -51,7 +54,10 @@ export function BranchAppUpdate( { updateOptions, setUpdateOptions })
       return await updateBranch( formBranch, lingo );
     }
     catch (error) {
-      apiNotifications.addError(`Error: ${ error.message }`);
+      apiNotifications.addError( lingo({
+        en: `Error: ${ error.message }`,
+        de: `Fehler: ${ error.message }`,
+      }));
 
       return {
         fetchCommonError: error,
