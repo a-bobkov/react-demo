@@ -35,6 +35,11 @@ export function BranchAppGetPage()
     );
   }
 
+  return lingo ({
+    en: 'Branch id not found because of incorrect URL',
+    de: 'Niederlassung-ID nicht gefunden, da URL falsch ist',
+  });
+
   function setIdentifiedUpdateOptions( newUpdateOptions )
   {
     identifyOptions( newUpdateOptions );

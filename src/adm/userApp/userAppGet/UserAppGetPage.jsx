@@ -1,18 +1,18 @@
 import { useState } from 'react';
+import { useLingo } from '../../lingo/LingoProvider.jsx';
 import { fetchUser } from './fetchUser.js';
-import { useUserAppGetLocation } from './useUserAppGetLocation.js';
 import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
+import { useUserAppGetLocation } from './useUserAppGetLocation.js';
 import { UserAppGet } from './UserAppGet.jsx';
 import { UserAppUpdate } from '../userAppUpdate/UserAppUpdate.jsx';
-import { useLingo } from '../../lingo/LingoProvider.jsx';
 
 export function UserAppGetPage()
 {
-  const { userId } = useUserAppGetLocation();
+  const { lingo } = useLingo();
 
   const apiNotifications = useNotificationsContext();
 
-  const { lingo } = useLingo();
+  const { userId } = useUserAppGetLocation();
 
   const [ getOptions, setGetOptions ] = useState( createInitialGetOptions );
 
@@ -34,6 +34,11 @@ export function UserAppGetPage()
       />
     );
   }
+
+  return lingo({
+    en: 'User id not found because of incorrect URL',
+    de: 'Benutzer-ID nicht gefunden, da URL falsch ist',
+  });
 
   function setIdentifiedUpdateOptions( newUpdateOptions )
   {
