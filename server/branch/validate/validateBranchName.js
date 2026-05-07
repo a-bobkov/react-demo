@@ -1,4 +1,4 @@
-export function validateBranchName( branchName )
+export function validateBranchName( branchName, branchId, storedBranches )
 {
   if (!isBranchNameString( branchName ))
   {
@@ -22,6 +22,16 @@ export function validateBranchName( branchName )
     ];
   }
 
+  if (!isBranchNameUnique( branchName, branchId, storedBranches ))
+  {
+    return [ branchName,
+      {
+        en: 'Branch name should be unique',
+        de: 'Der Name der Niederlassung muss einzigartig sein',
+      },
+    ];
+  }
+
   return [ branchName ];
 }
 
@@ -33,4 +43,11 @@ function isBranchNameString( branchName )
 function isBranchNameFilled( branchName )
 {
   return branchName !== '';
+}
+
+function isBranchNameUnique( branchName, branchId, storedBranches )
+{
+  return Object.values( storedBranches ).every( storedBranch =>
+    storedBranch.name !== branchName || storedBranch.id === branchId
+  )
 }

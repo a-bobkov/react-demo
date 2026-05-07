@@ -2,11 +2,13 @@ import { UsersFilterLogin } from './Login/UsersFilterLogin.jsx';
 import { loadFilterLogin, saveFilterLogin } from './Login/UsersFilterLoginUrl.js';
 import { UsersFilterName } from './Name/UsersFilterName.jsx';
 import { loadFilterName, saveFilterName } from './Name/UsersFilterNameUrl.js';
+import { UsersFilterBranch } from './Branch/UsersFilterBranch.jsx';
+import { loadFilterBranch, saveFilterBranch } from './Branch/UsersFilterBranchUrl.js';
 import { UsersFilterActive } from './Active/UsersFilterActive.jsx';
 import { loadFilterActive, saveFilterActive } from './Active/UsersFilterActiveUrl.js';
 import './UsersFilter.css';
 
-export function UsersFilter({ filter, onChangeFilter })
+export function UsersFilter({ filter, subordinates, onChangeFilter })
 {
   console.log(`UsersFilter: ${ JSON.stringify(filter) }`)
 
@@ -19,6 +21,11 @@ export function UsersFilter({ filter, onChangeFilter })
       <UsersFilterName
         filter={ filter.name }
         onChangeFilter={ onChangeFilterName }
+      />
+      <UsersFilterBranch
+        filter={ filter.branch }
+        subordinates={ subordinates }
+        onChangeFilter={ onChangeFilterBranch }
       />
       <UsersFilterActive
         filter={ filter.active }
@@ -35,6 +42,11 @@ export function UsersFilter({ filter, onChangeFilter })
   function onChangeFilterName( name )
   {
     onChangeFilterValue({ name });
+  }
+
+  function onChangeFilterBranch( branch )
+  {
+    onChangeFilterValue({ branch });
   }
 
   function onChangeFilterActive( active )
@@ -55,6 +67,7 @@ export function saveFilter(searchParams, filter )
 {
   saveFilterLogin( searchParams, filter );
   saveFilterName( searchParams, filter );
+  saveFilterBranch( searchParams, filter );
   saveFilterActive( searchParams, filter );
 }
 
@@ -63,6 +76,7 @@ export function loadFilter(searchParams )
   return Object.assign({},
     loadFilterLogin( searchParams ),
     loadFilterName( searchParams ),
+    loadFilterBranch( searchParams ),
     loadFilterActive( searchParams ),
   );
 }

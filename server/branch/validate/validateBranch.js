@@ -1,10 +1,10 @@
 import { validateBranchName } from './validateBranchName.js';
 
-export function validateBranch( branch, storedBranches )
+export function validateBranch( branch, branchId, storedBranches )
 {
   const error = {};
 
-  [ branch.name, error.name ] = validateBranchName( branch.name );
+  [ branch.name, error.name ] = validateBranchName( branch.name, branchId, storedBranches );
 
   return [ branch, squeeze( error )];
 }

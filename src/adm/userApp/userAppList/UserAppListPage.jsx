@@ -1,18 +1,30 @@
 import { useState } from 'react';
+import { useLingo } from '../../lingo/LingoProvider.jsx';
 import { useUserAppListLocation } from './useUserAppListLocation.js';
-import { fetchUsers } from './fetchUsers.js';
+import { queryUser } from './queryUser.js';
 import { UserAppList } from './UserAppList.jsx';
 
-export function UserAppListPage()
+export function UserAppListPage({ subordinates })
 {
+  const { lingo } = useLingo();
+
   const { userAppListLocationOptions, setUserAppListLocationOptions } = useUserAppListLocation();
 
   const [ users, setUsers ] = useState( initialLoadingUsers );
 
+  if ( subordinates === undefined )
+  {
+    return lingo ({
+      en: 'Waiting for subordinates...',
+      de: 'Warten auf Untergebene...',
+    });
+  }
+
   return <UserAppList
     listOptions={ userAppListLocationOptions }
-    setListOptions={ setListOptions }
+    subordinates={ subordinates }
     users={ users }
+    setListOptions={ setListOptions }
   />;
 
   function initialLoadingUsers()
@@ -34,7 +46,7 @@ export function UserAppListPage()
 
   async function loadUsers( options )
   {
-    const newUsers = await fetchUsers( options );
+    const newUsers = await queryUser( options );
 
     if ( newUsers )   // fetch was not aborted
     {

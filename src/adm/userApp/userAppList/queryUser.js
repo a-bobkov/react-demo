@@ -1,8 +1,8 @@
 let ac;
 
-export async function fetchBranches( options )
+export async function queryUser( options )
 {
-  console.log(`Starting fetch with options: "${ JSON.stringify( options )}"`);
+  console.log(`Starting query with options: "${ JSON.stringify( options )}"`);
 
   const abortReasonObsolete = 'obsolete';
 
@@ -13,11 +13,11 @@ export async function fetchBranches( options )
   ac = new AbortController();
 
   try {
-    return await abortableFetch( options, ac.signal );
+    return await abortableQuery( options, ac.signal );
   }
   catch (error) {
     if (error !== abortReasonObsolete) {
-      console.log(`branchesAbortableFetch error: `, error);
+      console.log(`usersAbortableFetch error: `, error);
     }
   }
   finally {
@@ -25,9 +25,9 @@ export async function fetchBranches( options )
   }
 }
 
-async function abortableFetch( options, signal )
+async function abortableQuery( options, signal )
 {
-  console.log(`Starting abortable with options: "${ JSON.stringify( options )}"`);
+  console.log(`Starting abortable query with options: "${ JSON.stringify( options )}"`);
 
   const body = (new TextEncoder).encode( JSON.stringify( getRequestOptions( options )));
 
@@ -37,7 +37,7 @@ async function abortableFetch( options, signal )
   });
 
   const response = await fetch(
-    '/api/branch',
+    '/api/user',
     {
       method: 'QUERY',
       headers,
@@ -46,11 +46,11 @@ async function abortableFetch( options, signal )
     }
   );
 
-  const branches = await response.json();
+  const users = await response.json();
 
-  console.log(`Finished fetch: "${ JSON.stringify( branches )}"`);
+  console.log(`Finished fetch: "${ JSON.stringify( users )}"`);
 
-  return branches;
+  return users;
 }
 
 function getRequestOptions( options )
@@ -79,6 +79,14 @@ function getRequestFilters( filter )
       field: 'name',
       operator: 'includes',
       value: filter.name,
+    });
+  }
+
+  if ( filter.branch !== undefined ) {
+    requestFilters.push({
+      field: 'branch',
+      operator: 'equal',
+      value: filter.branch,
     });
   }
 

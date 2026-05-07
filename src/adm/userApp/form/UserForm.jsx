@@ -7,17 +7,17 @@ import { FetchCommonError } from '../FetchCommonError.jsx';
 import { useLingo } from '../../lingo/LingoProvider.jsx';
 import './UserForm.css';
 
-export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {}, fetchCommonError }, onClickSaveUser })
+export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {}, fetchCommonError }, subordinates, onClickSaveUser })
 {
   const [ hasSpinner, setHasSpinner ] = useState( false );
 
   const [ formUser, setFormUser ] = useState( submitUser );
   const formErrors = validateUser( formUser );
 
-  const isFieldChangedDb = compareUsers( formUser, dbUser );
+  const isFieldChangedDb = compareItems( formUser, dbUser );
   const isFormChangedDb = hasChangedField( isFieldChangedDb );
 
-  const isFieldChangedSubmit = compareUsers( formUser, submitUser );
+  const isFieldChangedSubmit = compareItems( formUser, submitUser );
   const saveErrors = getActiveSubmitErrors( submitErrors, isFieldChangedSubmit );
 
   const isFormInvalid = Object.keys( saveErrors ).length || Object.keys( formErrors ).length;
@@ -33,6 +33,7 @@ export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {},
       />
       <UserFormFields
         formUser={ formUser }
+        subordinates={ subordinates }
         formErrors={ formErrors }
         saveErrors={ saveErrors }
         isFieldChangedDb={ isFieldChangedDb }
@@ -84,14 +85,21 @@ function getUserFormTitle( userId )
     })
 }
 
-function compareUsers( formUser, dbUser )
+function compareItems( formItem, dbItem )
 {
-  return Object.keys( formUser ).reduce(( result, key ) =>
+  return Object.keys( formItem ).reduce(( result, key ) =>
     Object.assign( result, {
-      [key]: formUser[ key ] !== dbUser[ key ]
+      [key]: isObject( formItem[ key ])
+        ? JSON.stringify( formItem[ key ]) !== JSON.stringify( dbItem[ key ])
+        : formItem[ key ] !== dbItem[ key ]
     }),
     {}
   );
+}
+
+function isObject( item )
+{
+  return item != null && item.constructor === Object;
 }
 
 function hasChangedField( isFieldChanged )

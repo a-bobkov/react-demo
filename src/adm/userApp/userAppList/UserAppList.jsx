@@ -4,7 +4,7 @@ import { UsersSorting } from './sorting/UsersSorting.jsx';
 import { UsersResult } from './table/UsersResult.jsx';
 import './UserAppList.css';
 
-export function UserAppList({ listOptions, setListOptions, users })
+export function UserAppList({ listOptions, subordinates, users, setListOptions })
 {
   console.log(`UserAppList: ${ JSON.stringify( listOptions )}`)
 
@@ -13,6 +13,7 @@ export function UserAppList({ listOptions, setListOptions, users })
       <UsersHeader />
       <UsersFilter
         filter={ listOptions.filter }
+        subordinates={ subordinates }
         onChangeFilter={ onChangeFilter }
       />
       <UsersSorting
@@ -22,6 +23,7 @@ export function UserAppList({ listOptions, setListOptions, users })
       <UsersResult
         listOptions={ listOptions }
         users={ users }
+        subordinates={ subordinates }
         onChangePagination={ onChangePagination }
       />
     </div>

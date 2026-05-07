@@ -1,5 +1,7 @@
 import { useLingo } from '../lingo/LingoProvider.jsx';
 import { useUserAppLocation } from './useUserAppLocation.js';
+import { useUserAppSubordinates } from './useUserAppSubordinates.js';
+import { FetchCommonError } from './FetchCommonError.jsx';
 import { UserAppListPage } from './userAppList/UserAppListPage.jsx';
 import { UserAppGetPage } from './userAppGet/UserAppGetPage.jsx';
 import { UserAppCreatePage } from './userAppCreate/UserAppCreatePage.jsx';
@@ -10,16 +12,41 @@ export function UserApp()
 
   const { userAppLocationApi } = useUserAppLocation();
 
-  if ( userAppLocationApi.isUserAppListLocation() ) {
-    return <UserAppListPage />;
+  const { subordinates, subordinatesError } = useUserAppSubordinates();
+
+  if ( subordinatesError ) {
+    return (
+      <FetchCommonError
+        error={ subordinatesError }
+      />
+    );
   }
 
-  if ( userAppLocationApi.isUserAppGetLocation() ) {
-    return <UserAppGetPage />;
+  if ( userAppLocationApi.isUserAppListLocation() )
+  {
+    return (
+      <UserAppListPage
+        subordinates={ subordinates }
+      />
+    );
   }
 
-  if ( userAppLocationApi.isUserAppCreateLocation() ) {
-    return <UserAppCreatePage />;
+  if ( userAppLocationApi.isUserAppGetLocation() )
+  {
+    return (
+      <UserAppGetPage
+        subordinates={ subordinates }
+      />
+    );
+  }
+
+  if ( userAppLocationApi.isUserAppCreateLocation() )
+  {
+    return (
+      <UserAppCreatePage
+        subordinates={ subordinates }
+      />
+    );
   }
 
   return lingo({

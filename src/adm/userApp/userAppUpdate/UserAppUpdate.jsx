@@ -1,23 +1,35 @@
+import { useState } from 'react';
+import { useLingo } from '../../lingo/LingoProvider.jsx';
+import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 import { UserForm } from '../form/UserForm.jsx';
 import { updateUser } from './updateUser.js';
-import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
-import { useLingo } from '../../lingo/LingoProvider.jsx';
 
-export function UserAppUpdate({ updateOptions, setUpdateOptions })
+export function UserAppUpdate({ user, subordinates })
 {
-  const apiNotifications = useNotificationsContext();
+  console.log(`UserAppUpdate user: ${ JSON.stringify( user )}`);
 
   const { lingo } = useLingo();
 
-  console.log(`UserAppUpdate updateOptions: ${ JSON.stringify( updateOptions )}`);
+  const apiNotifications = useNotificationsContext();
+
+  const [ userOptions, setUserOptions ] = useState( createInitialUserOptions );
 
   return (
     <UserForm
-      key={ updateOptions.id }
-      userOptions={ updateOptions }
+      key={ userOptions.id }
+      userOptions={ userOptions }
+      subordinates={ subordinates }
       onClickSaveUser={ onClickUpdateUser }
     />
   );
+
+  function createInitialUserOptions()
+  {
+    return identifyOptions({
+      dbUser: user,
+      submitUser: user,
+    });
+  }
 
   async function onClickUpdateUser( formUser, dbUser )
   {
@@ -25,7 +37,7 @@ export function UserAppUpdate({ updateOptions, setUpdateOptions })
 
     if ( result.user )
     {
-      setUpdateOptions({
+      setIdentifiedUserOptions({
         dbUser: result.user,
         submitUser: result.user,
       });
@@ -38,7 +50,7 @@ export function UserAppUpdate({ updateOptions, setUpdateOptions })
       return true;
     }
 
-    setUpdateOptions({
+    setIdentifiedUserOptions({
       dbUser: dbUser,
       submitUser: formUser,
       submitErrors: result.error,
@@ -53,7 +65,8 @@ export function UserAppUpdate({ updateOptions, setUpdateOptions })
     try {
       return await updateUser( formUser, lingo );
     }
-    catch (error) {
+    catch (error)
+    {
       apiNotifications.addError( lingo({
         en: `Error: ${ error.message }`,
         de: `Fehler: ${ error.message }`,
@@ -64,4 +77,16 @@ export function UserAppUpdate({ updateOptions, setUpdateOptions })
       }
     }
   }
+
+  function setIdentifiedUserOptions( newUserOptions )
+  {
+    setUserOptions( identifyOptions( newUserOptions ));
+  }
+}
+
+function identifyOptions( options )
+{
+  options.id = String( Date.now());  // to initialize state of form after submit
+
+  return options;
 }

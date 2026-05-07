@@ -1,5 +1,6 @@
 import { validateUserLogin } from './validateUserLogin.js';
 import { validateUserName } from './validateUserName.js';
+import { validateUserBranch } from './validateUserBranch.js';
 import { validateUserCompany } from './validateUserCompany.js';
 
 export function validateUser( formUser )
@@ -9,6 +10,8 @@ export function validateUser( formUser )
   error.login = validateUserLogin( formUser.login );
 
   error.name = validateUserName( formUser.name );
+
+  error.branch = validateUserBranch( formUser.branch );
 
   error.company = validateUserCompany( formUser.company );
 

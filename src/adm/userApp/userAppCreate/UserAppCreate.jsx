@@ -1,20 +1,24 @@
+import { useState } from 'react';
+import { useLingo } from '../../lingo/LingoProvider.jsx';
+import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 import { UserForm } from '../form/UserForm.jsx';
 import { createUser } from './createUser.js';
-import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
-import { useLingo } from '../../lingo/LingoProvider.jsx';
 
-export function UserAppCreate({ createOptions, setCreateOptions, setUpdateOptions })
+export function UserAppCreate({ user, subordinates, setCreatedUser })
 {
-  const apiNotifications = useNotificationsContext();
-
   const { lingo } = useLingo();
 
-  console.log(`UserAppCreate createOptions: ${ JSON.stringify( createOptions )}`);
+  const apiNotifications = useNotificationsContext();
+
+  const [ userOptions, setUserOptions ] = useState( createInitialUserOptions );
+
+  console.log(`UserAppCreate createOptions: ${ JSON.stringify( userOptions )}`);
 
   return (
     <UserForm
-      key={ createOptions.id }
-      userOptions={ createOptions }
+      key={ userOptions.id }
+      userOptions={ userOptions }
+      subordinates={ subordinates }
       onClickSaveUser={ onClickCreateUser }
     />
   );
@@ -25,10 +29,7 @@ export function UserAppCreate({ createOptions, setCreateOptions, setUpdateOption
 
     if ( result.user )
     {
-      setUpdateOptions({
-        dbUser: result.user,
-        submitUser: result.user,
-      });
+      setCreatedUser( result.user );
 
       apiNotifications.addInfo( lingo({
         en: `User ${ result.user.id } is successfully created.`,
@@ -38,12 +39,12 @@ export function UserAppCreate({ createOptions, setCreateOptions, setUpdateOption
       return true;
     }
 
-    setCreateOptions({
+    setUserOptions( identifyOptions({
       dbUser: dbUser,
       submitUser: formUser,
       submitErrors: result.error,
       fetchCommonError: result.fetchCommonError,
-    });
+    }));
 
     return false;
   }
@@ -64,4 +65,19 @@ export function UserAppCreate({ createOptions, setCreateOptions, setUpdateOption
       }
     }
   }
+
+  function createInitialUserOptions()
+  {
+    return {
+      dbUser: user,
+      submitUser: user,
+    };
+  }
+}
+
+function identifyOptions( options )
+{
+  options.id = String( Date.now());  // to initialize state of form after submit
+
+  return options;
 }

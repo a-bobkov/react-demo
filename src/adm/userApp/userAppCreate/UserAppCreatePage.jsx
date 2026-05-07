@@ -1,73 +1,56 @@
 import { useState } from 'react';
+import { useLingo } from '../../lingo/LingoProvider.jsx';
 import { UserAppCreate } from './UserAppCreate.jsx';
 import { UserAppUpdate } from '../userAppUpdate/UserAppUpdate.jsx';
 import { getUserGetFullPath } from '../userAppGet/useUserAppGetLocation.js';
 import { updateHistoryEntry } from '../../PopstateLink.jsx';
 
-export function UserAppCreatePage()
+export function UserAppCreatePage({ subordinates })
 {
-  const [ createOptions, setCreateOptions ] = useState( createInitialCreateOptions );
+  const { lingo } = useLingo();
 
-  const [ updateOptions, setUpdateOptions ] = useState();
+  const [ user, setUser ] = useState( createInitialNewUser );
 
-  return updateOptions
-    ? <UserAppUpdate
-      updateOptions={ updateOptions }
-      setUpdateOptions={ setIdentifiedUpdateOptions }
+  if ( subordinates === undefined )
+  {
+    return lingo ({
+      en: 'Waiting for subordinates...',
+      de: 'Warten auf Untergebene...',
+    });
+  }
+
+  if ( user.id === undefined )
+  {
+    return (
+      <UserAppCreate
+        user={ user }
+        subordinates={ subordinates }
+        setCreatedUser={ setCreatedUser }
+      />
+    );
+  }
+
+  return (
+    <UserAppUpdate
+      user={ user }
+      subordinates={ subordinates }
     />
-    : <UserAppCreate
-      createOptions={ createOptions }
-      setCreateOptions={ setIdentifiedCreateOptions }
-      setUpdateOptions={ setFirstUpdateOptions }
-    />;
+  );
 
-  function setFirstUpdateOptions( options )
+  function setCreatedUser( createdUser )
   {
-    updateHistoryEntry( getUserGetFullPath( options.dbUser.id ));
+    updateHistoryEntry( getUserGetFullPath( createdUser.id ));
 
-    setIdentifiedCreateOptions( options );
-  }
-
-  function setIdentifiedCreateOptions( options )
-  {
-    identifyOptions( options );
-
-    setCreateOptions( options );
-  }
-
-  function setIdentifiedUpdateOptions( options )
-  {
-    identifyOptions( options );
-
-    setUpdateOptions( options );
+    setUser( createdUser );
   }
 }
 
-function createInitialCreateOptions()
+function createInitialNewUser()
 {
-  const newCreateOptions = createNewUserOptions();
-
-  identifyOptions( newCreateOptions );
-
-  return newCreateOptions;
-}
-
-function identifyOptions( options )
-{
-  options.id = String( Date.now());  // to initialize state of form after submit
-}
-
-function createNewUserOptions()
-{
-  const newUser = {
+  return {
     login: '',
     name: '',
     company: '',
     active: false,
-  };
-
-  return {
-    dbUser: newUser,
-    submitUser: newUser,
   };
 }

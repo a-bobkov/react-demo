@@ -15,21 +15,25 @@ console.log(`curl -i -X PUT ${ href }/1 -d'{"name":"Leipzig"}'`);
 console.log(`curl -i -X PUT ${ href }/1 -d'{"name":""}'`);  // error
 console.log(`curl -i -X DELETE ${ href }/2`);
 
-const branches = Branch.create( initialBranches );
+export const branches = Branch.create( initialBranches );
 
 export function dispatchBranch( requestMethod, requestPathParameter, requestBodyValue )
 {
+  const branchId = requestPathParameter
+    ? parseInt( requestPathParameter )
+    : undefined;
+
   switch ( requestMethod ) {
     case 'QUERY':
       return branches.queryBranch( requestBodyValue );
     case 'GET':
-      return branches.getBranch( requestPathParameter );
+      return branches.getBranch( branchId );
     case 'POST':
       return branches.createBranch( requestBodyValue) ;
     case 'PUT':
-      return branches.updateBranch( requestPathParameter, requestBodyValue );
+      return branches.updateBranch( branchId, requestBodyValue );
     case 'DELETE':
-      return branches.deleteBranch( requestPathParameter );
+      return branches.deleteBranch( branchId );
   }
 
   throw responseError.create(

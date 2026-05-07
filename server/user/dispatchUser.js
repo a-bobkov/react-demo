@@ -11,26 +11,30 @@ console.log(`curl -i -X QUERY ${ href } -d'{"filters":[{"field":"active","operat
 console.log(`curl -i -X QUERY ${ href } -d'{"sortings":[{"field":"login","order":"asc"}]}'`);
 console.log(`curl -i -X QUERY ${ href } -d'{"pagination":{"limit":5,"offset":3}}'`);
 console.log(`curl -i -X GET ${ href }/1`);
-console.log(`curl -i -X POST ${ href } -d'{"login":"aaa@mail.ru","name":"An","company":"Noname","active":true}'`);
-console.log(`curl -i -X PUT ${ href }/1 -d'{"login":"a@mail.ru","name":"An","company":"Noname","active":false}'`);
-console.log(`curl -i -X PUT ${ href }/1 -d'{"login":"a@b","salutation":9}'`);  // error
+console.log(`curl -i -X POST ${ href } -d'{"login":"aaa@mail.ru","name":"An","company":"Noname","branch":{"id":1},"active":true}'`);
+console.log(`curl -i -X PUT ${ href }/1 -d'{"login":"a@mail.ru","name":"An","company":"Noname","branch":{"id":2},"active":false}'`);
+console.log(`curl -i -X PUT ${ href }/1 -d'{"login":"a@b","branch":{"id":11},"salutation":9}'`);  // error
 console.log(`curl -i -X DELETE ${ href }/2`);
 
-const users = User.create( initialUsers );
+export const users = User.create( initialUsers );
 
 export function dispatchUser( requestMethod, requestPathParameter, requestBodyValue )
 {
+  const userId = requestPathParameter
+    ? parseInt( requestPathParameter )
+    : undefined;
+
   switch ( requestMethod ) {
     case 'QUERY':
       return users.queryUser( requestBodyValue );
     case 'GET':
-      return users.getUser( requestPathParameter );
+      return users.getUser( userId );
     case 'POST':
       return users.createUser( requestBodyValue) ;
     case 'PUT':
-      return users.updateUser( requestPathParameter, requestBodyValue );
+      return users.updateUser( userId, requestBodyValue );
     case 'DELETE':
-      return users.deleteUser( requestPathParameter );
+      return users.deleteUser( userId );
   }
 
   throw responseError.create(

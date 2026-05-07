@@ -2,6 +2,7 @@ import * as http2 from 'node:http2';
 import * as responseError from '../responseError.js';
 import { validateBranch } from './validate/validateBranch.js';
 import { query } from '../query/query.js';
+import { users } from '../user/dispatchUser.js';
 
 export {
   create as create,
@@ -9,7 +10,7 @@ export {
 
 function create( initialBranches )
 {
-  const branches = {};
+  const storedBranches = {};
 
   let nextId = 1;
 
@@ -23,6 +24,7 @@ function create( initialBranches )
   });
 
   return {
+    getStored: getStored,
     getBranch: getBranch,
     createBranch: createBranch,
     updateBranch: updateBranch,
@@ -30,9 +32,14 @@ function create( initialBranches )
     queryBranch: queryBranch,
   };
 
+  function getStored()
+  {
+    return storedBranches;
+  }
+
   function getBranch( branchId )
   {
-    const branch = branches[ branchId ];
+    const branch = storedBranches[ branchId ];
 
     if (!branch) {
       throw newErrorBranchNotFound( branchId );
@@ -45,7 +52,7 @@ function create( initialBranches )
 
   function createBranch( branchData )
   {
-    const [ branch, error ] = validateBranch( branchData, branches );
+    const [ branch, error ] = validateBranch( branchData, undefined, storedBranches );
 
     if (error) {
       return {
@@ -58,7 +65,7 @@ function create( initialBranches )
       ...branch,
     }
 
-    branches[ newBranch.id ] = newBranch;
+    storedBranches[ newBranch.id ] = newBranch;
 
     return {
       branch: newBranch,
@@ -67,13 +74,13 @@ function create( initialBranches )
 
   function updateBranch( branchId, branchData )
   {
-    const storedBranch = branches[ branchId ];
+    const storedBranch = storedBranches[ branchId ];
 
     if ( !storedBranch ) {
       throw newErrorBranchNotFound( branchId );
     }
 
-    const [ branch, error ] = validateBranch( branchData, branches );
+    const [ branch, error ] = validateBranch( branchData, branchId, storedBranches );
 
     if ( error ) {
       return {
@@ -88,19 +95,30 @@ function create( initialBranches )
     };
   }
 
-  function deleteBranch( branch )
+  function deleteBranch( branchId )
   {
-    if (!branches[ branch ]) {
-      throw newErrorBranchNotFound( branch );
+    if ( !storedBranches[ branchId ]) {
+      throw newErrorBranchNotFound( branchId );
     }
 
-    delete branches[ branch ];
+    if ( isBranchReferencedByUser( branchId ) ) {
+      throw newErrorBranchReferencedByUser();
+    }
+
+    delete storedBranches[ branchId ];
   }
 
   function queryBranch( options )
   {
-    return query( branches, options );
+    return query( storedBranches, options );
   }
+}
+
+function isBranchReferencedByUser( branchId )
+{
+  return Object.values( users.getStored() ).some( storedUser =>
+    storedUser.branch.id === branchId
+  )
 }
 
 function newErrorBranchNotFound( branchId )
@@ -108,5 +126,13 @@ function newErrorBranchNotFound( branchId )
   return responseError.create(
     `Branch not found by id: ${ branchId }`,
     http2.constants.HTTP_STATUS_NOT_FOUND,
+  );
+}
+
+function newErrorBranchReferencedByUser()
+{
+  return responseError.create(
+    `Branch is referenced by user`,
+    http2.constants.HTTP_STATUS_CONFLICT,
   );
 }

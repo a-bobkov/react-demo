@@ -1,18 +1,21 @@
 import { validateUserLogin } from './validateUserLogin.js';
 import { validateUserName } from './validateUserName.js';
 import { validateUserCompany } from './validateUserCompany.js';
+import { validateUserBranch } from './validateUserBranch.js';
 import { validateUserActive } from './validateUserActive.js';
 import { validateUserSalutation } from './validateUserSalutation.js';
 
-export function validateUser( user, storedUsers )
+export function validateUser( user, userId, storedUsers, storedBranches )
 {
   const error = {};
 
-  [ user.login, error.login ] = validateUserLogin( user.login, user.id, storedUsers );
+  [ user.login, error.login ] = validateUserLogin( user.login, userId, storedUsers );
 
   [ user.name, error.name ] = validateUserName( user.name );
 
   [ user.company, error.company ] = validateUserCompany( user.company );
+
+  [ user.branch, error.branch ] = validateUserBranch( user.branch, storedBranches );
 
   [ user.active, error.active ] = validateUserActive( user.active );
 

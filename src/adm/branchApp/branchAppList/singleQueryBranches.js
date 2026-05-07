@@ -1,6 +1,6 @@
 let ac;
 
-export async function fetchUsers( options )
+export async function singleQueryBranches( options )
 {
   console.log(`Starting fetch with options: "${ JSON.stringify( options )}"`);
 
@@ -13,11 +13,11 @@ export async function fetchUsers( options )
   ac = new AbortController();
 
   try {
-    return await abortableFetch( options, ac.signal );
+    return await queryBranches( options, ac.signal );
   }
   catch (error) {
     if (error !== abortReasonObsolete) {
-      console.log(`usersAbortableFetch error: `, error);
+      console.log(`queryBranches error: `, error);
     }
   }
   finally {
@@ -25,7 +25,7 @@ export async function fetchUsers( options )
   }
 }
 
-async function abortableFetch( options, signal )
+export async function queryBranches( options, signal )
 {
   console.log(`Starting abortable with options: "${ JSON.stringify( options )}"`);
 
@@ -37,7 +37,7 @@ async function abortableFetch( options, signal )
   });
 
   const response = await fetch(
-    '/api/user',
+    '/api/branch',
     {
       method: 'QUERY',
       headers,
@@ -46,14 +46,14 @@ async function abortableFetch( options, signal )
     }
   );
 
-  const users = await response.json();
+  const branches = await response.json();
 
-  console.log(`Finished fetch: "${ JSON.stringify( users )}"`);
+  console.log(`Finished fetch: "${ JSON.stringify( branches )}"`);
 
-  return users;
+  return branches;
 }
 
-function getRequestOptions( options )
+function getRequestOptions( options = {} )
 {
   return {
     filters: getRequestFilters( options.filter ),
@@ -62,7 +62,7 @@ function getRequestOptions( options )
   }
 }
 
-function getRequestFilters( filter )
+function getRequestFilters( filter = {} )
 {
   const requestFilters = [];
 
@@ -107,7 +107,7 @@ function getRequestSortings( sorting = {})
   return requestSortings;
 }
 
-function getRequestPagination( pagination )
+function getRequestPagination( pagination = {})
 {
   return {
     limit: pagination.size,

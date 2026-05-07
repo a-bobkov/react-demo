@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useBranchAppListLocation } from './useBranchAppListLocation.js';
-import { fetchBranches } from './fetchBranches.js';
+import { singleQueryBranches } from './singleQueryBranches.js';
 import { BranchAppList } from './BranchAppList.jsx';
 
 export function BranchAppListPage()
@@ -34,7 +34,7 @@ export function BranchAppListPage()
 
   async function loadBranches( options )
   {
-    const newBranches = await fetchBranches( options );
+    const newBranches = await singleQueryBranches( options );
 
     if ( newBranches )   // fetch was not aborted
     {

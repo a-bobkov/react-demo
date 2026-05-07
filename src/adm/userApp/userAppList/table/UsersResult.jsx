@@ -1,29 +1,41 @@
+import { useMemo } from 'react';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import { UsersList } from './UsersList.jsx';
 import { UsersPagination } from '../pagination/UsersPagination.jsx';
 import './UsersResult.css';
 
-export function UsersResult({ listOptions, users, onChangePagination })
+export function UsersResult({ listOptions, users, subordinates, onChangePagination })
 {
+  const { lingo } = useLingo();
+
   console.log(`UsersResult: ${ JSON.stringify({ listOptions, users })}`);
 
-  if ( users === undefined ) {
-    return <UsersResultLoading />;
+  if ( users === undefined )
+  {
+    return lingo({
+      en: 'Loading users...',
+      de: 'Benutzer werden geladen...',
+    });
   }
 
-  const isFilterDifferent = different( listOptions.filter, users.filter );
-  const isSortingDifferent = different( listOptions.sorting, users.sorting );
-  const isPaginationDifferent = different( listOptions. pagination, users.pagination );
+  const resolvedUsers = useMemo(
+    () => resolveUsersSubordinates( users, subordinates ),
+    [ users ],
+  );
+
+  const isFilterDifferent = different( listOptions.filter, resolvedUsers.filter );
+  const isSortingDifferent = different( listOptions.sorting, resolvedUsers.sorting );
+  const isPaginationDifferent = different( listOptions. pagination, resolvedUsers.pagination );
 
   return (
     <div className="UsersResult">
       <UsersList
-        users={ users }
+        users={ resolvedUsers }
         isBlocked={ isFilterDifferent || isSortingDifferent || isPaginationDifferent }
       />
       <UsersPagination
-        total={ users.count }
-        pagination={ isFilterDifferent || isSortingDifferent ? users.pagination : listOptions.pagination }
+        total={ resolvedUsers.count }
+        pagination={ isFilterDifferent || isSortingDifferent ? resolvedUsers.pagination : listOptions.pagination }
         isBlocked={ isFilterDifferent || isSortingDifferent }
         onChangePagination={ onChangePagination }
       />
@@ -31,18 +43,16 @@ export function UsersResult({ listOptions, users, onChangePagination })
   );
 }
 
-function UsersResultLoading()
+function resolveUsersSubordinates( users, subordinates )
 {
-  const { lingo } = useLingo();
+  users.list.forEach( user =>
+  {
+    user.branch = subordinates.branches.find( branch =>
+      branch.id === user.branch.id
+    );
+  });
 
-  return (
-    <div className="UsersResultLoading">
-      { lingo({
-        en: 'Loading users...',
-        de: 'Benutzer werden geladen...',
-      })}
-    </div>
-  );
+  return users;
 }
 
 function different( obj1, obj2 )

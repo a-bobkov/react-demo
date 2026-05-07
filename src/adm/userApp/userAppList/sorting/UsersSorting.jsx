@@ -4,7 +4,7 @@ import './UsersSorting.css';
 
 export function UsersSorting({ sorting = {}, onChangeSorting })
 {
-  const { id, login, name, company, active } = sorting;
+  const { id, login, name, branch, active } = sorting;
 
   const { lingo } = useLingo();
 
@@ -36,10 +36,10 @@ export function UsersSorting({ sorting = {}, onChangeSorting })
       />
       <UsersSortingField
         name={ lingo({
-          en: 'company',
-          de: 'Unternehmen',
+          en: 'branch',
+          de: 'Niederlassung',
         })}
-        fieldSorting={{ company }}
+        fieldSorting={{ branch }}
         onChangeSorting={ onChangeSorting }
       />
       <UsersSortingField

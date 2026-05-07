@@ -50,13 +50,26 @@ function applyFilterIncludes(data, fieldName, value)
   );
 }
 
-function applyFilterEqual( data, fieldName, value )
+function applyFilterEqual( items, fieldName, filterValue )
 {
-  if ( value == null ) {
-    throw newErrorBadRequest(`Query filter with empty value: ${ value }`);
+  if ( filterValue == null ) {
+    throw newErrorBadRequest(`Query filter with empty value: ${ filterValue }`);
   }
 
-  return data.filter( item =>
-    item[ fieldName ] === value
+  return items.filter( item =>
+    isEqual( item[ fieldName ], filterValue )
   );
+}
+
+function isEqual( itemValue, filterValue )
+{
+  return isObject( filterValue )
+    ? JSON.stringify( filterValue ) === JSON.stringify( itemValue )
+    : filterValue === itemValue;
+}
+
+function isObject( value )
+{
+  return value != null
+    && value.constructor === Object;
 }

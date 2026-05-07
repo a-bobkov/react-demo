@@ -45,9 +45,43 @@ function compareBySorting(a, b, sorting)
 
   const bValue = b[sorting.field];
 
-  const result = aValue === bValue ? 0 : (aValue > bValue ? 1 : -1);
+  const result = compareValues( aValue, bValue );
 
   const order = (sorting.order === 'asc') ? 1 : -1;
 
   return result * order;
+}
+
+function compareValues( aValue, bValue )
+{
+  return isObject( aValue )
+    ? compareObjects( aValue, bValue )
+    : comparePrimitives( aValue, bValue );
+}
+
+function isObject( value )
+{
+  return value != null
+    && value.constructor === Object;
+}
+
+function compareObjects( aValue, bValue )
+{
+  for ( const key in aValue )
+  {
+    const result = compareValues( aValue[ key ], bValue[ key ]);
+
+    if ( result !== 0 ) {
+      return result;
+    }
+  }
+
+  return 0;
+}
+
+function comparePrimitives( aValue, bValue )
+{
+  return aValue === bValue
+    ? 0
+    : ( aValue > bValue ? 1 : -1 );
 }

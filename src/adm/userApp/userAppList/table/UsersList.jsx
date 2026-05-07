@@ -24,7 +24,7 @@ function UsersLine({ user })
       <UsersLineId userId={ user.id } />
       <UsersLineLogin userLogin={ user.login } />
       <UsersLineName userName={ user.name } />
-      <UsersLineCompany userCompany={ user.company } />
+      <UsersLineBranch userBranch={ user.branch } />
       <UsersLineActive userActive={ user.active }/>
       <UsersLineActions userId={ user.id } />
     </div>
@@ -58,11 +58,11 @@ function UsersLineName({ userName })
   );
 }
 
-function UsersLineCompany({ userCompany })
+function UsersLineBranch({ userBranch })
 {
   return (
-    <div className="UsersLineCompany">
-      { userCompany }
+    <div className="UsersLineBranch">
+      { `${ userBranch.id }: ${ userBranch.name }` }
     </div>
   );
 }

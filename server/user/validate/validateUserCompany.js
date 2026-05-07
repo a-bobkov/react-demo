@@ -29,7 +29,7 @@ export function validateUserCompany( userCompany )
 
 function isUserCompanyString( userCompany )
 {
-  return typeof userCompany === 'string';
+  return userCompany.constructor === String;
 }
 
 function isUserCompanyFilled( userCompany )

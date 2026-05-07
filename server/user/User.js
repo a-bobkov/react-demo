@@ -2,6 +2,7 @@ import * as http2 from 'node:http2';
 import * as responseError from '../responseError.js';
 import { validateUser } from './validate/validateUser.js';
 import { query } from '../query/query.js';
+import { branches } from '../branch/dispatchBranch.js';
 
 export {
   create as create,
@@ -9,7 +10,7 @@ export {
 
 function create( initialUsers )
 {
-  const users = {};
+  const storedUsers = {};
 
   let nextId = 1;
 
@@ -23,6 +24,7 @@ function create( initialUsers )
   });
 
   return {
+    getStored: getStored,
     getUser: getUser,
     createUser: createUser,
     updateUser: updateUser,
@@ -30,9 +32,14 @@ function create( initialUsers )
     queryUser: queryUser,
   };
 
-  function getUser(userId)
+  function getStored()
   {
-    const user = users[userId];
+    return storedUsers;
+  }
+
+  function getUser( userId )
+  {
+    const user = storedUsers[ userId ];
 
     if (!user) {
       throw newErrorUserNotFound( userId );
@@ -45,9 +52,9 @@ function create( initialUsers )
 
   function createUser( userData )
   {
-    const [ user, error ] = validateUser( userData, users );
+    const [ user, error ] = validateUser( userData, undefined, storedUsers, branches.getStored() );
 
-    if (error) {
+    if ( error ) {
       return {
         error,
       };
@@ -58,7 +65,7 @@ function create( initialUsers )
       ...user,
     }
 
-    users[newUser.id] = newUser;
+    storedUsers[ newUser.id ] = newUser;
 
     return {
       user: newUser,
@@ -67,13 +74,13 @@ function create( initialUsers )
 
   function updateUser( userId, userData )
   {
-    const storedUser = users[userId];
+    const storedUser = storedUsers[ userId ];
 
     if (!storedUser) {
       throw newErrorUserNotFound( userId );
     }
 
-    const [ user, error ] = validateUser( userData, users );
+    const [ user, error ] = validateUser( userData, userId, storedUsers, branches.getStored() );
 
     if (error) {
       return {
@@ -88,18 +95,18 @@ function create( initialUsers )
     };
   }
 
-  function deleteUser(userId)
+  function deleteUser( userId )
   {
-    if (!users[userId]) {
+    if ( !storedUsers[ userId ]) {
       throw newErrorUserNotFound( userId );
     }
 
-    delete users[userId];
+    delete storedUsers[ userId ];
   }
 
-  function queryUser(options)
+  function queryUser( options )
   {
-    const { count, list } = query(users, options);
+    const { count, list } = query( storedUsers, options );
 
     return {
       count,

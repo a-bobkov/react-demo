@@ -1,11 +1,12 @@
 import { UserFormLogin } from './fields/UserFormLogin.jsx';
 import { UserFormSalutation } from './fields/UserFormSalutation.jsx';
 import { UserFormName } from './fields/UserFormName.jsx';
+import { UserFormBranch } from './fields/UserFormBranch.jsx';
 import { UserFormCompany } from './fields/UserFormCompany.jsx';
 import { UserFormActive } from './fields/UserFormActive.jsx';
 import './UserFormFields.css';
 
-export function UserFormFields({ formUser, formErrors, saveErrors, isFieldChangedDb, setFormUser })
+export function UserFormFields({ formUser, subordinates, formErrors, saveErrors, isFieldChangedDb, setFormUser })
 {
   return (
     <div className="UserFormFields">
@@ -29,6 +30,14 @@ export function UserFormFields({ formUser, formErrors, saveErrors, isFieldChange
         saveErrors={ saveErrors.name }
         isFieldChanged={ isFieldChangedDb.name }
         onChangeName={ onChangeName }
+      />
+      <UserFormBranch
+        value={ formUser.branch }
+        branches={ subordinates.branches }
+        formErrors={ formErrors.branch }
+        saveErrors={ saveErrors.branch }
+        isFieldChanged={ isFieldChangedDb.branch }
+        onChangeBranch={ onChangeBranch }
       />
       <UserFormCompany
         value={ formUser.company }
@@ -60,6 +69,11 @@ export function UserFormFields({ formUser, formErrors, saveErrors, isFieldChange
   function onChangeName( formName )
   {
     updateFormUser({ name: formName });
+  }
+
+  function onChangeBranch( formBranch )
+  {
+    updateFormUser({ branch: formBranch });
   }
 
   function onChangeCompany( formCompany )
