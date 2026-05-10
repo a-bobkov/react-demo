@@ -35,6 +35,27 @@ export function UserAppUpdate({ user, subordinates })
   {
     const result = await updateDbUser( formUser );
 
+    if ( result instanceof Error )
+    {
+      apiNotifications.addError( lingo({
+        en: `Error: ${ result.message }`,
+        de: `Fehler: ${ result.message }`,
+      }));
+
+      return false;
+    }
+
+    if ( result.error )
+    {
+      setIdentifiedUserOptions({
+        dbUser: dbUser,
+        submitUser: formUser,
+        submitErrors: result.error,
+      });
+
+      return false;
+    }
+
     if ( result.user )
     {
       setIdentifiedUserOptions({
@@ -49,15 +70,6 @@ export function UserAppUpdate({ user, subordinates })
 
       return true;
     }
-
-    setIdentifiedUserOptions({
-      dbUser: dbUser,
-      submitUser: formUser,
-      submitErrors: result.error,
-      fetchCommonError: result.fetchCommonError,
-    });
-
-    return false;
   }
 
   async function updateDbUser( formUser )
@@ -65,16 +77,9 @@ export function UserAppUpdate({ user, subordinates })
     try {
       return await updateUser( formUser, lingo );
     }
-    catch (error)
+    catch ( error )
     {
-      apiNotifications.addError( lingo({
-        en: `Error: ${ error.message }`,
-        de: `Fehler: ${ error.message }`,
-      }));
-
-      return {
-        fetchCommonError: error,
-      }
+      return error;
     }
   }
 

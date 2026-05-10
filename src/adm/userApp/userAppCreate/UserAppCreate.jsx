@@ -27,6 +27,27 @@ export function UserAppCreate({ user, subordinates, setCreatedUser })
   {
     const result = await createDbUser( formUser );
 
+    if ( result instanceof Error )
+    {
+      apiNotifications.addError( lingo({
+        en: `Error: ${ result.message }`,
+        de: `Fehler: ${ result.message }`,
+      }));
+
+      return false;
+    }
+
+    if ( result.error )
+    {
+      setUserOptions( identifyOptions({
+        dbUser: dbUser,
+        submitUser: formUser,
+        submitErrors: result.error,
+      }));
+
+      return false;
+    }
+
     if ( result.user )
     {
       setCreatedUser( result.user );
@@ -38,15 +59,6 @@ export function UserAppCreate({ user, subordinates, setCreatedUser })
 
       return true;
     }
-
-    setUserOptions( identifyOptions({
-      dbUser: dbUser,
-      submitUser: formUser,
-      submitErrors: result.error,
-      fetchCommonError: result.fetchCommonError,
-    }));
-
-    return false;
   }
 
   async function createDbUser( formUser )
@@ -54,15 +66,9 @@ export function UserAppCreate({ user, subordinates, setCreatedUser })
     try {
       return await createUser( formUser, lingo );
     }
-    catch (error) {
-      apiNotifications.addError( lingo({
-        en: `Error: ${ error.message }`,
-        de: `Fehler: ${ error.message }`,
-      }));
-
-      return {
-        fetchCommonError: error,
-      }
+    catch (error)
+    {
+      return error;
     }
   }
 

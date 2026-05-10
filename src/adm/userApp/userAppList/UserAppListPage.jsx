@@ -1,16 +1,15 @@
-import { useState } from 'react';
 import { useLingo } from '../../lingo/LingoProvider.jsx';
 import { useUserAppListLocation } from './useUserAppListLocation.js';
-import { queryUser } from './queryUser.js';
+import { useUserAppListLoad } from './useUserAppListLoad.js';
 import { UserAppList } from './UserAppList.jsx';
 
 export function UserAppListPage({ subordinates })
 {
   const { lingo } = useLingo();
 
-  const { userAppListLocationOptions, setUserAppListLocationOptions } = useUserAppListLocation();
+  const { userAppListOptions, setUserAppListOptions } = useUserAppListLocation();
 
-  const [ users, setUsers ] = useState( initialLoadingUsers );
+  const { users } = useUserAppListLoad( userAppListOptions );
 
   if ( subordinates === undefined )
   {
@@ -20,39 +19,12 @@ export function UserAppListPage({ subordinates })
     });
   }
 
-  return <UserAppList
-    listOptions={ userAppListLocationOptions }
-    subordinates={ subordinates }
-    users={ users }
-    setListOptions={ setListOptions }
-  />;
-
-  function initialLoadingUsers()
-  {
-    loadingUsers( userAppListLocationOptions );
-  }
-
-  function setListOptions( options )
-  {
-    loadingUsers( options );
-
-    setUserAppListLocationOptions( options );
-  }
-
-  function loadingUsers( options )
-  {
-    const promise = loadUsers( options );
-  }
-
-  async function loadUsers( options )
-  {
-    const newUsers = await queryUser( options );
-
-    if ( newUsers )   // fetch was not aborted
-    {
-      Object.assign( newUsers, window.structuredClone( options ));
-
-      setUsers( newUsers );
-    }
-  }
+  return (
+    <UserAppList
+      listOptions={ userAppListOptions }
+      subordinates={ subordinates }
+      users={ users }
+      setListOptions={ setUserAppListOptions }
+    />
+  );
 }

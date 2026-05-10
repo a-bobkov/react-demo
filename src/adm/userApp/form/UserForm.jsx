@@ -3,11 +3,10 @@ import { clsx } from 'clsx';
 import { validateUser } from './validate/validateUser.js';
 import { UserFormFields } from './UserFormFields.jsx';
 import { UserFormActions } from './actions/UserFormActions.jsx';
-import { FetchCommonError } from '../FetchCommonError.jsx';
 import { useLingo } from '../../lingo/LingoProvider.jsx';
 import './UserForm.css';
 
-export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {}, fetchCommonError }, subordinates, onClickSaveUser })
+export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {} }, subordinates, onClickSaveUser })
 {
   const [ hasSpinner, setHasSpinner ] = useState( false );
 
@@ -27,9 +26,6 @@ export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {},
       <UserFormTitle
         userId={ dbUser.id }
         isFormChanged={ isFormChangedDb }
-      />
-      <FetchCommonError
-        error={ fetchCommonError }
       />
       <UserFormFields
         formUser={ formUser }

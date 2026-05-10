@@ -21,8 +21,8 @@ export function useUserAppListLocation()
   const [ userAppListLocation, setUserAppListLocation ] = useState( createUserAppListLocation );
 
   return {
-    userAppListLocationOptions: userAppListLocation,
-    setUserAppListLocationOptions: setUserAppListOptions,
+    userAppListOptions: userAppListLocation,
+    setUserAppListOptions: setUserAppListOptions,
   };
 
   function setUserAppListOptions( options )

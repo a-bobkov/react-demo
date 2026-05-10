@@ -10,11 +10,16 @@ export function UsersResult({ listOptions, users, subordinates, onChangePaginati
 
   console.log(`UsersResult: ${ JSON.stringify({ listOptions, users })}`);
 
+  if ( users instanceof Error )
+  {
+    return;
+  }
+
   if ( users === undefined )
   {
     return lingo({
-      en: 'Loading users...',
-      de: 'Benutzer werden geladen...',
+      en: 'Loading user list...',
+      de: 'Benutzerliste wird geladen...',
     });
   }
 

@@ -2,39 +2,39 @@ import { useState } from 'react';
 import { useLingo } from '../lingo/LingoProvider.jsx';
 import { queryBranches } from '../branchApp/branchAppList/singleQueryBranches.js';
 import { useRunOnce } from '../useRunOnce.js';
+import { useNotificationsContext } from '../notifications/NotificationsProvider.jsx';
 
 export function useUserAppSubordinates()
 {
   const { lingo } = useLingo();
 
-  const [ subordinates, setSubordinates ] = useState();
+  const apiNotifications = useNotificationsContext();
 
-  const [ subordinatesError, setSubordinatesError ] = useState();
+  const [ subordinates, setSubordinates ] = useState();
 
   useRunOnce( requestSubordinates );
 
   return {
     subordinates: subordinates,
-    subordinatesError: subordinatesError,
   };
 
   async function requestSubordinates()
   {
     try {
-      const subordinatesValue = await promiseObject({
+      const subordinates = await promiseObject({
         branches: queryBranchList(),
       });
 
-      setSubordinates( subordinatesValue );
+      setSubordinates( subordinates );
     }
     catch ( error )
     {
-      const userSubordinatesErrorMessage = lingo({
-        en: 'Error while requesting user subordinates',
-        de: 'Fehler beim Anfordern von Benutzer-Untergebenen',
-      });
+      apiNotifications.addError( lingo({
+        en: `Error while requesting user subordinates: ${ error.message }`,
+        de: `Fehler beim Anfordern von Benutzer-Untergebenen: ${ error.message }`,
+      }));
 
-      setSubordinatesError( new Error( userSubordinatesErrorMessage, { cause: error }));
+      setSubordinates( error );
     }
   }
 }

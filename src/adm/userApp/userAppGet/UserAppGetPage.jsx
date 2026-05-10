@@ -1,7 +1,6 @@
 import { useLingo } from '../../lingo/LingoProvider.jsx';
 import { useUserAppGetLocation } from './useUserAppGetLocation.js';
 import { useUserAppGet } from './useUserAppGet.js';
-import { FetchCommonError } from '../FetchCommonError.jsx';
 import { UserAppUpdate } from '../userAppUpdate/UserAppUpdate.jsx';
 
 export function UserAppGetPage({ subordinates })
@@ -10,15 +9,11 @@ export function UserAppGetPage({ subordinates })
 
   const { userId } = useUserAppGetLocation();
 
-  const { user, userGetError } = useUserAppGet( userId );
+  const { user } = useUserAppGet( userId );
 
-  if ( userGetError !== undefined )
+  if ( user instanceof Error )
   {
-    return (
-      <FetchCommonError
-        error={ userGetError }
-      />
-    );
+    return;
   }
 
   if ( user === undefined )

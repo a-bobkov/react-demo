@@ -1,4 +1,4 @@
-export async function fetchUser( userId, lingo )
+export async function getUser( userId, lingo )
 {
   const response = await fetch(`/api/user/${ userId }`);
 

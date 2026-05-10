@@ -1,21 +1,26 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useLingo } from '../../lingo/LingoProvider.jsx';
-import { fetchUser } from './fetchUser.js';
+import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
+import { getUser } from './getUser.js';
 
 export function useUserAppGet( userId )
 {
   const { lingo } = useLingo();
 
-  const [ user, setUser ] = useState();
+  const apiNotifications = useNotificationsContext();
 
-  const [ userGetError, setUserGetError ] = useState( initialUserGetError );
+  const [ user, setUser ] = useState( checkUserId );
+
+  const ignore = useMemo(
+    loadingUser,
+    []
+  );
 
   return {
     user,
-    userGetError,
   };
 
-  function initialUserGetError()
+  function checkUserId()
   {
     if ( userId === undefined )
     {
@@ -24,17 +29,19 @@ export function useUserAppGet( userId )
         de: 'Benutzer-ID nicht gefunden, da URL falsch ist',
       });
 
+      apiNotifications.addError( userIdErrorMessage );
+
       return new Error( userIdErrorMessage );
     }
-
-    loadingUser();
   }
 
   async function loadingUser()
   {
+    if ( userId === undefined ) return;
+
     try
     {
-      const result = await fetchUser( userId, lingo );
+      const result = await getUser( userId, lingo );
 
       setUser( result.user );
     }
@@ -45,7 +52,9 @@ export function useUserAppGet( userId )
         de: `Fehler beim Abrufen des Benutzers ${ userId }`,
       });
 
-      setUserGetError( new Error( userGetErrorMessage, { cause: error }));
+      apiNotifications.addError( userGetErrorMessage );
+
+      setUser( new Error( userGetErrorMessage, { cause: error }));
     }
   }
 }
