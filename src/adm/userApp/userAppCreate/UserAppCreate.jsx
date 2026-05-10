@@ -1,13 +1,10 @@
 import { useState } from 'react';
-import { useLingo } from '../../lingo/LingoProvider.jsx';
 import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 import { UserForm } from '../form/UserForm.jsx';
 import { createUser } from './createUser.js';
 
 export function UserAppCreate({ user, subordinates, setCreatedUser })
 {
-  const { lingo } = useLingo();
-
   const apiNotifications = useNotificationsContext();
 
   const [ userOptions, setUserOptions ] = useState( createInitialUserOptions );
@@ -27,12 +24,12 @@ export function UserAppCreate({ user, subordinates, setCreatedUser })
   {
     const result = await createDbUser( formUser );
 
-    if ( result instanceof Error )
+    if ( Error.isError( result ))
     {
-      apiNotifications.addError( lingo({
-        en: `Error: ${ result.message }`,
-        de: `Fehler: ${ result.message }`,
-      }));
+      apiNotifications.addError({
+        en: `Error creating user: ${ result.message }`,
+        de: `Fehler beim Erstellen des Benutzers: ${ result.message }`,
+      });
 
       return false;
     }
@@ -52,10 +49,10 @@ export function UserAppCreate({ user, subordinates, setCreatedUser })
     {
       setCreatedUser( result.user );
 
-      apiNotifications.addInfo( lingo({
+      apiNotifications.addInfo({
         en: `User ${ result.user.id } is successfully created.`,
         de: `Benutzer ${ result.user.id } wurde erfolgreich erstellt.`,
-      }));
+      });
 
       return true;
     }
@@ -64,9 +61,9 @@ export function UserAppCreate({ user, subordinates, setCreatedUser })
   async function createDbUser( formUser )
   {
     try {
-      return await createUser( formUser, lingo );
+      return await createUser( formUser );
     }
-    catch (error)
+    catch ( error )
     {
       return error;
     }

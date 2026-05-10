@@ -1,8 +1,8 @@
-import { abortableQueryUser } from './abortableQueryUser.js';
+import { userQuery } from './userQuery.js';
 
 let ac;
 
-export async function queryUser( options )
+export async function singleUserQuery( options )
 {
   console.log(`Starting query with options: "${ JSON.stringify( options )}"`);
 
@@ -15,7 +15,7 @@ export async function queryUser( options )
   ac = new AbortController();
 
   try {
-    return await abortableQueryUser( options, ac.signal );
+    return await userQuery( options, ac.signal );
   }
   catch ( error )
   {

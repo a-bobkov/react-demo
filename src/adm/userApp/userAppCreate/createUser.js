@@ -1,4 +1,4 @@
-export async function createUser( formUser, lingo )
+export async function createUser( formUser )
 {
   console.log(`Starting create: ${ JSON.stringify( formUser )}`);
 
@@ -18,11 +18,9 @@ export async function createUser( formUser, lingo )
     }
   );
 
-  if (!response.ok) {
-    throw new Error( lingo({
-      en: `Create user returned status: ${ response.status }`,
-      de: `Erstellen den Benutzer gab den Status zurück: ${ response.status }`,
-    }));
+  if ( !response.ok )
+  {
+    throw new Error(`Create user returned status: ${ response.status }`);
   }
 
   const result = await response.json();

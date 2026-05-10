@@ -1,12 +1,9 @@
 import { useMemo, useState } from 'react';
-import { useLingo } from '../../lingo/LingoProvider.jsx';
 import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 import { getUser } from './getUser.js';
 
 export function useUserAppGet( userId )
 {
-  const { lingo } = useLingo();
-
   const apiNotifications = useNotificationsContext();
 
   const [ user, setUser ] = useState( checkUserId );
@@ -24,14 +21,12 @@ export function useUserAppGet( userId )
   {
     if ( userId === undefined )
     {
-      const userIdErrorMessage = lingo({
+      apiNotifications.addError({
         en: 'User id not found because of incorrect URL',
         de: 'Benutzer-ID nicht gefunden, da URL falsch ist',
       });
 
-      apiNotifications.addError( userIdErrorMessage );
-
-      return new Error( userIdErrorMessage );
+      return new Error();
     }
   }
 
@@ -41,20 +36,18 @@ export function useUserAppGet( userId )
 
     try
     {
-      const result = await getUser( userId, lingo );
+      const result = await getUser( userId );
 
       setUser( result.user );
     }
     catch ( error )
     {
-      const userGetErrorMessage = lingo({
-        en: `Error getting user ${ userId }`,
-        de: `Fehler beim Abrufen des Benutzers ${ userId }`,
+      apiNotifications.addError({
+        en: `Error getting user ${ userId }: ${ error.message }`,
+        de: `Fehler beim Abrufen des Benutzers ${ userId }: ${ error.message }`,
       });
 
-      apiNotifications.addError( userGetErrorMessage );
-
-      setUser( new Error( userGetErrorMessage, { cause: error }));
+      setUser( error );
     }
   }
 }

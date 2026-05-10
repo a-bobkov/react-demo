@@ -46,6 +46,11 @@ export async function queryBranches( options, signal )
     }
   );
 
+  if ( !response.ok )
+  {
+    throw new Error(`Branch query returned status: ${ response.status }`);
+  }
+
   const branches = await response.json();
 
   console.log(`Finished fetch: "${ JSON.stringify( branches )}"`);

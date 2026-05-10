@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useLingo } from '../../lingo/LingoProvider.jsx';
 import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 import { UserForm } from '../form/UserForm.jsx';
 import { updateUser } from './updateUser.js';
@@ -7,8 +6,6 @@ import { updateUser } from './updateUser.js';
 export function UserAppUpdate({ user, subordinates })
 {
   console.log(`UserAppUpdate user: ${ JSON.stringify( user )}`);
-
-  const { lingo } = useLingo();
 
   const apiNotifications = useNotificationsContext();
 
@@ -35,12 +32,12 @@ export function UserAppUpdate({ user, subordinates })
   {
     const result = await updateDbUser( formUser );
 
-    if ( result instanceof Error )
+    if ( Error.isError( result ))
     {
-      apiNotifications.addError( lingo({
-        en: `Error: ${ result.message }`,
-        de: `Fehler: ${ result.message }`,
-      }));
+      apiNotifications.addError({
+        en: `Error updating user: ${ result.message }`,
+        de: `Fehler beim Aktualisieren des Benutzers: ${ result.message }`,
+      });
 
       return false;
     }
@@ -63,10 +60,10 @@ export function UserAppUpdate({ user, subordinates })
         submitUser: result.user,
       });
 
-      apiNotifications.addInfo( lingo({
+      apiNotifications.addInfo({
         en: `User ${ result.user.id } is successfully updated.`,
         de: `Benutzer ${ result.user.id } wurde erfolgreich aktualisiert.`,
-      }));
+      });
 
       return true;
     }
@@ -75,7 +72,7 @@ export function UserAppUpdate({ user, subordinates })
   async function updateDbUser( formUser )
   {
     try {
-      return await updateUser( formUser, lingo );
+      return await updateUser( formUser );
     }
     catch ( error )
     {

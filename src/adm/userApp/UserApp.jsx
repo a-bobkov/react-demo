@@ -13,7 +13,7 @@ export function UserApp()
 
   const { subordinates } = useUserAppSubordinates();
 
-  if ( subordinates instanceof Error )
+  if ( Error.isError( subordinates ))
   {
     return;
   }

@@ -10,7 +10,7 @@ export function UsersResult({ listOptions, users, subordinates, onChangePaginati
 
   console.log(`UsersResult: ${ JSON.stringify({ listOptions, users })}`);
 
-  if ( users instanceof Error )
+  if ( Error.isError( users ))
   {
     return;
   }

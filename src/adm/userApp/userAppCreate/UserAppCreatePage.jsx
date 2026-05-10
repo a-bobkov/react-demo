@@ -13,7 +13,7 @@ export function UserAppCreatePage({ subordinates })
 
   if ( subordinates === undefined )
   {
-    return lingo ({
+    return lingo({
       en: 'Waiting for subordinates...',
       de: 'Warten auf Untergebene...',
     });

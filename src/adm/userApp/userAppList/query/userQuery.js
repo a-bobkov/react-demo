@@ -1,6 +1,6 @@
 import { getRequestOptions } from './getRequestOptions.js';
 
-export async function abortableQueryUser( options, signal )
+export async function userQuery( options, signal )
 {
   console.log(`Starting abortable query user with options: ${ JSON.stringify( options )}`);
 
@@ -23,7 +23,7 @@ export async function abortableQueryUser( options, signal )
 
   if ( !response.ok )
   {
-    throw new Error(`Query users returned status: ${ response.status }`);
+    throw new Error(`User query returned status: ${ response.status }`);
   }
 
   const users = await response.json();

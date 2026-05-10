@@ -119,20 +119,21 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
       setHasSpinner( true );
 
       try {
-        await deleteUser( userId, lingo );
+        await deleteUser( userId );
 
-        apiNotifications.addInfo( lingo({
+        apiNotifications.addInfo({
           en: `User ${ userId } is successfully deleted.`,
           de: `Benutzer ${ userId } wurde erfolgreich gelöscht.`,
-        }));
+        });
 
         goExit();
       }
-      catch (error) {
-        apiNotifications.addError( lingo({
-          en: `Error: ${ error.message }`,
-          de: `Fehler: ${ error.message }`,
-        }));
+      catch ( error )
+      {
+        apiNotifications.addError({
+          en: `Error deleting user: ${ error.message }`,
+          de: `Fehler beim Löschen des Benutzers: ${ error.message }`,
+        });
       }
 
       setHasSpinner( false );

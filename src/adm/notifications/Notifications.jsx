@@ -1,7 +1,10 @@
+import { useLingo } from '../lingo/LingoProvider.jsx';
 import './Notifications.css';
 
 export function Notifications({ notifications, removeNotification })
 {
+  const { lingo } = useLingo();
+
   return (
     <div className="Notifications">
       { notifications.map( notification => <Notification notification={ notification } />)}
@@ -15,7 +18,7 @@ export function Notifications({ notifications, removeNotification })
         <div className="close" onClick={ onClickClose }>
           ✖
         </div>
-        { notification.message }
+        { lingo( notification.lingoMessage )}
       </div>
     );
 

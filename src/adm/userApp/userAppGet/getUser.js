@@ -1,12 +1,10 @@
-export async function getUser( userId, lingo )
+export async function getUser( userId )
 {
   const response = await fetch(`/api/user/${ userId }`);
 
-  if (!response.ok) {
-    throw new Error( lingo({
-      en: `Get user ${ userId } returned status: ${ response.status }`,
-      de: `Abrufen den Benutzer ${ userId } gab den Status zurück: ${ response.status }`,
-    }));
+  if ( !response.ok )
+  {
+    throw new Error(`Get user ${ userId } returned status: ${ response.status }`);
   }
 
   const result = await response.json();

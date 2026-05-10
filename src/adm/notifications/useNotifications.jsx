@@ -24,21 +24,21 @@ function createNotificationsApi({ notificationsDispatchApi, createNotification }
     addError,
   };
 
-  function addInfo( message )
+  function addInfo( lingoMessage )
   {
-    addNotification( message, 'info', 5000 );
+    addNotification( lingoMessage, 'info', 5000 );
   }
 
-  function addError( message )
+  function addError( lingoMessage )
   {
-    addNotification( message, 'error' );
+    addNotification( lingoMessage, 'error' );
   }
 
-  function addNotification( message, type, ms )
+  function addNotification( lingoMessage, type, ms )
   {
     const newNotification = createNotification({
       type,
-      message,
+      lingoMessage,
     });
 
     // newNotification.message = `${ newNotification.message } ${ newNotification.id } `.repeat(7);
