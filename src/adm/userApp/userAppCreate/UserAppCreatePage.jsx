@@ -48,9 +48,6 @@ export function UserAppCreatePage({ subordinates })
 function createInitialNewUser()
 {
   return {
-    login: '',
-    name: '',
-    company: '',
     active: false,
   };
 }

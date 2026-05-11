@@ -3,6 +3,11 @@ import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import { UserFieldErrors } from './UserFieldErrors.jsx';
 import './UserFormCompany.css';
 
+const emptyValue = {
+  formValue: undefined,
+  controlValue: '',
+};
+
 export function UserFormCompany({ value, saveErrors, formErrors, isFieldChanged, onChangeCompany })
 {
   const { lingo } = useLingo();
@@ -21,7 +26,7 @@ export function UserFormCompany({ value, saveErrors, formErrors, isFieldChanged,
             en: 'company',
             de: 'unternehmen',
           })}
-          value={ value }
+          value={ form2control(value) }
           onChange={ onChange }
         />
         <UserFieldErrors
@@ -34,8 +39,28 @@ export function UserFormCompany({ value, saveErrors, formErrors, isFieldChanged,
 
   function onChange( event )
   {
-    const newValue = event.target.value
+    const newControlValue = event.target.value;
 
-    onChangeCompany( newValue );
+    const newFormValue = control2form( newControlValue );
+
+    onChangeCompany( newFormValue );
   }
+}
+
+function control2form( controlValue )
+{
+  if ( controlValue === emptyValue.controlValue ) {
+    return emptyValue.formValue;
+  }
+
+  return controlValue;
+}
+
+function form2control( formValue )
+{
+  if ( formValue === emptyValue.formValue ) {
+    return emptyValue.controlValue;
+  }
+
+  return formValue;
 }

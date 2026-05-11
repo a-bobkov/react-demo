@@ -4,15 +4,18 @@ export function validateUserCompany( userCompany )
 {
   const { lingo } = useLingo();
 
-  if (!isUserCompanyFilled( userCompany )) {
+  if ( !isUserCompanyFilledString( userCompany ))
+  {
     return lingo({
-      en: 'User company should not be empty',
-      de: 'Das Benutzerunternehmen darf nicht leer sein',
+      en: 'User company should be non-empty string',
+      de: 'Das Benutzerunternehmen muss nicht-leerer String sein',
     });
   }
 }
 
-function isUserCompanyFilled( userCompany )
+function isUserCompanyFilledString( userCompany )
 {
-  return userCompany.trim() !== '';
+  return userCompany !== undefined
+    && userCompany.constructor === String
+    && userCompany.trim() !== '';
 }

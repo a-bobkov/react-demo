@@ -4,15 +4,18 @@ export function validateUserName( userName )
 {
   const { lingo } = useLingo();
 
-  if (!isUserNameFilled( userName )) {
+  if ( !isUserNameFilledString( userName ))
+  {
     return lingo({
-      en: 'User name should not be empty',
-      de: 'Der Benutzername darf nicht leer sein',
+      en: 'User name should be non-empty string',
+      de: 'Der Benutzername muss nicht-leerer String sein',
     });
   }
 }
 
-function isUserNameFilled( userName )
+function isUserNameFilledString( userName )
 {
-  return userName.trim() !== '';
+  return userName !== undefined
+    && userName.constructor === String
+    && userName.trim() !== '';
 }

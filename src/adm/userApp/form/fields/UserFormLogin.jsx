@@ -3,6 +3,11 @@ import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import { UserFieldErrors } from './UserFieldErrors.jsx';
 import './UserFormLogin.css';
 
+const emptyValue = {
+  formValue: undefined,
+  controlValue: '',
+};
+
 export function UserFormLogin({ value, saveErrors, formErrors, isFieldChanged, onChangeLogin })
 {
   const { lingo } = useLingo();
@@ -21,7 +26,7 @@ export function UserFormLogin({ value, saveErrors, formErrors, isFieldChanged, o
             en: 'email address',
             de: 'E-Mail-Adresse',
           })}
-          value={ value }
+          value={ form2control(value) }
           onChange={ onChange }
         />
         <UserFieldErrors
@@ -32,10 +37,30 @@ export function UserFormLogin({ value, saveErrors, formErrors, isFieldChanged, o
     </div>
   );
 
-  function onChange(event)
+  function onChange( event )
   {
-    const newValue = event.target.value
+    const newControlValue = event.target.value;
 
-    onChangeLogin( newValue );
+    const newFormValue = control2form( newControlValue );
+
+    onChangeLogin( newFormValue );
   }
+}
+
+function control2form( controlValue )
+{
+  if ( controlValue === emptyValue.controlValue ) {
+    return emptyValue.formValue;
+  }
+
+  return controlValue;
+}
+
+function form2control( formValue )
+{
+  if ( formValue === emptyValue.formValue ) {
+    return emptyValue.controlValue;
+  }
+
+  return formValue;
 }

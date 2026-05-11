@@ -41,6 +41,7 @@ function isSalutationNameObject( salutationName )
 
 function isSalutationNameLangFilledString( salutationNameLang )
 {
-  return salutationNameLang.constructor === String
+  return salutationNameLang != null
+    && salutationNameLang.constructor === String
     && salutationNameLang !== '';
 }
