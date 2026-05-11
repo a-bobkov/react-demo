@@ -39,12 +39,12 @@ function isUserBranchObject( userBranch )
     && userBranch.constructor === Object;
 }
 
-function isUserBranchIdInteger( userBranch )
+function isUserBranchIdInteger( userBranchId )
 {
-  return Number.isInteger( userBranch );
+  return Number.isInteger( userBranchId );
 }
 
-function isUserBranchIdValid( userBranch, storedBranches )
+function isUserBranchIdValid( userBranchId, storedBranches )
 {
-  return storedBranches[ userBranch ] !== undefined;
+  return storedBranches[ userBranchId ] !== undefined;
 }

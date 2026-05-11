@@ -3,32 +3,16 @@ import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import { UserFieldErrors } from './UserFieldErrors.jsx';
 import './UserFormSalutation.css';
 
-const salutationOptions = [
-  {
-    formValue: undefined,
-    controlValue: '',
-    lingo: {
-      en: 'Hello',
-      de: 'Hallo',
-    },
-  }, {
-    formValue: 1,
-    controlValue: '1',
-    lingo: {
-      en: 'Mr',
-      de: 'Herr',
-    },
-  }, {
-    formValue: 2,
-    controlValue: '2',
-    lingo: {
-      en: 'Ms',
-      de: 'Frau',
-    },
+const emptyOption = {
+  formValue: undefined,
+  controlValue: '',
+  lingo: {
+    en: 'Hello',
+    de: 'Hallo',
   },
-];
+};
 
-export function UserFormSalutation({ value, saveErrors, formErrors, isFieldChanged, onChangeSalutation })
+export function UserFormSalutation({ value, salutations, saveErrors, formErrors, isFieldChanged, onChangeSalutation })
 {
   const { lingo } = useLingo();
 
@@ -45,9 +29,13 @@ export function UserFormSalutation({ value, saveErrors, formErrors, isFieldChang
           value={ form2control(value) }
           onChange={ onChangeControlValue }
         >
-          { salutationOptions.map( salutationOption =>
-            <option value={ salutationOption.controlValue }>
-              { lingo( salutationOption.lingo )}
+          <option value={ emptyOption.controlValue }>
+            { lingo( emptyOption.lingo )}
+          </option>
+
+          { salutations.map( salutation =>
+            <option value={ salutation.id }>
+              { lingo( salutation.name )}
             </option>
           )}
         </select>
@@ -71,18 +59,20 @@ export function UserFormSalutation({ value, saveErrors, formErrors, isFieldChang
 
 function control2form( controlValue )
 {
-  const salutationOption = salutationOptions.find( salutationOption =>
-    salutationOption.controlValue === controlValue
-  );
+  if ( controlValue === emptyOption.controlValue ) {
+    return emptyOption.formValue;
+  }
 
-  return salutationOption.formValue;
+  return {
+    id: parseInt( controlValue),
+  };
 }
 
 function form2control( formValue )
 {
-  const salutationOption = salutationOptions.find( salutationOption =>
-    salutationOption.formValue === formValue
-  );
+  if ( formValue === emptyOption.formValue ) {
+    return emptyOption.controlValue;
+  }
 
-  return salutationOption.controlValue;
+  return `${ formValue.id }`;
 }

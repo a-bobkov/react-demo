@@ -3,6 +3,7 @@ import * as responseError from '../responseError.js';
 import { validateUser } from './validate/validateUser.js';
 import { query } from '../query/query.js';
 import { branches } from '../branch/dispatchBranch.js';
+import { salutations } from '../salutation/dispatchSalutation.js';
 
 export {
   create as create,
@@ -52,7 +53,13 @@ function create( initialUsers )
 
   function createUser( userData )
   {
-    const [ user, error ] = validateUser( userData, undefined, storedUsers, branches.getStored() );
+    const [ user, error ] = validateUser(
+      userData,
+      undefined,
+      storedUsers,
+      branches.getStored(),
+      salutations.getStored(),
+    );
 
     if ( error ) {
       return {
@@ -80,7 +87,13 @@ function create( initialUsers )
       throw newErrorUserNotFound( userId );
     }
 
-    const [ user, error ] = validateUser( userData, userId, storedUsers, branches.getStored() );
+    const [ user, error ] = validateUser(
+      userData,
+      userId,
+      storedUsers,
+      branches.getStored(),
+      salutations.getStored(),
+    );
 
     if (error) {
       return {

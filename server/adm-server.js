@@ -4,6 +4,7 @@ import * as responseError from './responseError.js';
 import serverParameters from '../serverParameters.js';
 import { dispatchUser } from './user/dispatchUser.js';
 import { dispatchBranch } from './branch/dispatchBranch.js';
+import { dispatchSalutation } from './salutation/dispatchSalutation.js';
 
 const httpServer = await http1Server.create(
   serverParameters.host,
@@ -58,6 +59,11 @@ function dispatchRequest( requestPath, requestMethod, requestBodyValue )
     if (requestPathSegments[1] === 'branch')
     {
       return dispatchBranch( requestMethod, requestPathSegments[2], requestBodyValue );
+    }
+
+    if (requestPathSegments[1] === 'salutation')
+    {
+      return dispatchSalutation( requestMethod );
     }
   }
 

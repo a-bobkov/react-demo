@@ -19,6 +19,7 @@ export function UserFormFields({ formUser, subordinates, formErrors, saveErrors,
       />
       <UserFormSalutation
         value={ formUser.salutation }
+        salutations={ subordinates.salutations }
         formErrors={ formErrors.salutation }
         saveErrors={ saveErrors.salutation }
         isFieldChanged={ isFieldChangedDb.salutation }

@@ -5,7 +5,7 @@ import { validateUserBranch } from './validateUserBranch.js';
 import { validateUserActive } from './validateUserActive.js';
 import { validateUserSalutation } from './validateUserSalutation.js';
 
-export function validateUser( user, userId, storedUsers, storedBranches )
+export function validateUser( user, userId, storedUsers, storedBranches, storedSalutations )
 {
   const error = {};
 
@@ -19,7 +19,7 @@ export function validateUser( user, userId, storedUsers, storedBranches )
 
   [ user.active, error.active ] = validateUserActive( user.active );
 
-  [ user.salutation, error.salutation ] = validateUserSalutation( user.salutation );
+  [ user.salutation, error.salutation ] = validateUserSalutation( user.salutation, storedSalutations );
 
   return [ user, squeeze( error )];
 }

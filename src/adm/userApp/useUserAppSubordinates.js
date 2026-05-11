@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { queryBranches } from '../branchApp/branchAppList/singleQueryBranches.js';
 import { useRunOnce } from '../useRunOnce.js';
 import { useNotificationsContext } from '../notifications/NotificationsProvider.jsx';
+import { querySalutations } from '../querySalutation.js';
 
 export function useUserAppSubordinates()
 {
@@ -19,6 +20,7 @@ export function useUserAppSubordinates()
   {
     try {
       const subordinates = await objectPromiseAll({
+        salutations: querySalutationList(),
         branches: queryBranchList(),
       });
 
@@ -41,6 +43,13 @@ async function queryBranchList()
   const branches = await queryBranches();
 
   return branches.list;
+}
+
+async function querySalutationList()
+{
+  const salutations = await querySalutations();
+
+  return salutations.list;
 }
 
 async function objectPromiseAll( obj )

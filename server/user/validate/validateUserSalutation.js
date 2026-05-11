@@ -1,25 +1,35 @@
-export function validateUserSalutation( userSalutation )
+export function validateUserSalutation( userSalutation, storedSalutations )
 {
   if ( userSalutation === undefined ) {
     return [ userSalutation ];
   }
 
-  if (!isUserSalutationInteger( userSalutation ))
+  if ( !isUserSalutationObject( userSalutation ))
   {
     return [ userSalutation,
       {
-        en: 'User salutation should be integer value',
-        de: 'Benutzeranrede sollte ein ganzzahliger Wert sein',
+        en: 'User salutation should be an object',
+        de: 'Benutzer-Anrede sollte ein Objekt sein',
       },
     ];
   }
 
-  if (!isUserSalutationValid( userSalutation ))
+  if ( !isUserSalutationIdInteger( userSalutation.id ))
   {
     return [ userSalutation,
       {
-        en: 'User salutation value is invalid',
-        de: 'Der Wert für die Benutzeranrede ist ungültig',
+        en: 'User salutation id should be integer',
+        de: 'Benutzer-Anrede-ID sollte ganzzahliger sein',
+      },
+    ];
+  }
+
+  if ( !isUserSalutationIdValid( userSalutation.id, storedSalutations ))
+  {
+    return [ userSalutation,
+      {
+        en: 'User salutation id is invalid',
+        de: 'Benutzer-Anrede-ID ist ungültig',
       },
     ];
   }
@@ -27,14 +37,18 @@ export function validateUserSalutation( userSalutation )
   return [ userSalutation ];
 }
 
-function isUserSalutationInteger( userSalutation )
+function isUserSalutationObject( userSalutation )
 {
-  return Number.isInteger( userSalutation );
+  return userSalutation != null
+    && userSalutation.constructor === Object;
 }
 
-function isUserSalutationValid( userSalutation )
+function isUserSalutationIdInteger( userSalutationId )
 {
-  const validSalutations = [ 1, 2 ];
+  return Number.isInteger( userSalutationId );
+}
 
-  return validSalutations.includes( userSalutation );
+function isUserSalutationIdValid( userSalutationId, storedSalutations )
+{
+  return storedSalutations[ userSalutationId ] !== undefined;
 }
