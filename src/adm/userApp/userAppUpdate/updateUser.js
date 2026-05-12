@@ -18,9 +18,9 @@ export async function updateUser( formUser )
     }
   );
 
-  if (!response.ok)
+  if ( !response.ok )
   {
-    throw new Error(`Update user ${ formUser.id } returned status: ${ response.status }`);
+    throw new Error(`returned status ${ response.status }`);
   }
 
   const result = await response.json();

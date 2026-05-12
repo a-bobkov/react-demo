@@ -3,7 +3,12 @@ import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import { BranchFieldErrors } from './BranchFieldErrors.jsx';
 import './BranchFormName.css';
 
-export function BranchFormName( { value, saveErrors, formErrors, isFieldChanged, onChangeName })
+const emptyValue = {
+  formValue: undefined,
+  controlValue: '',
+};
+
+export function BranchFormName({ value, saveErrors, formErrors, isFieldChanged, onChangeName })
 {
   const { lingo } = useLingo();
 
@@ -21,7 +26,7 @@ export function BranchFormName( { value, saveErrors, formErrors, isFieldChanged,
             en: 'name',
             de: 'Name',
           })}
-          value={ value }
+          value={ form2control( value ) }
           onChange={ onChange }
         />
         <BranchFieldErrors
@@ -34,8 +39,28 @@ export function BranchFormName( { value, saveErrors, formErrors, isFieldChanged,
 
   function onChange( event )
   {
-    const newValue = event.target.value
+    const newControlValue = event.target.value;
 
-    onChangeName( newValue );
+    const newFormValue = control2form( newControlValue );
+
+    onChangeName( newFormValue );
   }
+}
+
+function control2form( controlValue )
+{
+  if ( controlValue === emptyValue.controlValue ) {
+    return emptyValue.formValue;
+  }
+
+  return controlValue;
+}
+
+function form2control( formValue )
+{
+  if ( formValue === emptyValue.formValue ) {
+    return emptyValue.controlValue;
+  }
+
+  return formValue;
 }

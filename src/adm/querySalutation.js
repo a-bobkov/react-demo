@@ -9,7 +9,7 @@ export async function querySalutations()
 
   if ( !response.ok )
   {
-    throw new Error(`Salutation query returned status: ${ response.status }`);
+    throw new Error(`returned status ${ response.status }`);
   }
 
   const salutations = await response.json();

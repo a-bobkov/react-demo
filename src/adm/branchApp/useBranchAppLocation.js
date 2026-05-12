@@ -18,7 +18,7 @@ export function useBranchAppLocation()
   usePopstate( dispatchBranchAppPath );
 
   const branchAppLocationApi = useMemo(
-    () => createBranchAppLocationApi({ branchAppLocation }),
+    () => createGetBranchAppLocationApi({ branchAppLocation }),
     [ branchAppLocation ],
   );
 
@@ -32,7 +32,7 @@ export function useBranchAppLocation()
   }
 }
 
-function createBranchAppLocationApi({ branchAppLocation })
+function createGetBranchAppLocationApi({ branchAppLocation })
 {
   return {
     isBranchAppListLocation: isBranchAppListLocation,

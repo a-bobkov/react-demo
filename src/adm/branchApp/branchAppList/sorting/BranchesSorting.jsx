@@ -2,7 +2,7 @@ import { BranchesSortingField } from './BranchesSortingField.jsx';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import './BranchesSorting.css';
 
-export function BranchesSorting( { sorting = {}, onChangeSorting })
+export function BranchesSorting({ sorting = {}, onChangeSorting })
 {
   const { id, name } = sorting;
 

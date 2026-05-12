@@ -10,16 +10,28 @@ export function BranchApp()
 
   const { branchAppLocationApi } = useBranchAppLocation();
 
-  if ( branchAppLocationApi.isBranchAppListLocation() ) {
-    return <BranchAppListPage />;
+  if ( branchAppLocationApi.isBranchAppListLocation() )
+  {
+    return (
+      <BranchAppListPage
+      />
+    );
   }
 
-  if ( branchAppLocationApi.isBranchAppGetLocation() ) {
-    return <BranchAppGetPage />;
+  if ( branchAppLocationApi.isBranchAppGetLocation() )
+  {
+    return (
+      <BranchAppGetPage
+      />
+    );
   }
 
-  if ( branchAppLocationApi.isBranchAppCreateLocation() ) {
-    return <BranchAppCreatePage />;
+  if ( branchAppLocationApi.isBranchAppCreateLocation() )
+  {
+    return (
+      <BranchAppCreatePage
+      />
+    );
   }
 
   return lingo({

@@ -1,6 +1,6 @@
 import './BranchesPagination.css';
 
-export function BranchesPagination( { total, pagination, isBlocked, onChangePagination })
+export function BranchesPagination({ total, pagination, isBlocked, onChangePagination })
 {
   console.log(`BranchesPagination: "${ JSON.stringify( pagination )}"`);
 

@@ -11,35 +11,11 @@ function getRequestFilters( filter = {})
 {
   const requestFilters = [];
 
-  if ( filter.login !== undefined ) {
-    requestFilters.push({
-      field: 'login',
-      operator: 'includes',
-      value: filter.login,
-    });
-  }
-
   if ( filter.name !== undefined ) {
     requestFilters.push({
       field: 'name',
       operator: 'includes',
       value: filter.name,
-    });
-  }
-
-  if ( filter.branch !== undefined ) {
-    requestFilters.push({
-      field: 'branch',
-      operator: 'equal',
-      value: filter.branch,
-    });
-  }
-
-  if ( filter.active !== undefined ) {
-    requestFilters.push({
-      field: 'active',
-      operator: 'equal',
-      value: filter.active,
     });
   }
 

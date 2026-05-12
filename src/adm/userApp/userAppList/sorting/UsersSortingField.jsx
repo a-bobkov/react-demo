@@ -6,13 +6,13 @@ export function UsersSortingField({ name, fieldSorting, onChangeSorting })
 
   return (
     <div className="UsersSortingField"
-         onClick={onClickSorting}
+         onClick={ onClickSorting }
     >
       <span>
         { name }
       </span>
       <span>
-        {getSortingChar(sortingValue)}
+        { getSortingChar( sortingValue )}
       </span>
     </div>
   );
@@ -20,7 +20,7 @@ export function UsersSortingField({ name, fieldSorting, onChangeSorting })
   function onClickSorting()
   {
     onChangeSorting( squeeze({
-      [sortingKey]: getNextSortingValue( sortingValue )
+      [ sortingKey ]: getNextSortingValue( sortingValue )
     }));
   }
 }
@@ -30,7 +30,7 @@ const DESC = 'desc';
 
 function getNextSortingValue( sortingValue )
 {
-  switch (sortingValue) {
+  switch( sortingValue ) {
     case undefined:
       return ASC;
     case ASC:

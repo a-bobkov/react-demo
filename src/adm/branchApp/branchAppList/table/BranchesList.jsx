@@ -3,7 +3,7 @@ import { PopstateLink } from '../../../PopstateLink.jsx';
 import { getBranchGetFullPath } from '../../branchAppGet/useBranchAppGetLocation.js';
 import './BranchesList.css';
 
-export function BranchesList( { branches, isBlocked })
+export function BranchesList({ branches, isBlocked })
 {
   return (
     <div className="BranchesList" inert={ isBlocked }>

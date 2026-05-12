@@ -3,21 +3,20 @@ import { clsx } from 'clsx';
 import { validateBranch } from './validate/validateBranch.js';
 import { BranchFormFields } from './BranchFormFields.jsx';
 import { BranchFormActions } from './actions/BranchFormActions.jsx';
-import { FetchCommonError } from '../FetchCommonError.jsx';
 import { useLingo } from '../../lingo/LingoProvider.jsx';
 import './BranchForm.css';
 
-export function BranchForm( { branchOptions: { dbBranch, submitBranch, submitErrors = {}, fetchCommonError }, onClickSaveBranch })
+export function BranchForm({ branchOptions: { dbBranch, submitBranch, submitErrors = {}}, onClickSaveBranch })
 {
   const [ hasSpinner, setHasSpinner ] = useState( false );
 
   const [ formBranch, setFormBranch ] = useState( submitBranch );
   const formErrors = validateBranch( formBranch );
 
-  const isFieldChangedDb = compareBranches( formBranch, dbBranch );
+  const isFieldChangedDb = compareItems( formBranch, dbBranch );
   const isFormChangedDb = hasChangedField( isFieldChangedDb );
 
-  const isFieldChangedSubmit = compareBranches( formBranch, submitBranch );
+  const isFieldChangedSubmit = compareItems( formBranch, submitBranch );
   const saveErrors = getActiveSubmitErrors( submitErrors, isFieldChangedSubmit );
 
   const isFormInvalid = Object.keys( saveErrors ).length || Object.keys( formErrors ).length;
@@ -27,9 +26,6 @@ export function BranchForm( { branchOptions: { dbBranch, submitBranch, submitErr
       <BranchFormTitle
         branchId={ dbBranch.id }
         isFormChanged={ isFormChangedDb }
-      />
-      <FetchCommonError
-        error={ fetchCommonError }
       />
       <BranchFormFields
         formBranch={ formBranch }
@@ -84,14 +80,22 @@ function getBranchFormTitle( branchId )
     })
 }
 
-function compareBranches( formBranch, dbBranch )
+function compareItems( formItem, dbItem )
 {
-  return Object.keys( formBranch ).reduce(( result, key ) =>
+  return Object.keys( formItem ).reduce(( result, key ) =>
     Object.assign( result, {
-      [key]: formBranch[ key ] !== dbBranch[ key ]
+      [key]: isObject( formItem[ key ])
+        ? JSON.stringify( formItem[ key ]) !== JSON.stringify( dbItem[ key ])
+        : formItem[ key ] !== dbItem[ key ]
     }),
     {}
   );
+}
+
+function isObject( item )
+{
+  return item != null
+    && item.constructor === Object;
 }
 
 function hasChangedField( isFieldChanged )

@@ -1,4 +1,4 @@
-export async function updateBranch( formBranch, lingo )
+export async function updateBranch( formBranch )
 {
   console.log(`Starting update: ${ JSON.stringify( formBranch )}`);
 
@@ -18,11 +18,9 @@ export async function updateBranch( formBranch, lingo )
     }
   );
 
-  if (!response.ok) {
-    throw new Error( lingo({
-      en: `Update branch ${ formBranch.id } returned status: ${ response.status }`,
-      de: `Aktualisieren die Niederlassung ${ formBranch.id } gab den Status zurück: ${ response.status }`,
-    }));
+  if ( !response.ok )
+  {
+    throw new Error(`returned status ${ response.status }`);
   }
 
   const result = await response.json();

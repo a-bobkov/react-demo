@@ -1,6 +1,6 @@
-export async function getUser( userId )
+export async function getBranch( branchId )
 {
-  const response = await fetch(`/api/user/${ userId }`);
+  const response = await fetch(`/api/branch/${ branchId }`);
 
   if ( !response.ok )
   {

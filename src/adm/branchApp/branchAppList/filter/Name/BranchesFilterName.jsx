@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLingo } from '../../../../lingo/LingoProvider.jsx';
 import './BranchesFilterName.css';
 
-export function BranchesFilterName( { filter, onChangeFilter })
+export function BranchesFilterName({ filter, onChangeFilter })
 {
   const { lingo } = useLingo();
 

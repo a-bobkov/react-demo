@@ -1,4 +1,4 @@
-export async function deleteBranch( branchId, lingo )
+export async function deleteBranch( branchId )
 {
   const response = await fetch(
     `/api/branch/${ branchId }`,
@@ -7,12 +7,12 @@ export async function deleteBranch( branchId, lingo )
     }
   );
 
-  if (!response.ok) {
-    throw new Error( lingo({
-      en: `Delete branch ${ branchId } returned status: ${ response.status }`,
-      de: `Löschen die Niederlassung ${ branchId } gab den Status zurück: ${ response.status }`,
-    }));
+  if ( !response.ok )
+  {
+    throw new Error(`returned status ${ response.status }`, {
+      cause: {
+        status: response.status,
+      }
+    });
   }
-
-  console.log(`Delete result: ${ JSON.stringify( response.status )}`);
 }

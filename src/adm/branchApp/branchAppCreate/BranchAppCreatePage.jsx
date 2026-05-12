@@ -6,65 +6,27 @@ import { updateHistoryEntry } from '../../PopstateLink.jsx';
 
 export function BranchAppCreatePage()
 {
-  const [ createOptions, setCreateOptions ] = useState( createInitialCreateOptions );
+  const [ branch, setBranch ] = useState( createInitialNewBranch );
 
-  const [ updateOptions, setUpdateOptions ] = useState();
+  return branch.id === undefined
+    ? <BranchAppCreate
+        branch={ branch }
+        setCreatedBranch={ setCreatedBranch }
+      />
+    : <BranchAppUpdate
+        branch={ branch }
+      />;
 
-  return updateOptions
-    ? <BranchAppUpdate
-      updateOptions={ updateOptions }
-      setUpdateOptions={ setIdentifiedUpdateOptions }
-    />
-    : <BranchAppCreate
-      createOptions={ createOptions }
-      setCreateOptions={ setIdentifiedCreateOptions }
-      setUpdateOptions={ setFirstUpdateOptions }
-    />;
-
-  function setFirstUpdateOptions( options )
+  function setCreatedBranch( createdBranch )
   {
-    updateHistoryEntry( getBranchGetFullPath( options.dbBranch.id ));
+    updateHistoryEntry( getBranchGetFullPath( createdBranch.id ));
 
-    setIdentifiedCreateOptions( options );
-  }
-
-  function setIdentifiedCreateOptions( options )
-  {
-    identifyOptions( options );
-
-    setCreateOptions( options );
-  }
-
-  function setIdentifiedUpdateOptions( options )
-  {
-    identifyOptions( options );
-
-    setUpdateOptions( options );
+    setBranch( createdBranch );
   }
 }
 
-function createInitialCreateOptions()
+function createInitialNewBranch()
 {
-  const newCreateOptions = createNewBranchOptions();
-
-  identifyOptions( newCreateOptions );
-
-  return newCreateOptions;
-}
-
-function identifyOptions( options )
-{
-  options.id = String( Date.now());  // to initialize state of form after submit
-}
-
-function createNewBranchOptions()
-{
-  const newBranch = {
-    name: '',
-  };
-
   return {
-    dbBranch: newBranch,
-    submitBranch: newBranch,
   };
 }

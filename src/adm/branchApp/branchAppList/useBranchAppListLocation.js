@@ -21,8 +21,8 @@ export function useBranchAppListLocation()
   const [ branchAppListLocation, setBranchAppListLocation ] = useState( createBranchAppListLocation );
 
   return {
-    branchAppListLocationOptions: branchAppListLocation,
-    setBranchAppListLocationOptions: setBranchAppListOptions,
+    branchAppListLocation: branchAppListLocation,
+    setBranchAppListOptions: setBranchAppListOptions,
   };
 
   function setBranchAppListOptions( options )

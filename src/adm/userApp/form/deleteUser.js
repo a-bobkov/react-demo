@@ -7,8 +7,8 @@ export async function deleteUser( userId )
     }
   );
 
-  if (!response.ok)
+  if ( !response.ok )
   {
-    throw new Error(`Delete user ${ userId } returned status: ${ response.status }`);
+    throw new Error(`returned status ${ response.status }`);
   }
 }

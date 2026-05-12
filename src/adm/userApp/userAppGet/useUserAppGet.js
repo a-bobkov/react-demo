@@ -32,7 +32,10 @@ export function useUserAppGet( userId )
 
   async function loadingUser()
   {
-    if ( userId === undefined ) return;
+    if ( userId === undefined )
+    {
+      return;
+    }
 
     try
     {

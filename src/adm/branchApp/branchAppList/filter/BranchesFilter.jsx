@@ -2,7 +2,7 @@ import { BranchesFilterName } from './Name/BranchesFilterName.jsx';
 import { loadFilterName, saveFilterName } from './Name/BranchesFilterNameUrl.js';
 import './BranchesFilter.css';
 
-export function BranchesFilter( { filter, onChangeFilter })
+export function BranchesFilter({ filter, onChangeFilter })
 {
   console.log(`BranchesFilter: ${ JSON.stringify(filter) }`)
 

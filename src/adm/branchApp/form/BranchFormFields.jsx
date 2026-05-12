@@ -1,7 +1,7 @@
 import { BranchFormName } from './fields/BranchFormName.jsx';
 import './BranchFormFields.css';
 
-export function BranchFormFields( { formBranch, formErrors, saveErrors, isFieldChangedDb, setFormBranch })
+export function BranchFormFields({ formBranch, formErrors, saveErrors, isFieldChangedDb, setFormBranch })
 {
   return (
     <div className="BranchFormFields">

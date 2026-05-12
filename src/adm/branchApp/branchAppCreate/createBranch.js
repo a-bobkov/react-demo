@@ -1,4 +1,4 @@
-export async function createBranch( formBranch, lingo )
+export async function createBranch( formBranch )
 {
   console.log(`Starting create: ${ JSON.stringify( formBranch )}`);
 
@@ -18,11 +18,9 @@ export async function createBranch( formBranch, lingo )
     }
   );
 
-  if (!response.ok) {
-    throw new Error( lingo({
-      en: `Create branch returned status: ${ response.status }`,
-      de: `Erstellen die Niederlassung gab den Status zurück: ${ response.status }`,
-    }));
+  if ( !response.ok )
+  {
+    throw new Error(`returned status ${ response.status }`);
   }
 
   const result = await response.json();

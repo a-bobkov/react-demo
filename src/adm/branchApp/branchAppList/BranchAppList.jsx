@@ -4,7 +4,7 @@ import { BranchesSorting } from './sorting/BranchesSorting.jsx';
 import { BranchesResult } from './table/BranchesResult.jsx';
 import './BranchAppList.css';
 
-export function BranchAppList( { listOptions, setListOptions, branches })
+export function BranchAppList({ listOptions, branches, setListOptions })
 {
   console.log(`BranchAppList: ${ JSON.stringify( listOptions )}`)
 

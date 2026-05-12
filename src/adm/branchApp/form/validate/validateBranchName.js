@@ -4,15 +4,18 @@ export function validateBranchName( branchName )
 {
   const { lingo } = useLingo();
 
-  if (!isBranchNameFilled( branchName )) {
+  if ( !isBranchNameFilledString( branchName ))
+  {
     return lingo({
-      en: 'Branch name should not be empty',
-      de: 'Der Name der Niederlassung darf nicht leer sein',
+      en: 'Branch name should be non-empty string',
+      de: 'Der Name der Niederlassung muss nicht-leerer String sein',
     });
   }
 }
 
-function isBranchNameFilled( branchName )
+function isBranchNameFilledString( branchName )
 {
-  return branchName.trim() !== '';
+  return branchName !== undefined
+    && branchName.constructor === String
+    && branchName.trim() !== '';
 }

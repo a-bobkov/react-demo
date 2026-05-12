@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { queryBranches } from '../branchApp/branchAppList/singleQueryBranches.js';
 import { useRunOnce } from '../useRunOnce.js';
 import { useNotificationsContext } from '../notifications/NotificationsProvider.jsx';
 import { querySalutations } from '../querySalutation.js';
+import { branchQuery } from '../branchApp/branchAppList/query/branchQuery.js';
 
 export function useUserAppSubordinates()
 {
@@ -28,6 +28,8 @@ export function useUserAppSubordinates()
     }
     catch ( error )
     {
+      console.error( error );
+
       apiNotifications.addError({
         en: `Error getting user subordinates: ${ error.message }`,
         de: `Fehler beim Anfordern von Benutzer-Untergebenen: ${ error.message }`,
@@ -40,7 +42,7 @@ export function useUserAppSubordinates()
 
 async function queryBranchList()
 {
-  const branches = await queryBranches();
+  const branches = await branchQuery();
 
   return branches.list;
 }

@@ -11,7 +11,7 @@ export function UserAppGetPage({ subordinates })
 
   const { user } = useUserAppGet( userId );
 
-  if ( user instanceof Error )
+  if ( Error.isError( user ))
   {
     return;
   }

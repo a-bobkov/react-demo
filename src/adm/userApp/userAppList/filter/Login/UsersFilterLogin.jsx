@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLingo } from '../../../../lingo/LingoProvider.jsx';
 import './UsersFilterLogin.css';
 
-export function UsersFilterLogin( { filter, onChangeFilter })
+export function UsersFilterLogin({ filter, onChangeFilter })
 {
   const { lingo } = useLingo();
 

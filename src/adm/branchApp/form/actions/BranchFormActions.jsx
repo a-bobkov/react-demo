@@ -119,20 +119,31 @@ export function BranchFormActions({ branchId, isFormChanged, isFormInvalid, setH
       setHasSpinner( true );
 
       try {
-        await deleteBranch( branchId, lingo );
+        await deleteBranch( branchId );
 
-        apiNotifications.addInfo( lingo({
+        apiNotifications.addInfo({
           en: `Branch ${ branchId } is successfully deleted.`,
           de: `Niederlassung ${ branchId } wurde erfolgreich gelöscht.`,
-        }));
+        });
 
         goExit();
       }
-      catch (error) {
-        apiNotifications.addError( lingo({
-          en: `Error: ${ error.message }`,
-          de: `Fehler: ${ error.message }`,
-        }));
+      catch ( error )
+      {
+        if ( error.cause?.status === 409 )
+        {
+          apiNotifications.addError({
+            en: `Branch ${ branchId } is referenced and cannot be deleted`,
+            de: `Niederlassung ${ branchId } ist referenziert und kann nicht gelöscht werden`,
+          });
+        }
+        else
+        {
+          apiNotifications.addError({
+            en: `Error deleting branch ${ branchId }: ${ error.message }`,
+            de: `Fehler beim Löschen der Niederlassung ${ branchId }: ${ error.message }`,
+          });
+        }
       }
 
       setHasSpinner( false );

@@ -1,8 +1,8 @@
 import { getRequestOptions } from './getRequestOptions.js';
 
-export async function userQuery( options, signal )
+export async function branchQuery( options, signal )
 {
-  console.log(`Starting abortable query user with options: ${ JSON.stringify( options )}`);
+  console.log(`Starting abortable query branch with options: ${ JSON.stringify( options )}`);
 
   const body = (new TextEncoder).encode( JSON.stringify( getRequestOptions( options )));
 
@@ -12,7 +12,7 @@ export async function userQuery( options, signal )
   });
 
   const response = await fetch(
-    '/api/user',
+    '/api/branch',
     {
       method: 'QUERY',
       headers,
@@ -26,9 +26,9 @@ export async function userQuery( options, signal )
     throw new Error(`returned status ${ response.status }`);
   }
 
-  const users = await response.json();
+  const branches = await response.json();
 
-  console.log(`Finished fetch: ${ JSON.stringify( users )}`);
+  console.log(`Finished fetch: ${ JSON.stringify( branches )}`);
 
-  return users;
+  return branches;
 }

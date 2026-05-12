@@ -20,7 +20,7 @@ export async function createUser( formUser )
 
   if ( !response.ok )
   {
-    throw new Error(`Create user returned status: ${ response.status }`);
+    throw new Error(`returned status ${ response.status }`);
   }
 
   const result = await response.json();

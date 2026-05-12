@@ -19,23 +19,16 @@ export function UserAppCreatePage({ subordinates })
     });
   }
 
-  if ( user.id === undefined )
-  {
-    return (
-      <UserAppCreate
+  return user.id === undefined
+    ? <UserAppCreate
         user={ user }
         subordinates={ subordinates }
         setCreatedUser={ setCreatedUser }
       />
-    );
-  }
-
-  return (
-    <UserAppUpdate
-      user={ user }
-      subordinates={ subordinates }
-    />
-  );
+    : <UserAppUpdate
+        user={ user }
+        subordinates={ subordinates }
+      />;
 
   function setCreatedUser( createdUser )
   {

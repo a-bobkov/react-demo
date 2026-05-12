@@ -1,20 +1,20 @@
+import { useState } from 'react';
+import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
 import { BranchForm } from '../form/BranchForm.jsx';
 import { createBranch } from './createBranch.js';
-import { useNotificationsContext } from '../../notifications/NotificationsProvider.jsx';
-import { useLingo } from '../../lingo/LingoProvider.jsx';
 
-export function BranchAppCreate( { createOptions, setCreateOptions, setUpdateOptions })
+export function BranchAppCreate({ branch, setCreatedBranch })
 {
   const apiNotifications = useNotificationsContext();
 
-  const { lingo } = useLingo();
+  const [ branchOptions, setBranchOptions ] = useState( createInitialBranchOptions );
 
-  console.log(`BranchAppCreate createOptions: ${ JSON.stringify( createOptions )}`);
+  console.log(`BranchAppCreate createOptions: ${ JSON.stringify( branchOptions )}`);
 
   return (
     <BranchForm
-      key={ createOptions.id }
-      branchOptions={ createOptions }
+      key={ branchOptions.id }
+      branchOptions={ branchOptions }
       onClickSaveBranch={ onClickCreateBranch }
     />
   );
@@ -23,45 +23,63 @@ export function BranchAppCreate( { createOptions, setCreateOptions, setUpdateOpt
   {
     const result = await createDbBranch( formBranch );
 
-    if ( result.branch )
+    if ( Error.isError( result ))
     {
-      setUpdateOptions({
-        dbBranch: result.branch,
-        submitBranch: result.branch,
+      apiNotifications.addError({
+        en: `Error creating branch: ${ result.message }`,
+        de: `Fehler beim Erstellen der Niederlassung: ${ result.message }`,
       });
 
-      apiNotifications.addInfo( lingo({
+      return false;
+    }
+
+    if ( result.error )
+    {
+      setBranchOptions( identifyOptions({
+        dbBranch: dbBranch,
+        submitBranch: formBranch,
+        submitErrors: result.error,
+      }));
+
+      return false;
+    }
+
+    if ( result.branch )
+    {
+      setCreatedBranch( result.branch );
+
+      apiNotifications.addInfo({
         en: `Branch ${ result.branch.id } is successfully created.`,
         de: `Niederlassung ${ result.branch.id } wurde erfolgreich erstellt.`,
-      }));
+      });
 
       return true;
     }
-
-    setCreateOptions({
-      dbBranch: dbBranch,
-      submitBranch: formBranch,
-      submitErrors: result.error,
-      fetchCommonError: result.fetchCommonError,
-    });
-
-    return false;
   }
 
   async function createDbBranch( formBranch )
   {
     try {
-      return await createBranch( formBranch, lingo );
+      return await createBranch( formBranch );
     }
-    catch (error) {
-      apiNotifications.addError( lingo({
-        en: `Error: ${ error.message }`,
-        de: `Fehler: ${ error.message }`,
-      }));
-
-      return {
-        fetchCommonError: error,
-      }
+    catch ( error )
+    {
+      return error;
     }
   }
+
+  function createInitialBranchOptions()
+  {
+    return {
+      dbBranch: branch,
+      submitBranch: branch,
+    };
+  }
+}
+
+function identifyOptions( options )
+{
+  options.id = String( Date.now());  // to initialize state of form after submit
+
+  return options;
 }
