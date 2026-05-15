@@ -1,3 +1,5 @@
+import { clsx } from 'clsx';
+import { useUserListHighlight } from './useUserListHighlight.js';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import { PopstateLink } from '../../../PopstateLink.jsx';
 import { getUserGetFullPath } from '../../userAppGet/useUserAppGetLocation.js';
@@ -5,30 +7,53 @@ import './UsersList.css';
 
 export function UsersList({ users, isBlocked })
 {
+  const { highlight, setHighlight } = useUserListHighlight();
+
   return (
     <div className="UsersList" inert={ isBlocked }>
       { users.list.map( user =>
         <UsersLine
           key={ user.id }
           user={ user }
+          highlight={ highlight }
+          setHighlight={ setHighlight }
         />
       )}
     </div>
   );
 }
 
-function UsersLine({ user })
+function UsersLine({ user, highlight, setHighlight })
 {
   return (
-    <div className="UsersLine">
+    <div className={ clsx('UsersLine', isHighlighted( user ) && 'isHighlighted') }
+         onClick={ changeHighlight }
+    >
       <UsersLineId userId={ user.id } />
       <UsersLineLogin userLogin={ user.login } />
       <UsersLineName userName={ user.name } />
       <UsersLineBranch userBranch={ user.branch } />
       <UsersLineActive userActive={ user.active }/>
-      <UsersLineActions userId={ user.id } />
+      <UsersLineActions
+        userId={ user.id }
+        changeHighlight={ changeHighlight }
+      />
     </div>
   );
+
+  function changeHighlight()
+  {
+    const newHighlight = isHighlighted( user )
+      ? undefined
+      : user.id;
+
+    setHighlight( newHighlight );
+  }
+
+  function isHighlighted( user )
+  {
+    return user.id === highlight;
+  }
 }
 
 function UsersLineId({ userId })
@@ -87,16 +112,19 @@ function UsersLineActive({ userActive })
   );
 }
 
-function UsersLineActions({ userId })
+function UsersLineActions({ userId, changeHighlight })
 {
   return (
     <div className="UsersLineActions">
-      <UsersLineActionEdit userId={ userId } />
+      <UsersLineActionEdit
+        userId={ userId }
+        changeHighlight={ changeHighlight }
+      />
     </div>
   );
 }
 
-function UsersLineActionEdit({ userId })
+function UsersLineActionEdit({ userId, changeHighlight })
 {
   const { lingo } = useLingo();
 
@@ -105,6 +133,7 @@ function UsersLineActionEdit({ userId })
       <PopstateLink
         className="UsersLineActionEditLink"
         path={ getUserGetFullPath( userId ) }
+        onClickBefore={ changeHighlight }
       >
         { lingo({
           en: 'Edit',

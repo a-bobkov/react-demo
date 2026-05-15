@@ -8,6 +8,8 @@ export function saveFilterBranch( searchParams, filter )
 
   if (filterValue !== undefined) {
     searchParams.set( urlPropName, serialize( filterValue ));
+  } else {
+    searchParams.delete( urlPropName );
   }
 }
 

@@ -63,7 +63,7 @@ export function UsersFilter({ filter, subordinates, onChangeFilter })
   }
 }
 
-export function saveFilter(searchParams, filter )
+export function saveFilter( searchParams, filter )
 {
   saveFilterLogin( searchParams, filter );
   saveFilterName( searchParams, filter );
@@ -71,7 +71,7 @@ export function saveFilter(searchParams, filter )
   saveFilterActive( searchParams, filter );
 }
 
-export function loadFilter(searchParams )
+export function loadFilter( searchParams )
 {
   return Object.assign({},
     loadFilterLogin( searchParams ),

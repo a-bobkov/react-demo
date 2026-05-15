@@ -1,4 +1,4 @@
-export function PopstateLink({ children, path, className })
+export function PopstateLink({ children, path, className, onClickBefore })
 {
   return (
     <a className={ className } href={ path } onClick={ onClick }>
@@ -8,9 +8,14 @@ export function PopstateLink({ children, path, className })
 
   function onClick( event )
   {
+    if ( onClickBefore ) {
+      onClickBefore();
+    }
+
     if ( event.ctrlKey || event.metaKey || event.button === 1 ) return;
 
     event.preventDefault();
+    event.stopPropagation();
 
     createHistoryEntry( event.target.pathname );
   }

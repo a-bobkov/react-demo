@@ -7,13 +7,10 @@ export function saveFilterActive( searchParams, filter )
   const filterValue = filter[ filterPropName ];
 
   if (filterValue !== undefined) {
-    searchParams.set( urlPropName, serializeActive( filterValue ));
+    searchParams.set( urlPropName, serialize( filterValue ));
+  } else {
+    searchParams.delete( urlPropName );
   }
-}
-
-function serializeActive( value )
-{
-  return value ? '1' : '';
 }
 
 export function loadFilterActive( searchParams )
@@ -23,13 +20,18 @@ export function loadFilterActive( searchParams )
   const filterValue = searchParams.get( urlPropName );
 
   if (filterValue !== null) {
-    filter[ filterPropName ] = deserializeActive( filterValue );
+    filter[ filterPropName ] = deserialize( filterValue );
   }
 
   return filter;
 }
 
-function deserializeActive( str )
+function serialize( filterValue )
 {
-  return !!str;
+  return filterValue ? '1' : '';
+}
+
+function deserialize( urlValue )
+{
+  return Boolean( urlValue );
 }

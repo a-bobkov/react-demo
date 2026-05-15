@@ -2,11 +2,12 @@ const sortingKey = 'sort';
 
 export function saveSorting( searchParams, sorting = {})
 {
-  for (const [field, order] of Object.entries(sorting))
+  for( const [ field, order ] of Object.entries( sorting ))
   {
-    if (order)
-    {
+    if ( order ) {
       searchParams.set( sortingKey, `${field}.${order}`);
+    } else {
+      searchParams.delete( sortingKey );
     }
   }
 }

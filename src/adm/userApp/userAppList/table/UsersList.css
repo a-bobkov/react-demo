@@ -9,6 +9,10 @@
   grid-template-columns: var(--user-app-grid-columns);
   align-items: center;
   padding: 4px;
+
+  &.isHighlighted {
+    background-color: #888;
+  }
 }
 
 .UsersLineActionEdit {

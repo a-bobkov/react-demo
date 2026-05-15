@@ -8,6 +8,8 @@ export function saveFilterLogin( searchParams, filter )
 
   if (filterValue !== undefined) {
     searchParams.set( urlPropName, filterValue );
+  } else {
+    searchParams.delete( urlPropName );
   }
 }
 

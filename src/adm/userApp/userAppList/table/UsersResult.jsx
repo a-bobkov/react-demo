@@ -30,7 +30,7 @@ export function UsersResult({ listOptions, users, subordinates, onChangePaginati
 
   const isFilterDifferent = different( listOptions.filter, resolvedUsers.filter );
   const isSortingDifferent = different( listOptions.sorting, resolvedUsers.sorting );
-  const isPaginationDifferent = different( listOptions. pagination, resolvedUsers.pagination );
+  const isPaginationDifferent = different( listOptions.pagination, resolvedUsers.pagination );
 
   return (
     <div className="UsersResult">
