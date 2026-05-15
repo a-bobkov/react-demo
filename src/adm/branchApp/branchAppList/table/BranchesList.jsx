@@ -23,6 +23,7 @@ function BranchesLine({ branch })
     <div className="BranchesLine">
       <BranchesLineId branchId={ branch.id } />
       <BranchesLineName branchName={ branch.name } />
+      <BranchesLineCreated branchCreated={ branch.created } />
       <BranchesLineActions branchId={ branch.id } />
     </div>
   );
@@ -42,6 +43,32 @@ function BranchesLineName({ branchName })
   return (
     <div className="BranchesLineName">
       { branchName }
+    </div>
+  );
+}
+
+const { format: formatDateEn } = Intl.DateTimeFormat('en-US', {
+  dateStyle: 'medium',
+  timeStyle: 'short',
+});
+
+const { format: formatDateDe } = Intl.DateTimeFormat('de-DE', {
+  dateStyle: 'medium',
+  timeStyle: 'short',
+});
+
+function BranchesLineCreated({ branchCreated })
+{
+  const { lingo } = useLingo();
+
+  const dateBranchCreated = new Date( branchCreated );
+
+  return (
+    <div className="BranchesLineCreated">
+      { lingo({
+        en: formatDateEn( dateBranchCreated ),
+        de: formatDateDe( dateBranchCreated ),
+      })}
     </div>
   );
 }

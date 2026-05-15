@@ -34,7 +34,7 @@ async function create( serverHost, serverPort, onRequestReceived )
 
     const body = Buffer.concat( bodyChunks ).toString();
 
-    return body !== '' ? JSON.parse( body ) : null;
+    return body !== '' ? JSON.parse( body ) : undefined;
   }
 
   async function replyResponse( response, status, headers, bodyValue )

@@ -61,8 +61,9 @@ function create( initialBranches )
     }
 
     const newBranch = {
-      id: nextId++,
       ...branch,
+      id: nextId++,
+      created: new Date(),
     }
 
     storedBranches[ newBranch.id ] = newBranch;

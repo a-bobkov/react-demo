@@ -4,7 +4,7 @@ import './BranchesSorting.css';
 
 export function BranchesSorting({ sorting = {}, onChangeSorting })
 {
-  const { id, name } = sorting;
+  const { id, name, created } = sorting;
 
   const { lingo } = useLingo();
 
@@ -24,6 +24,14 @@ export function BranchesSorting({ sorting = {}, onChangeSorting })
           de: 'Name',
         })}
         fieldSorting={{ name }}
+        onChangeSorting={ onChangeSorting }
+      />
+      <BranchesSortingField
+        name={ lingo({
+          en: 'created',
+          de: 'erstellt',
+        })}
+        fieldSorting={{ created }}
         onChangeSorting={ onChangeSorting }
       />
     </div>
