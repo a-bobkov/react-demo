@@ -50,13 +50,19 @@ function AppMenuItem({ name, path, isActive })
 function AppMenuItemLink({ name, path })
 {
   return (
-    <PopstateLink path={ path }>
-      { name }
-    </PopstateLink>
+    <div className="AppMenuItemLink">
+      <PopstateLink path={ path }>
+        { name }
+      </PopstateLink>
+    </div>
   );
 }
 
 function AppMenuItemText({ name })
 {
-  return name;
+  return (
+    <div className="AppMenuItemText">
+      { name }
+    </div>
+  );
 }

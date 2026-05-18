@@ -4,5 +4,8 @@
   display: grid;
   grid-template-columns: var(--user-app-grid-columns);
   align-items: center;
-  border: solid 1px;
+  border: solid 1px var(--fg-color);
+  border-radius: 5px 5px 0 0;
+  background-color: var(--bg-color-table);
+  color: var(--fg-color-act);
 }

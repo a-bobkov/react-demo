@@ -1,7 +1,21 @@
 .AppMenu {
-  font-size: 24px;
+}
+
+.AppMenuHeader {
+  font-size: 32px;
+  margin-bottom: 16px;
 }
 
 .AppMenuItem {
-  margin-top: 16px;
+  font-size: 24px;
+}
+
+.AppMenuItemText {
+  margin-left: -8px;
+  padding: 8px;
+  background-color: var(--bg-color-selected);
+}
+
+.AppMenuItemLink {
+  padding: 8px 0;
 }

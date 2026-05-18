@@ -6,6 +6,7 @@
   grid-auto-flow: column;
   align-items: center;
   text-align: center;
+  color: var(--fg-color-act);
 
   div {
     width: 50px;

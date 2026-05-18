@@ -7,11 +7,13 @@ html, body {
   padding: 0;
   height: 100%;
   width: 100%;
-  font-family: sans-serif;
+  font-family: system-ui,sans-serif;
+  font-weight: 300;
 }
 
 a {
-  color: #4285f4;
+  text-underline-position: under;
+  text-decoration-style: dotted;
 }
 
 button:not(:disabled) {

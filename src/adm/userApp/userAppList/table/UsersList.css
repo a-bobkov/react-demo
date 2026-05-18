@@ -1,6 +1,8 @@
 .UsersList {
   border: solid 1px;
   border-top: none;
+  border-radius: 0 0 5px 5px;
+  background-color: var(--bg-color-table);
 }
 
 .UsersLine {
@@ -11,7 +13,7 @@
   padding: 4px;
 
   &.isHighlighted {
-    background-color: #888;
+    background-color: var(--bg-color-selected);
   }
 }
 
