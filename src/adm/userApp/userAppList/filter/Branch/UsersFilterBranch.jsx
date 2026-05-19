@@ -1,18 +1,19 @@
 import { useLingo } from '../../../../lingo/LingoProvider.jsx';
+import { SingleSelect } from './SingleSelect.jsx';
 import './UsersFilterBranch.css';
 
-const emptyOption = {
-  formValue: undefined,
-  controlValue: '',
-  lingo: {
-    en: 'Select one',
-    de: 'Wählen eine aus',
-  },
+const prompt = {
+  en: 'Select one',
+  de: 'Wählen eine aus',
 };
 
 export function UsersFilterBranch({ filter, subordinates, onChangeFilter })
 {
   const { lingo } = useLingo();
+
+  const options = branches2options( subordinates.branches );
+
+  const selected = filter2option( filter, options );
 
   return (
     <div className="UserFilterBranch">
@@ -22,49 +23,43 @@ export function UsersFilterBranch({ filter, subordinates, onChangeFilter })
           de: 'Niederlassung',
         })}
       </div>
-      <select
-        value={ filter2control( filter ) }
-        onChange={ onChange }
-      >
-        <option value={ emptyOption.controlValue }>
-          { lingo( emptyOption.lingo )}
-        </option>
-
-        { subordinates.branches.map( branch =>
-          <option value={ branch.id }>
-            { branch.name }
-          </option>
-        )}
-      </select>
+      <SingleSelect
+        prompt={ lingo( prompt )}
+        options={ options }
+        selected={ selected }
+        onChangeSelected={ onChangeSelected }
+      />
     </div>
   );
 
-  function onChange( event )
+  function onChangeSelected( option )
   {
-    const newControlValue = event.target.value;
+    const newFilter = option2filter( option );
 
-    const newFilterValue = control2filter( newControlValue );
-
-    onChangeFilter( newFilterValue );
+    onChangeFilter( newFilter );
   }
 }
 
-function control2filter( controlValue )
+function branches2options( branches )
 {
-  if ( controlValue === emptyOption.controlValue ) {
-    return emptyOption.formValue;
-  }
-
-  return {
-    id: parseInt( controlValue),
-  };
+  return branches.map(
+    branch => ({
+      id: branch.id,
+      text: `${ branch.id }: ${ branch.name }`,
+    })
+  );
 }
 
-function filter2control( filterValue )
+function filter2option( filter, options )
 {
-  if ( filterValue === emptyOption.formValue ) {
-    return emptyOption.controlValue;
-  }
+  return filter
+    ? options.find( option => option.id === filter.id)
+    : undefined;
+}
 
-  return `${ filterValue.id }`;
+function option2filter( option )
+{
+  return option
+    ? { id: option.id }
+    : undefined;
 }
