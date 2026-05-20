@@ -1,90 +1,49 @@
-import { useState } from 'react';
 import { useLingo } from '../../../../lingo/LingoProvider.jsx';
+import { SingleSelect } from '../../../../SingleSelect/SingleSelect.jsx';
 import './UsersFilterActive.css';
 
-const filterOptions = [
-  {
-    filterValue: undefined,
-    controlValue: '',
-    lingo: {
-      en: 'all',
-      de: 'alle',
-    },
-  }, {
-    filterValue: true,
-    controlValue: 'true',
-    lingo: {
-      en: 'active',
-      de: 'tätig',
-    },
-  }, {
-    filterValue: false,
-    controlValue: 'false',
-    lingo: {
-      en: 'inactive',
-      de: 'untätig',
-    },
-  },
+const actives = [
+  [ true, {
+    en: 'active',
+    de: 'tätig',
+  }],
+  [ false, {
+    en: 'inactive',
+    de: 'untätig',
+  }],
 ];
 
 export function UsersFilterActive({ filter, onChangeFilterActive })
 {
   const { lingo } = useLingo();
 
-  const [ controlValue, setControlValue ] = useState( initialControlValue );
+  const options = actives2options( actives, lingo );
 
   return (
-    <div>
+    <div className='UsersFilterActive'>
       <div>
         { lingo({
           en: 'Active',
           de: 'Tätig',
         })}
       </div>
-      <select
-        value={ controlValue }
-        onChange={ onChange }
-      >
-        { filterOptions.map( option =>
-          <option value={ option.controlValue }>
-            { lingo( option.lingo )}
-          </option>
-        )}
-      </select>
+      <SingleSelect
+        className='UserFilterActiveSelect'
+        empty={ lingo({
+          en: 'all',
+          de: 'alle',
+        })}
+        options={ options }
+        selectedId={ filter }
+        onChangeSelectedId={ onChangeFilterActive }
+      />
     </div>
   );
-
-  function initialControlValue()
-  {
-    return filter2control( filter );
-  }
-
-  function onChange( event )
-  {
-    const newControlValue = event.target.value;
-
-    setControlValue( newControlValue );
-
-    const newFilterValue = control2filter( newControlValue );
-
-    onChangeFilterActive( newFilterValue );
-  }
 }
 
-function control2filter( controlValue )
+function actives2options( actives, lingo )
 {
-  const foundOption = filterOptions.find( option =>
-    option.controlValue === controlValue
-  );
-
-  return foundOption.filterValue;
-}
-
-function filter2control( filterValue )
-{
-  const foundOption = filterOptions.find( option =>
-    option.filterValue === filterValue
-  );
-
-  return foundOption.controlValue;
+  return new Map( actives.map(
+    ([ key, value ]) => [ key, lingo( value )]
+  ));
 }

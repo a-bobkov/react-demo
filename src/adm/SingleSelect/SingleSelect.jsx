@@ -2,27 +2,31 @@ import { useState } from 'react';
 import { clsx } from 'clsx';
 import './SingleSelect.css';
 
-export function SingleSelect({ prompt, options, selected, onChangeSelected })
+export function SingleSelect({ className, empty, options, selectedId, onChangeSelectedId })
 {
   const [ isOpened, setIsOpened ] = useState( false );
 
   return (
-    <div className="SingleSelect" tabIndex="0" onBlur={ onBlur }>
+    <div
+      className={ clsx( className, 'SingleSelect')}
+      tabIndex="0"
+      onBlur={ onBlur }
+    >
       <SingleSelectValue
-        prompt={ prompt }
-        selected={ selected }
+        empty={ empty }
+        options={ options }
+        selectedId={ selectedId }
         isOpened={ isOpened }
         setIsOpened={ setIsOpened }
       />
       <SingleSelectClear
-        selected={ selected }
+        selectedId={ selectedId }
         setSelected={ setSelected }
       />
       <SingleSelectOptions
         options={ options }
         isOpened={ isOpened }
-        setIsOpened={ setIsOpened }
-        selected={ selected }
+        selectedId={ selectedId }
         setSelected={ setSelected }
       />
     </div>
@@ -35,17 +39,15 @@ export function SingleSelect({ prompt, options, selected, onChangeSelected })
 
   function setSelected( newSelected )
   {
-    onChangeSelected( newSelected );
+    onChangeSelectedId( newSelected );
 
     setIsOpened( false );
   }
 }
 
-function SingleSelectValue({ prompt, selected, isOpened, setIsOpened })
+function SingleSelectValue({ empty, options, selectedId, isOpened, setIsOpened })
 {
-  const text = selected !== undefined
-    ? selected.text
-    : prompt;
+  const text = options.get( selectedId ) ?? empty;
 
   return (
     <div className="SingleSelectValue" onClick={ onClick }>
@@ -59,9 +61,9 @@ function SingleSelectValue({ prompt, selected, isOpened, setIsOpened })
   }
 }
 
-function SingleSelectClear({ selected, setSelected })
+function SingleSelectClear({ selectedId, setSelected })
 {
-  return selected !== undefined && (
+  return selectedId !== undefined && (
     <div
       className="SingleSelectClear"
       onClick={ onClick }
@@ -75,15 +77,14 @@ function SingleSelectClear({ selected, setSelected })
   }
 }
 
-function SingleSelectOptions({ options, isOpened, selected, setSelected })
+function SingleSelectOptions({ options, isOpened, selectedId, setSelected })
 {
   return isOpened && (
     <div className="SingleSelectOptions">
-      { options.map( option =>
+      { options.entries().map( option =>
         <SingleSelectOption
-          key={ option.id }
           option={ option }
-          selected={ selected }
+          selectedId={ selectedId }
           setSelected={ setSelected }
         />
       )}
@@ -91,21 +92,20 @@ function SingleSelectOptions({ options, isOpened, selected, setSelected })
   );
 }
 
-function SingleSelectOption({ option, selected, setSelected })
+function SingleSelectOption({ option: [ optionId, optionView ], selectedId, setSelected })
 {
-  const text = option.text;
-
   return (
     <div
-      className={ clsx('SingleSelectOption', option === selected && 'isSelected') }
+      key={ optionId }
+      className={ clsx('SingleSelectOption', optionId === selectedId && 'isSelected') }
       onClick={ onClick }
     >
-      { text }
+      { optionView }
     </div>
   );
 
   function onClick()
   {
-    setSelected( option );
+    setSelected( optionId );
   }
 }

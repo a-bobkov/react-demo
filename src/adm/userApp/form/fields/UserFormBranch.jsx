@@ -1,16 +1,8 @@
 import { clsx } from 'clsx';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
+import { SingleSelect } from '../../../SingleSelect/SingleSelect.jsx';
 import { UserFieldErrors } from './UserFieldErrors.jsx';
 import './UserFormBranch.css';
-
-const emptyOption = {
-  formValue: undefined,
-  controlValue: '',
-  lingo: {
-    en: 'Select one',
-    de: 'Wählen eine aus',
-  },
-};
 
 export function UserFormBranch({ value, branches, saveErrors, formErrors, isFieldChanged, onChangeBranch })
 {
@@ -25,20 +17,15 @@ export function UserFormBranch({ value, branches, saveErrors, formErrors, isFiel
         })}
       </div>
       <div className="UserFormFieldValue">
-        <select
-          value={ form2control(value) }
-          onChange={ onChangeControlValue }
-        >
-          <option value={ emptyOption.controlValue }>
-            { lingo( emptyOption.lingo )}
-          </option>
-
-          { branches.map( branch =>
-            <option value={ branch.id }>
-              { branch.name }
-            </option>
-          )}
-        </select>
+        <SingleSelect className='UserFormBranchSelect'
+          empty={ lingo({
+            en: 'Select one',
+            de: 'Wählen eine aus',
+          })}
+          options={ branches2options( branches )}
+          selectedId={ value2option( value )}
+          onChangeSelectedId={ onChangeSelectedId }
+        />
         <UserFieldErrors
           formError={ formErrors }
           saveError={ saveErrors }
@@ -47,32 +34,27 @@ export function UserFormBranch({ value, branches, saveErrors, formErrors, isFiel
     </div>
   );
 
-  function onChangeControlValue( event )
+  function onChangeSelectedId( newSelectedId )
   {
-    const newControlValue = event.target.value;
+    const newBranch = option2value( newSelectedId );
 
-    const newFormValue = control2form( newControlValue );
-
-    onChangeBranch( newFormValue );
+    onChangeBranch( newBranch );
   }
 }
 
-function control2form( controlValue )
+function branches2options( branches )
 {
-  if ( controlValue === emptyOption.controlValue ) {
-    return emptyOption.formValue;
-  }
-
-  return {
-    id: parseInt( controlValue),
-  };
+  return new Map( branches.map( branch =>
+    [ branch.id, `${ branch.id }: ${ branch.name }`]
+  ));
 }
 
-function form2control( formValue )
+function value2option( value )
 {
-  if ( formValue === emptyOption.formValue ) {
-    return emptyOption.controlValue;
-  }
+  return value && value.id;
+}
 
-  return `${ formValue.id }`;
+function option2value( selectedId )
+{
+  return selectedId && { id: selectedId };
 }

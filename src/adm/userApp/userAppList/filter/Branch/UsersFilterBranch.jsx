@@ -1,11 +1,6 @@
 import { useLingo } from '../../../../lingo/LingoProvider.jsx';
-import { SingleSelect } from './SingleSelect.jsx';
+import { SingleSelect } from '../../../../SingleSelect/SingleSelect.jsx';
 import './UsersFilterBranch.css';
-
-const prompt = {
-  en: 'Select one',
-  de: 'Wählen eine aus',
-};
 
 export function UsersFilterBranch({ filter, subordinates, onChangeFilter })
 {
@@ -13,7 +8,7 @@ export function UsersFilterBranch({ filter, subordinates, onChangeFilter })
 
   const options = branches2options( subordinates.branches );
 
-  const selected = filter2option( filter, options );
+  const selectedId = filter2option( filter );
 
   return (
     <div className="UserFilterBranch">
@@ -24,17 +19,21 @@ export function UsersFilterBranch({ filter, subordinates, onChangeFilter })
         })}
       </div>
       <SingleSelect
-        prompt={ lingo( prompt )}
+        className='UserFilterBranchSelect'
+        empty={ lingo({
+          en: 'all',
+          de: 'alle',
+        })}
         options={ options }
-        selected={ selected }
-        onChangeSelected={ onChangeSelected }
+        selectedId={ selectedId }
+        onChangeSelectedId={ onChangeSelectedId }
       />
     </div>
   );
 
-  function onChangeSelected( option )
+  function onChangeSelectedId( newSelectedId )
   {
-    const newFilter = option2filter( option );
+    const newFilter = option2filter( newSelectedId );
 
     onChangeFilter( newFilter );
   }
@@ -42,24 +41,17 @@ export function UsersFilterBranch({ filter, subordinates, onChangeFilter })
 
 function branches2options( branches )
 {
-  return branches.map(
-    branch => ({
-      id: branch.id,
-      text: `${ branch.id }: ${ branch.name }`,
-    })
-  );
+  return new Map( branches.map( branch =>
+    [ branch.id, `${ branch.id }: ${ branch.name }`]
+  ));
 }
 
-function filter2option( filter, options )
+function filter2option( filter )
 {
-  return filter
-    ? options.find( option => option.id === filter.id)
-    : undefined;
+  return filter && filter.id;
 }
 
-function option2filter( option )
+function option2filter( selectedId )
 {
-  return option
-    ? { id: option.id }
-    : undefined;
+  return selectedId && { id: selectedId };
 }

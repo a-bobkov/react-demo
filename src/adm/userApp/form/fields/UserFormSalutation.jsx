@@ -1,16 +1,8 @@
 import { clsx } from 'clsx';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
+import { SingleSelect } from '../../../SingleSelect/SingleSelect.jsx';
 import { UserFieldErrors } from './UserFieldErrors.jsx';
 import './UserFormSalutation.css';
-
-const emptyOption = {
-  formValue: undefined,
-  controlValue: '',
-  lingo: {
-    en: 'Hello',
-    de: 'Hallo',
-  },
-};
 
 export function UserFormSalutation({ value, salutations, saveErrors, formErrors, isFieldChanged, onChangeSalutation })
 {
@@ -25,20 +17,15 @@ export function UserFormSalutation({ value, salutations, saveErrors, formErrors,
         })}
       </div>
       <div className="UserFormFieldValue">
-        <select
-          value={ form2control(value) }
-          onChange={ onChangeControlValue }
-        >
-          <option value={ emptyOption.controlValue }>
-            { lingo( emptyOption.lingo )}
-          </option>
-
-          { salutations.map( salutation =>
-            <option value={ salutation.id }>
-              { lingo( salutation.name )}
-            </option>
-          )}
-        </select>
+        <SingleSelect className='UserFormSalutationSelect'
+          empty={ lingo({
+            en: 'Hello',
+            de: 'Hallo',
+          })}
+          options={ salutations2options( salutations, lingo )}
+          selectedId={ value2option( value )}
+          onChangeSelectedId={ onChangeSelectedId }
+        />
         <UserFieldErrors
           formError={ formErrors }
           saveError={ saveErrors }
@@ -47,32 +34,28 @@ export function UserFormSalutation({ value, salutations, saveErrors, formErrors,
     </div>
   );
 
-  function onChangeControlValue( event )
-  {
-    const newControlValue = event.target.value;
 
-    const newFormValue = control2form( newControlValue );
+  function onChangeSelectedId( newSelectedId )
+  {
+    const newFormValue = option2value( newSelectedId );
 
     onChangeSalutation( newFormValue );
   }
 }
 
-function control2form( controlValue )
+function salutations2options( salutations, lingo )
 {
-  if ( controlValue === emptyOption.controlValue ) {
-    return emptyOption.formValue;
-  }
-
-  return {
-    id: parseInt( controlValue),
-  };
+  return new Map( salutations.map( salutation =>
+    [ salutation.id, lingo( salutation.name ) ]
+  ));
 }
 
-function form2control( formValue )
+function value2option( value )
 {
-  if ( formValue === emptyOption.formValue ) {
-    return emptyOption.controlValue;
-  }
+  return value && value.id;
+}
 
-  return `${ formValue.id }`;
+function option2value( selectedId )
+{
+  return selectedId && { id: selectedId };
 }
