@@ -20,6 +20,7 @@ export function SingleSelect({ className, empty, options, selectedId, onChangeSe
         setIsOpened={ setIsOpened }
       />
       <SingleSelectClear
+        empty={ empty }
         selectedId={ selectedId }
         setSelected={ setSelected }
       />
@@ -61,9 +62,9 @@ function SingleSelectValue({ empty, options, selectedId, isOpened, setIsOpened }
   }
 }
 
-function SingleSelectClear({ selectedId, setSelected })
+function SingleSelectClear({ empty, selectedId, setSelected })
 {
-  return selectedId !== undefined && (
+  return empty && selectedId !== undefined && (
     <div
       className="SingleSelectClear"
       onClick={ onClick }

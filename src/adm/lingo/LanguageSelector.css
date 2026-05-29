@@ -1,0 +1,8 @@
+.LanguageSelector {
+  display: inline-block;
+  align-content: center;
+}
+
+.LanguageSelectorSelect {
+  width: 50px;
+}

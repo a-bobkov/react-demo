@@ -1,29 +1,29 @@
 import { createContext, useContext } from 'react';
-import { useLingoApi } from './useLingoApi.js';
+import { useLanguageApi } from './useLanguageApi.js';
 
-const LingoSelectContext = createContext( null );
+const SelectLanguageContext = createContext( null );
 
-export function useContextLingoSelect()
+export function useContextSelectLanguage()
 {
-  return useContext( LingoSelectContext );
+  return useContext( SelectLanguageContext );
 }
 
-const LingoPickContext = createContext( null );
+const PickLanguageContext = createContext( null );
 
 export function useLingo()
 {
-  return useContext( LingoPickContext );
+  return useContext( PickLanguageContext );
 }
 
 export function LingoProvider({ children })
 {
-  const { lingoSelectApi, lingoPickApi } = useLingoApi();
+  const { selectLanguageApi, pickLanguageApi } = useLanguageApi();
 
   return (
-    <LingoSelectContext value={ lingoSelectApi }>
-      <LingoPickContext value={ lingoPickApi }>
+    <SelectLanguageContext value={ selectLanguageApi }>
+      <PickLanguageContext value={ pickLanguageApi }>
         { children }
-      </LingoPickContext>
-    </LingoSelectContext>
+      </PickLanguageContext>
+    </SelectLanguageContext>
   );
 }

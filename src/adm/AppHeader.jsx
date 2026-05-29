@@ -1,5 +1,5 @@
 import { IsDarkToggler } from './isDark/IsDarkToggler.jsx';
-import { LingoSelector } from './lingo/LingoSelector.jsx';
+import { LanguageSelector } from './lingo/LanguageSelector.jsx';
 import { useLingo } from './lingo/LingoProvider.jsx';
 import './AppHeader.css';
 
@@ -9,7 +9,7 @@ export function AppHeader()
     <div className="AppHeader">
       <AppHeaderTitle />
       <IsDarkToggler />
-      <LingoSelector />
+      <LanguageSelector />
     </div>
   );
 }
