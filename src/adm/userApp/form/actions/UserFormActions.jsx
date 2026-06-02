@@ -1,5 +1,6 @@
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import { deleteUser } from '../deleteUser.js';
+import { Button } from '../../../components/Button/Button.jsx';
 import { useModalDialogContext } from '../../../modalDialog/ModalDialogProvider.jsx';
 import { useNotificationsContext } from '../../../notifications/NotificationsProvider.jsx';
 import { AllowExitModalDialogContent } from './AllowExitModalDialogContent.jsx';
@@ -31,36 +32,25 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
 
   function UserFormActionSave({ isFormInvalid, isFormChanged })
   {
-    const disableReasons = [
-      isFormInvalid && lingo({
-        en: 'the form is invalid',
-        de: 'das Formular ungültig ist',
-      }),
-      !isFormChanged && lingo({
-        en: 'the form is not changed',
-        de: 'das Formular nicht geändert wird',
-      }),
-    ].filter( Boolean );
-
-    const title = disableReasons.length > 0
-      ? lingo({
-        en: 'Disabled because\n' + disableReasons.join(';\n') + '.',
-        de: 'Deaktiviert, da\n' + disableReasons.join(';\n') + '.',
-      })
-      : undefined;
-
     return (
-      <button className="UserFormAction"
-        type="button"
-        disabled={ disableReasons.length > 0 }
-        title={ title }
-        onClick={ saveFormUser }
-      >
-        { lingo({
+      <Button
+        className="UserFormAction"
+        label={ lingo({
           en: 'Save user',
           de: 'Speichern\nden Benutzer',
-        })}
-      </button>
+        }) }
+        disableReasons={ [
+          isFormInvalid && lingo({
+            en: 'the form is invalid',
+            de: 'das Formular ungültig ist',
+          }),
+          !isFormChanged && lingo({
+            en: 'the form is not changed',
+            de: 'das Formular nicht geändert wird',
+          }),
+        ] }
+        onClick={ saveFormUser }
+      />
     );
   }
 
@@ -69,15 +59,14 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
     const modalDialogApi = useModalDialogContext();
 
     return (
-      <button className="UserFormAction"
-        type="button"
-        onClick={ onClick }
-      >
-        { lingo({
+      <Button
+        className="UserFormAction"
+        label={ lingo({
           en: 'Exit',
           de: 'Verlassen\ndas Formular',
-        })}
-      </button>
+        }) }
+        onClick={ onClick }
+      />
     );
 
     async function onClick()
@@ -104,14 +93,14 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
   function UserFormActionDelete({ userId })
   {
     return userId && (
-      <button className="UserFormAction"
-        onClick={ onClick }
-      >
-        { lingo({
+      <Button
+        className="UserFormAction"
+        label={ lingo({
           en: 'Delete user',
           de: 'Löschen\nden Benutzer',
-        })}
-      </button>
+        }) }
+        onClick={ onClick }
+      />
     );
 
     async function onClick()

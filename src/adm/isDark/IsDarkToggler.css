@@ -1,31 +1,39 @@
 .IsDarkToggler {
-  align-content: center;
   margin-left: 50px;
-  padding: 0 16px;
+  height: 33px;
+  width: 33px;
+  border: 1px solid;
+  border-radius: 2px;
+  background-color: var(--bg-color-control);
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 body {
-  background-color: var(--bg-color);
+  background-color: var( --bg-color-main );
   color: var(--fg-color);
 
-  & a {
-    color: var(--fg-color-act);
-  }
+  --bg-color-main: #ffffff;
+  --bg-color-result: #fffff0;
+  --bg-color-control: #fffcd6;
 
-  --bg-color: #fff4dd;
-  --bg-color-table: #fffdfa;
-  --bg-color-hover: #f3dedd;
-  --bg-color-selected: #e8c0be;
+  --bg-color-hover: #fcf5ae;
+  --bg-color-selected: #ebe385;
+
   --fg-color: #4a3f34;
-  --fg-color-act: #07072a;
+  --fg-color-inactive: grey;
+  --fg-color-error: orangered;
 
   &.dark-theme {
-    --bg-color: #0e131c;
-    --bg-color-table: #111a2d;
-    --bg-color-hover: #aaa9a9;
-    --bg-color-selected: #737373;
-    --fg-color: #b8c8d9;
-    --fg-color-act: #f8f8d5;
+    --bg-color-main: #000000;
+    --bg-color-result: #0e131c;
+    --bg-color-control: #0f1c39;
+
+    --bg-color-hover: #163272;
+    --bg-color-selected: #093eb7;
+
+    --fg-color: #c5d7ec;
   }
 }

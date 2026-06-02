@@ -1,6 +1,6 @@
 import { useContextSelectLanguage } from './LingoProvider.jsx';
 import { saveLanguageLocalStorage } from './languageLocalStorage.js';
-import { SingleSelect } from '../SingleSelect/SingleSelect.jsx';
+import { SingleSelect } from '../components/SingleSelect/SingleSelect.jsx';
 import './LanguageSelector.css';
 
 export function LanguageSelector()

@@ -1,9 +1,14 @@
 .UserFieldFormError {
   margin: 6px 0;
-  color: orangered;
+  color: var( --fg-color-error );
 }
 
 .UserFieldSaveError {
   margin: 6px 0;
-  color: darkred;
+  color: var( --fg-color-error );
+
+  &::before {
+    content: "⇅";
+    margin-right: 2px;
+  }
 }

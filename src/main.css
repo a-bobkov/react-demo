@@ -12,14 +12,39 @@ html, body {
 }
 
 a {
-  text-underline-position: under;
-  text-decoration-style: dotted;
-}
+  text-decoration: none;
+  color: var( --fg-color );
 
-button:not(:disabled) {
-  cursor: pointer;
+  &:hover {
+    background-color: var( --bg-color-hover );
+  }
 }
 
 *[inert] {
   opacity: 30%;
+}
+
+input {
+  color: var( --fg-color );
+  background-color: var(--bg-color-control);
+  border: solid 1px;
+  border-radius: 2px;
+  height: 22px;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  margin: 0;
+  width: 22px;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+
+  &::before {
+    content: "✔";
+    opacity: 0;
+  }
+  &:checked::before {
+    opacity: 1;
+  }
 }

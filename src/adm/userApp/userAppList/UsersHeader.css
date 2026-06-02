@@ -10,12 +10,9 @@
 }
 
 .CreateUserButton {
-  border: 1px solid;
-  border-radius: 5px;
-  background-color: var(--bg-color-table);
-}
-
-.CreateUserButtonLink {
   display: inline-block;
   padding: 8px;
+  border: 1px solid;
+  border-radius: 5px;
+  background-color: var( --bg-color-control );
 }

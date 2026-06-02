@@ -34,7 +34,7 @@ function UsersLine({ user, highlight, setHighlight })
       <UsersLineName userName={ user.name } />
       <UsersLineBranch userBranch={ user.branch } />
       <UsersLineActive userActive={ user.active }/>
-      <UsersLineActions
+      <UsersLineActionEdit
         userId={ user.id }
         changeHighlight={ changeHighlight }
       />
@@ -112,34 +112,20 @@ function UsersLineActive({ userActive })
   );
 }
 
-function UsersLineActions({ userId, changeHighlight })
-{
-  return (
-    <div className="UsersLineActions">
-      <UsersLineActionEdit
-        userId={ userId }
-        changeHighlight={ changeHighlight }
-      />
-    </div>
-  );
-}
-
 function UsersLineActionEdit({ userId, changeHighlight })
 {
   const { lingo } = useLingo();
 
   return (
-    <div className="UsersLineActionEdit">
-      <PopstateLink
-        className="UsersLineActionEditLink"
-        path={ getUserGetFullPath( userId ) }
-        onClickBefore={ changeHighlight }
-      >
-        { lingo({
-          en: 'Edit',
-          de: 'Bearbeiten',
-        })}
-      </PopstateLink>
-    </div>
+    <PopstateLink
+      className="UsersLineActionEdit"
+      path={ getUserGetFullPath( userId ) }
+      onClickBefore={ changeHighlight }
+    >
+      { lingo({
+        en: 'Edit',
+        de: 'Bearbeiten',
+      })}
+    </PopstateLink>
   );
 }

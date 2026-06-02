@@ -1,5 +1,5 @@
 import { useLingo } from '../../../../lingo/LingoProvider.jsx';
-import { SingleSelect } from '../../../../SingleSelect/SingleSelect.jsx';
+import { SingleSelect } from '../../../../components/SingleSelect/SingleSelect.jsx';
 import './UsersFilterBranch.css';
 
 export function UsersFilterBranch({ filter, subordinates, onChangeFilter })

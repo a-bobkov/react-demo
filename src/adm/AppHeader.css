@@ -1,5 +1,6 @@
 .AppHeader {
   display: flex;
+  align-items: center;
 }
 
 .AppHeaderTitle {

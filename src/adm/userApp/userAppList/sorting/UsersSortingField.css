@@ -2,7 +2,7 @@
   padding: 4px;
   cursor: pointer;
 
-  :hover {
-    font-weight: bold;
+  &:hover {
+    background-color: var( --bg-color-hover );
   }
 }

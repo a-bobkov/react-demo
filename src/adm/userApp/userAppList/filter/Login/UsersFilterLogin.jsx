@@ -17,6 +17,7 @@ export function UsersFilterLogin({ filter, onChangeFilter })
         })}
       </div>
       <input
+        className="UsersFilterLoginInput"
         placeholder={ lingo({
           en: 'contains case insensitive',
           de: 'enthält ohne Groß-/Kleinschreibung',

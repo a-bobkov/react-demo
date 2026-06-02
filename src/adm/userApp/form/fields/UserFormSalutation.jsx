@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
-import { SingleSelect } from '../../../SingleSelect/SingleSelect.jsx';
+import { SingleSelect } from '../../../components/SingleSelect/SingleSelect.jsx';
 import { UserFieldErrors } from './UserFieldErrors.jsx';
 import './UserFormSalutation.css';
 

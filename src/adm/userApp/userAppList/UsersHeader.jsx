@@ -32,16 +32,14 @@ function CreateUserButton()
   const { lingo } = useLingo();
 
   return (
-    <div className="CreateUserButton">
-      <PopstateLink
-        className="CreateUserButtonLink"
-        path={ userCreatePath }
-      >
-        { lingo({
-          en: 'New user',
-          de: 'Neu Benutzer',
-        })}
-      </PopstateLink>
-    </div>
+    <PopstateLink
+      className="CreateUserButton"
+      path={ userCreatePath }
+    >
+      { lingo({
+        en: 'New user',
+        de: 'Neu Benutzer',
+      })}
+    </PopstateLink>
   );
 }

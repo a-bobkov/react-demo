@@ -4,25 +4,22 @@
   margin: auto;
   display: grid;
   grid-auto-flow: column;
-  align-items: center;
-  text-align: center;
-  color: var(--fg-color-act);
+  background-color: var( --bg-color-control );
 
   div {
     width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
 
-    &:hover {
-      font-weight: bold;
+    &:not(.inactive):hover {
+      background-color: var( --bg-color-hover );
     }
 
     &.inactive {
-      color: grey;
+      color: var( --fg-color-inactive );
       cursor: default;
-
-      &:hover {
-        font-weight: normal;
-      }
     }
   }
 }
