@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import { UserFieldErrors } from './UserFieldErrors.jsx';
-import './UserFormCompany.css';
+import './UserFormActive.css';
 
 export function UserFormActive({ value, saveErrors, formErrors, isFieldChanged, onChangeActive })
 {
@@ -16,9 +16,8 @@ export function UserFormActive({ value, saveErrors, formErrors, isFieldChanged, 
         })}
       </div>
       <div className="UserFormFieldValue">
-        <input
-          type="checkbox"
-          checked={ value }
+        <InputCheckbox
+          value={ value }
           onChange={ onChange }
         />
         <UserFieldErrors
@@ -35,4 +34,16 @@ export function UserFormActive({ value, saveErrors, formErrors, isFieldChanged, 
 
     onChangeActive( newValue );
   }
+}
+
+function InputCheckbox({ value, onChange })
+{
+  return(
+    <input
+      className="InputCheckbox"
+      type="checkbox"
+      checked={ value }
+      onChange={ onChange }
+    />
+  );
 }

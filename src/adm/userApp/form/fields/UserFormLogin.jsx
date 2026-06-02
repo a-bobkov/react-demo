@@ -1,5 +1,6 @@
 import { clsx } from 'clsx';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
+import { InputText } from '../../../components/InputText/InputText.jsx';
 import { UserFieldErrors } from './UserFieldErrors.jsx';
 import './UserFormLogin.css';
 
@@ -21,7 +22,7 @@ export function UserFormLogin({ value, saveErrors, formErrors, isFieldChanged, o
         })}
       </div>
       <div className="UserFormFieldValue">
-        <input
+        <InputText
           placeholder={ lingo({
             en: 'email address',
             de: 'E-Mail-Adresse',

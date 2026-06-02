@@ -1,5 +1,6 @@
 import { clsx } from 'clsx';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
+import { InputText } from '../../../components/InputText/InputText.jsx';
 import { UserFieldErrors } from './UserFieldErrors.jsx';
 import './UserFormName.css';
 
@@ -21,7 +22,7 @@ export function UserFormName({ value, saveErrors, formErrors, isFieldChanged, on
         })}
       </div>
       <div className="UserFormFieldValue">
-        <input
+        <InputText
           placeholder={ lingo({
             en: 'name',
             de: 'Name',

@@ -1,4 +1,4 @@
-import { UsersHeader } from './UsersHeader.jsx';
+import { useLingo } from '../../lingo/LingoProvider.jsx';
 import { UsersFilter } from './filter/UsersFilter.jsx';
 import { UsersSorting } from './sorting/UsersSorting.jsx';
 import { UsersResult } from './table/UsersResult.jsx';
@@ -6,11 +6,18 @@ import './UserAppList.css';
 
 export function UserAppList({ listOptions, subordinates, users, setListOptions })
 {
-  console.log(`UserAppList: ${ JSON.stringify( listOptions )}`)
+  const { lingo } = useLingo();
+
+  if ( subordinates === undefined )
+  {
+    return lingo ({
+      en: 'Waiting for subordinates...',
+      de: 'Warten auf Untergebene...',
+    });
+  }
 
   return (
     <div className="UserAppList">
-      <UsersHeader />
       <UsersFilter
         filter={ listOptions.filter }
         subordinates={ subordinates }
@@ -31,8 +38,6 @@ export function UserAppList({ listOptions, subordinates, users, setListOptions }
 
   function onChangeFilter( filter )
   {
-    console.log(`onChangeFilter: ${ JSON.stringify( filter )}`);
-
     const newOptions = {
       ...listOptions,
       filter,
@@ -45,8 +50,6 @@ export function UserAppList({ listOptions, subordinates, users, setListOptions }
 
   function onChangeSorting( sorting )
   {
-    console.log(`onChangeSorting: ${ JSON.stringify( sorting )}`);
-
     const newOptions = {
       ...listOptions,
       sorting,
@@ -59,8 +62,6 @@ export function UserAppList({ listOptions, subordinates, users, setListOptions }
 
   function onChangePagination( pagination )
   {
-    console.log(`onChangePagination: ${ JSON.stringify( pagination )}`);
-
     const newOptions = {
       ...listOptions,
       pagination,

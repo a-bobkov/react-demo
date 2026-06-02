@@ -1,0 +1,8 @@
+.InputText {
+  height: 22px;
+  width: 150px;
+  border: solid 1px;
+  border-radius: 2px;
+  color: var( --fg-color );
+  background-color: var(--bg-color-control);
+}

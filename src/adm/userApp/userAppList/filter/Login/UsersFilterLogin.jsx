@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useLingo } from '../../../../lingo/LingoProvider.jsx';
+import { InputText } from '../../../../components/InputText/InputText.jsx';
 import './UsersFilterLogin.css';
 
 export function UsersFilterLogin({ filter, onChangeFilter })
@@ -16,8 +17,7 @@ export function UsersFilterLogin({ filter, onChangeFilter })
           de: 'Login',
         })}
       </div>
-      <input
-        className="UsersFilterLoginInput"
+      <InputText
         placeholder={ lingo({
           en: 'contains case insensitive',
           de: 'enthält ohne Groß-/Kleinschreibung',

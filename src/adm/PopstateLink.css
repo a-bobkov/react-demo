@@ -1,0 +1,8 @@
+.PopstateLink {
+  text-decoration: none;
+  color: var( --fg-color );
+
+  &:hover {
+    background-color: var( --bg-color-hover );
+  }
+}
