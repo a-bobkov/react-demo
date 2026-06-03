@@ -26,8 +26,9 @@ export function UsersList({ users, isBlocked })
 function UsersLine({ user, highlight, setHighlight })
 {
   return (
-    <div className={ clsx('UsersLine', isHighlighted( user ) && 'isHighlighted') }
-         onClick={ changeHighlight }
+    <div
+      className={ clsx('UsersLine', isHighlighted( user ) && 'isHighlighted') }
+      onClick={ changeHighlight }
     >
       <UsersLineId userId={ user.id } />
       <UsersLineLogin userLogin={ user.login } />

@@ -1,5 +1,6 @@
 import { clsx } from 'clsx';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
+import { InputText } from '../../../components/InputText/InputText.jsx';
 import { BranchFieldErrors } from './BranchFieldErrors.jsx';
 import './BranchFormName.css';
 
@@ -21,7 +22,7 @@ export function BranchFormName({ value, saveErrors, formErrors, isFieldChanged, 
         })}
       </div>
       <div className="BranchFormFieldValue">
-        <input
+        <InputText
           placeholder={ lingo({
             en: 'name',
             de: 'Name',

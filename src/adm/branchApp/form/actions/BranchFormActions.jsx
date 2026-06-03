@@ -1,5 +1,6 @@
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import { deleteBranch } from '../deleteBranch.js';
+import { Button } from '../../../components/Button/Button.jsx';
 import { useModalDialogContext } from '../../../modalDialog/ModalDialogProvider.jsx';
 import { useNotificationsContext } from '../../../notifications/NotificationsProvider.jsx';
 import { AllowExitModalDialogContent } from './AllowExitModalDialogContent.jsx';
@@ -31,36 +32,25 @@ export function BranchFormActions({ branchId, isFormChanged, isFormInvalid, setH
 
   function BranchFormActionSave({ isFormInvalid, isFormChanged })
   {
-    const disableReasons = [
-      isFormInvalid && lingo({
-        en: 'the form is invalid',
-        de: 'das Formular ungültig ist',
-      }),
-      !isFormChanged && lingo({
-        en: 'the form is not changed',
-        de: 'das Formular nicht geändert wird',
-      }),
-    ].filter( Boolean );
-
-    const title = disableReasons.length > 0
-      ? lingo({
-        en: 'Disabled because\n' + disableReasons.join(';\n') + '.',
-        de: 'Deaktiviert, da\n' + disableReasons.join(';\n') + '.',
-      })
-      : undefined;
-
     return (
-      <button className="BranchFormAction"
-        type="button"
-        disabled={ disableReasons.length > 0 }
-        title={ title }
-        onClick={ saveFormBranch }
-      >
-        { lingo({
+      <Button
+        className="BranchFormAction"
+        label={ lingo({
           en: 'Save branch',
           de: 'Speichern\ndie Niederlassung',
-        })}
-      </button>
+        }) }
+        disableReasons={ [
+          isFormInvalid && lingo({
+            en: 'the form is invalid',
+            de: 'das Formular ungültig ist',
+          }),
+          !isFormChanged && lingo({
+            en: 'the form is not changed',
+            de: 'das Formular nicht geändert wird',
+          }),
+        ] }
+        onClick={ saveFormBranch }
+      />
     );
   }
 
@@ -69,15 +59,14 @@ export function BranchFormActions({ branchId, isFormChanged, isFormInvalid, setH
     const modalDialogApi = useModalDialogContext();
 
     return (
-      <button className="BranchFormAction"
-        type="button"
-        onClick={ onClick }
-      >
-        { lingo({
+      <Button
+        className="BranchFormAction"
+        label={ lingo({
           en: 'Exit',
           de: 'Verlassen\ndas Formular',
-        })}
-      </button>
+        }) }
+        onClick={ onClick }
+      />
     );
 
     async function onClick()
@@ -104,14 +93,14 @@ export function BranchFormActions({ branchId, isFormChanged, isFormInvalid, setH
   function BranchFormActionDelete({ branchId })
   {
     return branchId && (
-      <button className="BranchFormAction"
-        onClick={ onClick }
-      >
-        { lingo({
+      <Button
+        className="BranchFormAction"
+        label={ lingo({
           en: 'Delete branch',
           de: 'Löschen\ndie Niederlassung',
-        })}
-      </button>
+        }) }
+        onClick={ onClick }
+      />
     );
 
     async function onClick()

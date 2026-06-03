@@ -1,3 +1,5 @@
+import { clsx } from 'clsx';
+import { useBranchListHighlight } from './useBranchListHighlight.js';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import { PopstateLink } from '../../../PopstateLink.jsx';
 import { getBranchGetFullPath } from '../../branchAppGet/useBranchAppGetLocation.js';
@@ -5,28 +7,52 @@ import './BranchesList.css';
 
 export function BranchesList({ branches, isBlocked })
 {
+  const { highlight, setHighlight } = useBranchListHighlight();
+
   return (
     <div className="BranchesList" inert={ isBlocked }>
       { branches.list.map( branch =>
         <BranchesLine
           key={ branch.id }
           branch={ branch }
+          highlight={ highlight }
+          setHighlight={ setHighlight }
         />
       )}
     </div>
   );
 }
 
-function BranchesLine({ branch })
+function BranchesLine({ branch, highlight, setHighlight })
 {
   return (
-    <div className="BranchesLine">
+    <div
+      className={ clsx('BranchesLine', isHighlighted( branch ) && 'isHighlighted') }
+      onClick={ changeHighlight }
+    >
       <BranchesLineId branchId={ branch.id } />
       <BranchesLineName branchName={ branch.name } />
       <BranchesLineCreated branchCreated={ branch.created } />
-      <BranchesLineActions branchId={ branch.id } />
+      <BranchesLineActionEdit
+        branchId={ branch.id }
+        changeHighlight={ changeHighlight }
+      />
     </div>
   );
+
+  function changeHighlight()
+  {
+    const newHighlight = isHighlighted( branch )
+      ? undefined
+      : branch.id;
+
+    setHighlight( newHighlight );
+  }
+
+  function isHighlighted( branch )
+  {
+    return branch.id === highlight;
+  }
 }
 
 function BranchesLineId({ branchId })
@@ -73,30 +99,20 @@ function BranchesLineCreated({ branchCreated })
   );
 }
 
-function BranchesLineActions({ branchId })
-{
-  return (
-    <div className="BranchesLineActions">
-      <BranchesLineActionEdit branchId={ branchId } />
-    </div>
-  );
-}
-
-function BranchesLineActionEdit({ branchId })
+function BranchesLineActionEdit({ branchId, changeHighlight })
 {
   const { lingo } = useLingo();
 
   return (
-    <div className="BranchesLineActionEdit">
-      <PopstateLink
-        className="BranchesLineActionEditLink"
-        path={ getBranchGetFullPath( branchId ) }
-      >
-        { lingo({
-          en: 'Edit',
-          de: 'Bearbeiten',
-        })}
-      </PopstateLink>
-    </div>
+    <PopstateLink
+      className="BranchesLineActionEdit"
+      path={ getBranchGetFullPath( branchId ) }
+      onClickBefore={ changeHighlight }
+    >
+      { lingo({
+        en: 'Edit',
+        de: 'Bearbeiten',
+      })}
+    </PopstateLink>
   );
 }

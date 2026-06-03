@@ -7,7 +7,7 @@ import { branchListPath } from '../useBranchAppLocation.js';
 
 export function getBranchListFullPath( options )
 {
-  const searchParams = new URLSearchParams();
+  const searchParams = new URLSearchParams( window.location.search );
 
   saveFilter( searchParams, options.filter );
   saveSorting( searchParams, options.sorting );
@@ -64,7 +64,7 @@ function saveBranchesOptions( options )
 
 function loadBranchesOptions()
 {
-  const searchParams = new URL( window.location ).searchParams;
+  const searchParams = new URLSearchParams( window.location.search );
 
   return {
     filter: loadFilter( searchParams ),

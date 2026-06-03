@@ -8,10 +8,12 @@ export function saveFilterName( searchParams, filter )
 
   if (filterValue !== undefined) {
     searchParams.set( urlPropName, filterValue );
+  } else {
+    searchParams.delete( urlPropName );
   }
 }
 
-export function loadFilterName(searchParams )
+export function loadFilterName( searchParams )
 {
   const filter = {};
 

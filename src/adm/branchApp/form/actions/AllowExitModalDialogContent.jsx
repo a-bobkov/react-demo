@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import { useHotkey } from './useHotkey.js';
 import { useHotkeySource } from './useHotkeySource.js';
+import { Button } from '../../../components/Button/Button.jsx';
 import './AllowExitModalDialogContent.css';
 
 export function AllowExitModalDialogContent({ isFormInvalid, saveFormBranch, resolve })
@@ -72,30 +73,17 @@ function AllowExitModalDialogActions({ isFormInvalid, saveFormBranch, resolve })
   );
 }
 
-function AllowExitModalDialogButton({ label, disableReasons = [], hotkeySource, hotkey, returns, resolve, setIsBlocked })
+function AllowExitModalDialogButton({ label, disableReasons, hotkeySource, hotkey, returns, resolve, setIsBlocked })
 {
-  const { lingo } = useLingo();
-
   useHotkey( hotkeySource, hotkey, onClick );
 
-  const reasons = disableReasons.filter( Boolean );
-
-  const title = reasons.length > 0
-    ? lingo({
-      en: 'Disabled because\n' + reasons.join(';\n') + '.',
-      de: 'Deaktiviert, da\n' + reasons.join(';\n') + '.',
-    })
-    : undefined;
-
   return (
-    <button className="AllowExitModalDialogButton"
-      type="button"
-      title={ title }
-      disabled={ reasons.length > 0 }
+    <Button
+      className="AllowExitModalDialogButton"
+      label={ label }
+      disableReasons={ disableReasons }
       onClick={ onClick }
-    >
-      { label }
-    </button>
+    />
   );
 
   function onClick()

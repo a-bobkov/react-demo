@@ -1,6 +1,8 @@
 .BranchesList {
   border: solid 1px;
   border-top: none;
+  border-radius: 0 0 5px 5px;
+  background-color: var( --bg-color-result );
 }
 
 .BranchesLine {
@@ -8,12 +10,14 @@
   display: grid;
   grid-template-columns: var(--branch-app-grid-columns);
   align-items: center;
-  padding: 4px;
+  padding: 0 4px;
+
+  &.isHighlighted {
+    background-color: var(--bg-color-selected);
+  }
 }
 
 .BranchesLineActionEdit {
-}
-
-.BranchesLineActionEditLink {
   display: inline-block;
+  padding: 4px;
 }
