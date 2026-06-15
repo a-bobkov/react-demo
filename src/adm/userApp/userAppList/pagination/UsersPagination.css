@@ -1,16 +1,14 @@
 .UsersPagination {
-  width: fit-content;
-  height: 32px;
-  margin: auto;
-  display: grid;
-  grid-auto-flow: column;
-  background-color: var( --bg-color-control );
+  display: flex;
+  justify-content: center;
 
   div {
     width: 50px;
+    height: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var( --bg-color-control );
     cursor: pointer;
 
     &:not(.inactive):hover {

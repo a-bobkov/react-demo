@@ -1,7 +1,6 @@
 .IsDarkToggler {
-  margin-left: 50px;
-  height: 33px;
-  width: 33px;
+  height: 32px;
+  width: 32px;
   border: 1px solid;
   border-radius: 2px;
   background-color: var(--bg-color-control);

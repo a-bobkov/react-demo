@@ -1,6 +1,5 @@
 .BranchesFilter {
-  margin-top: 20px;
-  max-width: 700px;
-  display: grid;
-  grid-template-columns: auto auto auto;
+  width: 700px;
+  display: flex;
+  justify-content: space-between;
 }

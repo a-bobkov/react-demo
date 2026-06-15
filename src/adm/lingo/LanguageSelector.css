@@ -1,9 +1,3 @@
 .LanguageSelector {
-  display: inline-block;
-  align-content: center;
-}
-
-.LanguageSelectorSelect {
-  margin-left: 50px;
   width: 50px;
 }

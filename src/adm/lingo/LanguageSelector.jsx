@@ -8,14 +8,12 @@ export function LanguageSelector()
   const { languageId, setLanguageId, languages } = useContextSelectLanguage();
 
   return (
-    <div className='LanguageSelector'>
-      <SingleSelect
-        className='LanguageSelectorSelect'
-        options={ languages }
-        selectedId={ languageId }
-        onChangeSelectedId={ onChangeSelectedId }
-      />
-    </div>
+    <SingleSelect
+      className='LanguageSelector'
+      options={ languages }
+      selectedId={ languageId }
+      onChangeSelectedId={ onChangeSelectedId }
+    />
   );
 
   function onChangeSelectedId( selectedId )
