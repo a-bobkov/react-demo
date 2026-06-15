@@ -1,22 +1,23 @@
-.AppMenu {
+.AdmMenu {
+  grid-area: AdmMenu;
 }
 
-.AppMenuHeader {
+.AdmMenuHeader {
   font-size: 32px;
   margin-bottom: 16px;
 }
 
-.AppMenuItem {
+.AdmMenuItem {
   margin-left: -8px;
   font-size: 24px;
 }
 
-.AppMenuItemText {
+.AdmMenuItemText {
   padding: 8px;
   background-color: var(--bg-color-selected);
 }
 
-.AppMenuItemLink {
+.AdmMenuItemLink {
   display: inline-block;
   width: 100%;
   padding: 8px;

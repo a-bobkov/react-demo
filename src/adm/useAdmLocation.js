@@ -7,7 +7,7 @@ export const branchPath = '/branch';
 const USER_APP_LOCATION = 'USER_APP_LOCATION';
 const BRANCH_APP_LOCATION = 'BRANCH_APP_LOCATION';
 
-export function useAppLocation()
+export function useAdmLocation()
 {
   const [ appLocation, setAppLocation ] = useState( getAppLocation );
 
@@ -19,7 +19,7 @@ export function useAppLocation()
   );
 
   return {
-    appLocationApi: appLocationApi,
+    admLocationApi: appLocationApi,
   };
 
   function dispatchAppPath()

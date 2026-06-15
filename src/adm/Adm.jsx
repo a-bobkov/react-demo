@@ -1,32 +1,24 @@
-import { useAppLocation } from './useAppLocation.js';
-import { AppHeader } from './AppHeader.jsx';
-import { AppMenu } from './AppMenu.jsx';
-import { Application } from './Application.jsx';
-import { AppFooter } from './AppFooter.jsx';
+import { useAdmLocation } from './useAdmLocation.js';
+import { AdmHeader } from './AdmHeader.jsx';
+import { AdmMenu } from './AdmMenu.jsx';
+import { AdmApp } from './AdmApp.jsx';
+import { AdmFooter } from './AdmFooter.jsx';
 import './Adm.css';
 
-export default function Adm()
+export function Adm()
 {
-  const { appLocationApi } = useAppLocation();
+  const { admLocationApi } = useAdmLocation();
 
   return (
     <div className="Adm">
-      <div className="header">
-        <AppHeader />
-      </div>
-      <div className="menu">
-        <AppMenu
-          appLocationApi={ appLocationApi }
-        />
-      </div>
-      <div className="app">
-        <Application
-          appLocationApi={ appLocationApi }
-        />
-      </div>
-      <div className="footer">
-        <AppFooter />
-      </div>
+      <AdmHeader />
+      <AdmMenu
+        admLocationApi={ admLocationApi }
+      />
+      <AdmApp
+        admLocationApi={ admLocationApi }
+      />
+      <AdmFooter />
     </div>
   );
 }

@@ -1,57 +1,57 @@
 import { useLingo } from './lingo/LingoProvider.jsx';
 import { PopstateLink } from './PopstateLink.jsx';
-import { branchPath, userPath } from './useAppLocation.js';
-import './AppMenu.css';
+import { branchPath, userPath } from './useAdmLocation.js';
+import './AdmMenu.css';
 
-export function AppMenu({ appLocationApi })
+export function AdmMenu({ admLocationApi })
 {
   const { lingo } = useLingo();
 
   return (
-    <div className="AppMenu">
-      <div className="AppMenuHeader">
+    <div className="AdmMenu">
+      <div className="AdmMenuHeader">
         { lingo({
           en: `Applications`,
           de: `Anwendungen`,
         })}
       </div>
-      <AppMenuItem
+      <AdmMenuItem
         name={ lingo({
           en: `Users`,
           de: `Benutzer`,
         })}
         path={ userPath }
-        isActive={ appLocationApi.isUserLocation() }
+        isActive={ admLocationApi.isUserLocation() }
       />
-      <AppMenuItem
+      <AdmMenuItem
         name={ lingo({
           en: `Branches`,
           de: `Niederlassungen`,
         })}
         path={ branchPath }
-        isActive={ appLocationApi.isBranchLocation() }
+        isActive={ admLocationApi.isBranchLocation() }
       />
     </div>
   );
 }
 
-function AppMenuItem({ name, path, isActive })
+function AdmMenuItem({ name, path, isActive })
 {
   return (
-    <div className="AppMenuItem">
+    <div className="AdmMenuItem">
       { isActive
-        ? <AppMenuItemText name={ name } />
-        : <AppMenuItemLink name={ name } path={ path } />
+        ? <AdmMenuItemText name={ name } />
+        : <AdmMenuItemLink name={ name } path={ path } />
       }
     </div>
   );
 }
 
-function AppMenuItemLink({ name, path })
+function AdmMenuItemLink({ name, path })
 {
   return (
     <PopstateLink
-      className="AppMenuItemLink"
+      className="AdmMenuItemLink"
       path={ path }
     >
       { name }
@@ -59,10 +59,10 @@ function AppMenuItemLink({ name, path })
   );
 }
 
-function AppMenuItemText({ name })
+function AdmMenuItemText({ name })
 {
   return (
-    <div className="AppMenuItemText">
+    <div className="AdmMenuItemText">
       { name }
     </div>
   );

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { usePopstate } from '../usePopstate.js';
 import { updateHistoryEntry } from '../PopstateLink.jsx';
-import { branchPath } from '../useAppLocation.js';
+import { branchPath } from '../useAdmLocation.js';
 
 export const branchListPath = `${ branchPath }/list`;
 export const branchGetPath = `${ branchPath }/edit`;

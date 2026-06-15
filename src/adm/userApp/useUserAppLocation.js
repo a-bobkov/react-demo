@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { usePopstate } from '../usePopstate.js';
 import { updateHistoryEntry } from '../PopstateLink.jsx';
-import { userPath } from '../useAppLocation.js';
+import { userPath } from '../useAdmLocation.js';
 
 export const userListPath = `${ userPath }/list`;
 export const userGetPath = `${ userPath }/edit`;
