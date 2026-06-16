@@ -1,0 +1,14 @@
+.UserFormField {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: row;
+}
+
+.UserFormFieldName {
+  width: 120px;
+  padding-left: 8px;
+
+  &.isFieldChanged {
+    box-shadow: -1px 0;
+  }
+}

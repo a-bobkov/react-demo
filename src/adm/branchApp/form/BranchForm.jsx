@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { clsx } from 'clsx';
 import { validateBranch } from './validate/validateBranch.js';
-import { BranchFormFields } from './BranchFormFields.jsx';
+import { BranchFormFields } from './fields/BranchFormFields.jsx';
 import { BranchFormActions } from './actions/BranchFormActions.jsx';
 import { useLingo } from '../../lingo/LingoProvider.jsx';
 import './BranchForm.css';

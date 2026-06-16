@@ -1,0 +1,14 @@
+.BranchFormField {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: row;
+}
+
+.BranchFormFieldName {
+  width: 120px;
+  padding-left: 8px;
+
+  &.isFieldChanged {
+    box-shadow: -1px 0;
+  }
+}

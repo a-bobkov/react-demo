@@ -1,7 +1,7 @@
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
-import './UserFieldErrors.css';
+import './UserFormFieldErrors.css';
 
-export function UserFieldErrors({ formError, saveError })
+export function UserFormFieldErrors({ formError, saveError })
 {
   return (
     <div className="UserFieldErrors">

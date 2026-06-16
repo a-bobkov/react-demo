@@ -1,5 +1,5 @@
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
-import { deleteUser } from '../deleteUser.js';
+import { deleteUser } from './deleteUser.js';
 import { Button } from '../../../components/Button/Button.jsx';
 import { useModalDialogContext } from '../../../modalDialog/ModalDialogProvider.jsx';
 import { useNotificationsContext } from '../../../notifications/NotificationsProvider.jsx';

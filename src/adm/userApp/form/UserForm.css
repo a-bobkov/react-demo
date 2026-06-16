@@ -3,12 +3,9 @@
 
 .UserFormTitle {
   font-size: 32px;
-
   padding-left: 8px;
-  border-left: 1px solid;
-  border-color: transparent;
 
   &.isFormChanged {
-    border-color: inherit;
+    box-shadow: -1px 0;
   }
 }

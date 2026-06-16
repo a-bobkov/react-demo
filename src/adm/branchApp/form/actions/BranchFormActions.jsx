@@ -1,5 +1,5 @@
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
-import { deleteBranch } from '../deleteBranch.js';
+import { deleteBranch } from './deleteBranch.js';
 import { Button } from '../../../components/Button/Button.jsx';
 import { useModalDialogContext } from '../../../modalDialog/ModalDialogProvider.jsx';
 import { useNotificationsContext } from '../../../notifications/NotificationsProvider.jsx';

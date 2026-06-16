@@ -1,23 +1,23 @@
-import { UserFormLogin } from './fields/UserFormLogin.jsx';
-import { UserFormSalutation } from './fields/UserFormSalutation.jsx';
-import { UserFormName } from './fields/UserFormName.jsx';
-import { UserFormBranch } from './fields/UserFormBranch.jsx';
-import { UserFormCompany } from './fields/UserFormCompany.jsx';
-import { UserFormActive } from './fields/UserFormActive.jsx';
+import { UserFormFieldLogin } from './login/UserFormFieldLogin.jsx';
+import { UserFormFieldSalutation } from './salutation/UserFormFieldSalutation.jsx';
+import { UserFormFieldName } from './name/UserFormFieldName.jsx';
+import { UserFormFieldBranch } from './branch/UserFormFieldBranch.jsx';
+import { UserFormFieldCompany } from './company/UserFormFieldCompany.jsx';
+import { UserFormFieldActive } from './active/UserFormFieldActive.jsx';
 import './UserFormFields.css';
 
 export function UserFormFields({ formUser, subordinates, formErrors, saveErrors, isFieldChangedDb, setFormUser })
 {
   return (
     <div className="UserFormFields">
-      <UserFormLogin
+      <UserFormFieldLogin
         value={ formUser.login }
         formErrors={ formErrors.login }
         saveErrors={ saveErrors.login }
         isFieldChanged={ isFieldChangedDb.login }
         onChangeLogin={ onChangeLogin }
       />
-      <UserFormSalutation
+      <UserFormFieldSalutation
         value={ formUser.salutation }
         salutations={ subordinates.salutations }
         formErrors={ formErrors.salutation }
@@ -25,14 +25,14 @@ export function UserFormFields({ formUser, subordinates, formErrors, saveErrors,
         isFieldChanged={ isFieldChangedDb.salutation }
         onChangeSalutation={ onChangeSalutation }
       />
-      <UserFormName
+      <UserFormFieldName
         value={ formUser.name }
         formErrors={ formErrors.name }
         saveErrors={ saveErrors.name }
         isFieldChanged={ isFieldChangedDb.name }
         onChangeName={ onChangeName }
       />
-      <UserFormBranch
+      <UserFormFieldBranch
         value={ formUser.branch }
         branches={ subordinates.branches }
         formErrors={ formErrors.branch }
@@ -40,14 +40,14 @@ export function UserFormFields({ formUser, subordinates, formErrors, saveErrors,
         isFieldChanged={ isFieldChangedDb.branch }
         onChangeBranch={ onChangeBranch }
       />
-      <UserFormCompany
+      <UserFormFieldCompany
         value={ formUser.company }
         formErrors={ formErrors.company }
         saveErrors={ saveErrors.company }
         isFieldChanged={ isFieldChangedDb.company }
         onChangeCompany={ onChangeCompany }
       />
-      <UserFormActive
+      <UserFormFieldActive
         value={ formUser.active }
         formErrors={ formErrors.active }
         saveErrors={ saveErrors.active }

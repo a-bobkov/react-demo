@@ -1,7 +1,7 @@
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
-import './BranchFieldErrors.css';
+import './BranchFormFieldErrors.css';
 
-export function BranchFieldErrors({ formError, saveError })
+export function BranchFormFieldErrors({ formError, saveError })
 {
   return (
     <div className="BranchFieldErrors">

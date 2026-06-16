@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { clsx } from 'clsx';
 import { validateUser } from './validate/validateUser.js';
-import { UserFormFields } from './UserFormFields.jsx';
+import { UserFormFields } from './fields/UserFormFields.jsx';
 import { UserFormActions } from './actions/UserFormActions.jsx';
 import { useLingo } from '../../lingo/LingoProvider.jsx';
 import './UserForm.css';
