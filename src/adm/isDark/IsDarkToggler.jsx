@@ -53,5 +53,5 @@ function applyIsDark(isDark)
 
 function syncBodyClassIsDark(isDark)
 {
-  document.body.classList.toggle('dark-theme', isDark);
+  document.documentElement.classList.toggle('dark-theme', isDark);
 }

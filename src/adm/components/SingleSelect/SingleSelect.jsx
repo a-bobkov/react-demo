@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { clsx } from 'clsx';
 import './SingleSelect.css';
 
@@ -22,13 +22,13 @@ export function SingleSelect({ className, empty, options, selectedId, onChangeSe
       <SingleSelectClear
         empty={ empty }
         selectedId={ selectedId }
-        setSelected={ setSelected }
+        setSelectedId={ setSelectedId }
       />
       <SingleSelectOptions
         options={ options }
         isOpened={ isOpened }
         selectedId={ selectedId }
-        setSelected={ setSelected }
+        setSelectedId={ setSelectedId }
       />
     </div>
   );
@@ -38,9 +38,9 @@ export function SingleSelect({ className, empty, options, selectedId, onChangeSe
     setIsOpened( false );
   }
 
-  function setSelected( newSelected )
+  function setSelectedId( newSelectedId )
   {
-    onChangeSelectedId( newSelected );
+    onChangeSelectedId( newSelectedId );
 
     setIsOpened( false );
   }
@@ -62,7 +62,7 @@ function SingleSelectValue({ empty, options, selectedId, isOpened, setIsOpened }
   }
 }
 
-function SingleSelectClear({ empty, selectedId, setSelected })
+function SingleSelectClear({ empty, selectedId, setSelectedId })
 {
   return empty && selectedId !== undefined && (
     <div
@@ -74,11 +74,11 @@ function SingleSelectClear({ empty, selectedId, setSelected })
 
   function onClick()
   {
-    setSelected( undefined );
+    setSelectedId( undefined );
   }
 }
 
-function SingleSelectOptions({ options, isOpened, selectedId, setSelected })
+function SingleSelectOptions({ options, isOpened, selectedId, setSelectedId })
 {
   return isOpened && (
     <div className="SingleSelectOptions">
@@ -86,27 +86,44 @@ function SingleSelectOptions({ options, isOpened, selectedId, setSelected })
         <SingleSelectOption
           option={ option }
           selectedId={ selectedId }
-          setSelected={ setSelected }
+          setSelectedId={ setSelectedId }
         />
       )}
     </div>
   );
 }
 
-function SingleSelectOption({ option: [ optionId, optionView ], selectedId, setSelected })
+function SingleSelectOption({ option: [ optionId, optionView ], selectedId, setSelectedId })
 {
+  const optionRef = useRef( null );
+
+  useEffect( scrollSelectedOptionIntoView, [ optionRef.current ]);
+
   return (
     <div
       key={ optionId }
       className={ clsx('SingleSelectOption', optionId === selectedId && 'isSelected') }
+      ref={ optionRef }
       onClick={ onClick }
     >
       { optionView }
     </div>
   );
 
+  function scrollSelectedOptionIntoView()
+  {
+    if ( optionId === selectedId )
+    {
+      optionRef.current.scrollIntoView({
+        container: 'nearest',
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
+  }
+
   function onClick()
   {
-    setSelected( optionId );
+    setSelectedId( optionId );
   }
 }

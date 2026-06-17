@@ -10,10 +10,11 @@
   align-items: center;
 }
 
-body {
+:root {
   background-color: var( --bg-color-main );
   color: var(--fg-color);
 
+  color-scheme: light;
   --bg-color-main: #ffffff;
   --bg-color-result: #fffff0;
   --bg-color-control: #fffcd6;
@@ -26,6 +27,7 @@ body {
   --fg-color-error: orangered;
 
   &.dark-theme {
+    color-scheme: dark;
     --bg-color-main: #000000;
     --bg-color-result: #0e131c;
     --bg-color-control: #0f1c39;
