@@ -1,13 +1,13 @@
 .Notifications {
   position: fixed;
-  top: 5px;
-  right: 5px;
+  top: 8px;
+  right: 8px;
   width: 200px;
 }
 
 .Notification {
-  margin-bottom: 5px;
-  height: 62px;
+  margin-bottom: 8px;
+  height: 66px;
   padding: 4px 6px;
   color: white;
 

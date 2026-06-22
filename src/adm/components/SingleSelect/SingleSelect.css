@@ -18,7 +18,9 @@
   text-overflow: ellipsis;
   padding: 0 2px;
   cursor: pointer;
+
   user-select: none;
+  -webkit-user-select: none
 }
 
 .SingleSelectClear::after {

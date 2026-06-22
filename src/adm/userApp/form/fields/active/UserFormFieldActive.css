@@ -1,24 +1,24 @@
 .InputCheckbox {
-  color: var( --fg-color );
-  background-color: var(--bg-color-control);
-  border: solid 1px;
-  border-radius: 2px;
-  height: 22px;
-
   appearance: none;
   margin: 0;
+
   width: 22px;
-  cursor: pointer;
+  height: 22px;
+  border: solid 1px;
+  border-radius: 2px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
+  cursor: pointer;
+  background-color: var(--bg-color-control);
+  color: var( --fg-color );
+
   &::before {
     content: "✔";
-    opacity: 0;
   }
-  &:checked::before {
-    opacity: 1;
+  &:not(:checked)::before {
+    color: transparent;
   }
 }
