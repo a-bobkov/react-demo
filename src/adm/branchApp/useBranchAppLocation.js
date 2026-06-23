@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
+import { useMemoArg } from '../useMemoArg.js';
 import { usePopstate } from '../usePopstate.js';
 import { updateHistoryEntry } from '../PopstateLink.jsx';
 import { branchPath } from '../useAdmLocation.js';
@@ -17,9 +18,9 @@ export function useBranchAppLocation()
 
   usePopstate( dispatchBranchAppPath );
 
-  const branchAppLocationApi = useMemo(
-    () => createGetBranchAppLocationApi({ branchAppLocation }),
-    [ branchAppLocation ],
+  const branchAppLocationApi = useMemoArg(
+    createGetBranchAppLocationApi,
+    { branchAppLocation }
   );
 
   return {

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemoArg } from '../useMemoArg.js';
 import { useStateLanguage } from './useStateLanguage.js';
 
 export function useLanguageApi()
@@ -11,9 +11,9 @@ export function useLanguageApi()
     languages,
   };
 
-  const pickLanguageApi = useMemo(
-    () => createPickLanguageApi({ languageId }),
-    [ languageId ],
+  const pickLanguageApi = useMemoArg(
+    createPickLanguageApi,
+    { languageId }
   );
 
   return {

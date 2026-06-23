@@ -1,4 +1,5 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
+import { useMemoArg } from './useMemoArg.js';
 import { usePopstate } from './usePopstate.js';
 import { updateHistoryEntry } from './PopstateLink.jsx';
 
@@ -16,9 +17,9 @@ export function useAdmLocation()
 
   usePopstate( dispatchAdmPath );
 
-  const admLocationApi = useMemo(
-    () => createAdmLocationApi({ admLocation }),
-    [ admLocation ],
+  const admLocationApi = useMemoArg(
+    createAdmLocationApi,
+    { admLocation }
   );
 
   return {

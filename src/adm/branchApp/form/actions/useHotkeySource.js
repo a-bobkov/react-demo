@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useMemoArg } from '../../../useMemoArg.js';
 
 export function useHotkeySource( isBlocked )
 {
-  const [ eventTarget ] = useState( createEventTarget );
+  const eventTarget = useMemo( createEventTarget, []);
 
-  const keydownSubscriber = isBlocked
-    ? () => {}
-    : createKeydownSubscriber( eventTarget );
+  const keydownSubscriber = useMemoArg(
+    createKeydownSubscriber,
+    { isBlocked, eventTarget }
+  );
 
   useEffect( keydownSubscriber, [ isBlocked ]);
 
@@ -18,9 +20,11 @@ function createEventTarget()
   return new EventTarget();
 }
 
-function createKeydownSubscriber( eventTarget )
+function createKeydownSubscriber({ isBlocked, eventTarget })
 {
-  return keydownSubscriber;
+  return isBlocked
+    ? () => {}
+    : keydownSubscriber;
 
   function keydownSubscriber()
   {
