@@ -18,7 +18,7 @@ Application implements client-site rendering without dependencies and demonstrat
 - modal dialog
 - select control
 - internationalisation
-- switch light/dark theme
+- switch light / dark theme
 
 ## 🔧  Local install
 

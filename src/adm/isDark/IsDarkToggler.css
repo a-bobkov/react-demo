@@ -1,7 +1,7 @@
 .IsDarkToggler {
   height: 32px;
   width: 32px;
-  border: 1px solid;
+  border: 1px solid var( --fg-color-border );
   border-radius: 2px;
   background-color: var(--bg-color-control);
   cursor: pointer;
@@ -23,6 +23,7 @@
   --bg-color-selected: #ebe385;
 
   --fg-color: #4a3f34;
+  --fg-color-border: #707070;
   --fg-color-inactive: grey;
   --fg-color-error: orangered;
 

@@ -1,7 +1,7 @@
 .InputText {
   height: 22px;
   width: 150px;
-  border: solid 1px;
+  border: solid 1px var( --fg-color-border );
   border-radius: 2px;
   color: var( --fg-color );
   background-color: var(--bg-color-control);

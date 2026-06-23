@@ -7,12 +7,11 @@
   display: grid;
   grid-template-columns: var(--user-app-grid-columns);
   align-items: center;
-  border-left: 1px solid;
-  border-right: 1px solid;
-  padding: 0 4px;
+  border-inline: 1px solid var( --fg-color-border );
+  padding-inline: 4px;
 
   &:last-child {
-    border-bottom: 1px solid;
+    border-bottom: 1px solid var( --fg-color-border );
     border-radius: 0 0 5px 5px;
   }
   &.isHighlighted {

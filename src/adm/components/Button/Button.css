@@ -2,8 +2,8 @@
   appearance: none;
   background-color: var( --bg-color-control );
   color: var( --fg-color );
-  border: solid 1px;
-  border-radius: 5px;
+  border: solid 1px var( --fg-color-border );
+  border-radius: 3px;
   padding: 6px 12px;
   cursor: pointer;
 

@@ -4,7 +4,7 @@
 
   width: 22px;
   height: 22px;
-  border: solid 1px;
+  border: solid 1px var( --fg-color-border );
   border-radius: 2px;
 
   display: flex;
