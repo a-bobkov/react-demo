@@ -1,25 +1,26 @@
 # React 19 demo application
 
 ### Table of contents
-🚅️ [Goal](#-goal)  
+🏹️ [Goal](#-goal)  
 🔧 [Local install](#-local-install)  
 🚀 [Run](#-run)  
 🗑️ [Uninstall](#-uninstall)  
 
-## Goal
-The goal of the work is to demonstrate possible architecture of a pure React 19 application (client-site rendering) with:
-- routing
-- list of entities with filter/sorting/pagination
-- mark an entity in the list
-- create/edit/delete an entity
-- client validation
-- server validation
+## 🏹️  Goal
+The goal of the work is to demonstrate possible architecture of a React 19 single-page application.
+Application implements client-site rendering without dependencies and demonstrates the following functionality:
+- routing with browser navigation back and forward
+- list of entities with filter / sorting / pagination / highlight
+- create / edit / delete an entity
+- client validation on create / edit entity
+- server validation on save / delete entity
 - notifications
 - modal dialog
+- select control
 - internationalisation
 - switch light/dark theme
 
-## Local install
+## 🔧  Local install
 
 1️⃣  Clone the repository:
 ```shell
@@ -51,7 +52,7 @@ export NODE_EXTRA_CA_CERTS="$(mkcert -CAROOT)/rootCA.pem"
 mkdir certificate && cd certificate && mkcert localhost && cd ..
 ```
 
-## Run
+## 🚀  Run
 
 1️⃣  Run API-server:
 ```shell
@@ -64,9 +65,9 @@ npm run build && npm run preview
 ```
 3️⃣  Run client in a browser:
 
-[https://localhost:4173/user](https://localhost:4173/user)
+[https://localhost:4173](https://localhost:4173)
 
-## Uninstall
+## 🗑️  Uninstall
 
 1️⃣  Stop application server with Ctrl+C.
 

@@ -1,5 +1,8 @@
 import { useState, useMemo } from 'react';
 import { usePopstate } from './usePopstate.js';
+import { updateHistoryEntry } from './PopstateLink.jsx';
+
+const admRootPath = '/';
 
 export const userPath = '/user';
 export const branchPath = '/branch';
@@ -9,26 +12,26 @@ const BRANCH_APP_LOCATION = 'BRANCH_APP_LOCATION';
 
 export function useAdmLocation()
 {
-  const [ appLocation, setAppLocation ] = useState( getAppLocation );
+  const [ admLocation, setAdmLocation ] = useState( getAdmLocation );
 
-  usePopstate( dispatchAppPath );
+  usePopstate( dispatchAdmPath );
 
-  const appLocationApi = useMemo(
-    () => createAppLocationApi({ appLocation }),
-    [ appLocation ],
+  const admLocationApi = useMemo(
+    () => createAdmLocationApi({ admLocation }),
+    [ admLocation ],
   );
 
   return {
-    admLocationApi: appLocationApi,
+    admLocationApi,
   };
 
-  function dispatchAppPath()
+  function dispatchAdmPath()
   {
-    setAppLocation( getAppLocation());
+    setAdmLocation( getAdmLocation());
   }
 }
 
-function createAppLocationApi({ appLocation })
+function createAdmLocationApi({ admLocation })
 {
   return {
     isUserLocation: isUserLocation,
@@ -37,17 +40,22 @@ function createAppLocationApi({ appLocation })
 
   function isUserLocation()
   {
-    return appLocation === USER_APP_LOCATION;
+    return admLocation === USER_APP_LOCATION;
   }
 
   function isBranchLocation()
   {
-    return appLocation === BRANCH_APP_LOCATION;
+    return admLocation === BRANCH_APP_LOCATION;
   }
 }
 
-function getAppLocation()
+function getAdmLocation()
 {
+  if ( isRootPath())
+  {
+    updateHistoryEntry( userPath );
+  }
+
   if ( isUserPath())
   {
     return USER_APP_LOCATION;
@@ -57,6 +65,11 @@ function getAppLocation()
   {
     return BRANCH_APP_LOCATION;
   }
+}
+
+function isRootPath()
+{
+  return window.location.pathname === admRootPath;
 }
 
 function isUserPath()
