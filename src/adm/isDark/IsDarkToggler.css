@@ -8,6 +8,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:hover {
+    background-color: var( --bg-color-hover );
+  }
 }
 
 :root {

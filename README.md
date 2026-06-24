@@ -1,6 +1,5 @@
 # React 19 demo application
 
-### Table of contents
 🏹️ [Goal](#-goal)  
 🔧 [Local install](#-local-install)  
 🚀 [Run](#-run)  

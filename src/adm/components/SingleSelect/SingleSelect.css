@@ -1,9 +1,7 @@
 .SingleSelect {
   position: relative;
   display: flex;
-  align-items: center;
   height: 22px;
-
   font-size: 14px;
 
   background-color: var(--bg-color-control);
@@ -16,17 +14,31 @@
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
-  padding: 0 2px;
+  padding-inline: 2px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 
   user-select: none;
-  -webkit-user-select: none
+  -webkit-user-select: none;
+
+  &:hover {
+    background-color: var( --bg-color-hover );
+  }
 }
 
-.SingleSelectClear::after {
-  padding-right: 2px;
-  content: '✗';
-  cursor: pointer;
+.SingleSelectClear {
+  display: flex;
+  align-items: center;
+
+  &::after {
+    padding-inline: 2px;
+    content: '✗';
+    cursor: pointer;
+  }
+  &:hover {
+    background-color: var( --bg-color-hover );
+  }
 }
 
 .SingleSelectOptions {
