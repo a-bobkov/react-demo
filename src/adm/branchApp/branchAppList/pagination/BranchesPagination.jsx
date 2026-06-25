@@ -2,7 +2,7 @@ import './BranchesPagination.css';
 
 export function BranchesPagination({ total, pagination, isBlocked, onChangePagination })
 {
-  console.log(`BranchesPagination: "${ JSON.stringify( pagination )}"`);
+  const last = Math.ceil( total / pagination.size );
 
   return (
     <div className="BranchesPagination" inert={ isBlocked }>
@@ -28,8 +28,6 @@ export function BranchesPagination({ total, pagination, isBlocked, onChangePagin
 
     pages.push( pagination.count );
 
-    const last = Math.ceil( total / pagination.size );
-
     if (pagination.count < last) {
       pages.push( pagination.count + 1 );
     }
@@ -38,143 +36,106 @@ export function BranchesPagination({ total, pagination, isBlocked, onChangePagin
       pages.push( pagination.count + 2 );
     }
 
-    return pages.map(page => <Page page={page} />);
+    return pages.map(page =>
+      <Page page={ page } />
+    );
   }
 
   function Page({ page })
   {
-    return page === pagination.count
-      ? <CurrentPage page={page}/>
-      : <NonCurrentPage page={page}/>
-  }
-
-  function CurrentPage({ page })
-  {
     return (
-      <div className="BranchesPaginationCurrentPage inactive">
-        {page}
-      </div>
-    );
-  }
-
-  function NonCurrentPage({ page })
-  {
-    return (
-      <div className="BranchesPaginationNonCurrentPage" onClick={onClickPage}>
-        {page}
-      </div>
+      <button
+        type="button"
+        disabled={ page === pagination.count }
+        onClick={ onClickPage }
+      >
+        { page }
+      </button>
     );
 
     function onClickPage()
     {
-      onChangePagination({
-        ...pagination,
-        count: page,
-      });
+      changeCount( page );
     }
   }
 
   function BranchesPaginationFirst()
   {
-    if (pagination.count === 1) {
-      return (
-        <div className="BranchesPaginationFirst inactive">
-          &lt;&lt;
-        </div>
-      );
-    }
-
     return (
-      <div className="BranchesPaginationFirst" onClick={onClickFirst}>
+      <button
+        type="button"
+        disabled={ pagination.count === 1 }
+        onClick={ onClickFirst }
+      >
         &lt;&lt;
-      </div>
+      </button>
     );
   }
 
   function onClickFirst()
   {
-    onChangePagination({
-      ...pagination,
-      count: 1,
-    });
+    changeCount( 1 );
   }
 
   function BranchesPaginationPrev()
   {
-    if (pagination.count === 1) {
-      return (
-        <div className="BranchesPaginationPrev inactive">
-          &lt;
-        </div>
-      );
-    }
-
     return (
-      <div className="BranchesPaginationPrev" onClick={onClickPrev}>
+      <button
+        type="button"
+        disabled={ pagination.count === 1 }
+        onClick={ onClickPrev }
+      >
         &lt;
-      </div>
+      </button>
     );
   }
 
   function onClickPrev()
   {
-    onChangePagination({
-      ...pagination,
-      count: pagination.count - 1,
-    });
+    changeCount( pagination.count - 1 );
   }
 
   function BranchesPaginationNext()
   {
-    const last = Math.ceil( total / pagination.size );
-
-    if (pagination.count >= last) {
-      return (
-        <div className="BranchesPaginationNext inactive">
-          &gt;
-        </div>
-      );
-    }
-
     return (
-      <div className="BranchesPaginationNext" onClick={onClickNext}>
+      <button
+        type="button"
+        disabled={ pagination.count >= last }
+        onClick={ onClickNext }
+      >
         &gt;
-      </div>
+      </button>
     );
   }
 
   function onClickNext()
   {
-    onChangePagination({
-      ...pagination,
-      count: pagination.count + 1,
-    });
+    changeCount( pagination.count + 1 );
   }
 
   function BranchesPaginationLast()
   {
-    const last = Math.ceil( total / pagination.size );
-
-    if (pagination.count >= last) {
-      return (
-        <div className="BranchesPaginationLast inactive">
-          &gt;&gt;
-        </div>
-      );
-    }
-
     return (
-      <div className="BranchesPaginationLast" onClick={onClickLast}>
+      <button
+        type="button"
+        disabled={ pagination.count >= last }
+        onClick={ onClickLast }
+      >
         &gt;&gt;
-      </div>
+      </button>
     );
 
     function onClickLast()
     {
-      onChangePagination({
-        ...pagination,
-        count: last,
-      });
+      changeCount( last );
     }
+  }
+
+  function changeCount( newPage )
+  {
+    onChangePagination({
+      ...pagination,
+      count: newPage,
+    });
   }
 }
