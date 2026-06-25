@@ -1,5 +1,5 @@
 import { useLingo } from '../../lingo/LingoProvider.jsx';
-import { UsersFilter } from './filter/UsersFilter.jsx';
+import { UserFilters } from './filters/UserFilters.jsx';
 import { UsersSorting } from './sorting/UsersSorting.jsx';
 import { UsersResult } from './table/UsersResult.jsx';
 import './UserAppList.css';
@@ -18,7 +18,7 @@ export function UserAppList({ listOptions, subordinates, users, setListOptions }
 
   return (
     <div className="UserAppList">
-      <UsersFilter
+      <UserFilters
         filter={ listOptions.filter }
         subordinates={ subordinates }
         onChangeFilter={ onChangeFilter }

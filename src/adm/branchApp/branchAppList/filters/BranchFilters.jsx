@@ -1,14 +1,12 @@
-import { BranchesFilterName } from './Name/BranchesFilterName.jsx';
-import { loadFilterName, saveFilterName } from './Name/BranchesFilterNameUrl.js';
-import './BranchesFilter.css';
+import { BranchFilterName } from './name/BranchFilterName.jsx';
+import { loadFilterName, saveFilterName } from './name/BranchFilterNameUrl.js';
+import './BranchFilters.css';
 
-export function BranchesFilter({ filter, onChangeFilter })
+export function BranchFilters({ filter, onChangeFilter })
 {
-  console.log(`BranchesFilter: ${ JSON.stringify(filter) }`)
-
   return (
-    <div className="BranchesFilter">
-      <BranchesFilterName
+    <div className="BranchFilters">
+      <BranchFilterName
         filter={ filter.name }
         onChangeFilter={ onChangeFilterName }
       />

@@ -16,10 +16,14 @@ export function BranchesResult({ listOptions, branches, onChangePagination })
 
   if ( branches === undefined )
   {
-    return lingo({
-      en: 'Loading branch list...',
-      de: 'Liste der Niederlassung wird geladen...',
-    });
+    return (
+      <div className="BranchesResultLoading">
+        { lingo({
+          en: 'Loading branch list...',
+          de: 'Liste der Niederlassung wird geladen...',
+        })}
+      </div>
+    );
   }
 
   const isFilterDifferent = different( listOptions.filter, branches.filter );

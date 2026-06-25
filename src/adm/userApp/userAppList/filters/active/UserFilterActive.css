@@ -1,0 +1,9 @@
+.UserFilterActive {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.UserFilterActiveSelect {
+  width: 75px;
+}

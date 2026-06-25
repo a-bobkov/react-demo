@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemoArg } from '../../../useMemoArg.js';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import { UsersList } from './UsersList.jsx';
 import { UsersPagination } from '../pagination/UsersPagination.jsx';
@@ -8,8 +8,6 @@ export function UsersResult({ listOptions, users, subordinates, onChangePaginati
 {
   const { lingo } = useLingo();
 
-  console.log(`UsersResult: ${ JSON.stringify({ listOptions, users })}`);
-
   if ( Error.isError( users ))
   {
     return;
@@ -17,15 +15,19 @@ export function UsersResult({ listOptions, users, subordinates, onChangePaginati
 
   if ( users === undefined )
   {
-    return lingo({
-      en: 'Loading user list...',
-      de: 'Benutzerliste wird geladen...',
-    });
+    return (
+      <div className="UsersResultLoading">
+        { lingo({
+          en: 'Loading user list...',
+          de: 'Benutzerliste wird geladen...',
+        })}
+      </div>
+    );
   }
 
-  const resolvedUsers = useMemo(
-    () => resolveUsersSubordinates( users, subordinates ),
-    [ users ],
+  const resolvedUsers = useMemoArg(
+    resolveUsersSubordinates,
+    { users, subordinates },
   );
 
   const isFilterDifferent = different( listOptions.filter, resolvedUsers.filter );
@@ -48,7 +50,7 @@ export function UsersResult({ listOptions, users, subordinates, onChangePaginati
   );
 }
 
-function resolveUsersSubordinates( users, subordinates )
+function resolveUsersSubordinates({ users, subordinates })
 {
   users.list.forEach( user =>
   {

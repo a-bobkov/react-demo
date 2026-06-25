@@ -1,0 +1,9 @@
+.UserFilterBranch {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.UserFilterBranchSelect {
+  width: 150px;
+}

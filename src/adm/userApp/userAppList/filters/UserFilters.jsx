@@ -1,33 +1,31 @@
-import { UsersFilterLogin } from './Login/UsersFilterLogin.jsx';
-import { loadFilterLogin, saveFilterLogin } from './Login/UsersFilterLoginUrl.js';
-import { UsersFilterName } from './Name/UsersFilterName.jsx';
-import { loadFilterName, saveFilterName } from './Name/UsersFilterNameUrl.js';
-import { UsersFilterBranch } from './Branch/UsersFilterBranch.jsx';
-import { loadFilterBranch, saveFilterBranch } from './Branch/UsersFilterBranchUrl.js';
-import { UsersFilterActive } from './Active/UsersFilterActive.jsx';
-import { loadFilterActive, saveFilterActive } from './Active/UsersFilterActiveUrl.js';
-import './UsersFilter.css';
+import { UserFilterLogin } from './login/UserFilterLogin.jsx';
+import { loadFilterLogin, saveFilterLogin } from './login/UserFilterLoginUrl.js';
+import { UserFilterName } from './name/UserFilterName.jsx';
+import { loadFilterName, saveFilterName } from './name/UserFilterNameUrl.js';
+import { UserFilterBranch } from './branch/UserFilterBranch.jsx';
+import { loadFilterBranch, saveFilterBranch } from './branch/UserFilterBranchUrl.js';
+import { UserFilterActive } from './active/UserFilterActive.jsx';
+import { loadFilterActive, saveFilterActive } from './active/UserFilterActiveUrl.js';
+import './UserFilters.css';
 
-export function UsersFilter({ filter, subordinates, onChangeFilter })
+export function UserFilters({ filter, subordinates, onChangeFilter })
 {
-  console.log(`UsersFilter: ${ JSON.stringify(filter) }`)
-
   return (
-    <div className="UsersFilter">
-      <UsersFilterLogin
+    <div className="UserFilters">
+      <UserFilterLogin
         filter={ filter.login }
         onChangeFilter={ onChangeFilterLogin }
       />
-      <UsersFilterName
+      <UserFilterName
         filter={ filter.name }
         onChangeFilter={ onChangeFilterName }
       />
-      <UsersFilterBranch
+      <UserFilterBranch
         filter={ filter.branch }
         subordinates={ subordinates }
         onChangeFilter={ onChangeFilterBranch }
       />
-      <UsersFilterActive
+      <UserFilterActive
         filter={ filter.active }
         onChangeFilterActive={ onChangeFilterActive }
       />

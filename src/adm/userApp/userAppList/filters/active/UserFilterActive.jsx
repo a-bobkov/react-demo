@@ -1,6 +1,6 @@
 import { useLingo } from '../../../../lingo/LingoProvider.jsx';
 import { SingleSelect } from '../../../../components/SingleSelect/SingleSelect.jsx';
-import './UsersFilterActive.css';
+import './UserFilterActive.css';
 
 const actives = [
   [ true, {
@@ -13,14 +13,14 @@ const actives = [
   }],
 ];
 
-export function UsersFilterActive({ filter, onChangeFilterActive })
+export function UserFilterActive({ filter, onChangeFilterActive })
 {
   const { lingo } = useLingo();
 
   const options = actives2options( actives, lingo );
 
   return (
-    <div className='UsersFilterActive'>
+    <div className='UserFilterActive'>
       <div>
         { lingo({
           en: 'Active',

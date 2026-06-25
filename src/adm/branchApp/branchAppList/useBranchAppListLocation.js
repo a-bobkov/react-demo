@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { saveFilter, loadFilter } from './filter/BranchesFilter.jsx';
+import { saveFilter, loadFilter } from './filters/BranchFilters.jsx';
 import { saveSorting, loadSorting } from './sorting/branchesSortingSearchParams.js';
 import { savePagination, loadPagination } from './pagination/branchesPaginationSearchParams.js';
 import { updateHistoryEntry } from '../../PopstateLink.jsx';

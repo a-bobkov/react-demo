@@ -1,5 +1,5 @@
 import { BranchesHeader } from './BranchesHeader.jsx';
-import { BranchesFilter } from './filter/BranchesFilter.jsx';
+import { BranchFilters } from './filters/BranchFilters.jsx';
 import { BranchesSorting } from './sorting/BranchesSorting.jsx';
 import { BranchesResult } from './table/BranchesResult.jsx';
 import './BranchAppList.css';
@@ -11,7 +11,7 @@ export function BranchAppList({ listOptions, branches, setListOptions })
   return (
     <div className="BranchAppList">
       <BranchesHeader />
-      <BranchesFilter
+      <BranchFilters
         filter={ listOptions.filter }
         onChangeFilter={ onChangeFilter }
       />

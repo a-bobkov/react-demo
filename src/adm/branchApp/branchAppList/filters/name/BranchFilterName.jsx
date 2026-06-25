@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { useLingo } from '../../../../lingo/LingoProvider.jsx';
 import { InputText } from '../../../../components/InputText/InputText.jsx';
-import './UsersFilterName.css';
+import './BranchFilterName.css';
 
-export function UsersFilterName({ filter, onChangeFilter })
+export function BranchFilterName({ filter, onChangeFilter })
 {
   const { lingo } = useLingo();
 
   const [ controlValue, setControlValue ] = useState( initialControlValue );
 
   return (
-    <div className="UsersFilterName">
+    <div className="BranchFilterName">
       <div>
         { lingo({
           en: 'Name',
