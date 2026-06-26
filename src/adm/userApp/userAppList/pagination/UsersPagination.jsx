@@ -44,13 +44,11 @@ export function UsersPagination({ total, pagination, isBlocked, onChangePaginati
   function Page({ page })
   {
     return (
-      <button
-        type="button"
+      <UsersPaginationButton
+        label={ page }
         disabled={ page === pagination.count }
         onClick={ onClickPage }
-      >
-        { page }
-      </button>
+      />
     );
 
     function onClickPage()
@@ -62,13 +60,11 @@ export function UsersPagination({ total, pagination, isBlocked, onChangePaginati
   function UsersPaginationFirst()
   {
     return (
-      <button
-        type="button"
+      <UsersPaginationButton
+        label="<<"
         disabled={ pagination.count === 1 }
         onClick={ onClickFirst }
-      >
-        &lt;&lt;
-      </button>
+      />
     );
   }
 
@@ -80,13 +76,11 @@ export function UsersPagination({ total, pagination, isBlocked, onChangePaginati
   function UsersPaginationPrev()
   {
     return (
-      <button
-        type="button"
+      <UsersPaginationButton
+        label="<"
         disabled={ pagination.count === 1 }
         onClick={ onClickPrev }
-      >
-        &lt;
-      </button>
+      />
     );
   }
 
@@ -98,13 +92,11 @@ export function UsersPagination({ total, pagination, isBlocked, onChangePaginati
   function UsersPaginationNext()
   {
     return (
-      <button
-        type="button"
+      <UsersPaginationButton
+        label=">"
         disabled={ pagination.count >= last }
         onClick={ onClickNext }
-      >
-        &gt;
-      </button>
+      />
     );
   }
 
@@ -116,13 +108,11 @@ export function UsersPagination({ total, pagination, isBlocked, onChangePaginati
   function UsersPaginationLast()
   {
     return (
-      <button
-        type="button"
+      <UsersPaginationButton
+        label=">>"
         disabled={ pagination.count >= last }
         onClick={ onClickLast }
-      >
-        &gt;&gt;
-      </button>
+      />
     );
 
     function onClickLast()
@@ -138,4 +128,18 @@ export function UsersPagination({ total, pagination, isBlocked, onChangePaginati
       count: newPage,
     });
   }
+}
+
+function UsersPaginationButton({ label, disabled, onClick })
+{
+  return (
+    <button
+      type="button"
+      className="UsersPaginationButton"
+      disabled={ disabled }
+      onClick={ onClick }
+    >
+      { label }
+    </button>
+  );
 }

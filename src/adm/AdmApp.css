@@ -1,3 +1,8 @@
 .AdmApp {
   grid-area: AdmApp;
 }
+
+.AdmAppNotFound {
+  color: var(--fg-color-error);
+  margin-top: 15px;
+}

@@ -44,13 +44,11 @@ export function BranchesPagination({ total, pagination, isBlocked, onChangePagin
   function Page({ page })
   {
     return (
-      <button
-        type="button"
+      <BranchesPaginationButton
+        label={ page }
         disabled={ page === pagination.count }
         onClick={ onClickPage }
-      >
-        { page }
-      </button>
+      />
     );
 
     function onClickPage()
@@ -62,13 +60,11 @@ export function BranchesPagination({ total, pagination, isBlocked, onChangePagin
   function BranchesPaginationFirst()
   {
     return (
-      <button
-        type="button"
+      <BranchesPaginationButton
+        label="<<"
         disabled={ pagination.count === 1 }
         onClick={ onClickFirst }
-      >
-        &lt;&lt;
-      </button>
+      />
     );
   }
 
@@ -80,13 +76,11 @@ export function BranchesPagination({ total, pagination, isBlocked, onChangePagin
   function BranchesPaginationPrev()
   {
     return (
-      <button
-        type="button"
+      <BranchesPaginationButton
+        label="<"
         disabled={ pagination.count === 1 }
         onClick={ onClickPrev }
-      >
-        &lt;
-      </button>
+      />
     );
   }
 
@@ -98,13 +92,11 @@ export function BranchesPagination({ total, pagination, isBlocked, onChangePagin
   function BranchesPaginationNext()
   {
     return (
-      <button
-        type="button"
+      <BranchesPaginationButton
+        label=">"
         disabled={ pagination.count >= last }
         onClick={ onClickNext }
-      >
-        &gt;
-      </button>
+      />
     );
   }
 
@@ -116,13 +108,11 @@ export function BranchesPagination({ total, pagination, isBlocked, onChangePagin
   function BranchesPaginationLast()
   {
     return (
-      <button
-        type="button"
+      <BranchesPaginationButton
+        label=">>"
         disabled={ pagination.count >= last }
         onClick={ onClickLast }
-      >
-        &gt;&gt;
-      </button>
+      />
     );
 
     function onClickLast()
@@ -138,4 +128,18 @@ export function BranchesPagination({ total, pagination, isBlocked, onChangePagin
       count: newPage,
     });
   }
+}
+
+function BranchesPaginationButton({ label, disabled, onClick })
+{
+  return (
+    <button
+      type="button"
+      className="BranchesPaginationButton"
+      disabled={ disabled }
+      onClick={ onClick }
+    >
+      { label }
+    </button>
+  );
 }
