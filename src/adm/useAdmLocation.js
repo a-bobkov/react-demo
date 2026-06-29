@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMemoArg } from './useMemoArg.js';
-import { usePopstate } from './usePopstate.js';
-import { updateHistoryEntry } from './PopstateLink.jsx';
+import { usePopstate } from './popstate/usePopstate.js';
+import { updateHistoryEntry } from './popstate/PopstateLink.jsx';
 
 const admRootPath = '/';
 

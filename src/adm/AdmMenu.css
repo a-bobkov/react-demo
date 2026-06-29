@@ -1,5 +1,5 @@
 adm-menu {
-  grid-area: AdmMenu;
+  flex: 0 0 200px;
   display: flex;
   flex-direction: column;
 }

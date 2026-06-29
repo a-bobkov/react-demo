@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 import { useUserListHighlight } from './useUserListHighlight.js';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
-import { PopstateLink } from '../../../PopstateLink.jsx';
+import { PopstateLink } from '../../../popstate/PopstateLink.jsx';
 import { getUserGetFullPath } from '../../userAppGet/useUserAppGetLocation.js';
 import './UsersList.css';
 

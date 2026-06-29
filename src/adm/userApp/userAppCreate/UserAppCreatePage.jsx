@@ -3,7 +3,7 @@ import { useLingo } from '../../lingo/LingoProvider.jsx';
 import { UserAppCreate } from './UserAppCreate.jsx';
 import { UserAppUpdate } from '../userAppUpdate/UserAppUpdate.jsx';
 import { getUserGetFullPath } from '../userAppGet/useUserAppGetLocation.js';
-import { updateHistoryEntry } from '../../PopstateLink.jsx';
+import { updateHistoryEntry } from '../../popstate/PopstateLink.jsx';
 
 export function UserAppCreatePage({ subordinates })
 {

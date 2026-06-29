@@ -4,8 +4,10 @@ adm {
   max-width: 1000px;
   padding: 20px;
 
-  display: grid;
-  grid-gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
   grid-template-columns: 200px 1fr;
   grid-template-rows: 50px 1fr 30px;
   grid-template-areas:

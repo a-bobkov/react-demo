@@ -1,5 +1,5 @@
 .AdmApp {
-  grid-area: AdmApp;
+  flex: 1;
 }
 
 adm-app-not-found {

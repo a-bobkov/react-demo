@@ -1,5 +1,4 @@
 adm-header {
-  grid-area: AdmHeader;
   display: flex;
   align-items: center;
   gap: 50px;

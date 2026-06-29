@@ -1,5 +1,5 @@
 import { useLingo } from './lingo/LingoProvider.jsx';
-import { PopstateLink } from './PopstateLink.jsx';
+import { PopstateLink } from './popstate/PopstateLink.jsx';
 import { branchPath, userPath } from './useAdmLocation.js';
 import './AdmMenu.css';
 

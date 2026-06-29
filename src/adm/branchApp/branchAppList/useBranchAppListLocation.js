@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { saveFilter, loadFilter } from './filters/BranchFilters.jsx';
 import { saveSorting, loadSorting } from './sorting/branchesSortingSearchParams.js';
 import { savePagination, loadPagination } from './pagination/branchesPaginationSearchParams.js';
-import { updateHistoryEntry } from '../../PopstateLink.jsx';
+import { updateHistoryEntry } from '../../popstate/PopstateLink.jsx';
 import { branchListPath } from '../useBranchAppLocation.js';
 
 export function getBranchListFullPath( options )

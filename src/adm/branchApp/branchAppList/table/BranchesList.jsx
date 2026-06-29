@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 import { useBranchListHighlight } from './useBranchListHighlight.js';
 import { useLingo } from '../../../lingo/LingoProvider.jsx';
-import { PopstateLink } from '../../../PopstateLink.jsx';
+import { PopstateLink } from '../../../popstate/PopstateLink.jsx';
 import { getBranchGetFullPath } from '../../branchAppGet/useBranchAppGetLocation.js';
 import './BranchesList.css';
 

@@ -4,7 +4,7 @@ import { Button } from '../../../components/Button/Button.jsx';
 import { useModalDialogContext } from '../../../modalDialog/ModalDialogProvider.jsx';
 import { useNotificationsContext } from '../../../notifications/NotificationsProvider.jsx';
 import { BranchAllowExitModalDialogContent } from './BranchAllowExitModalDialogContent.jsx';
-import { createHistoryEntry } from '../../../PopstateLink.jsx';
+import { createHistoryEntry } from '../../../popstate/PopstateLink.jsx';
 import { branchListPath } from '../../useBranchAppLocation.js';
 import './BranchFormActions.css';
 

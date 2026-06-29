@@ -1,5 +1,5 @@
 import { useLingo } from '../../lingo/LingoProvider.jsx';
-import { PopstateLink } from '../../PopstateLink.jsx';
+import { PopstateLink } from '../../popstate/PopstateLink.jsx';
 import { branchCreatePath } from '../useBranchAppLocation.js';
 import './BranchesHeader.css';
 
