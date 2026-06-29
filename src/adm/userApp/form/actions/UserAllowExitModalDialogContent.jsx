@@ -5,7 +5,7 @@ import { useHotkeySource } from './useHotkeySource.js';
 import { Button } from '../../../components/Button/Button.jsx';
 import './UserAllowExitModalDialogContent.css';
 
-export function UserAllowExitModalDialogContent( { isFormInvalid, saveFormUser, resolve })
+export function UserAllowExitModalDialogContent({ isFormInvalid, saveFormUser, resolve })
 {
   const { lingo } = useLingo();
 

@@ -7,11 +7,13 @@ export function IsDarkToggler()
   const [isDark, setIsDark] = useState( initIsDark );
 
   return (
-    <is-dark-toggler
+    <button
+      type="button"
+      className="IsDarkToggler"
       onClick={ onClick }
     >
       ◐
-    </is-dark-toggler>
+    </button>
   );
 
   function onClick()

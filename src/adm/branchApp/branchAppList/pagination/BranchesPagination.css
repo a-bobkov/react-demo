@@ -4,13 +4,16 @@ branches-pagination {
   display: flex;
   justify-content: center;
   gap: 8px;
+
+  &[inert] {
+    opacity: 30%;
+  }
 }
 
 .BranchPaginationButton {
-  appearance: none;
   width: 50px;
   border: solid 1px var( --fg-color-border );
-  border-radius: 5px;
+  border-radius: 3px;
   font-size: 16px;
 
   cursor: pointer;

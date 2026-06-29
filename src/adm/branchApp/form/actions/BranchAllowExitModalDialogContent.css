@@ -11,6 +11,10 @@ branch-allow-exit-modal-dialog-message {
 branch-allow-exit-modal-dialog-actions {
   display: flex;
   justify-content: space-between;
+
+  &[inert] {
+    opacity: 30%;
+  }
 }
 
 .BranchAllowExitModalDialogButton {

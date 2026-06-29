@@ -11,6 +11,10 @@ user-allow-exit-modal-dialog-message {
 user-allow-exit-modal-dialog-actions {
   display: flex;
   justify-content: space-between;
+
+  &[inert] {
+    opacity: 30%;
+  }
 }
 
 .UserAllowExitModalDialogButton {

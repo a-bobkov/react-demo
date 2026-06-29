@@ -1,4 +1,7 @@
 modal-dialog-wrapper {
+  &[inert] {
+    opacity: 30%;
+  }
 }
 
 modal-dialog-screen {

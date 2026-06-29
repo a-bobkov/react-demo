@@ -8,7 +8,7 @@ const emptyValue = {
   controlValue: '',
 };
 
-export function UserFormFieldLogin( { value, saveErrors, formErrors, isFieldChanged, onChangeLogin })
+export function UserFormFieldLogin({ value, saveErrors, formErrors, isFieldChanged, onChangeLogin })
 {
   const { lingo } = useLingo();
 

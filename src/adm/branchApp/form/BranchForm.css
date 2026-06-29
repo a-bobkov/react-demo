@@ -5,4 +5,8 @@ branch-form-title {
   &.isFormChanged {
     box-shadow: -1px 0;
   }
+
+  &[inert] {
+    opacity: 30%;
+  }
 }

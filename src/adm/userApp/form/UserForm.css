@@ -1,4 +1,7 @@
 user-form {
+  &[inert] {
+    opacity: 30%;
+  }
 }
 
 user-form-title {

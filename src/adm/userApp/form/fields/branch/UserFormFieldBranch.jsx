@@ -3,7 +3,7 @@ import { UserFormField } from '../UserFormField.jsx';
 import { SingleSelect } from '../../../../components/SingleSelect/SingleSelect.jsx';
 import './UserFormFieldBranch.css';
 
-export function UserFormFieldBranch( { value, branches, saveErrors, formErrors, isFieldChanged, onChangeBranch })
+export function UserFormFieldBranch({ value, branches, saveErrors, formErrors, isFieldChanged, onChangeBranch })
 {
   const { lingo } = useLingo();
 

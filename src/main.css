@@ -9,7 +9,3 @@ html, body {
   user-select: none;
   -webkit-user-select: none;
 }
-
-*[inert] {
-  opacity: 30%;
-}

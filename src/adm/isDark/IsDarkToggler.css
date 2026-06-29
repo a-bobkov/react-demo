@@ -1,13 +1,11 @@
-is-dark-toggler {
+.IsDarkToggler {
   height: 32px;
   width: 32px;
   border: 1px solid var( --fg-color-border );
-  border-radius: 2px;
-  background-color: var(--bg-color-control);
+  border-radius: 3px;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: var( --fg-color );
+  background-color: var( --bg-color-control );
 
   &:hover {
     background-color: var( --bg-color-hover );
