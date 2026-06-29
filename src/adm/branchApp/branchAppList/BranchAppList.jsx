@@ -6,10 +6,8 @@ import './BranchAppList.css';
 
 export function BranchAppList({ listOptions, branches, setListOptions })
 {
-  console.log(`BranchAppList: ${ JSON.stringify( listOptions )}`)
-
   return (
-    <div className="BranchAppList">
+    <branch-app-list>
       <BranchesHeader />
       <BranchFilters
         filter={ listOptions.filter }
@@ -24,7 +22,7 @@ export function BranchAppList({ listOptions, branches, setListOptions })
         branches={ branches }
         onChangePagination={ onChangePagination }
       />
-    </div>
+    </branch-app-list>
   );
 
   function onChangeFilter( filter )

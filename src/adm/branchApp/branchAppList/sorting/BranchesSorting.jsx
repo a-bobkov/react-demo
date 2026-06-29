@@ -9,7 +9,7 @@ export function BranchesSorting({ sorting = {}, onChangeSorting })
   const { lingo } = useLingo();
 
   return (
-    <div className="BranchesSorting">
+    <branches-sorting>
       <BranchesSortingField
         name={ lingo({
           en: 'id',
@@ -34,6 +34,6 @@ export function BranchesSorting({ sorting = {}, onChangeSorting })
         fieldSorting={{ created }}
         onChangeSorting={ onChangeSorting }
       />
-    </div>
+    </branches-sorting>
   );
 }

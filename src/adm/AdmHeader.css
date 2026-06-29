@@ -1,10 +1,10 @@
-.AdmHeader {
+adm-header {
   grid-area: AdmHeader;
   display: flex;
   align-items: center;
   gap: 50px;
 }
 
-.AppHeaderTitle {
+adm-header-title {
   font-size: 32px;
 }

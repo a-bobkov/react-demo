@@ -1,17 +1,20 @@
-.ModalDialogWrapper {
+modal-dialog-wrapper {
 }
 
-.ModalDialogWindow {
+modal-dialog-screen {
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  margin: auto;
-  width: fit-content;
-  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+modal-dialog-window {
   border: 1px solid var( --fg-color-border );
   border-radius: 5px;
-  padding: 8px;
+  padding: 16px;
   background-color: var( --bg-color-result );
 }

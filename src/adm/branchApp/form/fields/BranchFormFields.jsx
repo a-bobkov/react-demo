@@ -4,7 +4,7 @@ import './BranchFormFields.css';
 export function BranchFormFields({ formBranch, formErrors, saveErrors, isFieldChangedDb, setFormBranch })
 {
   return (
-    <div className="BranchFormFields">
+    <branch-form-fields>
       <BranchFormFieldName
         value={ formBranch.name }
         formErrors={ formErrors.name }
@@ -12,7 +12,7 @@ export function BranchFormFields({ formBranch, formErrors, saveErrors, isFieldCh
         isFieldChanged={ isFieldChangedDb.name }
         onChangeName={ onChangeName }
       />
-    </div>
+    </branch-form-fields>
   );
 
   function onChangeName( formName )

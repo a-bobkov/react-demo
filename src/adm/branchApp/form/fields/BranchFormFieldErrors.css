@@ -1,9 +1,9 @@
-.BranchFieldFormError {
+branch-field-form-error {
   margin: 6px 0;
   color: var( --fg-color-error );
 }
 
-.BranchFieldSaveError {
+branch-field-save-error {
   margin: 6px 0;
   color: var( --fg-color-error );
 

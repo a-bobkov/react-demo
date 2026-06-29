@@ -11,7 +11,7 @@ import './UserFilters.css';
 export function UserFilters({ filter, subordinates, onChangeFilter })
 {
   return (
-    <div className="UserFilters">
+    <user-filters>
       <UserFilterLogin
         filter={ filter.login }
         onChangeFilter={ onChangeFilterLogin }
@@ -29,7 +29,7 @@ export function UserFilters({ filter, subordinates, onChangeFilter })
         filter={ filter.active }
         onChangeFilterActive={ onChangeFilterActive }
       />
-    </div>
+    </user-filters>
   );
 
   function onChangeFilterLogin( login )

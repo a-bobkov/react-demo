@@ -10,7 +10,7 @@ export function UsersList({ users, isBlocked })
   const { highlight, setHighlight } = useUserListHighlight();
 
   return (
-    <div className="UsersList" inert={ isBlocked }>
+    <users-list inert={ isBlocked }>
       { users.list.map( user =>
         <UsersLine
           key={ user.id }
@@ -19,15 +19,15 @@ export function UsersList({ users, isBlocked })
           setHighlight={ setHighlight }
         />
       )}
-    </div>
+    </users-list>
   );
 }
 
 function UsersLine({ user, highlight, setHighlight })
 {
   return (
-    <div
-      className={ clsx('UsersLine', isHighlighted( user ) && 'isHighlighted') }
+    <users-line
+      className={ clsx({ 'isUserHighlighted': isUserHighlighted( user )}) }
       onClick={ changeHighlight }
     >
       <UsersLineId userId={ user.id } />
@@ -39,19 +39,19 @@ function UsersLine({ user, highlight, setHighlight })
         userId={ user.id }
         changeHighlight={ changeHighlight }
       />
-    </div>
+    </users-line>
   );
 
   function changeHighlight()
   {
-    const newHighlight = isHighlighted( user )
+    const newHighlight = isUserHighlighted( user )
       ? undefined
       : user.id;
 
     setHighlight( newHighlight );
   }
 
-  function isHighlighted( user )
+  function isUserHighlighted( user )
   {
     return user.id === highlight;
   }
@@ -60,36 +60,36 @@ function UsersLine({ user, highlight, setHighlight })
 function UsersLineId({ userId })
 {
   return (
-    <div className="UsersLineId">
+    <users-line-id>
       { userId }
-    </div>
+    </users-line-id>
   );
 }
 
 function UsersLineLogin({ userLogin })
 {
   return (
-    <div className="UsersLineLogin">
+    <users-line-login>
       { userLogin }
-    </div>
+    </users-line-login>
   );
 }
 
 function UsersLineName({ userName })
 {
   return (
-    <div className="UsersLineName">
+    <users-line-name>
       { userName }
-    </div>
+    </users-line-name>
   );
 }
 
 function UsersLineBranch({ userBranch })
 {
   return (
-    <div className="UsersLineBranch">
+    <users-line-branch>
       { `${ userBranch.id }: ${ userBranch.name }` }
-    </div>
+    </users-line-branch>
   );
 }
 
@@ -98,7 +98,7 @@ function UsersLineActive({ userActive })
   const { lingo } = useLingo();
 
   return (
-    <div className="UsersLineActive">
+    <users-line-active>
       { userActive
         ? lingo({
           en: 'true',
@@ -109,7 +109,7 @@ function UsersLineActive({ userActive })
           de: 'Falsch',
         })
       }
-    </div>
+    </users-line-active>
   );
 }
 

@@ -6,11 +6,11 @@ import './AdmHeader.css';
 export function AdmHeader()
 {
   return (
-    <div className="AdmHeader">
+    <adm-header>
       <AppHeaderTitle />
       <IsDarkToggler />
       <LanguageSelector />
-    </div>
+    </adm-header>
   );
 }
 
@@ -19,11 +19,11 @@ function AppHeaderTitle()
   const { lingo } = useLingo();
 
   return (
-    <div className="AppHeaderTitle">
+    <adm-header-title>
       { lingo({
         en: 'Admin panel in React 19',
         de: 'Admin-Panel auf React 19',
       })}
-    </div>
+    </adm-header-title>
   );
 }

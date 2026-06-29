@@ -5,16 +5,12 @@ export function BranchesSortingField({ name, fieldSorting, onChangeSorting })
   const [[sortingKey, sortingValue]] = Object.entries( fieldSorting );
 
   return (
-    <div className="BranchesSortingField"
-         onClick={ onClickSorting }
+    <branches-sorting-field
+      onClick={ onClickSorting }
     >
-      <span>
-        { name }
-      </span>
-      <span>
-        { getSortingChar( sortingValue )}
-      </span>
-    </div>
+      { name }
+      { getSortingChar( sortingValue )}
+    </branches-sorting-field>
   );
 
   function onClickSorting()

@@ -1,0 +1,18 @@
+branch-allow-exit-modal-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+branch-allow-exit-modal-dialog-message {
+  white-space: break-spaces;
+}
+
+branch-allow-exit-modal-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.BranchAllowExitModalDialogButton {
+  white-space: break-spaces;
+}

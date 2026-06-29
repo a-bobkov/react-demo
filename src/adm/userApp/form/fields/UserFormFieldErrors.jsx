@@ -4,23 +4,23 @@ import './UserFormFieldErrors.css';
 export function UserFormFieldErrors({ formError, saveError })
 {
   return (
-    <div className="UserFieldErrors">
+    <user-form-field-errors>
       <UserFieldFormError
         formError={ formError }
       />
       <UserFieldSaveError
         saveError={ saveError }
       />
-    </div>
+    </user-form-field-errors>
   );
 }
 
 function UserFieldFormError({ formError })
 {
   return formError && (
-    <div className="UserFieldFormError">
+    <user-field-form-error>
       { formError }
-    </div>
+    </user-field-form-error>
   );
 }
 
@@ -29,8 +29,8 @@ function UserFieldSaveError({ saveError })
   const { lingo } = useLingo();
 
   return saveError && (
-    <div className="UserFieldSaveError">
+    <user-field-save-error>
       { lingo( saveError ) }
-    </div>
+    </user-field-save-error>
   );
 }

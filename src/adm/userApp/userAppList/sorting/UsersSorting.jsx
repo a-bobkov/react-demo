@@ -9,7 +9,7 @@ export function UsersSorting({ sorting = {}, onChangeSorting })
   const { lingo } = useLingo();
 
   return (
-    <div className="UsersSorting">
+    <users-sorting>
       <UsersSortingField
         name={ lingo({
           en: 'id',
@@ -50,6 +50,6 @@ export function UsersSorting({ sorting = {}, onChangeSorting })
         fieldSorting={{ active }}
         onChangeSorting={ onChangeSorting }
       />
-    </div>
+    </users-sorting>
   );
 }

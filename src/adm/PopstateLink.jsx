@@ -5,7 +5,7 @@ export function PopstateLink({ children, path, className, onClickBefore })
 {
   return (
     <a
-      className={ clsx('PopstateLink', className ) }
+      className={ clsx('PopstateLink', className )}
       href={ path }
       onClick={ onClick }
     >

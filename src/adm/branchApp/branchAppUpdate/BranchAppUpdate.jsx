@@ -5,8 +5,6 @@ import { updateBranch } from './updateBranch.js';
 
 export function BranchAppUpdate({ branch })
 {
-  console.log(`BranchAppUpdate branch: ${ JSON.stringify( branch )}`);
-
   const apiNotifications = useNotificationsContext();
 
   const [ branchOptions, setBranchOptions ] = useState( createInitialBranchOptions );

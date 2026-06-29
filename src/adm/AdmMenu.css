@@ -1,24 +1,27 @@
-.AdmMenu {
+adm-menu {
   grid-area: AdmMenu;
+  display: flex;
+  flex-direction: column;
 }
 
-.AdmMenuHeader {
+adm-menu-header {
   font-size: 32px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
-.AdmMenuItem {
-  margin-left: -8px;
+adm-menu-item {
   font-size: 24px;
+  display: flex;
 }
 
-.AdmMenuItemText {
+adm-menu-item-text {
+  flex: 1;
   padding: 8px;
   background-color: var(--bg-color-selected);
 }
 
 .AdmMenuItemLink {
-  display: inline-block;
-  width: 100%;
+  flex: 1;
   padding: 8px;
+  background-color: var(--bg-color-result);
 }

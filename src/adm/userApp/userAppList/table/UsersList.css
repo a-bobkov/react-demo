@@ -1,25 +1,25 @@
-.UsersList {
+users-list {
+  display: block;
   background-color: var( --bg-color-result );
+  border-inline: 1px solid var( --fg-color-border );
+  border-bottom: 1px solid var( --fg-color-border );
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  overflow: hidden;
 }
 
-.UsersLine {
+users-line {
   height: 32px;
   display: grid;
-  grid-template-columns: var(--user-app-grid-columns);
+  grid-template-columns: var( --user-app-grid-columns );
   align-items: center;
-  border-inline: 1px solid var( --fg-color-border );
   padding-inline: 4px;
+}
 
-  &:last-child {
-    border-bottom: 1px solid var( --fg-color-border );
-    border-radius: 0 0 5px 5px;
-  }
-  &.isHighlighted {
-    background-color: var(--bg-color-selected);
-  }
+.isUserHighlighted {
+  background-color: var( --bg-color-selected );
 }
 
 .UsersLineActionEdit {
-  display: inline-block;
   padding: 4px;
 }

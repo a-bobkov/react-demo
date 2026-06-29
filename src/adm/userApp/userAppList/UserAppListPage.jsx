@@ -10,7 +10,7 @@ export function UserAppListPage({ subordinates })
   const { users } = useUserAppListLoad( userAppListOptions );
 
   return (
-    <div className="UserAppListPage">
+    <user-app-list-page>
       <UsersHeader />
       <UserAppList
         listOptions={ userAppListOptions }
@@ -18,6 +18,6 @@ export function UserAppListPage({ subordinates })
         users={ users }
         setListOptions={ setUserAppListOptions }
       />
-    </div>
+    </user-app-list-page>
   );
 }

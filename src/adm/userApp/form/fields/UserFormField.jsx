@@ -5,17 +5,17 @@ import './UserFormField.css';
 export function UserFormField({ label, renderControl, saveErrors, formErrors, isFieldChanged })
 {
   return (
-    <div className="UserFormField">
-      <div className={ clsx('UserFormFieldName', isFieldChanged && 'isFieldChanged') }>
+    <user-form-field>
+      <user-form-field-label className={ clsx({ 'isFieldChanged': isFieldChanged })}>
         { label }
-      </div>
-      <div className="UserFormFieldValue">
+      </user-form-field-label>
+      <user-form-field-value>
         { renderControl() }
         <UserFormFieldErrors
           formError={ formErrors }
           saveError={ saveErrors }
         />
-      </div>
-    </div>
+      </user-form-field-value>
+    </user-form-field>
   );
 }

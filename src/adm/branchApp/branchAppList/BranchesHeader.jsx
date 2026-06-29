@@ -6,10 +6,10 @@ import './BranchesHeader.css';
 export function BranchesHeader()
 {
   return (
-    <div className="BranchesHeader">
+    <branches-header>
       <BranchesTitle />
       <CreateBranchButton />
-    </div>
+    </branches-header>
   );
 }
 
@@ -18,12 +18,12 @@ function BranchesTitle()
   const { lingo } = useLingo();
 
   return (
-    <div className="BranchesTitle">
+    <branches-title>
       { lingo({
         en: 'Branches',
         de: 'Die Niederlassungen',
       })}
-    </div>
+    </branches-title>
   );
 }
 

@@ -1,4 +1,4 @@
-.IsDarkToggler {
+is-dark-toggler {
   height: 32px;
   width: 32px;
   border: 1px solid var( --fg-color-border );

@@ -5,13 +5,13 @@ export function UsersPagination({ total, pagination, isBlocked, onChangePaginati
   const last = Math.ceil( total / pagination.size );
 
   return (
-    <div className="UsersPagination" inert={ isBlocked }>
+    <users-pagination inert={ isBlocked }>
       <UsersPaginationFirst />
       <UsersPaginationPrev />
       <UsersPaginationPages />
       <UsersPaginationNext />
       <UsersPaginationLast />
-    </div>
+    </users-pagination>
   );
 
   function UsersPaginationPages()

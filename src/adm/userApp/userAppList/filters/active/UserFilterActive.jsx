@@ -20,13 +20,13 @@ export function UserFilterActive({ filter, onChangeFilterActive })
   const options = actives2options( actives, lingo );
 
   return (
-    <div className='UserFilterActive'>
-      <div>
+    <user-filter-active>
+      <user-filter-active-label>
         { lingo({
           en: 'Active',
           de: 'Tätig',
         })}
-      </div>
+      </user-filter-active-label>
       <SingleSelect
         className='UserFilterActiveSelect'
         empty={ lingo({
@@ -37,7 +37,7 @@ export function UserFilterActive({ filter, onChangeFilterActive })
         selectedId={ filter }
         onChangeSelectedId={ onChangeFilterActive }
       />
-    </div>
+    </user-filter-active>
   );
 }
 

@@ -3,7 +3,7 @@ import { deleteBranch } from './deleteBranch.js';
 import { Button } from '../../../components/Button/Button.jsx';
 import { useModalDialogContext } from '../../../modalDialog/ModalDialogProvider.jsx';
 import { useNotificationsContext } from '../../../notifications/NotificationsProvider.jsx';
-import { AllowExitModalDialogContent } from './AllowExitModalDialogContent.jsx';
+import { BranchAllowExitModalDialogContent } from './BranchAllowExitModalDialogContent.jsx';
 import { createHistoryEntry } from '../../../PopstateLink.jsx';
 import { branchListPath } from '../../useBranchAppLocation.js';
 import './BranchFormActions.css';
@@ -15,7 +15,7 @@ export function BranchFormActions({ branchId, isFormChanged, isFormInvalid, setH
   const { lingo } = useLingo();
 
   return (
-    <div className="BranchFormActions">
+    <branch-form-actions>
       <BranchFormActionSave
         isFormChanged={ isFormChanged }
         isFormInvalid={ isFormInvalid }
@@ -27,7 +27,7 @@ export function BranchFormActions({ branchId, isFormChanged, isFormInvalid, setH
       <BranchFormActionDelete
         branchId={ branchId }
       />
-    </div>
+    </branch-form-actions>
   );
 
   function BranchFormActionSave({ isFormInvalid, isFormChanged })
@@ -81,7 +81,7 @@ export function BranchFormActions({ branchId, isFormChanged, isFormInvalid, setH
     function IsAllowExit({ resolve })
     {
       return (
-        <AllowExitModalDialogContent
+        <BranchAllowExitModalDialogContent
           isFormInvalid={ isFormInvalid }
           saveFormBranch={ saveFormBranch }
           resolve={ resolve }

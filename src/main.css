@@ -5,6 +5,9 @@ html, body {
   width: 100%;
   font-family: system-ui,sans-serif;
   font-weight: 300;
+
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 *[inert] {

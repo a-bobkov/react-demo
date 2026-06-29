@@ -22,7 +22,7 @@ export function BranchForm({ branchOptions: { dbBranch, submitBranch, submitErro
   const isFormInvalid = Object.keys( saveErrors ).length || Object.keys( formErrors ).length;
 
   return (
-    <div className="BranchForm" inert={ hasSpinner }>
+    <branch-form inert={ hasSpinner }>
       <BranchFormTitle
         branchId={ dbBranch.id }
         isFormChanged={ isFormChangedDb }
@@ -41,7 +41,7 @@ export function BranchForm({ branchOptions: { dbBranch, submitBranch, submitErro
         setHasSpinner={ setHasSpinner }
         saveFormBranch={ saveFormBranch }
       />
-    </div>
+    </branch-form>
   );
 
   async function saveFormBranch()
@@ -59,9 +59,11 @@ export function BranchForm({ branchOptions: { dbBranch, submitBranch, submitErro
 function BranchFormTitle({ branchId, isFormChanged })
 {
   return (
-    <div className={ clsx('BranchFormTitle', isFormChanged && 'isFormChanged') }>
+    <branch-form-title
+      className={ clsx({ 'isFormChanged': isFormChanged })}
+    >
       { getBranchFormTitle( branchId )}
-    </div>
+    </branch-form-title>
   );
 }
 

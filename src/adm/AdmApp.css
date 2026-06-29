@@ -2,7 +2,7 @@
   grid-area: AdmApp;
 }
 
-.AdmAppNotFound {
+adm-app-not-found {
   color: var(--fg-color-error);
   margin-top: 15px;
 }

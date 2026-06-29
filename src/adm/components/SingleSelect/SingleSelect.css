@@ -1,74 +1,66 @@
-.SingleSelect {
+single-select {
   position: relative;
   display: flex;
   height: 22px;
   font-size: 14px;
+  line-height: 1.5;
 
-  background-color: var(--bg-color-control);
+  background-color: var( --bg-color-control );
   border: 1px solid var( --fg-color-border );
   border-radius: 2px;
 }
 
-.SingleSelectValue {
+single-select-value {
   flex: 1;
+  padding-inline: 4px;
+  cursor: pointer;
+
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
+
+  &:hover {
+    background-color: var( --bg-color-hover );
+  }
+}
+
+single-select-clear {
   padding-inline: 2px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-
-  user-select: none;
-  -webkit-user-select: none;
 
   &:hover {
     background-color: var( --bg-color-hover );
   }
 }
 
-.SingleSelectClear {
-  display: flex;
-  align-items: center;
-
-  &::after {
-    padding-inline: 2px;
-    content: '✗';
-    cursor: pointer;
-  }
-  &:hover {
-    background-color: var( --bg-color-hover );
-  }
-}
-
-.SingleSelectOptions {
+single-select-options {
   position: absolute;
-  left: 0;
-  top: 20px;
+  top: 100%;
   width: 100%;
-  max-height: 110px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc( 100% * 5 );
   overflow-y: auto;
 
-  background-color: var(--bg-color-control);
+  background-color: var( --bg-color-control );
   outline: 1px solid var( --fg-color-border );
   border-radius: 2px;
   cursor: pointer;
 }
 
-.SingleSelectOption {
-  height: 22px;
-  width: 100%;
+single-select-option {
+  flex: 0 0 100%;
   padding-left: 4px;
-  padding-top: 2px;
+
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
 
   &:hover {
-    background-color: var(--bg-color-hover);
+    background-color: var( --bg-color-hover );
   }
+}
 
-  &.isSelected {
-    background-color: var(--bg-color-selected);
-  }
+.isSingleSelectOptionSelected {
+  background-color: var( --bg-color-selected );
 }

@@ -9,7 +9,7 @@ import './UserFormFields.css';
 export function UserFormFields({ formUser, subordinates, formErrors, saveErrors, isFieldChangedDb, setFormUser })
 {
   return (
-    <div className="UserFormFields">
+    <user-form-fields>
       <UserFormFieldLogin
         value={ formUser.login }
         formErrors={ formErrors.login }
@@ -54,7 +54,7 @@ export function UserFormFields({ formUser, subordinates, formErrors, saveErrors,
         isFieldChanged={ isFieldChangedDb.active }
         onChangeActive={ onChangeActive }
       />
-    </div>
+    </user-form-fields>
   );
 
   function onChangeLogin( formLogin )

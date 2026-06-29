@@ -3,30 +3,30 @@ import { useLingo } from '../../../lingo/LingoProvider.jsx';
 import { useHotkey } from './useHotkey.js';
 import { useHotkeySource } from './useHotkeySource.js';
 import { Button } from '../../../components/Button/Button.jsx';
-import './AllowExitModalDialogContent.css';
+import './BranchAllowExitModalDialogContent.css';
 
-export function AllowExitModalDialogContent({ isFormInvalid, saveFormBranch, resolve })
+export function BranchAllowExitModalDialogContent({ isFormInvalid, saveFormBranch, resolve })
 {
   const { lingo } = useLingo();
 
   return (
-    <div className="AllowExitModalDialogContent">
-      <div className="AllowExitModalDialogMessage">
+    <branch-allow-exit-modal-dialog-content>
+      <branch-allow-exit-modal-dialog-message>
         { lingo({
           en: 'The form data is changed, are you sure to exit?',
           de: 'Die Formulardaten wurden geändert.\nMöchten Sie das Formular wirklich verlassen?',
         })}
-      </div>
-      <AllowExitModalDialogActions
+      </branch-allow-exit-modal-dialog-message>
+      <BranchAllowExitModalDialogActions
         isFormInvalid={ isFormInvalid }
         saveFormBranch={ saveFormBranch }
         resolve={ resolve }
       />
-    </div>
+    </branch-allow-exit-modal-dialog-content>
   );
 }
 
-function AllowExitModalDialogActions({ isFormInvalid, saveFormBranch, resolve })
+function BranchAllowExitModalDialogActions({ isFormInvalid, saveFormBranch, resolve })
 {
   const { lingo } = useLingo();
 
@@ -35,8 +35,8 @@ function AllowExitModalDialogActions({ isFormInvalid, saveFormBranch, resolve })
   const hotkeySource = useHotkeySource( isBlocked );
 
   return (
-    <div className="AllowExitModalDialogActions" inert={ isBlocked }>
-      <AllowExitModalDialogButton
+    <branch-allow-exit-modal-dialog-actions inert={ isBlocked }>
+      <BranchAllowExitModalDialogButton
         label={ lingo({
           en: 'Save & exit',
           de: 'Speichern\nund verlassen',
@@ -51,7 +51,7 @@ function AllowExitModalDialogActions({ isFormInvalid, saveFormBranch, resolve })
         setIsBlocked={ setIsBlocked }
         resolve={ resolve }
       />
-      <AllowExitModalDialogButton
+      <BranchAllowExitModalDialogButton
         label={ lingo({
           en: 'Cancel',
           de: 'Absagen',
@@ -61,7 +61,7 @@ function AllowExitModalDialogActions({ isFormInvalid, saveFormBranch, resolve })
         returns={ false }
         resolve={ resolve }
       />
-      <AllowExitModalDialogButton
+      <BranchAllowExitModalDialogButton
         label={ lingo({
           en: 'Exit',
           de: 'Verlassen',
@@ -69,17 +69,17 @@ function AllowExitModalDialogActions({ isFormInvalid, saveFormBranch, resolve })
         returns={ true }
         resolve={ resolve }
       />
-    </div>
+    </branch-allow-exit-modal-dialog-actions>
   );
 }
 
-function AllowExitModalDialogButton({ label, disableReasons, hotkeySource, hotkey, returns, resolve, setIsBlocked })
+function BranchAllowExitModalDialogButton({ label, disableReasons, hotkeySource, hotkey, returns, resolve, setIsBlocked })
 {
   useHotkey( hotkeySource, hotkey, onClick );
 
   return (
     <Button
-      className="AllowExitModalDialogButton"
+      className="BranchAllowExitModalDialogButton"
       label={ label }
       disableReasons={ disableReasons }
       onClick={ onClick }

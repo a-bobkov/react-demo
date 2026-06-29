@@ -16,12 +16,12 @@ export function UsersResult({ listOptions, users, subordinates, onChangePaginati
   if ( users === undefined )
   {
     return (
-      <div className="UsersResultLoading">
+      <users-result-loading>
         { lingo({
           en: 'Loading user list...',
           de: 'Benutzerliste wird geladen...',
         })}
-      </div>
+      </users-result-loading>
     );
   }
 
@@ -35,7 +35,7 @@ export function UsersResult({ listOptions, users, subordinates, onChangePaginati
   const isPaginationDifferent = different( listOptions.pagination, resolvedUsers.pagination );
 
   return (
-    <div className="UsersResult">
+    <users-result>
       <UsersList
         users={ resolvedUsers }
         isBlocked={ isFilterDifferent || isSortingDifferent || isPaginationDifferent }
@@ -46,7 +46,7 @@ export function UsersResult({ listOptions, users, subordinates, onChangePaginati
         isBlocked={ isFilterDifferent || isSortingDifferent }
         onChangePagination={ onChangePagination }
       />
-    </div>
+    </users-result>
   );
 }
 

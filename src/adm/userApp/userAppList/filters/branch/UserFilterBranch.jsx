@@ -11,13 +11,13 @@ export function UserFilterBranch({ filter, subordinates, onChangeFilter })
   const selectedId = filter2option( filter );
 
   return (
-    <div className="UserFilterBranch">
-      <div>
+    <user-filter-branch>
+      <user-filter-branch-label>
         { lingo({
           en: 'Branch',
           de: 'Niederlassung',
         })}
-      </div>
+      </user-filter-branch-label>
       <SingleSelect
         className='UserFilterBranchSelect'
         empty={ lingo({
@@ -28,7 +28,7 @@ export function UserFilterBranch({ filter, subordinates, onChangeFilter })
         selectedId={ selectedId }
         onChangeSelectedId={ onChangeSelectedId }
       />
-    </div>
+    </user-filter-branch>
   );
 
   function onChangeSelectedId( newSelectedId )

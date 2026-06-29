@@ -17,7 +17,7 @@ export function UserAppList({ listOptions, subordinates, users, setListOptions }
   }
 
   return (
-    <div className="UserAppList">
+    <user-app-list>
       <UserFilters
         filter={ listOptions.filter }
         subordinates={ subordinates }
@@ -33,7 +33,7 @@ export function UserAppList({ listOptions, subordinates, users, setListOptions }
         subordinates={ subordinates }
         onChangePagination={ onChangePagination }
       />
-    </div>
+    </user-app-list>
   );
 
   function onChangeFilter( filter )

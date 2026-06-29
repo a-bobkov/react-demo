@@ -1,10 +1,10 @@
-.BranchFormField {
+branch-form-field {
   margin-top: 16px;
   display: flex;
   flex-direction: row;
 }
 
-.BranchFormFieldName {
+branch-form-field-label {
   width: 120px;
   padding-left: 8px;
 

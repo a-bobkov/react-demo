@@ -10,7 +10,7 @@ export function Adm()
   const { admLocationApi } = useAdmLocation();
 
   return (
-    <div className="Adm">
+    <adm>
       <AdmHeader />
       <AdmMenu
         admLocationApi={ admLocationApi }
@@ -19,6 +19,6 @@ export function Adm()
         admLocationApi={ admLocationApi }
       />
       <AdmFooter />
-    </div>
+    </adm>
   );
 }

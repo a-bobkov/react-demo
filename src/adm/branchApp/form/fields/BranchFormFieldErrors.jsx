@@ -4,23 +4,23 @@ import './BranchFormFieldErrors.css';
 export function BranchFormFieldErrors({ formError, saveError })
 {
   return (
-    <div className="BranchFieldErrors">
+    <branch-form-field-errors>
       <BranchFieldFormError
         formError={ formError }
       />
       <BranchFieldSaveError
         saveError={ saveError }
       />
-    </div>
+    </branch-form-field-errors>
   );
 }
 
 function BranchFieldFormError({ formError })
 {
   return formError && (
-    <div className="BranchFieldFormError">
+    <branch-field-form-error>
       { formError }
-    </div>
+    </branch-field-form-error>
   );
 }
 
@@ -29,8 +29,8 @@ function BranchFieldSaveError({ saveError })
   const { lingo } = useLingo();
 
   return saveError && (
-    <div className="BranchFieldSaveError">
+    <branch-field-save-error>
       { lingo( saveError ) }
-    </div>
+    </branch-field-save-error>
   );
 }

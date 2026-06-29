@@ -5,17 +5,17 @@ import './BranchFormField.css';
 export function BranchFormField({ label, renderControl, saveErrors, formErrors, isFieldChanged })
 {
   return (
-    <div className="BranchFormField">
-      <div className={ clsx('BranchFormFieldName', isFieldChanged && 'isFieldChanged') }>
+    <branch-form-field className="BranchFormField">
+      <branch-form-field-label className={ clsx({ 'isFieldChanged': isFieldChanged })}>
         { label }
-      </div>
-      <div className="BranchFormFieldValue">
+      </branch-form-field-label>
+      <branch-form-field-value>
         { renderControl() }
         <BranchFormFieldErrors
           formError={ formErrors }
           saveError={ saveErrors }
         />
-      </div>
-    </div>
+      </branch-form-field-value>
+    </branch-form-field>
   );
 }

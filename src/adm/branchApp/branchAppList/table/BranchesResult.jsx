@@ -7,8 +7,6 @@ export function BranchesResult({ listOptions, branches, onChangePagination })
 {
   const { lingo } = useLingo();
 
-  console.log(`BranchesResult: ${ JSON.stringify({ listOptions, branches })}`);
-
   if ( Error.isError( branches ))
   {
     return;
@@ -17,12 +15,12 @@ export function BranchesResult({ listOptions, branches, onChangePagination })
   if ( branches === undefined )
   {
     return (
-      <div className="BranchesResultLoading">
+      <branches-result-loading>
         { lingo({
           en: 'Loading branch list...',
           de: 'Liste der Niederlassung wird geladen...',
         })}
-      </div>
+      </branches-result-loading>
     );
   }
 
@@ -31,7 +29,7 @@ export function BranchesResult({ listOptions, branches, onChangePagination })
   const isPaginationDifferent = different( listOptions. pagination, branches.pagination );
 
   return (
-    <div className="BranchesResult">
+    <branches-result>
       <BranchesList
         branches={ branches }
         isBlocked={ isFilterDifferent || isSortingDifferent || isPaginationDifferent }
@@ -42,7 +40,7 @@ export function BranchesResult({ listOptions, branches, onChangePagination })
         isBlocked={ isFilterDifferent || isSortingDifferent }
         onChangePagination={ onChangePagination }
       />
-    </div>
+    </branches-result>
   );
 }
 

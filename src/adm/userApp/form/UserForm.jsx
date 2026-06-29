@@ -22,7 +22,7 @@ export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {} 
   const isFormInvalid = Object.keys( saveErrors ).length || Object.keys( formErrors ).length;
 
   return (
-    <div className="UserForm" inert={ hasSpinner }>
+    <user-form inert={ hasSpinner }>
       <UserFormTitle
         userId={ dbUser.id }
         isFormChanged={ isFormChangedDb }
@@ -42,7 +42,7 @@ export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {} 
         setHasSpinner={ setHasSpinner }
         saveFormUser={ saveFormUser }
       />
-    </div>
+    </user-form>
   );
 
   async function saveFormUser()
@@ -60,9 +60,9 @@ export function UserForm({ userOptions: { dbUser, submitUser, submitErrors = {} 
 function UserFormTitle({ userId, isFormChanged })
 {
   return (
-    <div className={ clsx('UserFormTitle', isFormChanged && 'isFormChanged') }>
+    <user-form-title className={ clsx({ 'isFormChanged': isFormChanged })}>
       { getUserFormTitle( userId )}
-    </div>
+    </user-form-title>
   );
 }
 

@@ -1,0 +1,18 @@
+user-allow-exit-modal-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+user-allow-exit-modal-dialog-message {
+  white-space: break-spaces;
+}
+
+user-allow-exit-modal-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.UserAllowExitModalDialogButton {
+  white-space: break-spaces;
+}

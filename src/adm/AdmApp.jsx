@@ -18,11 +18,11 @@ export function AdmApp({ admLocationApi })
   }
 
   return (
-    <div className="AdmAppNotFound">
+    <adm-app-not-found>
       { lingo({
         en: 'Application not found because of incorrect URL',
         de: 'Anwendung nicht gefunden, da URL falsch ist',
       })}
-    </div>
+    </adm-app-not-found>
   );
 }

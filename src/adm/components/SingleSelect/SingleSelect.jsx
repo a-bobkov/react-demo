@@ -7,8 +7,8 @@ export function SingleSelect({ className, empty, options, selectedId, onChangeSe
   const [ isOpened, setIsOpened ] = useState( false );
 
   return (
-    <div
-      className={ clsx( className, 'SingleSelect')}
+    <single-select
+      className={ className }
       tabIndex="0"
       onBlur={ onBlur }
     >
@@ -30,7 +30,7 @@ export function SingleSelect({ className, empty, options, selectedId, onChangeSe
         selectedId={ selectedId }
         setSelectedId={ setSelectedId }
       />
-    </div>
+    </single-select>
   );
 
   function onBlur()
@@ -51,9 +51,11 @@ function SingleSelectValue({ empty, options, selectedId, isOpened, setIsOpened }
   const text = options.get( selectedId ) ?? empty;
 
   return (
-    <div className="SingleSelectValue" onClick={ onClick }>
+    <single-select-value
+      onClick={ onClick }
+    >
       { text }
-    </div>
+    </single-select-value>
   );
 
   function onClick()
@@ -65,11 +67,11 @@ function SingleSelectValue({ empty, options, selectedId, isOpened, setIsOpened }
 function SingleSelectClear({ empty, selectedId, setSelectedId })
 {
   return empty && selectedId !== undefined && (
-    <div
-      className="SingleSelectClear"
+    <single-select-clear
       onClick={ onClick }
     >
-    </div>
+      ✗
+    </single-select-clear>
   );
 
   function onClick()
@@ -81,7 +83,7 @@ function SingleSelectClear({ empty, selectedId, setSelectedId })
 function SingleSelectOptions({ options, isOpened, selectedId, setSelectedId })
 {
   return isOpened && (
-    <div className="SingleSelectOptions">
+    <single-select-options>
       { options.entries().map( option =>
         <SingleSelectOption
           option={ option }
@@ -89,7 +91,7 @@ function SingleSelectOptions({ options, isOpened, selectedId, setSelectedId })
           setSelectedId={ setSelectedId }
         />
       )}
-    </div>
+    </single-select-options>
   );
 }
 
@@ -100,14 +102,14 @@ function SingleSelectOption({ option: [ optionId, optionView ], selectedId, setS
   useEffect( scrollSelectedOptionIntoView, [ optionRef.current ]);
 
   return (
-    <div
+    <single-select-option
       key={ optionId }
-      className={ clsx('SingleSelectOption', optionId === selectedId && 'isSelected') }
+      className={ clsx({ 'isSingleSelectOptionSelected': optionId === selectedId })}
       ref={ optionRef }
       onClick={ onClick }
     >
       { optionView }
-    </div>
+    </single-select-option>
   );
 
   function scrollSelectedOptionIntoView()

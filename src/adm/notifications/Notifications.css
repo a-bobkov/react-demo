@@ -1,21 +1,23 @@
-.Notifications {
+notifications {
   position: fixed;
   top: 8px;
   right: 8px;
   width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.Notification {
-  margin-bottom: 8px;
-  height: 66px;
-  padding: 4px 6px;
+notification {
+  height: 58px;
+  padding: 2px 6px;
   color: white;
 
-  text-overflow: ellipsis;
-  overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &.info {
     background-color: green;
@@ -24,12 +26,12 @@
   &.error {
     background-color: red;
   }
+}
 
-  & .close {
-    float: right;
-    width: 18px;
-    text-align: right;
-    color: yellow;
-    cursor: pointer;
-  }
+notification-close {
+  float: right;
+  width: 18px;
+  text-align: right;
+  color: yellow;
+  cursor: pointer;
 }

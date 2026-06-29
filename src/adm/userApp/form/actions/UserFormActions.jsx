@@ -3,7 +3,7 @@ import { deleteUser } from './deleteUser.js';
 import { Button } from '../../../components/Button/Button.jsx';
 import { useModalDialogContext } from '../../../modalDialog/ModalDialogProvider.jsx';
 import { useNotificationsContext } from '../../../notifications/NotificationsProvider.jsx';
-import { AllowExitModalDialogContent } from './AllowExitModalDialogContent.jsx';
+import { UserAllowExitModalDialogContent } from './UserAllowExitModalDialogContent.jsx';
 import { createHistoryEntry } from '../../../PopstateLink.jsx';
 import { userListPath } from '../../useUserAppLocation.js';
 import './UserFormActions.css';
@@ -15,7 +15,7 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
   const { lingo } = useLingo();
 
   return (
-    <div className="UserFormActions">
+    <user-form-actions>
       <UserFormActionSave
         isFormChanged={ isFormChanged }
         isFormInvalid={ isFormInvalid }
@@ -27,7 +27,7 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
       <UserFormActionDelete
         userId={ userId }
       />
-    </div>
+    </user-form-actions>
   );
 
   function UserFormActionSave({ isFormInvalid, isFormChanged })
@@ -81,7 +81,7 @@ export function UserFormActions({ userId, isFormChanged, isFormInvalid, setHasSp
     function IsAllowExit({ resolve })
     {
       return (
-        <AllowExitModalDialogContent
+        <UserAllowExitModalDialogContent
           isFormInvalid={ isFormInvalid }
           saveFormUser={ saveFormUser }
           resolve={ resolve }

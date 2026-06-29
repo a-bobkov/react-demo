@@ -5,13 +5,13 @@ export function BranchesPagination({ total, pagination, isBlocked, onChangePagin
   const last = Math.ceil( total / pagination.size );
 
   return (
-    <div className="BranchesPagination" inert={ isBlocked }>
+    <branches-pagination inert={ isBlocked }>
       <BranchesPaginationFirst />
       <BranchesPaginationPrev />
       <BranchesPaginationPages />
       <BranchesPaginationNext />
       <BranchesPaginationLast />
-    </div>
+    </branches-pagination>
   );
 
   function BranchesPaginationPages()
@@ -44,7 +44,7 @@ export function BranchesPagination({ total, pagination, isBlocked, onChangePagin
   function Page({ page })
   {
     return (
-      <BranchesPaginationButton
+      <BranchPaginationButton
         label={ page }
         disabled={ page === pagination.count }
         onClick={ onClickPage }
@@ -60,7 +60,7 @@ export function BranchesPagination({ total, pagination, isBlocked, onChangePagin
   function BranchesPaginationFirst()
   {
     return (
-      <BranchesPaginationButton
+      <BranchPaginationButton
         label="<<"
         disabled={ pagination.count === 1 }
         onClick={ onClickFirst }
@@ -76,7 +76,7 @@ export function BranchesPagination({ total, pagination, isBlocked, onChangePagin
   function BranchesPaginationPrev()
   {
     return (
-      <BranchesPaginationButton
+      <BranchPaginationButton
         label="<"
         disabled={ pagination.count === 1 }
         onClick={ onClickPrev }
@@ -92,7 +92,7 @@ export function BranchesPagination({ total, pagination, isBlocked, onChangePagin
   function BranchesPaginationNext()
   {
     return (
-      <BranchesPaginationButton
+      <BranchPaginationButton
         label=">"
         disabled={ pagination.count >= last }
         onClick={ onClickNext }
@@ -108,7 +108,7 @@ export function BranchesPagination({ total, pagination, isBlocked, onChangePagin
   function BranchesPaginationLast()
   {
     return (
-      <BranchesPaginationButton
+      <BranchPaginationButton
         label=">>"
         disabled={ pagination.count >= last }
         onClick={ onClickLast }
@@ -130,12 +130,12 @@ export function BranchesPagination({ total, pagination, isBlocked, onChangePagin
   }
 }
 
-function BranchesPaginationButton({ label, disabled, onClick })
+function BranchPaginationButton({ label, disabled, onClick })
 {
   return (
     <button
       type="button"
-      className="BranchesPaginationButton"
+      className="BranchPaginationButton"
       disabled={ disabled }
       onClick={ onClick }
     >

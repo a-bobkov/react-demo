@@ -10,66 +10,66 @@ export function BranchesList({ branches, isBlocked })
   const { highlight, setHighlight } = useBranchListHighlight();
 
   return (
-    <div className="BranchesList" inert={ isBlocked }>
+    <branches-list inert={ isBlocked }>
       { branches.list.map( branch =>
-        <BranchesLine
+        <BranchLine
           key={ branch.id }
           branch={ branch }
           highlight={ highlight }
           setHighlight={ setHighlight }
         />
       )}
-    </div>
+    </branches-list>
   );
 }
 
-function BranchesLine({ branch, highlight, setHighlight })
+function BranchLine({ branch, highlight, setHighlight })
 {
   return (
-    <div
-      className={ clsx('BranchesLine', isHighlighted( branch ) && 'isHighlighted') }
+    <branch-line
+      className={ clsx({ 'isBranchHighlighted': isBranchHighlighted( branch )})}
       onClick={ changeHighlight }
     >
-      <BranchesLineId branchId={ branch.id } />
-      <BranchesLineName branchName={ branch.name } />
-      <BranchesLineCreated branchCreated={ branch.created } />
-      <BranchesLineActionEdit
+      <BranchLineId branchId={ branch.id } />
+      <BranchLineName branchName={ branch.name } />
+      <BranchLineCreated branchCreated={ branch.created } />
+      <BranchLineActionEdit
         branchId={ branch.id }
         changeHighlight={ changeHighlight }
       />
-    </div>
+    </branch-line>
   );
 
   function changeHighlight()
   {
-    const newHighlight = isHighlighted( branch )
+    const newHighlight = isBranchHighlighted( branch )
       ? undefined
       : branch.id;
 
     setHighlight( newHighlight );
   }
 
-  function isHighlighted( branch )
+  function isBranchHighlighted( branch )
   {
     return branch.id === highlight;
   }
 }
 
-function BranchesLineId({ branchId })
+function BranchLineId({ branchId })
 {
   return (
-    <div className="BranchesLineId">
+    <branch-line-id>
       { branchId }
-    </div>
+    </branch-line-id>
   );
 }
 
-function BranchesLineName({ branchName })
+function BranchLineName({ branchName })
 {
   return (
-    <div className="BranchesLineName">
+    <branch-line-name>
       { branchName }
-    </div>
+    </branch-line-name>
   );
 }
 
@@ -83,29 +83,29 @@ const { format: formatDateDe } = Intl.DateTimeFormat('de-DE', {
   timeStyle: 'short',
 });
 
-function BranchesLineCreated({ branchCreated })
+function BranchLineCreated({ branchCreated })
 {
   const { lingo } = useLingo();
 
   const dateBranchCreated = new Date( branchCreated );
 
   return (
-    <div className="BranchesLineCreated">
+    <branch-line-created>
       { lingo({
         en: formatDateEn( dateBranchCreated ),
         de: formatDateDe( dateBranchCreated ),
       })}
-    </div>
+    </branch-line-created>
   );
 }
 
-function BranchesLineActionEdit({ branchId, changeHighlight })
+function BranchLineActionEdit({ branchId, changeHighlight })
 {
   const { lingo } = useLingo();
 
   return (
     <PopstateLink
-      className="BranchesLineActionEdit"
+      className="BranchLineActionEdit"
       path={ getBranchGetFullPath( branchId ) }
       onClickBefore={ changeHighlight }
     >

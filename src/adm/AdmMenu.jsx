@@ -8,13 +8,13 @@ export function AdmMenu({ admLocationApi })
   const { lingo } = useLingo();
 
   return (
-    <div className="AdmMenu">
-      <div className="AdmMenuHeader">
+    <adm-menu>
+      <adm-menu-header>
         { lingo({
           en: `Applications`,
           de: `Anwendungen`,
         })}
-      </div>
+      </adm-menu-header>
       <AdmMenuItem
         name={ lingo({
           en: `Users`,
@@ -31,19 +31,19 @@ export function AdmMenu({ admLocationApi })
         path={ branchPath }
         isActive={ admLocationApi.isBranchLocation() }
       />
-    </div>
+    </adm-menu>
   );
 }
 
 function AdmMenuItem({ name, path, isActive })
 {
   return (
-    <div className="AdmMenuItem">
+    <adm-menu-item>
       { isActive
         ? <AdmMenuItemText name={ name } />
         : <AdmMenuItemLink name={ name } path={ path } />
       }
-    </div>
+    </adm-menu-item>
   );
 }
 
@@ -62,8 +62,8 @@ function AdmMenuItemLink({ name, path })
 function AdmMenuItemText({ name })
 {
   return (
-    <div className="AdmMenuItemText">
+    <adm-menu-item-text>
       { name }
-    </div>
+    </adm-menu-item-text>
   );
 }

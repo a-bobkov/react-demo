@@ -10,13 +10,13 @@ export function BranchFilterName({ filter, onChangeFilter })
   const [ controlValue, setControlValue ] = useState( initialControlValue );
 
   return (
-    <div className="BranchFilterName">
-      <div>
+    <branch-filter-name>
+      <branch-filter-name-label>
         { lingo({
           en: 'Name',
           de: 'Name',
         })}
-      </div>
+      </branch-filter-name-label>
       <InputText
         placeholder={ lingo({
           en: 'contains case insensitive',
@@ -25,7 +25,7 @@ export function BranchFilterName({ filter, onChangeFilter })
         value={ controlValue }
         onChange={ onChange }
       />
-    </div>
+    </branch-filter-name>
   );
 
   function initialControlValue()

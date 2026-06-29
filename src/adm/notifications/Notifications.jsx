@@ -6,20 +6,27 @@ export function Notifications({ notifications, removeNotification })
   const { lingo } = useLingo();
 
   return (
-    <div className="Notifications">
-      { notifications.map( notification => <Notification notification={ notification } />)}
-    </div>
+    <notifications>
+      { notifications.map( notification =>
+        <Notification notification={ notification } />
+      )}
+    </notifications>
   );
 
   function Notification({ notification })
   {
     return (
-      <div key={ notification.id } className={`Notification ${ notification.type }`} >
-        <div className="close" onClick={ onClickClose }>
+      <notification
+        key={ notification.id }
+        className={ notification.type }
+      >
+        <notification-close
+          onClick={ onClickClose }
+        >
           ✖
-        </div>
+        </notification-close>
         { lingo( notification.lingoMessage )}
-      </div>
+      </notification>
     );
 
     function onClickClose()

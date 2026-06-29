@@ -6,9 +6,9 @@ export function ModalDialog({ children, modalDialog })
 
   return (
     <>
-      <div className="ModalDialogWrapper" inert={ hasModalDialog }>
+      <modal-dialog-wrapper inert={ hasModalDialog }>
         { children }
-      </div>
+      </modal-dialog-wrapper>
       <ModalDialogWindow modalDialog={ modalDialog }/>
     </>
   );
@@ -21,10 +21,12 @@ function ModalDialogWindow({ modalDialog })
   const ModalDialogContent = modalDialog.content;
 
   return (
-    <div className="ModalDialogWindow">
-      <ModalDialogContent
-        resolve={ modalDialog.resolve }
-      />
-    </div>
+    <modal-dialog-screen>
+      <modal-dialog-window>
+        <ModalDialogContent
+          resolve={ modalDialog.resolve }
+        />
+      </modal-dialog-window>
+    </modal-dialog-screen>
   );
 }

@@ -10,13 +10,13 @@ export function UserFilterName({ filter, onChangeFilter })
   const [ controlValue, setControlValue ] = useState( initialControlValue );
 
   return (
-    <div className="UserFilterName">
-      <div>
+    <user-filter-name>
+      <user-filter-name-label>
         { lingo({
           en: 'Name',
           de: 'Name',
         })}
-      </div>
+      </user-filter-name-label>
       <InputText
         placeholder={ lingo({
           en: 'contains case insensitive',
@@ -25,7 +25,7 @@ export function UserFilterName({ filter, onChangeFilter })
         value={ controlValue }
         onChange={ onChange }
       />
-    </div>
+    </user-filter-name>
   );
 
   function initialControlValue()

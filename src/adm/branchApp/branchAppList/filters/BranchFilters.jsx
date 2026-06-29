@@ -5,12 +5,12 @@ import './BranchFilters.css';
 export function BranchFilters({ filter, onChangeFilter })
 {
   return (
-    <div className="BranchFilters">
+    <branch-filters>
       <BranchFilterName
         filter={ filter.name }
         onChangeFilter={ onChangeFilterName }
       />
-    </div>
+    </branch-filters>
   );
 
   function onChangeFilterName( name )

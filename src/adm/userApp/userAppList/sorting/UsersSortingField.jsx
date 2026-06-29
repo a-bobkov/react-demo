@@ -5,16 +5,12 @@ export function UsersSortingField({ name, fieldSorting, onChangeSorting })
   const [[sortingKey, sortingValue]] = Object.entries( fieldSorting );
 
   return (
-    <div className="UsersSortingField"
+    <users-sorting-field
          onClick={ onClickSorting }
     >
-      <span>
-        { name }
-      </span>
-      <span>
-        { getSortingChar( sortingValue )}
-      </span>
-    </div>
+      { name }
+      { getSortingChar( sortingValue )}
+    </users-sorting-field>
   );
 
   function onClickSorting()

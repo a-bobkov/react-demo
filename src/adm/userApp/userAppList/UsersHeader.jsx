@@ -6,10 +6,10 @@ import './UsersHeader.css';
 export function UsersHeader()
 {
   return (
-    <div className="UsersHeader">
+    <users-header>
       <UsersTitle />
       <CreateUserButton />
-    </div>
+    </users-header>
   );
 }
 
@@ -18,12 +18,12 @@ function UsersTitle()
   const { lingo } = useLingo();
 
   return (
-    <div className="UsersTitle">
+    <users-title>
       { lingo({
         en: 'Users',
         de: 'Die Benutzer',
       })}
-    </div>
+    </users-title>
   );
 }
 

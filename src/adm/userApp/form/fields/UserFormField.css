@@ -1,14 +1,20 @@
-.UserFormField {
+user-form-field {
   margin-top: 16px;
   display: flex;
   flex-direction: row;
 }
 
-.UserFormFieldName {
+user-form-field-label {
   width: 120px;
   padding-left: 8px;
 
   &.isFieldChanged {
     box-shadow: -1px 0;
   }
+}
+
+user-form-field-value {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
