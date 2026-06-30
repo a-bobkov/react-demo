@@ -5,6 +5,17 @@ import './AdmApp.css';
 
 export function AdmApp({ admLocationApi })
 {
+  return (
+    <adm-app>
+      <App
+        admLocationApi={ admLocationApi }
+      />
+    </adm-app>
+  );
+}
+
+function App({ admLocationApi })
+{
   const { lingo } = useLingo();
 
   if ( admLocationApi.isUserLocation())

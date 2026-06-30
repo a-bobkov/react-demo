@@ -1,4 +1,7 @@
 modal-dialog-wrapper {
+  display: flex;
+  justify-content: center;
+
   &[inert] {
     opacity: 30%;
   }

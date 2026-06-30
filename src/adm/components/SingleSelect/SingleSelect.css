@@ -7,7 +7,7 @@ single-select {
 
   background-color: var( --bg-color-control );
   border: 1px solid var( --fg-color-border );
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 single-select-value {
@@ -44,7 +44,7 @@ single-select-options {
 
   background-color: var( --bg-color-control );
   outline: 1px solid var( --fg-color-border );
-  border-radius: 2px;
+  border-radius: 3px;
   cursor: pointer;
 }
 

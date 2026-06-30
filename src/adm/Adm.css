@@ -1,17 +1,8 @@
 adm {
-  height: 100%;
-  width: 100%;
-  max-width: 1000px;
-  padding: 20px;
+  flex: 0 0 1100px;
+  margin: 16px;
 
   display: flex;
   flex-direction: column;
   gap: 20px;
-
-  grid-template-columns: 200px 1fr;
-  grid-template-rows: 50px 1fr 30px;
-  grid-template-areas:
-    " AdmHeader AdmHeader "
-    " AdmMenu   AdmApp    "
-    " AdmFooter AdmFooter ";
 }

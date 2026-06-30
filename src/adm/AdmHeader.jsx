@@ -8,8 +8,8 @@ export function AdmHeader()
   return (
     <adm-header>
       <AppHeaderTitle />
-      <IsDarkToggler />
       <LanguageSelector />
+      <IsDarkToggler />
     </adm-header>
   );
 }
