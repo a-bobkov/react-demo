@@ -1,6 +1,6 @@
 adm {
-  flex: 0 0 1100px;
-  margin: 16px;
+  flex: 0 0 100%;
+  max-width: 1100px;
 
   display: flex;
   flex-direction: column;

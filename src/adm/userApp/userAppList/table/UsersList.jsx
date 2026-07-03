@@ -70,7 +70,9 @@ function UsersLineLogin({ userLogin })
 {
   return (
     <users-line-login>
-      { userLogin }
+      <users-line-overflowable>
+        { userLogin }
+      </users-line-overflowable>
     </users-line-login>
   );
 }
@@ -79,16 +81,20 @@ function UsersLineName({ userName })
 {
   return (
     <users-line-name>
-      { userName }
+      <users-line-overflowable>
+        { userName }
+      </users-line-overflowable>
     </users-line-name>
   );
 }
 
 function UsersLineBranch({ userBranch })
 {
+  const userBranchText = `${ userBranch.id }: ${ userBranch.name }`;
+
   return (
     <users-line-branch>
-      { `${ userBranch.id }: ${ userBranch.name }` }
+      { userBranchText }
     </users-line-branch>
   );
 }
@@ -97,18 +103,19 @@ function UsersLineActive({ userActive })
 {
   const { lingo } = useLingo();
 
+  const userActiveText = userActive
+    ? lingo({
+      en: 'true',
+      de: 'Wahr',
+    })
+    : lingo({
+      en: 'false',
+      de: 'Falsch',
+    });
+
   return (
     <users-line-active>
-      { userActive
-        ? lingo({
-          en: 'true',
-          de: 'Wahr',
-        })
-        : lingo({
-          en: 'false',
-          de: 'Falsch',
-        })
-      }
+      { userActiveText }
     </users-line-active>
   );
 }

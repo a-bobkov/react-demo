@@ -1,6 +1,6 @@
 users-list {
-  display: block;
-  background-color: var( --bg-color-result );
+  display: flex;
+  flex-direction: column;
   border-inline: 1px solid var( --fg-color-border );
   border-bottom: 1px solid var( --fg-color-border );
   border-bottom-left-radius: 5px;
@@ -14,16 +14,58 @@ users-list {
 
 users-line {
   height: 32px;
-  display: grid;
-  grid-template-columns: var( --user-app-grid-columns );
+  display: flex;
+  flex-flow: row nowrap;
   align-items: center;
-  padding-inline: 4px;
+  padding: 4px;
+  gap: 4px 8px;
+  background-color: var( --bg-color-result );
+
+  &.isUserHighlighted {
+    --bg-color-result: var( --bg-color-selected );
+  }
 }
 
-.isUserHighlighted {
-  background-color: var( --bg-color-selected );
+users-line-id {
+  flex: 0 0 50px;
+}
+
+users-line-login {
+  flex: 2 1 auto;
+  width: 225px;
+}
+
+users-line-name {
+  flex: 2 1 auto;
+  width: 125px;
+}
+
+users-line-branch {
+  flex: 1 0 125px;
+}
+
+users-line-active {
+  flex: 0 0 48px;
+}
+
+users-line-action-edit {
+}
+
+users-line-overflowable {
+  display: block;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    background-color: var(--bg-color-result);
+    display: inline;
+    box-shadow: 0 0 16px 16px var(--bg-color-result);
+    clip-path: inset(0 -16px 0 0);
+  }
 }
 
 .UsersLineActionEdit {
+  flex: 0 0 80px;
   padding: 4px;
 }

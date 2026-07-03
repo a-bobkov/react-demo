@@ -3,5 +3,6 @@ export default [
   { name: 'Hamburg' },
   { name: 'München' },
   { name: 'Stuttgart' },
-  { name: 'Frankfurt' },
+  { name: 'Frankfurt am Rhein' },
+  { name: 'Mannheim' },
 ];

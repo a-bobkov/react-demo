@@ -11,6 +11,7 @@ export function UsersSorting({ sorting = {}, onChangeSorting })
   return (
     <users-sorting>
       <UsersSortingField
+        className="UserSortingId"
         name={ lingo({
           en: 'id',
           de: 'ID',
@@ -19,6 +20,7 @@ export function UsersSorting({ sorting = {}, onChangeSorting })
         onChangeSorting={ onChangeSorting }
       />
       <UsersSortingField
+        className="UserSortingLogin"
         name={ lingo({
           en: 'login',
           de: 'Login',
@@ -27,6 +29,7 @@ export function UsersSorting({ sorting = {}, onChangeSorting })
         onChangeSorting={ onChangeSorting }
       />
       <UsersSortingField
+        className="UserSortingName"
         name={ lingo({
           en: 'name',
           de: 'Name',
@@ -35,6 +38,7 @@ export function UsersSorting({ sorting = {}, onChangeSorting })
         onChangeSorting={ onChangeSorting }
       />
       <UsersSortingField
+        className="UserSortingBranch"
         name={ lingo({
           en: 'branch',
           de: 'Niederlassung',
@@ -43,6 +47,7 @@ export function UsersSorting({ sorting = {}, onChangeSorting })
         onChangeSorting={ onChangeSorting }
       />
       <UsersSortingField
+        className="UserSortingActive"
         name={ lingo({
           en: 'active',
           de: 'tätig',

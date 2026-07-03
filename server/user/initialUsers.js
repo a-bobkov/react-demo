@@ -29,5 +29,5 @@ export default [
   { login: 'sofia.nikolaou@horizonsystems.gr', salutation: { id: 2 }, name: 'Sofia Nikolaou', company: 'Horizon Systems', branch: { id: 1 }, active: true },
   { login: 'daniel.huber@stackflow.dev', salutation: { id: 1 }, name: 'Daniel Huber', company: 'StackFlow', branch: { id: 2 }, active: true },
   { login: 'rebecca.lee@insightloop.com', salutation: { id: 2 }, name: 'Rebecca Lee', company: 'InsightLoop', branch: { id: 3 }, active: true },
-  { login: 'rebecca.ups@insightloop.com', salutation: { id: 2 }, name: 'Rebecca Lee Sr', company: 'InsightLoop', branch: { id: 4 }, active: true },
+  { login: 'rebecca.ups@insightloop.com', salutation: { id: 2 }, name: 'Rebecca Lee Senior', company: 'InsightLoop', branch: { id: 5 }, active: true },
 ];

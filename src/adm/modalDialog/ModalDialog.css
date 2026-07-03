@@ -1,6 +1,7 @@
 modal-dialog-wrapper {
   display: flex;
   justify-content: center;
+  padding: 16px;
 
   &[inert] {
     opacity: 30%;

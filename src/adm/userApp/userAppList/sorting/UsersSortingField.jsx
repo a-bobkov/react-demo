@@ -1,12 +1,13 @@
 import './UsersSortingField.css';
 
-export function UsersSortingField({ name, fieldSorting, onChangeSorting })
+export function UsersSortingField({ className, name, fieldSorting, onChangeSorting })
 {
   const [[sortingKey, sortingValue]] = Object.entries( fieldSorting );
 
   return (
     <users-sorting-field
-         onClick={ onClickSorting }
+      className={ className }
+      onClick={ onClickSorting }
     >
       { name }
       { getSortingChar( sortingValue )}

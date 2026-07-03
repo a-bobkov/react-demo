@@ -1,10 +1,32 @@
 users-sorting {
   margin-top: 20px;
   height: 32px;
-  display: grid;
-  grid-template-columns: var(--user-app-grid-columns);
+  padding-right: 96px; /* edit button */
+  display: flex;
   align-items: center;
   border: solid 1px var( --fg-color-border );
   border-radius: 5px 5px 0 0;
   background-color: var(--bg-color-control);
+}
+
+.UserSortingId {
+  flex: 0 0 50px;
+}
+
+.UserSortingLogin {
+  flex: 2 1 auto;
+  width: 225px;
+}
+
+.UserSortingName {
+  flex: 2 1 auto;
+  width: 125px;
+}
+
+.UserSortingBranch {
+  flex: 1 0 125px;
+}
+
+.UserSortingActive {
+  flex: 0 0 48px;
 }
