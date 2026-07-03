@@ -35,7 +35,7 @@ function BranchLine({ branch, highlight, setHighlight })
       <BranchLineCreated branchCreated={ branch.created } />
       <BranchLineActionEdit
         branchId={ branch.id }
-        changeHighlight={ changeHighlight }
+        setHighlightBeforeEdit={ setHighlightBeforeEdit }
       />
     </branch-line>
   );
@@ -47,6 +47,13 @@ function BranchLine({ branch, highlight, setHighlight })
       : branch.id;
 
     setHighlight( newHighlight );
+  }
+
+  function setHighlightBeforeEdit()
+  {
+    if ( !isBranchHighlighted( branch )) {
+      setHighlight( branch.id );
+    }
   }
 
   function isBranchHighlighted( branch )
@@ -99,7 +106,7 @@ function BranchLineCreated({ branchCreated })
   );
 }
 
-function BranchLineActionEdit({ branchId, changeHighlight })
+function BranchLineActionEdit({ branchId, setHighlightBeforeEdit })
 {
   const { lingo } = useLingo();
 
@@ -107,7 +114,7 @@ function BranchLineActionEdit({ branchId, changeHighlight })
     <PopstateLink
       className="BranchLineActionEdit"
       path={ getBranchGetFullPath( branchId ) }
-      onClickBefore={ changeHighlight }
+      onClickBefore={ setHighlightBeforeEdit }
     >
       { lingo({
         en: 'Edit',

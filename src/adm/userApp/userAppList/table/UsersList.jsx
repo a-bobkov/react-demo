@@ -37,7 +37,7 @@ function UsersLine({ user, highlight, setHighlight })
       <UsersLineActive userActive={ user.active }/>
       <UsersLineActionEdit
         userId={ user.id }
-        changeHighlight={ changeHighlight }
+        setHighlightBeforeEdit={ setHighlightBeforeEdit }
       />
     </users-line>
   );
@@ -49,6 +49,13 @@ function UsersLine({ user, highlight, setHighlight })
       : user.id;
 
     setHighlight( newHighlight );
+  }
+
+  function setHighlightBeforeEdit()
+  {
+    if ( !isUserHighlighted( user )) {
+      setHighlight( user.id );
+    }
   }
 
   function isUserHighlighted( user )
@@ -120,7 +127,7 @@ function UsersLineActive({ userActive })
   );
 }
 
-function UsersLineActionEdit({ userId, changeHighlight })
+function UsersLineActionEdit({ userId, setHighlightBeforeEdit })
 {
   const { lingo } = useLingo();
 
@@ -128,7 +135,7 @@ function UsersLineActionEdit({ userId, changeHighlight })
     <PopstateLink
       className="UsersLineActionEdit"
       path={ getUserGetFullPath( userId ) }
-      onClickBefore={ changeHighlight }
+      onClickBefore={ setHighlightBeforeEdit }
     >
       { lingo({
         en: 'Edit',
