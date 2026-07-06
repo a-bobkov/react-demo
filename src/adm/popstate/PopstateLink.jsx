@@ -24,7 +24,7 @@ export function PopstateLink({ children, path, className, onClickBefore })
     event.preventDefault();
     event.stopPropagation();
 
-    createHistoryEntry( event.target.pathname );
+    createHistoryEntry( path );
   }
 }
 

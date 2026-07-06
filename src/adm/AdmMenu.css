@@ -1,5 +1,5 @@
 adm-menu {
-  flex: 0 0 200px;
+  flex: 0 0 220px;
   display: flex;
   flex-direction: column;
 }
@@ -10,18 +10,30 @@ adm-menu-header {
 }
 
 adm-menu-item {
-  font-size: 24px;
-  display: flex;
-}
-
-adm-menu-item-text {
-  flex: 1;
-  padding: 8px;
-  background-color: var(--bg-color-selected);
-}
-
-.AdmMenuItemLink {
-  flex: 1;
-  padding: 8px;
+  display: block;
+  height: 45px;
   background-color: var(--bg-color-result);
+
+  &[inert] {
+    background-color: var(--bg-color-selected);
+  }
+}
+
+.AdmMenuItemAnchor {
+  display: block;
+  height: 100%;
+}
+
+adm-menu-item-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  font-size: 24px;
+}
+
+adm-menu-item-icon {
+  width: 24px;
+  margin: 8px;
+  stroke: var( --fg-color );
+  fill: var( --fg-color );
 }
