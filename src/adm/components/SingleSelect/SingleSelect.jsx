@@ -104,7 +104,7 @@ function SingleSelectOption({ option: [ optionId, optionView ], selectedId, setS
   return (
     <single-select-option
       key={ optionId }
-      className={ clsx({ 'isSingleSelectOptionSelected': optionId === selectedId })}
+      className={ clsx({ 'isOptionSelected': optionId === selectedId })}
       ref={ optionRef }
       onClick={ onClick }
     >

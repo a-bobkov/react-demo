@@ -1,12 +1,11 @@
 single-select {
   position: relative;
-  display: flex;
-  height: 22px;
+  line-height: 22px;
   font-size: 14px;
-  line-height: 1.5;
+  display: flex;
 
   background-color: var( --bg-color-control );
-  border: 1px solid var( --fg-color-border );
+  outline: 1px solid var( --fg-color-border );
   border-radius: 3px;
 }
 
@@ -37,30 +36,27 @@ single-select-options {
   position: absolute;
   top: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  max-height: calc( 100% * 5 );
+  max-height: 500%;
   overflow-y: auto;
 
-  background-color: var( --bg-color-control );
   outline: 1px solid var( --fg-color-border );
   border-radius: 3px;
-  cursor: pointer;
 }
 
 single-select-option {
-  flex: 0 0 100%;
+  display: block;
   padding-left: 4px;
 
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
 
-  &:hover {
-    background-color: var( --bg-color-hover );
-  }
-}
+  background-color: var( --bg-color-control );
 
-.isSingleSelectOptionSelected {
-  background-color: var( --bg-color-selected );
+  &.isOptionSelected {
+    --bg-color-control: var( --bg-color-selected );
+  }
+  &:hover {
+    --bg-color-control: var( --bg-color-hover );
+  }
 }
