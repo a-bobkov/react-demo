@@ -1,11 +1,10 @@
-import { clsx } from 'clsx';
 import './PopstateLink.css';
 
-export function PopstateLink({ children, path, className, onClickBefore })
+export function PopstateLink({ children, path, onClickBefore })
 {
   return (
     <a
-      className={ clsx('PopstateLink', className )}
+      className="PopstateLink"
       href={ path }
       onClick={ onClick }
     >

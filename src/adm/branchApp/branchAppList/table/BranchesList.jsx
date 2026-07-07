@@ -33,7 +33,7 @@ function BranchLine({ branch, highlight, setHighlight })
       <BranchLineId branchId={ branch.id } />
       <BranchLineName branchName={ branch.name } />
       <BranchLineCreated branchCreated={ branch.created } />
-      <BranchLineActionEdit
+      <BranchLineEditButton
         branchId={ branch.id }
         setHighlightBeforeEdit={ setHighlightBeforeEdit }
       />
@@ -51,9 +51,7 @@ function BranchLine({ branch, highlight, setHighlight })
 
   function setHighlightBeforeEdit()
   {
-    if ( !isBranchHighlighted( branch )) {
-      setHighlight( branch.id );
-    }
+    setHighlight( branch.id );
   }
 
   function isBranchHighlighted( branch )
@@ -106,20 +104,23 @@ function BranchLineCreated({ branchCreated })
   );
 }
 
-function BranchLineActionEdit({ branchId, setHighlightBeforeEdit })
+function BranchLineEditButton({ branchId, setHighlightBeforeEdit })
 {
   const { lingo } = useLingo();
 
   return (
-    <PopstateLink
-      className="BranchLineActionEdit"
-      path={ getBranchGetFullPath( branchId ) }
-      onClickBefore={ setHighlightBeforeEdit }
-    >
-      { lingo({
-        en: 'Edit',
-        de: 'Bearbeiten',
-      })}
-    </PopstateLink>
+    <branch-line-edit-button>
+      <PopstateLink
+        path={ getBranchGetFullPath( branchId ) }
+        onClickBefore={ setHighlightBeforeEdit }
+      >
+        <branch-line-edit-button-content>
+          { lingo({
+            en: 'Edit',
+            de: 'Bearbeiten',
+          })}
+        </branch-line-edit-button-content>
+      </PopstateLink>
+    </branch-line-edit-button>
   );
 }

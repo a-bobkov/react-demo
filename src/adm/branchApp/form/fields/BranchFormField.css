@@ -12,3 +12,9 @@ branch-form-field-label {
     box-shadow: -1px 0;
   }
 }
+
+branch-form-field-value {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

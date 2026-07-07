@@ -1,11 +1,12 @@
 import './BranchesSortingField.css';
 
-export function BranchesSortingField({ name, fieldSorting, onChangeSorting })
+export function BranchesSortingField({ className, name, fieldSorting, onChangeSorting })
 {
   const [[sortingKey, sortingValue]] = Object.entries( fieldSorting );
 
   return (
     <branches-sorting-field
+      className={ className }
       onClick={ onClickSorting }
     >
       { name }

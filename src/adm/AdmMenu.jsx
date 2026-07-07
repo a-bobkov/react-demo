@@ -41,10 +41,7 @@ function AdmMenuItem({ isCurrent, path, admMenuItemIcon, admMenuItemLabel })
 {
   return (
     <adm-menu-item inert={ isCurrent }>
-      <PopstateLink
-        path={ path }
-        className="AdmMenuItemAnchor"
-      >
+      <PopstateLink path={ path }>
         <adm-menu-item-content>
           <adm-menu-item-icon>
             { admMenuItemIcon }

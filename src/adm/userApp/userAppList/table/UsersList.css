@@ -1,6 +1,5 @@
 users-list {
-  display: flex;
-  flex-direction: column;
+  display: block;
   border-inline: 1px solid var( --fg-color-border );
   border-bottom: 1px solid var( --fg-color-border );
   border-bottom-left-radius: 5px;
@@ -15,7 +14,6 @@ users-list {
 users-line {
   height: 32px;
   display: flex;
-  flex-flow: row nowrap;
   align-items: center;
   padding: 4px;
   gap: 4px 8px;
@@ -48,7 +46,20 @@ users-line-active {
   flex: 0 0 48px;
 }
 
-users-line-action-edit {
+user-line-edit-button {
+  height: 100%;
+  width: 88px;
+
+  &:hover {
+    background-color: var( --bg-color-hover );
+  }
+}
+
+user-line-edit-button-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
 users-line-overflowable {
@@ -63,9 +74,4 @@ users-line-overflowable {
     box-shadow: 0 0 16px 16px var(--bg-color-result);
     clip-path: inset(0 -16px 0 0);
   }
-}
-
-.UsersLineActionEdit {
-  flex: 0 0 80px;
-  padding: 4px;
 }

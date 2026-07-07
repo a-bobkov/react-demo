@@ -35,7 +35,7 @@ function UsersLine({ user, highlight, setHighlight })
       <UsersLineName userName={ user.name } />
       <UsersLineBranch userBranch={ user.branch } />
       <UsersLineActive userActive={ user.active }/>
-      <UsersLineActionEdit
+      <UserLineEditButton
         userId={ user.id }
         setHighlightBeforeEdit={ setHighlightBeforeEdit }
       />
@@ -53,9 +53,7 @@ function UsersLine({ user, highlight, setHighlight })
 
   function setHighlightBeforeEdit()
   {
-    if ( !isUserHighlighted( user )) {
-      setHighlight( user.id );
-    }
+    setHighlight( user.id );
   }
 
   function isUserHighlighted( user )
@@ -127,20 +125,23 @@ function UsersLineActive({ userActive })
   );
 }
 
-function UsersLineActionEdit({ userId, setHighlightBeforeEdit })
+function UserLineEditButton({ userId, setHighlightBeforeEdit })
 {
   const { lingo } = useLingo();
 
   return (
-    <PopstateLink
-      className="UsersLineActionEdit"
-      path={ getUserGetFullPath( userId ) }
-      onClickBefore={ setHighlightBeforeEdit }
-    >
-      { lingo({
-        en: 'Edit',
-        de: 'Bearbeiten',
-      })}
-    </PopstateLink>
+    <user-line-edit-button>
+      <PopstateLink
+        path={ getUserGetFullPath( userId ) }
+        onClickBefore={ setHighlightBeforeEdit }
+      >
+        <user-line-edit-button-content>
+          { lingo({
+            en: 'Edit',
+            de: 'Bearbeiten',
+          })}
+        </user-line-edit-button-content>
+      </PopstateLink>
+    </user-line-edit-button>
   );
 }

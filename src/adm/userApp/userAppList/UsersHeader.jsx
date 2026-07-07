@@ -8,7 +8,7 @@ export function UsersHeader()
   return (
     <users-header>
       <UsersTitle />
-      <CreateUserButton />
+      <UserCreateButton />
     </users-header>
   );
 }
@@ -27,19 +27,20 @@ function UsersTitle()
   );
 }
 
-function CreateUserButton()
+function UserCreateButton()
 {
   const { lingo } = useLingo();
 
   return (
-    <PopstateLink
-      className="CreateUserButton"
-      path={ userCreatePath }
-    >
-      { lingo({
-        en: 'New user',
-        de: 'Neu Benutzer',
-      })}
-    </PopstateLink>
+    <user-create-button>
+      <PopstateLink path={ userCreatePath }>
+        <user-create-button-content>
+          { lingo({
+            en: 'New user',
+            de: 'Neu Benutzer',
+          })}
+        </user-create-button-content>
+      </PopstateLink>
+    </user-create-button>
   );
 }

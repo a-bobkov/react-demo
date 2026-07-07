@@ -5,7 +5,7 @@ import './BranchFormField.css';
 export function BranchFormField({ label, renderControl, saveErrors, formErrors, isFieldChanged })
 {
   return (
-    <branch-form-field className="BranchFormField">
+    <branch-form-field>
       <branch-form-field-label className={ clsx({ 'isFieldChanged': isFieldChanged })}>
         { label }
       </branch-form-field-label>

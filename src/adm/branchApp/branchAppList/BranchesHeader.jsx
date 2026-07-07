@@ -32,14 +32,15 @@ function CreateBranchButton()
   const { lingo } = useLingo();
 
   return (
-    <PopstateLink
-      className="CreateBranchButton"
-      path={ branchCreatePath }
-    >
-      { lingo({
-        en: 'New branch',
-        de: 'Neue Niederlassung',
-      })}
-    </PopstateLink>
+    <branch-create-button>
+      <PopstateLink path={ branchCreatePath }>
+        <branch-create-button-content>
+          { lingo({
+            en: 'New branch',
+            de: 'Neue Niederlassung',
+          })}
+        </branch-create-button-content>
+      </PopstateLink>
+    </branch-create-button>
   );
 }

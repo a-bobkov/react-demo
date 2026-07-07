@@ -1,5 +1,6 @@
 branches-header {
   display: flex;
+  height: 45px;
   justify-content: space-between;
   margin-bottom: 16px;
 }
@@ -9,9 +10,22 @@ branches-title {
   max-width: 800px;
 }
 
-.CreateBranchButton {
-  padding: 8px;
+branch-create-button {
+  height: 100%;
+  width: 120px;
   border: 1px solid var( --fg-color-border );
   border-radius: 5px;
   background-color: var( --bg-color-control );
+
+  &:hover {
+    background-color: var( --bg-color-hover );
+  }
+}
+
+branch-create-button-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }

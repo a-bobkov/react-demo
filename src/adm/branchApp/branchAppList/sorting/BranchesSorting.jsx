@@ -11,6 +11,7 @@ export function BranchesSorting({ sorting = {}, onChangeSorting })
   return (
     <branches-sorting>
       <BranchesSortingField
+        className="BranchSortingId"
         name={ lingo({
           en: 'id',
           de: 'ID',
@@ -19,6 +20,7 @@ export function BranchesSorting({ sorting = {}, onChangeSorting })
         onChangeSorting={ onChangeSorting }
       />
       <BranchesSortingField
+        className="BranchSortingName"
         name={ lingo({
           en: 'name',
           de: 'Name',
@@ -27,6 +29,7 @@ export function BranchesSorting({ sorting = {}, onChangeSorting })
         onChangeSorting={ onChangeSorting }
       />
       <BranchesSortingField
+        className="BranchSortingCreated"
         name={ lingo({
           en: 'created',
           de: 'erstellt',

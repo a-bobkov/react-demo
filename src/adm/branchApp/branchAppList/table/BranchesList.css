@@ -1,6 +1,5 @@
 branches-list {
   display: block;
-  background-color: var( --bg-color-result );
   border-inline: 1px solid var( --fg-color-border );
   border-bottom: 1px solid var( --fg-color-border );
   border-bottom-left-radius: 5px;
@@ -14,16 +13,41 @@ branches-list {
 
 branch-line {
   height: 32px;
-  display: grid;
-  grid-template-columns: var( --branch-app-grid-columns );
+  display: flex;
   align-items: center;
-  padding-inline: 4px;
-}
-
-.isBranchHighlighted {
-  background-color: var( --bg-color-selected );
-}
-
-.BranchLineActionEdit {
   padding: 4px;
+  gap: 4px 8px;
+  background-color: var( --bg-color-result );
+
+  &.isBranchHighlighted {
+    --bg-color-result: var( --bg-color-selected );
+  }
+}
+
+branch-line-id {
+  flex: 0 0 50px;
+}
+
+branch-line-name {
+  flex: 2 0 125px;
+}
+
+branch-line-created {
+  flex: 1 0 150px;
+}
+
+branch-line-edit-button {
+  height: 100%;
+  width: 88px;
+
+  &:hover {
+    background-color: var( --bg-color-hover );
+  }
+}
+
+branch-line-edit-button-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
 }

@@ -1,10 +1,23 @@
 branches-sorting {
   margin-top: 20px;
   height: 32px;
-  display: grid;
-  grid-template-columns: var(--branch-app-grid-columns);
+  padding-right: 96px; /* edit button */
+  display: flex;
   align-items: center;
   border: solid 1px var( --fg-color-border );
   border-radius: 5px 5px 0 0;
   background-color: var(--bg-color-control);
+}
+
+.BranchSortingId {
+  flex: 0 0 50px;
+}
+
+.BranchSortingName {
+  flex: 2 1 auto;
+  width: 125px;
+}
+
+.BranchSortingCreated {
+  flex: 1 0 150px;
 }

@@ -1,12 +1,13 @@
 adm-menu {
   flex: 0 0 220px;
-  display: flex;
-  flex-direction: column;
+  display: block;
 }
 
 adm-menu-header {
+  display: block;
+  height: 45px;
   font-size: 32px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 adm-menu-item {
@@ -14,14 +15,13 @@ adm-menu-item {
   height: 45px;
   background-color: var(--bg-color-result);
 
+  &:hover {
+    background-color: var( --bg-color-hover );
+  }
+
   &[inert] {
     background-color: var(--bg-color-selected);
   }
-}
-
-.AdmMenuItemAnchor {
-  display: block;
-  height: 100%;
 }
 
 adm-menu-item-content {

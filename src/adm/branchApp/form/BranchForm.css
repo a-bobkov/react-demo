@@ -1,12 +1,15 @@
+branch-form {
+  &[inert] {
+    opacity: 30%;
+  }
+}
+
 branch-form-title {
+  margin-bottom: 20px;
   font-size: 32px;
   padding-left: 8px;
 
   &.isFormChanged {
     box-shadow: -1px 0;
-  }
-
-  &[inert] {
-    opacity: 30%;
   }
 }
