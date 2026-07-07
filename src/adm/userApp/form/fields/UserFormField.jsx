@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import { UserFormFieldErrors } from './UserFormFieldErrors.jsx';
 import './UserFormField.css';
 
-export function UserFormField({ label, renderControl, saveErrors, formErrors, isFieldChanged })
+export function UserFormField({ label, control, formErrors, saveErrors, isFieldChanged })
 {
   return (
     <user-form-field>
@@ -10,7 +10,7 @@ export function UserFormField({ label, renderControl, saveErrors, formErrors, is
         { label }
       </user-form-field-label>
       <user-form-field-value>
-        { renderControl() }
+        { control }
         <UserFormFieldErrors
           formError={ formErrors }
           saveError={ saveErrors }

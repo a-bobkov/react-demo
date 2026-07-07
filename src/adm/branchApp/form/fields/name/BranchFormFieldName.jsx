@@ -3,11 +3,6 @@ import { InputText } from '../../../../components/InputText/InputText.jsx';
 import { BranchFormField } from '../BranchFormField.jsx';
 import './BranchFormFieldName.css';
 
-const emptyValue = {
-  formValue: undefined,
-  controlValue: '',
-};
-
 export function BranchFormFieldName({ value, saveErrors, formErrors, isFieldChanged, onChangeName })
 {
   const { lingo } = useLingo();
@@ -18,26 +13,36 @@ export function BranchFormFieldName({ value, saveErrors, formErrors, isFieldChan
         en: 'Name',
         de: 'Name',
       }) }
-      renderControl={ renderControl }
-      saveErrors={ saveErrors }
+      control={ <BranchNameControl
+        value={ value }
+        onChangeName={ onChangeName }
+      /> }
       formErrors={ formErrors }
+      saveErrors={ saveErrors }
       isFieldChanged={ isFieldChanged }
     />
   );
+}
 
-  function renderControl()
-  {
-    return (
-      <InputText
-        placeholder={ lingo({
-          en: 'name',
-          de: 'Name',
-        })}
-        value={ form2control( value ) }
-        onChange={ onChange }
-      />
-    );
-  }
+const emptyValue = {
+  formValue: undefined,
+  controlValue: '',
+};
+
+function BranchNameControl({ value, onChangeName })
+{
+  const { lingo } = useLingo();
+
+  return (
+    <InputText
+      placeholder={ lingo({
+        en: 'name',
+        de: 'Name',
+      })}
+      value={ form2control( value ) }
+      onChange={ onChange }
+    />
+  );
 
   function onChange( event )
   {

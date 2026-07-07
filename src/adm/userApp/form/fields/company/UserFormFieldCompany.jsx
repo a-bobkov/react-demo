@@ -3,12 +3,7 @@ import { InputText } from '../../../../components/InputText/InputText.jsx';
 import { UserFormField } from '../UserFormField.jsx';
 import './UserFormFieldCompany.css';
 
-const emptyValue = {
-  formValue: undefined,
-  controlValue: '',
-};
-
-export function UserFormFieldCompany({ value, saveErrors, formErrors, isFieldChanged, onChangeCompany })
+export function UserFormFieldCompany({ value, formErrors, saveErrors, isFieldChanged, onChangeCompany })
 {
   const { lingo } = useLingo();
 
@@ -18,26 +13,31 @@ export function UserFormFieldCompany({ value, saveErrors, formErrors, isFieldCha
         en: 'Company',
         de: 'Unternehmen',
       }) }
-      renderControl={ renderControl }
-      saveErrors={ saveErrors }
+      control={ <UserCompanyControl
+        value={ value }
+        onChangeCompany={ onChangeCompany }
+      /> }
       formErrors={ formErrors }
+      saveErrors={ saveErrors }
       isFieldChanged={ isFieldChanged }
     />
   );
+}
 
-  function renderControl()
-  {
-    return (
-      <InputText
-        placeholder={ lingo({
-          en: 'company',
-          de: 'unternehmen',
-        })}
-        value={ form2control(value) }
-        onChange={ onChange }
-      />
-    );
-  }
+function UserCompanyControl({ value, onChangeCompany })
+{
+  const { lingo } = useLingo();
+
+  return (
+    <InputText
+      placeholder={ lingo({
+        en: 'company',
+        de: 'unternehmen',
+      })}
+      value={ form2control(value) }
+      onChange={ onChange }
+    />
+  );
 
   function onChange( event )
   {
@@ -48,6 +48,11 @@ export function UserFormFieldCompany({ value, saveErrors, formErrors, isFieldCha
     onChangeCompany( newFormValue );
   }
 }
+
+const emptyValue = {
+  formValue: undefined,
+  controlValue: '',
+};
 
 function control2form( controlValue )
 {

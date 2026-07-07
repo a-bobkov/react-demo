@@ -3,7 +3,7 @@ import { UserFormField } from '../UserFormField.jsx';
 import { SingleSelect } from '../../../../components/SingleSelect/SingleSelect.jsx';
 import './UserFormFieldBranch.css';
 
-export function UserFormFieldBranch({ value, branches, saveErrors, formErrors, isFieldChanged, onChangeBranch })
+export function UserFormFieldBranch({ value, branches, formErrors, saveErrors, isFieldChanged, onChangeBranch })
 {
   const { lingo } = useLingo();
 
@@ -13,28 +13,34 @@ export function UserFormFieldBranch({ value, branches, saveErrors, formErrors, i
         en: 'Branch',
         de: 'Niederlassung',
       }) }
-      renderControl={ renderControl }
-      saveErrors={ saveErrors }
+      control={ <UserBranchControl
+        value={ value }
+        branches={ branches }
+        onChangeBranch={ onChangeBranch }
+      /> }
       formErrors={ formErrors }
+      saveErrors={ saveErrors }
       isFieldChanged={ isFieldChanged }
     />
   );
+}
 
-  function renderControl()
-  {
-    return (
-      <SingleSelect
-        className='UserFormBranchSelect'
-        empty={ lingo({
-          en: 'Select one',
-          de: 'Wählen eine aus',
-        })}
-        options={ branches2options( branches )}
-        selectedId={ value2option( value )}
-        onChangeSelectedId={ onChangeSelectedId }
-      />
-    );
-  }
+function UserBranchControl({ value, branches, onChangeBranch })
+{
+  const { lingo } = useLingo();
+
+  return (
+    <SingleSelect
+      className='UserFormBranchSelect'
+      empty={ lingo({
+        en: 'Select one',
+        de: 'Wählen eine aus',
+      })}
+      options={ branches2options( branches )}
+      selectedId={ value2option( value )}
+      onChangeSelectedId={ onChangeSelectedId }
+    />
+  );
 
   function onChangeSelectedId( newSelectedId )
   {

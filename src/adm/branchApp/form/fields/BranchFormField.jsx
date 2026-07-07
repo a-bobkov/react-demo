@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import { BranchFormFieldErrors } from './BranchFormFieldErrors.jsx';
 import './BranchFormField.css';
 
-export function BranchFormField({ label, renderControl, saveErrors, formErrors, isFieldChanged })
+export function BranchFormField({ label, control, formErrors, saveErrors, isFieldChanged })
 {
   return (
     <branch-form-field>
@@ -10,7 +10,7 @@ export function BranchFormField({ label, renderControl, saveErrors, formErrors, 
         { label }
       </branch-form-field-label>
       <branch-form-field-value>
-        { renderControl() }
+        { control }
         <BranchFormFieldErrors
           formError={ formErrors }
           saveError={ saveErrors }

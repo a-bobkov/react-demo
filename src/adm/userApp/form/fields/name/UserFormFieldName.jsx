@@ -3,12 +3,7 @@ import { InputText } from '../../../../components/InputText/InputText.jsx';
 import { UserFormField } from '../UserFormField.jsx';
 import './UserFormFieldName.css';
 
-const emptyValue = {
-  formValue: undefined,
-  controlValue: '',
-};
-
-export function UserFormFieldName({ value, saveErrors, formErrors, isFieldChanged, onChangeName })
+export function UserFormFieldName({ value, formErrors, saveErrors, isFieldChanged, onChangeName })
 {
   const { lingo } = useLingo();
 
@@ -18,26 +13,31 @@ export function UserFormFieldName({ value, saveErrors, formErrors, isFieldChange
         en: 'Name',
         de: 'Name',
       }) }
-      renderControl={ renderControl }
-      saveErrors={ saveErrors }
+      control={ <UserNameControl
+        value={ value }
+        onChangeName={ onChangeName }
+      /> }
       formErrors={ formErrors }
+      saveErrors={ saveErrors }
       isFieldChanged={ isFieldChanged }
     />
   );
+}
 
-  function renderControl()
-  {
-    return (
-      <InputText
-        placeholder={ lingo({
-          en: 'name',
-          de: 'Name',
-        })}
-        value={ form2control( value ) }
-        onChange={ onChange }
-      />
-    );
-  }
+function UserNameControl({ value, onChangeName })
+{
+  const { lingo } = useLingo();
+
+  return (
+    <InputText
+      placeholder={ lingo({
+        en: 'name',
+        de: 'Name',
+      })}
+      value={ form2control( value ) }
+      onChange={ onChange }
+    />
+  );
 
   function onChange( event )
   {
@@ -48,6 +48,11 @@ export function UserFormFieldName({ value, saveErrors, formErrors, isFieldChange
     onChangeName( newFormValue );
   }
 }
+
+const emptyValue = {
+  formValue: undefined,
+  controlValue: '',
+};
 
 function control2form( controlValue )
 {

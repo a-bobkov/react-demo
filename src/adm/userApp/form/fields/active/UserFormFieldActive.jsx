@@ -2,7 +2,7 @@ import { useLingo } from '../../../../lingo/LingoProvider.jsx';
 import { UserFormField } from '../UserFormField.jsx';
 import './UserFormFieldActive.css';
 
-export function UserFormFieldActive({ value, saveErrors, formErrors, isFieldChanged, onChangeActive })
+export function UserFormFieldActive({ value, formErrors, saveErrors, isFieldChanged, onChangeActive })
 {
   const { lingo } = useLingo();
 
@@ -12,22 +12,25 @@ export function UserFormFieldActive({ value, saveErrors, formErrors, isFieldChan
         en: 'Active',
         de: 'Tätig',
       }) }
-      renderControl={ renderControl }
-      saveErrors={ saveErrors }
+      control={ <UserActiveControl
+        value={ value }
+        onChangeActive={ onChangeActive }
+      /> }
       formErrors={ formErrors }
+      saveErrors={ saveErrors }
       isFieldChanged={ isFieldChanged }
     />
   );
+}
 
-  function renderControl()
-  {
-    return (
-      <InputCheckbox
-        value={ value }
-        onChange={ onChange }
-      />
-    );
-  }
+function UserActiveControl({ value, onChangeActive })
+{
+  return (
+    <InputCheckbox
+      value={ value }
+      onChange={ onChange }
+    />
+  );
 
   function onChange( event )
   {

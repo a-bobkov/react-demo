@@ -3,12 +3,7 @@ import { InputText } from '../../../../components/InputText/InputText.jsx';
 import { UserFormField } from '../UserFormField.jsx';
 import './UserFormFieldLogin.css';
 
-const emptyValue = {
-  formValue: undefined,
-  controlValue: '',
-};
-
-export function UserFormFieldLogin({ value, saveErrors, formErrors, isFieldChanged, onChangeLogin })
+export function UserFormFieldLogin({ value, formErrors, saveErrors, isFieldChanged, onChangeLogin })
 {
   const { lingo } = useLingo();
 
@@ -18,26 +13,31 @@ export function UserFormFieldLogin({ value, saveErrors, formErrors, isFieldChang
         en: 'Login',
         de: 'Login',
       }) }
-      renderControl={ renderControl }
-      saveErrors={ saveErrors }
+      control={ <UserLoginControl
+        value={ value }
+        onChangeLogin={ onChangeLogin }
+      /> }
       formErrors={ formErrors }
+      saveErrors={ saveErrors }
       isFieldChanged={ isFieldChanged }
     />
   );
+}
 
-  function renderControl()
-  {
-    return (
-      <InputText
-        placeholder={ lingo({
-          en: 'email address',
-          de: 'E-Mail-Adresse',
-        })}
-        value={ form2control(value) }
-        onChange={ onChange }
-      />
-    );
-  }
+function UserLoginControl({ value, onChangeLogin })
+{
+  const { lingo } = useLingo();
+
+  return (
+    <InputText
+      placeholder={ lingo({
+        en: 'email address',
+        de: 'E-Mail-Adresse',
+      })}
+      value={ form2control(value) }
+      onChange={ onChange }
+    />
+  );
 
   function onChange( event )
   {
@@ -48,6 +48,11 @@ export function UserFormFieldLogin({ value, saveErrors, formErrors, isFieldChang
     onChangeLogin( newFormValue );
   }
 }
+
+const emptyValue = {
+  formValue: undefined,
+  controlValue: '',
+};
 
 function control2form( controlValue )
 {
