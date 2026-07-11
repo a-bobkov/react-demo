@@ -1,0 +1,22 @@
+color-scheme-is-dark {
+  display: flex;
+  width: 90px;
+  height: 30px;
+  background-color: var( --bg-color-control );
+  outline: solid 1px var( --fg-color-border );
+  border-radius: 3px;
+}
+
+color-scheme-button {
+  width: 18px;
+  padding: 6px;
+  border-radius: 3px;
+  stroke: var( --fg-color );
+  fill: var( --fg-color );
+  cursor: pointer;
+
+  &[inert]  {
+    background-color: var( --bg-color-selected );
+    cursor: initial;
+  }
+}

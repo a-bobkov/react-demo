@@ -1,0 +1,16 @@
+:root {
+  background-color: var( --bg-color-main );
+  color: var(--fg-color);
+
+  --bg-color-main: light-dark(#ffffff, #000000);
+  --bg-color-result: light-dark(#fffff0, #0e131c);
+  --bg-color-control: light-dark(#fffcd6, #0f1c39);
+
+  --bg-color-hover: light-dark(#fcf5ae, #163272);
+  --bg-color-selected: light-dark(#ebe385, #093eb7);
+
+  --fg-color: light-dark(#4a3f34, #c5d7ec);
+  --fg-color-border: #707070;
+  --fg-color-inactive: grey;
+  --fg-color-error: orangered;
+}

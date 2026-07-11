@@ -1,6 +1,6 @@
-import { IsDarkToggler } from './isDark/IsDarkToggler.jsx';
-import { LanguageSelector } from './lingo/LanguageSelector.jsx';
 import { useLingo } from './lingo/LingoProvider.jsx';
+import { ColorScheme } from './colorScheme/ColorScheme.jsx';
+import { LanguageSelector } from './lingo/LanguageSelector.jsx';
 import './AdmHeader.css';
 
 export function AdmHeader()
@@ -9,7 +9,7 @@ export function AdmHeader()
     <adm-header>
       <AppHeaderTitle />
       <LanguageSelector />
-      <IsDarkToggler />
+      <ColorScheme />
     </adm-header>
   );
 }
